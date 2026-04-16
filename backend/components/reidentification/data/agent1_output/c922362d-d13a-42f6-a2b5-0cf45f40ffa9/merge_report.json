@@ -1,0 +1,27 @@
+{
+  "strategy": "single_file",
+  "files_merged": 1,
+  "files_skipped": [],
+  "total_records": 1320,
+  "total_columns": 8,
+  "per_file_reports": [
+    {
+      "original_shape": [
+        1320,
+        8
+      ],
+      "renamed_columns": {},
+      "duplicate_columns_detected": 0,
+      "duplicate_columns_renamed": 0,
+      "duplicate_columns_removed": 0,
+      "type_conversions": {},
+      "final_shape": [
+        1320,
+        8
+      ],
+      "file": "auxiliary_c922362d-d13a-42f6-a2b5-0cf45f40ffa9.csv"
+    }
+  ],
+  "merge_steps": [],
+  "base_file": "auxiliary_c922362d-d13a-42f6-a2b5-0cf45f40ffa9.csv"
+}

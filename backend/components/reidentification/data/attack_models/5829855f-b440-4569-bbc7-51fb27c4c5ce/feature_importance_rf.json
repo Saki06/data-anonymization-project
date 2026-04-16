@@ -1,0 +1,11 @@
+{
+  "overall_similarity": 0.230499258086655,
+  "euclidean_distance": 0.21921022625362704,
+  "manhattan_distance": 0.21887826863852872,
+  "age_equal": 0.17902440881954154,
+  "age_diff": 0.13649227894546992,
+  "education_match": 0.014815609411674712,
+  "marital_status_match": 0.0010741119219548581,
+  "sex_match": 5.837922548238099e-06,
+  "cosine_similarity": 0.0
+}

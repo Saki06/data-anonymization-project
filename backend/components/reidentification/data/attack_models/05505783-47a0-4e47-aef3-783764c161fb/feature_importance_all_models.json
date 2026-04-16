@@ -1,0 +1,40 @@
+{
+  "rf": {
+    "cosine_similarity": 0.2242131811354148,
+    "overall_similarity": 0.19255237436688957,
+    "marital_status_diff": 0.1029630299199553,
+    "marital_status_equal": 0.09542024679103049,
+    "manhattan_distance": 0.08928183112073068,
+    "education_diff": 0.08101340276789325,
+    "euclidean_distance": 0.07710304298294411,
+    "industry_diff": 0.044484716291817106,
+    "sex_equal": 0.04151107644970956,
+    "sex_diff": 0.04073157437419932,
+    "education_equal": 0.010725523799415777,
+    "age_match": 0.0,
+    "industry_match": 0.0,
+    "industry_equal": 0.0,
+    "education_match": 0.0,
+    "age_diff": 0.0,
+    "age_equal": 0.0
+  },
+  "gbm": {
+    "overall_similarity": 0.4608374662358383,
+    "cosine_similarity": 0.1907331465134962,
+    "education_diff": 0.10253890758583542,
+    "euclidean_distance": 0.06378810687075268,
+    "manhattan_distance": 0.05244797722572572,
+    "industry_diff": 0.04623502823568618,
+    "marital_status_equal": 0.04291644977858508,
+    "marital_status_diff": 0.034762473770722085,
+    "education_equal": 0.0026894593802070585,
+    "sex_equal": 0.002257629738311795,
+    "sex_diff": 0.000724497056687436,
+    "industry_equal": 6.885760815206161e-05,
+    "age_match": 0.0,
+    "industry_match": 0.0,
+    "education_match": 0.0,
+    "age_diff": 0.0,
+    "age_equal": 0.0
+  }
+}

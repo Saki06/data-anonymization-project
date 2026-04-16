@@ -1,0 +1,3 @@
+The high-risk group has a higher value in the _risk_tmp column. This means these records are more likely to face problems or issues. 
+
+The low-risk group has a lower value in the same _risk_tmp column. This indicates these records are less likely to encounter such problems. The difference in these values helps in understanding the risk levels.

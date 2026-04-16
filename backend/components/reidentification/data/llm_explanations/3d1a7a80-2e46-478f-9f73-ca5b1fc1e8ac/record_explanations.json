@@ -1,0 +1,12 @@
+[
+  {
+    "record_id": 0,
+    "risk_score": 0.6097125581007053,
+    "explanation": "The risk score for this record is 0.6097. This score is above the middle point. It suggests a moderate level of risk. A score closer to 1.0 means higher risk, while a score closer to 0.0 means lower risk. \n\nThe column that contributed most to this risk is \"sector.\" This matters because the sector can give clues about a person's job or industry. If someone knows the sector, they might guess more about the person connected to this record. \n\nTo reduce the risk, the \"sector\" column needs better anonymization. One way to do this is by generalizing the sector. Instead of specific job titles, use broader categories. This change can help protect privacy while still keeping useful information. \n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  },
+  {
+    "record_id": 50,
+    "risk_score": 0.6097125581007053,
+    "explanation": "The risk score for this record is 0.6097. This score is above the middle point, meaning there is a moderate risk. It suggests that this record could be more vulnerable to being linked back to an individual.\n\nThe column that increases the risk the most is \"sector.\" This matters because it can give clues about the person's job or industry. Knowing someone's sector can help someone make educated guesses about their identity. This makes it easier to connect the dots.\n\nTo lower the risk, the \"sector\" column needs better anonymization. One way to do this is by grouping similar sectors together or using broader categories. This would make it harder to pinpoint a specific person while still keeping useful information. \n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  }
+]

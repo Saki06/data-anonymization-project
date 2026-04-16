@@ -1,0 +1,17 @@
+{
+  "baseline": {
+    "type": "mean_of_binary_match_features",
+    "features_used": [
+      "sector_equal",
+      "sector_match"
+    ],
+    "pr_auc": 0.6666666666666666,
+    "roc_auc": 0.7727272727272727
+  },
+  "best_ml_model": {
+    "name": "logreg",
+    "pr_auc": 0.6666666666666666,
+    "roc_auc": 0.7727272727272727
+  },
+  "pr_auc_lift": 0.0
+}

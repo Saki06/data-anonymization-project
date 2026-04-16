@@ -1,0 +1,28 @@
+{
+  "total_records": 6,
+  "critical_risk": 6,
+  "high_risk": 0,
+  "medium_risk": 0,
+  "low_risk": 0,
+  "dynamic_thresholds": {
+    "critical_threshold": 0.09999999999999999,
+    "high_threshold": 0.09999999999999999,
+    "medium_threshold": 0.09999999999999999,
+    "percentile_95": 0.09999999999999999,
+    "percentile_80": 0.09999999999999999,
+    "percentile_50": 0.09999999999999999
+  },
+  "percent_high": 0.0,
+  "percent_medium": 0.0,
+  "percent_low": 0.0,
+  "pct_unique": 0.0,
+  "k_min": 6,
+  "k_median": 6.0,
+  "k_mean": 6.0,
+  "qi_columns_used": [
+    "age"
+  ],
+  "suppression_rate_overall": 0.0,
+  "lof_enabled": true,
+  "l_diversity_enabled": false
+}

@@ -1,0 +1,7 @@
+This dataset has a total of 494 records. Most of the records, 327 or 66.2%, are considered high risk. Only 5 records, or 1.0%, are medium risk. The remaining 162 records, which is 32.8%, are low risk. This shows that a significant portion of the data may be at risk of being linked back to individuals.
+
+The columns that matter most for risk are age, education, industry, marital_status, and sex. Age is the biggest factor, with a high score of 0.6841. Education and industry also play important roles. When these columns are combined, they can create a clearer picture of a person, increasing the risk of linking data back to them. 
+
+To reduce the risk, some columns need stronger anonymization. For age, consider grouping ages into ranges, like 20-29 or 30-39. For education and industry, broadening categories can help. Removing rare values can also lower the risk. These steps can make it harder to identify individuals in the dataset. 
+
+Risk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability.

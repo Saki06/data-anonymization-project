@@ -1,0 +1,31 @@
+{
+  "anomalies": [
+    {
+      "column": "relationship",
+      "type": "statistical_outlier",
+      "method": "IQR(3x)",
+      "count": 9,
+      "percentage": 0.9,
+      "bounds": {
+        "lower": -1.0,
+        "upper": 6.0
+      }
+    },
+    {
+      "column": "marital_status",
+      "type": "statistical_outlier",
+      "method": "IQR(3x)",
+      "count": 2,
+      "percentage": 0.2,
+      "bounds": {
+        "lower": -2.0,
+        "upper": 5.0
+      }
+    }
+  ],
+  "total_anomalies": 2,
+  "detection_methods": [
+    "IQR_outliers_excluding_-1",
+    "high_cardinality_check"
+  ]
+}

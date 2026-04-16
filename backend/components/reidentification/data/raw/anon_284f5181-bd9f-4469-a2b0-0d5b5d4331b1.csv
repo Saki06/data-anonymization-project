@@ -1,0 +1,7 @@
+row_id,age,zipcode,income,diagnosis
+1,*,2139,54000,Diabetes
+2,*,2138,78000,HeartDisease
+3,*,2139,55000,Diabetes
+4,*,2140,42000,Healthy
+5,*,2138,120000,HeartDisease
+6,*,2141,40000,Healthy

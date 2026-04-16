@@ -1,0 +1,33 @@
+{
+  "total_records": 1000,
+  "critical_risk": 0,
+  "high_risk": 0,
+  "medium_risk": 0,
+  "low_risk": 1000,
+  "dynamic_thresholds": {
+    "critical_threshold": NaN,
+    "high_threshold": NaN,
+    "medium_threshold": NaN,
+    "percentile_95": NaN,
+    "percentile_80": NaN,
+    "percentile_50": NaN
+  },
+  "percent_high": 0.0,
+  "percent_medium": 0.0,
+  "percent_low": 100.0,
+  "pct_unique": 0.0,
+  "k_min": 4,
+  "k_median": 287.0,
+  "k_mean": 207.8408,
+  "qi_columns_used": [
+    "age",
+    "education",
+    "industry",
+    "marital_status",
+    "sector",
+    "sex"
+  ],
+  "suppression_rate_overall": 0.107833,
+  "lof_enabled": true,
+  "l_diversity_enabled": false
+}

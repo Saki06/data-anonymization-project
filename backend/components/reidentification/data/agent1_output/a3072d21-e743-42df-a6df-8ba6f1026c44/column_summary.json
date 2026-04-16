@@ -1,0 +1,259 @@
+{
+  "age": {
+    "data_type": "str",
+    "total_values": 1080,
+    "unique_values": 5,
+    "null_count": 1,
+    "null_percentage": 0.0925925925925926,
+    "most_frequent": "0-18",
+    "value_counts": {
+      "0-18": 290,
+      "36-50": 240,
+      "19-35": 222,
+      "51-65": 182,
+      "66+": 145
+    },
+    "completeness_score": 99.9074074074074,
+    "uniqueness_score": 0.4629629629629629
+  },
+  "sex": {
+    "data_type": "int64",
+    "total_values": 1080,
+    "unique_values": 2,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "min": 1.0,
+    "max": 2.0,
+    "mean": 1.5462962962962963,
+    "median": 2.0,
+    "std": 0.4980826864529562,
+    "range": 1.0,
+    "iqr": 1.0,
+    "quartiles": {
+      "25%": 1.0,
+      "50%": 2.0,
+      "75%": 2.0
+    },
+    "outliers": {
+      "count": 0,
+      "percentage": 0.0,
+      "bounds": {
+        "lower": -0.5,
+        "upper": 3.5
+      }
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 0.1851851851851852,
+    "extreme_outlier_percentage": 0.0
+  },
+  "district": {
+    "data_type": "int64",
+    "total_values": 1080,
+    "unique_values": 1,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "min": 11.0,
+    "max": 11.0,
+    "mean": 11.0,
+    "median": 11.0,
+    "std": 0.0,
+    "range": 0.0,
+    "iqr": 0.0,
+    "quartiles": {
+      "25%": 11.0,
+      "50%": 11.0,
+      "75%": 11.0
+    },
+    "outliers": {
+      "count": 0,
+      "percentage": 0.0,
+      "bounds": {
+        "lower": 11.0,
+        "upper": 11.0
+      }
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 0.0925925925925926,
+    "extreme_outlier_percentage": 0.0
+  },
+  "education": {
+    "data_type": "float64",
+    "total_values": 1080,
+    "unique_values": 19,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "min": -1.0,
+    "max": 19.0,
+    "mean": 9.325,
+    "median": 10.0,
+    "std": 4.200150599709606,
+    "range": 20.0,
+    "iqr": 5.0,
+    "quartiles": {
+      "25%": 7.0,
+      "50%": 10.0,
+      "75%": 12.0
+    },
+    "outliers": {
+      "count": 53,
+      "percentage": 4.907407407407407,
+      "bounds": {
+        "lower": -0.5,
+        "upper": 19.5
+      }
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 1.7592592592592593,
+    "extreme_outlier_percentage": 0.0
+  },
+  "marital_status": {
+    "data_type": "int64",
+    "total_values": 1080,
+    "unique_values": 5,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "min": 1.0,
+    "max": 7.0,
+    "mean": 1.7462962962962962,
+    "median": 2.0,
+    "std": 0.8666860734660105,
+    "range": 6.0,
+    "iqr": 1.0,
+    "quartiles": {
+      "25%": 1.0,
+      "50%": 2.0,
+      "75%": 2.0
+    },
+    "outliers": {
+      "count": 74,
+      "percentage": 6.851851851851852,
+      "bounds": {
+        "lower": -0.5,
+        "upper": 3.5
+      }
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 0.4629629629629629,
+    "extreme_outlier_percentage": 0.5555555555555556
+  },
+  "B_year": {
+    "data_type": "int64",
+    "total_values": 1080,
+    "unique_values": 87,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "min": 1924.0,
+    "max": 2018.0,
+    "mean": 1979.6333333333334,
+    "median": 1979.0,
+    "std": 22.074076988271834,
+    "range": 94.0,
+    "iqr": 36.0,
+    "quartiles": {
+      "25%": 1963.0,
+      "50%": 1979.0,
+      "75%": 1999.0
+    },
+    "outliers": {
+      "count": 0,
+      "percentage": 0.0,
+      "bounds": {
+        "lower": 1909.0,
+        "upper": 2053.0
+      }
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 8.055555555555555,
+    "extreme_outlier_percentage": 0.0
+  },
+  "employment_status": {
+    "data_type": "float64",
+    "total_values": 1080,
+    "unique_values": 7,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "min": -1.0,
+    "max": 6.0,
+    "mean": 0.7805555555555556,
+    "median": -1.0,
+    "std": 2.3094662885941,
+    "range": 7.0,
+    "iqr": 4.0,
+    "quartiles": {
+      "25%": -1.0,
+      "50%": -1.0,
+      "75%": 3.0
+    },
+    "outliers": {
+      "count": 0,
+      "percentage": 0.0,
+      "bounds": {
+        "lower": -7.0,
+        "upper": 9.0
+      }
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 0.6481481481481481,
+    "extreme_outlier_percentage": 0.0
+  },
+  "industry": {
+    "data_type": "float64",
+    "total_values": 1080,
+    "unique_values": 94,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "min": -1.0,
+    "max": 99998.0,
+    "mean": 19553.348148148147,
+    "median": -1.0,
+    "std": 29720.922362705827,
+    "range": 99999.0,
+    "iqr": 43307.0,
+    "quartiles": {
+      "25%": -1.0,
+      "50%": -1.0,
+      "75%": 43306.0
+    },
+    "outliers": {
+      "count": 0,
+      "percentage": 0.0,
+      "bounds": {
+        "lower": -64961.5,
+        "upper": 108266.5
+      }
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 8.703703703703704,
+    "extreme_outlier_percentage": 0.0
+  },
+  "main_activity": {
+    "data_type": "float64",
+    "total_values": 1080,
+    "unique_values": 11,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "min": -1.0,
+    "max": 99.0,
+    "mean": 3.8796296296296298,
+    "median": 1.0,
+    "std": 10.673013088585247,
+    "range": 100.0,
+    "iqr": 6.0,
+    "quartiles": {
+      "25%": 1.0,
+      "50%": 1.0,
+      "75%": 7.0
+    },
+    "outliers": {
+      "count": 12,
+      "percentage": 1.1111111111111112,
+      "bounds": {
+        "lower": -8.0,
+        "upper": 16.0
+      }
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 1.0185185185185186,
+    "extreme_outlier_percentage": 1.1111111111111112
+  }
+}

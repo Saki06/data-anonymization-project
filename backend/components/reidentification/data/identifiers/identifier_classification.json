@@ -1,0 +1,14 @@
+{
+  "direct_identifiers": [],
+  "quasi_identifiers": [
+    "age",
+    "education",
+    "industry",
+    "marital_status",
+    "sex"
+  ],
+  "sensitive_attributes": [],
+  "column_mapping": {},
+  "suggested_mappings": {},
+  "source": "user_provided_upstream_component"
+}

@@ -1,0 +1,29 @@
+{
+  "total_records": 100,
+  "counts": {
+    "critical": 5,
+    "high": 15,
+    "medium": 30,
+    "low": 50
+  },
+  "percentages": {
+    "critical": 5.0,
+    "high": 15.0,
+    "medium": 30.0,
+    "low": 50.0
+  },
+  "score_summary": {
+    "max_score": 0.9515001599588838,
+    "min_score": 0.07234130672047417,
+    "mean_score": 0.8312850190945065,
+    "median_score": 0.9194686604373865
+  },
+  "dynamic_thresholds": {
+    "critical_threshold": 0.9493969993302775,
+    "high_threshold": 0.9405936089234653,
+    "medium_threshold": 0.9194686604373865,
+    "percentile_95": 0.9493969993302775,
+    "percentile_80": 0.9405936089234653,
+    "percentile_50": 0.9194686604373865
+  }
+}

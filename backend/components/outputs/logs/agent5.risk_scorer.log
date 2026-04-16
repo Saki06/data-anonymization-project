@@ -1,0 +1,368 @@
+2026-03-24 23:51:22 - agent5.risk_scorer - INFO - Agent 5: Risk scoring started
+2026-03-24 23:51:22 - agent5.risk_scorer - INFO - Loading ML attacker model from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\attack_models\c231be4e-076f-4d62-9f31-2fe8aa6f62d0\best_attack_model.pkl
+2026-03-24 23:51:22 - agent5.risk_scorer - INFO - Loading pair dataset from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\pairs\c231be4e-076f-4d62-9f31-2fe8aa6f62d0\all_pairs.csv
+2026-03-24 23:51:22 - agent5.risk_scorer - INFO -    Loaded 2000 rows × 20 columns
+2026-03-24 23:59:57 - agent5.risk_scorer - INFO - Agent 5: Risk scoring started
+2026-03-24 23:59:57 - agent5.risk_scorer - INFO - Loading ML attacker model from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\attack_models\c231be4e-076f-4d62-9f31-2fe8aa6f62d0\best_attack_model.pkl
+2026-03-24 23:59:57 - agent5.risk_scorer - INFO - Loading pair dataset from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\pairs\c231be4e-076f-4d62-9f31-2fe8aa6f62d0\all_pairs.csv
+2026-03-24 23:59:57 - agent5.risk_scorer - INFO -    Loaded 2000 rows × 20 columns
+2026-03-25 00:02:58 - agent5.risk_scorer - INFO - Agent 5: Risk scoring started
+2026-03-25 00:02:58 - agent5.risk_scorer - INFO - Loading ML attacker model from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\attack_models\632e24c9-1bda-4cac-a1f3-74da88195ec8\best_attack_model.pkl
+2026-03-25 00:02:58 - agent5.risk_scorer - INFO - Loading pair dataset from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\632e24c9-1bda-4cac-a1f3-74da88195ec8\pair_dataset_for_scoring.csv
+2026-03-25 00:02:58 - agent5.risk_scorer - INFO -    Loaded 2000 rows × 22 columns
+2026-03-25 00:02:58 - agent5.risk_scorer - INFO - Computing attack probabilities for each pair...
+2026-03-25 00:02:58 - agent5.risk_scorer - INFO -    Using 15 feature columns for scoring.
+2026-03-25 00:02:58 - agent5.risk_scorer - INFO -    Feature list: ['age_missing', 'age_diff', 'age_equal', 'education_missing', 'education_diff', 'education_equal', 'industry_missing', 'industry_diff', 'industry_equal', 'marital_status_missing', '...']
+2026-03-25 00:02:58 - agent5.risk_scorer - INFO -    Example scores:
+2026-03-25 00:02:58 - agent5.risk_scorer - INFO -  attack_score
+     0.513943
+     0.514155
+     0.502103
+     0.503047
+     0.504643
+2026-03-25 00:02:58 - agent5.risk_scorer - INFO - Aggregating scores at anonymized-record level...
+2026-03-25 00:02:58 - agent5.risk_scorer - INFO - Calculating dynamic risk thresholds based on score distribution...
+2026-03-25 00:02:58 - agent5.risk_scorer - INFO -    CRITICAL >= 0.5211
+2026-03-25 00:02:58 - agent5.risk_scorer - INFO -    HIGH     >= 0.5156 and < 0.5211
+2026-03-25 00:02:58 - agent5.risk_scorer - INFO -    MEDIUM   >= 0.5108 and < 0.5156
+2026-03-25 00:02:58 - agent5.risk_scorer - INFO -    LOW      < 0.5108
+2026-03-25 00:02:58 - agent5.risk_scorer - INFO -    Sample record-level risk:
+2026-03-25 00:02:58 - agent5.risk_scorer - INFO -  anon_index  max_attack_score  mean_attack_score  pair_count risk_level
+          0          0.505808           0.505808           1        low
+          1          0.517907           0.517907           1       high
+          2          0.515549           0.515549           1     medium
+          3          0.496746           0.496746           1        low
+          4          0.511903           0.511903           1     medium
+2026-03-25 00:02:58 - agent5.risk_scorer - INFO - Creating risk summary statistics...
+2026-03-25 00:02:59 - agent5.risk_scorer - INFO - Saved pair-level risk scores to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\632e24c9-1bda-4cac-a1f3-74da88195ec8\risk_pairs_with_scores.csv
+2026-03-25 00:02:59 - agent5.risk_scorer - INFO - Saved record-level risk summary to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\632e24c9-1bda-4cac-a1f3-74da88195ec8\risk_per_record.csv
+2026-03-25 00:02:59 - agent5.risk_scorer - INFO - Saved JSON summary to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\632e24c9-1bda-4cac-a1f3-74da88195ec8\risk_summary.json
+2026-03-25 00:02:59 - agent5.risk_scorer - INFO - Agent 5: Risk scoring complete
+2026-03-25 00:02:59 - agent5.risk_scorer - INFO -    Critical risk records: 100
+2026-03-25 00:02:59 - agent5.risk_scorer - INFO -    High risk records:     300
+2026-03-25 00:02:59 - agent5.risk_scorer - INFO -    Medium risk records:   600
+2026-03-25 00:02:59 - agent5.risk_scorer - INFO -    Low risk records:      1000
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO - Agent 5: Risk scoring started
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO - Loading ML attacker model from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\attack_models\caf09669-8db9-4452-862d-cdc59033254b\best_attack_model.pkl
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO - Loading pair dataset from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\caf09669-8db9-4452-862d-cdc59033254b\pair_dataset_for_scoring.csv
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO -    Loaded 2000 rows × 22 columns
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO - Computing attack probabilities for each pair...
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO -    Using 15 feature columns for scoring.
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO -    Feature list: ['age_missing', 'age_diff', 'age_equal', 'education_missing', 'education_diff', 'education_equal', 'industry_missing', 'industry_diff', 'industry_equal', 'marital_status_missing', '...']
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO -    Example scores:
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO -  attack_score
+     0.513943
+     0.514155
+     0.502103
+     0.503047
+     0.504643
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO - Aggregating scores at anonymized-record level...
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO - Calculating dynamic risk thresholds based on score distribution...
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO -    CRITICAL >= 0.5211
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO -    HIGH     >= 0.5156 and < 0.5211
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO -    MEDIUM   >= 0.5108 and < 0.5156
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO -    LOW      < 0.5108
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO -    Sample record-level risk:
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO -  anon_index  max_attack_score  mean_attack_score  pair_count risk_level
+          0          0.505808           0.505808           1        low
+          1          0.517907           0.517907           1       high
+          2          0.515549           0.515549           1     medium
+          3          0.496746           0.496746           1        low
+          4          0.511903           0.511903           1     medium
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO - Creating risk summary statistics...
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO - Saved pair-level risk scores to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\caf09669-8db9-4452-862d-cdc59033254b\risk_pairs_with_scores.csv
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO - Saved record-level risk summary to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\caf09669-8db9-4452-862d-cdc59033254b\risk_per_record.csv
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO - Saved JSON summary to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\caf09669-8db9-4452-862d-cdc59033254b\risk_summary.json
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO - Agent 5: Risk scoring complete
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO -    Critical risk records: 100
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO -    High risk records:     300
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO -    Medium risk records:   600
+2026-03-25 00:08:27 - agent5.risk_scorer - INFO -    Low risk records:      1000
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO - Agent 5: Risk scoring started
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO - Loading ML attacker model from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\attack_models\abfa0fb0-a16d-422c-b7dd-959c3a85e550\best_attack_model.pkl
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO - Loading pair dataset from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\abfa0fb0-a16d-422c-b7dd-959c3a85e550\pair_dataset_for_scoring.csv
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO -    Loaded 2000 rows × 22 columns
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO - Computing attack probabilities for each pair...
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO -    Using 15 feature columns for scoring.
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO -    Feature list: ['age_missing', 'age_diff', 'age_equal', 'education_missing', 'education_diff', 'education_equal', 'industry_missing', 'industry_diff', 'industry_equal', 'marital_status_missing', '...']
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO -    Example scores:
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO -  attack_score
+     0.513943
+     0.514155
+     0.502103
+     0.503047
+     0.504643
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO - Aggregating scores at anonymized-record level...
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO - Calculating dynamic risk thresholds based on score distribution...
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO -    CRITICAL >= 0.5211
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO -    HIGH     >= 0.5156 and < 0.5211
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO -    MEDIUM   >= 0.5108 and < 0.5156
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO -    LOW      < 0.5108
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO -    Sample record-level risk:
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO -  anon_index  max_attack_score  mean_attack_score  pair_count risk_level
+          0          0.505808           0.505808           1        low
+          1          0.517907           0.517907           1       high
+          2          0.515549           0.515549           1     medium
+          3          0.496746           0.496746           1        low
+          4          0.511903           0.511903           1     medium
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO - Creating risk summary statistics...
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO - Saved pair-level risk scores to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\abfa0fb0-a16d-422c-b7dd-959c3a85e550\risk_pairs_with_scores.csv
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO - Saved record-level risk summary to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\abfa0fb0-a16d-422c-b7dd-959c3a85e550\risk_per_record.csv
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO - Saved JSON summary to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\abfa0fb0-a16d-422c-b7dd-959c3a85e550\risk_summary.json
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO - Agent 5: Risk scoring complete
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO -    Critical risk records: 100
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO -    High risk records:     300
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO -    Medium risk records:   600
+2026-03-25 00:41:09 - agent5.risk_scorer - INFO -    Low risk records:      1000
+2026-03-25 00:56:29 - agent5.risk_scorer - INFO - Agent 5: Risk scoring started
+2026-03-25 00:56:29 - agent5.risk_scorer - INFO - Loading ML attacker model from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\attack_models\abfa0fb0-a16d-422c-b7dd-959c3a85e550\best_attack_model.pkl
+2026-03-25 00:56:29 - agent5.risk_scorer - INFO - Loading pair dataset from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\abfa0fb0-a16d-422c-b7dd-959c3a85e550\pair_dataset_for_scoring.csv
+2026-03-25 00:56:29 - agent5.risk_scorer - INFO -    Loaded 2000 rows × 22 columns
+2026-03-25 00:56:29 - agent5.risk_scorer - INFO - Computing attack probabilities for each pair...
+2026-03-25 00:56:29 - agent5.risk_scorer - INFO -    Using 15 feature columns for scoring.
+2026-03-25 00:56:29 - agent5.risk_scorer - INFO -    Feature list: ['age_missing', 'age_diff', 'age_equal', 'education_missing', 'education_diff', 'education_equal', 'industry_missing', 'industry_diff', 'industry_equal', 'marital_status_missing', '...']
+2026-03-25 00:56:29 - agent5.risk_scorer - INFO -    Example scores:
+2026-03-25 00:56:29 - agent5.risk_scorer - INFO -  attack_score
+     0.513943
+     0.514155
+     0.502103
+     0.503047
+     0.504643
+2026-03-25 00:56:29 - agent5.risk_scorer - INFO - Aggregating scores at anonymized-record level...
+2026-03-25 00:56:30 - agent5.risk_scorer - INFO - Calculating dynamic risk thresholds based on score distribution...
+2026-03-25 00:56:30 - agent5.risk_scorer - INFO -    CRITICAL >= 0.5211
+2026-03-25 00:56:30 - agent5.risk_scorer - INFO -    HIGH     >= 0.5156 and < 0.5211
+2026-03-25 00:56:30 - agent5.risk_scorer - INFO -    MEDIUM   >= 0.5108 and < 0.5156
+2026-03-25 00:56:30 - agent5.risk_scorer - INFO -    LOW      < 0.5108
+2026-03-25 00:56:30 - agent5.risk_scorer - INFO -    Sample record-level risk:
+2026-03-25 00:56:30 - agent5.risk_scorer - INFO -  anon_index  max_attack_score  mean_attack_score  pair_count risk_level
+          0          0.505808           0.505808           1        low
+          1          0.517907           0.517907           1       high
+          2          0.515549           0.515549           1     medium
+          3          0.496746           0.496746           1        low
+          4          0.511903           0.511903           1     medium
+2026-03-25 00:56:30 - agent5.risk_scorer - INFO - Creating risk summary statistics...
+2026-03-25 00:56:30 - agent5.risk_scorer - INFO - Saved pair-level risk scores to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\abfa0fb0-a16d-422c-b7dd-959c3a85e550\risk_pairs_with_scores.csv
+2026-03-25 00:56:30 - agent5.risk_scorer - INFO - Saved record-level risk summary to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\abfa0fb0-a16d-422c-b7dd-959c3a85e550\risk_per_record.csv
+2026-03-25 00:56:30 - agent5.risk_scorer - INFO - Saved JSON summary to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\abfa0fb0-a16d-422c-b7dd-959c3a85e550\risk_summary.json
+2026-03-25 00:56:30 - agent5.risk_scorer - INFO - Agent 5: Risk scoring complete
+2026-03-25 00:56:30 - agent5.risk_scorer - INFO -    Critical risk records: 100
+2026-03-25 00:56:30 - agent5.risk_scorer - INFO -    High risk records:     300
+2026-03-25 00:56:30 - agent5.risk_scorer - INFO -    Medium risk records:   600
+2026-03-25 00:56:30 - agent5.risk_scorer - INFO -    Low risk records:      1000
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO - Agent 5: Risk scoring started
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO - Loading ML attacker model from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\attack_models\990dcc4c-8fe6-494f-993b-c7266fedb2c1\best_attack_model.pkl
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO - Loading pair dataset from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\990dcc4c-8fe6-494f-993b-c7266fedb2c1\pair_dataset_for_scoring.csv
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO -    Loaded 660 rows × 19 columns
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO - Computing attack probabilities for each pair...
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO -    Using 16 feature columns for scoring.
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO -    Feature list: ['age_diff', 'age_ratio', 'age_close', 'education_diff', 'education_ratio', 'education_close', 'industry_diff', 'industry_ratio', 'industry_close', 'marital_status_diff', '...']
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO -    Example scores:
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO -  attack_score
+     0.958961
+     0.922574
+     0.973090
+     0.938108
+     0.968848
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO - Aggregating scores at anonymized-record level...
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO - Calculating dynamic risk thresholds based on score distribution...
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO -    CRITICAL >= 0.9776
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO -    HIGH     >= 0.9707 and < 0.9776
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO -    MEDIUM   >= 0.9367 and < 0.9707
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO -    LOW      < 0.9367
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO -    Sample record-level risk:
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO -  anon_index  max_attack_score  mean_attack_score  pair_count risk_level
+          1          0.968848           0.968848           1     medium
+          4          0.978284           0.500287           2   critical
+          6          0.965244           0.965244           1     medium
+          7          0.016088           0.016088           1        low
+         10          0.958360           0.492929           2     medium
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO - Creating risk summary statistics...
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO - Saved pair-level risk scores to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\990dcc4c-8fe6-494f-993b-c7266fedb2c1\risk_pairs_with_scores.csv
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO - Saved record-level risk summary to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\990dcc4c-8fe6-494f-993b-c7266fedb2c1\risk_per_record.csv
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO - Saved JSON summary to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\990dcc4c-8fe6-494f-993b-c7266fedb2c1\risk_summary.json
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO - Agent 5: Risk scoring complete
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO -    Critical risk records: 27
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO -    High risk records:     73
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO -    Medium risk records:   149
+2026-03-25 08:20:51 - agent5.risk_scorer - INFO -    Low risk records:      245
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO - Agent 5: Risk scoring started
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO - Loading ML attacker model from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\attack_models\0e8a494d-bd5f-4983-a75f-6c3d3a3b308f\best_attack_model.pkl
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO - Loading pair dataset from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\0e8a494d-bd5f-4983-a75f-6c3d3a3b308f\pair_dataset_for_scoring.csv
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO -    Loaded 660 rows × 19 columns
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO - Computing attack probabilities for each pair...
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO -    Using 16 feature columns for scoring.
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO -    Feature list: ['age_diff', 'age_ratio', 'age_close', 'education_diff', 'education_ratio', 'education_close', 'industry_diff', 'industry_ratio', 'industry_close', 'marital_status_diff', '...']
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO -    Example scores:
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO -  attack_score
+     0.958961
+     0.922574
+     0.973090
+     0.938108
+     0.968848
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO - Aggregating scores at anonymized-record level...
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO - Calculating dynamic risk thresholds based on score distribution...
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO -    CRITICAL >= 0.9776
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO -    HIGH     >= 0.9707 and < 0.9776
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO -    MEDIUM   >= 0.9367 and < 0.9707
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO -    LOW      < 0.9367
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO -    Sample record-level risk:
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO -  anon_index  max_attack_score  mean_attack_score  pair_count risk_level
+          1          0.968848           0.968848           1     medium
+          4          0.978284           0.500287           2   critical
+          6          0.965244           0.965244           1     medium
+          7          0.016088           0.016088           1        low
+         10          0.958360           0.492929           2     medium
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO - Creating risk summary statistics...
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO - Saved pair-level risk scores to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\0e8a494d-bd5f-4983-a75f-6c3d3a3b308f\risk_pairs_with_scores.csv
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO - Saved record-level risk summary to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\0e8a494d-bd5f-4983-a75f-6c3d3a3b308f\risk_per_record.csv
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO - Saved JSON summary to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\0e8a494d-bd5f-4983-a75f-6c3d3a3b308f\risk_summary.json
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO - Agent 5: Risk scoring complete
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO -    Critical risk records: 27
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO -    High risk records:     73
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO -    Medium risk records:   149
+2026-03-25 09:36:09 - agent5.risk_scorer - INFO -    Low risk records:      245
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO - Agent 5: Risk scoring started
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO - Loading ML attacker model from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\attack_models\4e6dd424-4052-496d-ad66-e957eab400c0\best_attack_model.pkl
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO - Loading pair dataset from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\4e6dd424-4052-496d-ad66-e957eab400c0\pair_dataset_for_scoring.csv
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO -    Loaded 660 rows × 19 columns
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO - Computing attack probabilities for each pair...
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO -    Using 16 feature columns for scoring.
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO -    Feature list: ['age_diff', 'age_ratio', 'age_close', 'education_diff', 'education_ratio', 'education_close', 'industry_diff', 'industry_ratio', 'industry_close', 'marital_status_diff', '...']
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO -    Example scores:
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO -  attack_score
+     0.958961
+     0.922574
+     0.973090
+     0.938108
+     0.968848
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO - Aggregating scores at anonymized-record level...
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO - Calculating dynamic risk thresholds based on score distribution...
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO -    CRITICAL >= 0.9776
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO -    HIGH     >= 0.9707 and < 0.9776
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO -    MEDIUM   >= 0.9367 and < 0.9707
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO -    LOW      < 0.9367
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO -    Sample record-level risk:
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO -  anon_index  max_attack_score  mean_attack_score  pair_count risk_level
+          1          0.968848           0.968848           1     medium
+          4          0.978284           0.500287           2   critical
+          6          0.965244           0.965244           1     medium
+          7          0.016088           0.016088           1        low
+         10          0.958360           0.492929           2     medium
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO - Creating risk summary statistics...
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO - Saved pair-level risk scores to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\4e6dd424-4052-496d-ad66-e957eab400c0\risk_pairs_with_scores.csv
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO - Saved record-level risk summary to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\4e6dd424-4052-496d-ad66-e957eab400c0\risk_per_record.csv
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO - Saved JSON summary to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\4e6dd424-4052-496d-ad66-e957eab400c0\risk_summary.json
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO - Agent 5: Risk scoring complete
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO -    Critical risk records: 27
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO -    High risk records:     73
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO -    Medium risk records:   149
+2026-03-25 10:08:10 - agent5.risk_scorer - INFO -    Low risk records:      245
+2026-03-26 18:04:50 - agent5.risk_scorer - INFO - Agent 5: Risk scoring started
+2026-03-26 18:04:50 - agent5.risk_scorer - INFO - Loading ML attacker model from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\attack_models\6108ced0-1e6c-42d8-97c4-4ad14869e62f\best_attack_model.pkl
+2026-03-26 18:04:50 - agent5.risk_scorer - INFO - Loading pair dataset from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\6108ced0-1e6c-42d8-97c4-4ad14869e62f\pair_dataset_for_scoring.csv
+2026-03-26 18:04:50 - agent5.risk_scorer - INFO -    Loaded 200 rows × 23 columns
+2026-03-26 18:04:50 - agent5.risk_scorer - INFO - Computing attack probabilities for each pair...
+2026-03-26 18:04:50 - agent5.risk_scorer - INFO -    Using 17 feature columns for scoring.
+2026-03-26 18:04:50 - agent5.risk_scorer - INFO -    Feature list: ['euclidean_distance', 'manhattan_distance', 'cosine_similarity', 'education_diff', 'education_equal', 'marital_status_diff', 'marital_status_equal', 'sex_diff', 'sex_equal', 'age_match', '...']
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -    Example scores:
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -  attack_score
+     0.951500
+     0.864219
+     0.933188
+     0.787893
+     0.923772
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO - Aggregating scores at anonymized-record level...
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO - Calculating dynamic risk thresholds based on score distribution...
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -    CRITICAL >= 0.9494
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -    HIGH     >= 0.9406 and < 0.9494
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -    MEDIUM   >= 0.9195 and < 0.9406
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -    LOW      < 0.9195
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -    Sample record-level risk:
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -  anon_index  max_attack_score  mean_attack_score  pair_count risk_level
+        0.0          0.951500           0.951500           1   critical
+        1.0          0.864219           0.864219           1        low
+        2.0          0.933188           0.933188           1     medium
+        3.0          0.787893           0.787893           1        low
+        4.0          0.923772           0.923772           1     medium
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO - Creating risk summary statistics...
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO - Saved pair-level risk scores to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\6108ced0-1e6c-42d8-97c4-4ad14869e62f\risk_pairs_with_scores.csv
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO - Saved record-level risk summary to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\6108ced0-1e6c-42d8-97c4-4ad14869e62f\risk_per_record.csv
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO - Saved JSON summary to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\6108ced0-1e6c-42d8-97c4-4ad14869e62f\risk_summary.json
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO - Agent 5: Risk scoring complete
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -    Critical risk records: 5
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -    High risk records:     15
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -    Medium risk records:   30
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -    Low risk records:      50
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO - Agent 5: Risk scoring started
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO - Loading ML attacker model from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\attack_models\5b836994-5e1e-4dcc-9a42-4107ac9707d4\best_attack_model.pkl
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO - Loading pair dataset from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\5b836994-5e1e-4dcc-9a42-4107ac9707d4\pair_dataset_for_scoring.csv
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -    Loaded 660 rows × 19 columns
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO - Computing attack probabilities for each pair...
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -    Using 16 feature columns for scoring.
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -    Feature list: ['age_diff', 'age_ratio', 'age_close', 'education_diff', 'education_ratio', 'education_close', 'industry_diff', 'industry_ratio', 'industry_close', 'marital_status_diff', '...']
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -    Example scores:
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -  attack_score
+     0.958961
+     0.922574
+     0.973090
+     0.938108
+     0.968848
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO - Aggregating scores at anonymized-record level...
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO - Calculating dynamic risk thresholds based on score distribution...
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -    CRITICAL >= 0.9776
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -    HIGH     >= 0.9707 and < 0.9776
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -    MEDIUM   >= 0.9367 and < 0.9707
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -    LOW      < 0.9367
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -    Sample record-level risk:
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -  anon_index  max_attack_score  mean_attack_score  pair_count risk_level
+          1          0.968848           0.968848           1     medium
+          4          0.978284           0.500287           2   critical
+          6          0.965244           0.965244           1     medium
+          7          0.016088           0.016088           1        low
+         10          0.958360           0.492929           2     medium
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO - Creating risk summary statistics...
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO - Saved pair-level risk scores to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\5b836994-5e1e-4dcc-9a42-4107ac9707d4\risk_pairs_with_scores.csv
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO - Saved record-level risk summary to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\5b836994-5e1e-4dcc-9a42-4107ac9707d4\risk_per_record.csv
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO - Saved JSON summary to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\5b836994-5e1e-4dcc-9a42-4107ac9707d4\risk_summary.json
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO - Agent 5: Risk scoring complete
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -    Critical risk records: 27
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -    High risk records:     73
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -    Medium risk records:   149
+2026-03-26 18:04:51 - agent5.risk_scorer - INFO -    Low risk records:      245
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO - Agent 5: Risk scoring started
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO - Loading ML attacker model from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\attack_models\bd05c40c-b255-46d8-aec7-9652c7250776\best_attack_model.pkl
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO - Loading pair dataset from: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\bd05c40c-b255-46d8-aec7-9652c7250776\pair_dataset_for_scoring.csv
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO -    Loaded 660 rows × 19 columns
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO - Computing attack probabilities for each pair...
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO -    Using 16 feature columns for scoring.
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO -    Feature list: ['age_diff', 'age_ratio', 'age_close', 'education_diff', 'education_ratio', 'education_close', 'industry_diff', 'industry_ratio', 'industry_close', 'marital_status_diff', '...']
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO -    Example scores:
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO -  attack_score
+     0.958961
+     0.922574
+     0.973090
+     0.938108
+     0.968848
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO - Aggregating scores at anonymized-record level...
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO - Calculating dynamic risk thresholds based on score distribution...
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO -    CRITICAL >= 0.9776
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO -    HIGH     >= 0.9707 and < 0.9776
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO -    MEDIUM   >= 0.9367 and < 0.9707
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO -    LOW      < 0.9367
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO -    Sample record-level risk:
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO -  anon_index  max_attack_score  mean_attack_score  pair_count risk_level
+          1          0.968848           0.968848           1     medium
+          4          0.978284           0.500287           2   critical
+          6          0.965244           0.965244           1     medium
+          7          0.016088           0.016088           1        low
+         10          0.958360           0.492929           2     medium
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO - Creating risk summary statistics...
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO - Saved pair-level risk scores to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\bd05c40c-b255-46d8-aec7-9652c7250776\risk_pairs_with_scores.csv
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO - Saved record-level risk summary to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\bd05c40c-b255-46d8-aec7-9652c7250776\risk_per_record.csv
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO - Saved JSON summary to: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\risk_scores\bd05c40c-b255-46d8-aec7-9652c7250776\risk_summary.json
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO - Agent 5: Risk scoring complete
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO -    Critical risk records: 27
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO -    High risk records:     73
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO -    Medium risk records:   149
+2026-03-26 22:19:49 - agent5.risk_scorer - INFO -    Low risk records:      245

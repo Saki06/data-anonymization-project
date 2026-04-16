@@ -1,0 +1,13 @@
+feature,mean_abs_shap,rank
+overall_similarity,0.10752386004344798,1
+cosine_similarity,0.08086451601485099,2
+marital_status_diff,0.06340593481616429,3
+marital_status_equal,0.056117818159634895,4
+manhattan_distance,0.041452624920756374,5
+euclidean_distance,0.04053183928761371,6
+sex_diff,0.03342651671472797,7
+sex_equal,0.022828967380256457,8
+education_diff,0.020806310468152477,9
+education_equal,0.005274771229646307,10
+age_match,0.0,11
+education_match,0.0,12

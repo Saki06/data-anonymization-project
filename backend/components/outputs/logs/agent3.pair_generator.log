@@ -1,0 +1,84 @@
+2026-03-25 08:15:56 - agent3.pair_generator - INFO - 🚀 Agent 3: Pair Generator started
+2026-03-25 08:15:56 - agent3.pair_generator - INFO -    Auxiliary dataset : (1320, 8)
+2026-03-25 08:15:56 - agent3.pair_generator - INFO -    Anonymized dataset: (1000, 30)
+2026-03-25 08:15:56 - agent3.pair_generator - INFO - ✅ Final resolved QI mapping: {'age': 'age', 'education': 'education', 'industry': 'industry', 'marital_status': 'marital_status', 'sex': 'sex'}
+2026-03-25 08:15:56 - agent3.pair_generator - INFO - ✅ Direct identifiers excluded: []
+2026-03-25 08:15:56 - agent3.pair_generator - INFO - ✅ Sensitive attributes excluded: []
+2026-03-25 08:20:43 - agent3.pair_generator - INFO -    Positive pairs: 330
+2026-03-25 08:20:43 - agent3.pair_generator - INFO -    Negative pairs: 330
+2026-03-25 08:20:44 - agent3.pair_generator - INFO - ✅ Agent 3 complete
+2026-03-25 08:20:44 - agent3.pair_generator - INFO -    Pair dataset: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\pairs\990dcc4c-8fe6-494f-993b-c7266fedb2c1\pair_dataset.csv
+2026-03-25 08:20:44 - agent3.pair_generator - INFO -    Train pairs : C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\pairs\990dcc4c-8fe6-494f-993b-c7266fedb2c1\train_pairs.csv
+2026-03-25 08:20:44 - agent3.pair_generator - INFO -    Test pairs  : C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\pairs\990dcc4c-8fe6-494f-993b-c7266fedb2c1\test_pairs.csv
+2026-03-25 09:31:23 - agent3.pair_generator - INFO - 🚀 Agent 3: Pair Generator started
+2026-03-25 09:31:23 - agent3.pair_generator - INFO -    Auxiliary dataset : (1320, 8)
+2026-03-25 09:31:23 - agent3.pair_generator - INFO -    Anonymized dataset: (1000, 30)
+2026-03-25 09:31:23 - agent3.pair_generator - INFO - ✅ Final resolved QI mapping: {'age': 'age', 'education': 'education', 'industry': 'industry', 'marital_status': 'marital_status', 'sex': 'sex'}
+2026-03-25 09:31:23 - agent3.pair_generator - INFO - ✅ Direct identifiers excluded: []
+2026-03-25 09:31:23 - agent3.pair_generator - INFO - ✅ Sensitive attributes excluded: []
+2026-03-25 09:36:04 - agent3.pair_generator - INFO -    Positive pairs: 330
+2026-03-25 09:36:04 - agent3.pair_generator - INFO -    Negative pairs: 330
+2026-03-25 09:36:04 - agent3.pair_generator - INFO - ✅ Agent 3 complete
+2026-03-25 09:36:04 - agent3.pair_generator - INFO -    Pair dataset: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\pairs\0e8a494d-bd5f-4983-a75f-6c3d3a3b308f\pair_dataset.csv
+2026-03-25 09:36:04 - agent3.pair_generator - INFO -    Train pairs : C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\pairs\0e8a494d-bd5f-4983-a75f-6c3d3a3b308f\train_pairs.csv
+2026-03-25 09:36:04 - agent3.pair_generator - INFO -    Test pairs  : C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\pairs\0e8a494d-bd5f-4983-a75f-6c3d3a3b308f\test_pairs.csv
+2026-03-25 10:03:09 - agent3.pair_generator - INFO - 🚀 Agent 3: Pair Generator started
+2026-03-25 10:03:09 - agent3.pair_generator - INFO -    Auxiliary dataset : (1320, 8)
+2026-03-25 10:03:09 - agent3.pair_generator - INFO -    Anonymized dataset: (1000, 30)
+2026-03-25 10:03:09 - agent3.pair_generator - INFO - ✅ Final resolved QI mapping: {'age': 'age', 'education': 'education', 'industry': 'industry', 'marital_status': 'marital_status', 'sex': 'sex'}
+2026-03-25 10:03:09 - agent3.pair_generator - INFO - ✅ Direct identifiers excluded: []
+2026-03-25 10:03:09 - agent3.pair_generator - INFO - ✅ Sensitive attributes excluded: []
+2026-03-25 10:08:00 - agent3.pair_generator - INFO -    Positive pairs: 330
+2026-03-25 10:08:00 - agent3.pair_generator - INFO -    Negative pairs: 330
+2026-03-25 10:08:00 - agent3.pair_generator - INFO - ✅ Agent 3 complete
+2026-03-25 10:08:00 - agent3.pair_generator - INFO -    Pair dataset: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\pairs\4e6dd424-4052-496d-ad66-e957eab400c0\pair_dataset.csv
+2026-03-25 10:08:00 - agent3.pair_generator - INFO -    Train pairs : C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\pairs\4e6dd424-4052-496d-ad66-e957eab400c0\train_pairs.csv
+2026-03-25 10:08:00 - agent3.pair_generator - INFO -    Test pairs  : C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\pairs\4e6dd424-4052-496d-ad66-e957eab400c0\test_pairs.csv
+2026-03-26 07:15:12 - agent3.pair_generator - INFO - 🚀 Agent 3: Pair Generator started
+2026-03-26 07:15:12 - agent3.pair_generator - INFO -    Auxiliary dataset : (1320, 8)
+2026-03-26 07:15:12 - agent3.pair_generator - INFO -    Anonymized dataset: (1000, 30)
+2026-03-26 07:15:12 - agent3.pair_generator - INFO - ✅ Final resolved QI mapping: {'age': 'age', 'education': 'education', 'industry': 'industry', 'marital_status': 'marital_status', 'sex': 'sex'}
+2026-03-26 07:15:12 - agent3.pair_generator - INFO - ✅ Direct identifiers excluded: []
+2026-03-26 07:15:12 - agent3.pair_generator - INFO - ✅ Sensitive attributes excluded: []
+2026-03-26 10:43:24 - agent3.pair_generator - INFO -    Positive pairs: 330
+2026-03-26 10:43:24 - agent3.pair_generator - INFO -    Negative pairs: 330
+2026-03-26 10:43:24 - agent3.pair_generator - INFO - ✅ Agent 3 complete
+2026-03-26 10:43:24 - agent3.pair_generator - INFO -    Pair dataset: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\pairs\6420f6ac-f09f-473e-a6a5-cb9b73d1d341\pair_dataset.csv
+2026-03-26 10:43:24 - agent3.pair_generator - INFO -    Train pairs : C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\pairs\6420f6ac-f09f-473e-a6a5-cb9b73d1d341\train_pairs.csv
+2026-03-26 10:43:24 - agent3.pair_generator - INFO -    Test pairs  : C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\pairs\6420f6ac-f09f-473e-a6a5-cb9b73d1d341\test_pairs.csv
+2026-03-26 10:45:04 - agent3.pair_generator - INFO - 🚀 Agent 3: Pair Generator started
+2026-03-26 10:45:04 - agent3.pair_generator - INFO -    Auxiliary dataset : (1320, 8)
+2026-03-26 10:45:04 - agent3.pair_generator - INFO -    Anonymized dataset: (1000, 30)
+2026-03-26 10:45:04 - agent3.pair_generator - INFO - ✅ Final resolved QI mapping: {'age': 'age', 'education': 'education', 'industry': 'industry', 'marital_status': 'marital_status', 'sex': 'sex'}
+2026-03-26 10:45:04 - agent3.pair_generator - INFO - ✅ Direct identifiers excluded: []
+2026-03-26 10:45:04 - agent3.pair_generator - INFO - ✅ Sensitive attributes excluded: []
+2026-03-26 10:53:41 - agent3.pair_generator - INFO -    Positive pairs: 330
+2026-03-26 10:53:41 - agent3.pair_generator - INFO -    Negative pairs: 330
+2026-03-26 10:53:41 - agent3.pair_generator - INFO - ✅ Agent 3 complete
+2026-03-26 10:53:41 - agent3.pair_generator - INFO -    Pair dataset: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\pairs\3079cf9a-7bea-49fe-ba5c-61fa9ef5726b\pair_dataset.csv
+2026-03-26 10:53:41 - agent3.pair_generator - INFO -    Train pairs : C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\pairs\3079cf9a-7bea-49fe-ba5c-61fa9ef5726b\train_pairs.csv
+2026-03-26 10:53:41 - agent3.pair_generator - INFO -    Test pairs  : C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\pairs\3079cf9a-7bea-49fe-ba5c-61fa9ef5726b\test_pairs.csv
+2026-03-26 17:56:40 - agent3.pair_generator - INFO - 🚀 Agent 3: Pair Generator started
+2026-03-26 17:56:40 - agent3.pair_generator - INFO -    Auxiliary dataset : (1320, 8)
+2026-03-26 17:56:40 - agent3.pair_generator - INFO -    Anonymized dataset: (1000, 30)
+2026-03-26 17:56:40 - agent3.pair_generator - INFO - ✅ Final resolved QI mapping: {'age': 'age', 'education': 'education', 'industry': 'industry', 'marital_status': 'marital_status', 'sex': 'sex'}
+2026-03-26 17:56:40 - agent3.pair_generator - INFO - ✅ Direct identifiers excluded: []
+2026-03-26 17:56:40 - agent3.pair_generator - INFO - ✅ Sensitive attributes excluded: []
+2026-03-26 18:04:35 - agent3.pair_generator - INFO -    Positive pairs: 330
+2026-03-26 18:04:35 - agent3.pair_generator - INFO -    Negative pairs: 330
+2026-03-26 18:04:35 - agent3.pair_generator - INFO - ✅ Agent 3 complete
+2026-03-26 18:04:35 - agent3.pair_generator - INFO -    Pair dataset: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\pairs\5b836994-5e1e-4dcc-9a42-4107ac9707d4\pair_dataset.csv
+2026-03-26 18:04:35 - agent3.pair_generator - INFO -    Train pairs : C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\pairs\5b836994-5e1e-4dcc-9a42-4107ac9707d4\train_pairs.csv
+2026-03-26 18:04:35 - agent3.pair_generator - INFO -    Test pairs  : C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\pairs\5b836994-5e1e-4dcc-9a42-4107ac9707d4\test_pairs.csv
+2026-03-26 22:10:48 - agent3.pair_generator - INFO - 🚀 Agent 3: Pair Generator started
+2026-03-26 22:10:48 - agent3.pair_generator - INFO -    Auxiliary dataset : (1320, 8)
+2026-03-26 22:10:48 - agent3.pair_generator - INFO -    Anonymized dataset: (1000, 30)
+2026-03-26 22:10:48 - agent3.pair_generator - INFO - ✅ Final resolved QI mapping: {'age': 'age', 'education': 'education', 'industry': 'industry', 'marital_status': 'marital_status', 'sex': 'sex'}
+2026-03-26 22:10:48 - agent3.pair_generator - INFO - ✅ Direct identifiers excluded: []
+2026-03-26 22:10:48 - agent3.pair_generator - INFO - ✅ Sensitive attributes excluded: []
+2026-03-26 22:19:43 - agent3.pair_generator - INFO -    Positive pairs: 330
+2026-03-26 22:19:43 - agent3.pair_generator - INFO -    Negative pairs: 330
+2026-03-26 22:19:43 - agent3.pair_generator - INFO - ✅ Agent 3 complete
+2026-03-26 22:19:43 - agent3.pair_generator - INFO -    Pair dataset: C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\pairs\bd05c40c-b255-46d8-aec7-9652c7250776\pair_dataset.csv
+2026-03-26 22:19:43 - agent3.pair_generator - INFO -    Train pairs : C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\pairs\bd05c40c-b255-46d8-aec7-9652c7250776\train_pairs.csv
+2026-03-26 22:19:43 - agent3.pair_generator - INFO -    Test pairs  : C:\Users\Startklar\OneDrive\Desktop\pp2\sliit_feb-main\Data_Anonymization_SLIIT\backend\components\reidentification\data\pairs\bd05c40c-b255-46d8-aec7-9652c7250776\test_pairs.csv

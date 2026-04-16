@@ -1,0 +1,12 @@
+{
+  "common_qi_columns": [
+    "age",
+    "education",
+    "marital_status",
+    "sex",
+    "birth_year",
+    "religion",
+    "ethnicity"
+  ],
+  "count": 7
+}

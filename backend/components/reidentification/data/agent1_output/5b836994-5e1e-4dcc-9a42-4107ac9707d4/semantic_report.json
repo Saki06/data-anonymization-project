@@ -1,0 +1,19 @@
+{
+  "identifiers": [],
+  "quasi_identifiers": [
+    "age"
+  ],
+  "sensitive_columns": [],
+  "granularity": "record",
+  "column_roles": {
+    "age": "quasi_identifier",
+    "sex": "numeric_measure",
+    "district": "numeric_measure",
+    "education": "numeric_measure",
+    "marital_status": "numeric_measure",
+    "employment_status": "numeric_measure",
+    "industry": "numeric_measure",
+    "main_activity": "numeric_measure"
+  },
+  "confidence": "low"
+}

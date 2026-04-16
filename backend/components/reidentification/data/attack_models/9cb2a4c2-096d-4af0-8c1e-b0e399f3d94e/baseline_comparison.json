@@ -1,0 +1,22 @@
+{
+  "baseline": {
+    "type": "mean_of_binary_match_features",
+    "features_used": [
+      "education_equal",
+      "marital_status_equal",
+      "sex_equal",
+      "age_match",
+      "industry_match",
+      "industry_equal",
+      "education_match"
+    ],
+    "pr_auc": 0.3914529914529914,
+    "roc_auc": 0.135
+  },
+  "best_ml_model": {
+    "name": "rf",
+    "pr_auc": 0.9812500000000001,
+    "roc_auc": 0.97125
+  },
+  "pr_auc_lift": 0.5897970085470087
+}

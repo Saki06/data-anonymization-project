@@ -1,0 +1,13 @@
+{
+  "total_columns": 19,
+  "total_rows": 4552,
+  "duplicate_columns": [],
+  "empty_columns": [],
+  "constant_columns": [
+    "result",
+    "type_of_school"
+  ],
+  "high_null_columns": [],
+  "validation_passed": false,
+  "issues_found": 2
+}

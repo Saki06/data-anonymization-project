@@ -1,0 +1,20 @@
+{
+  "anomalies": [
+    {
+      "column": "person_serial_no",
+      "type": "statistical_outlier",
+      "method": "IQR(3x)",
+      "count": 11,
+      "percentage": 0.24,
+      "bounds": {
+        "lower": -0.75,
+        "upper": 8.0
+      }
+    }
+  ],
+  "total_anomalies": 1,
+  "detection_methods": [
+    "IQR_outliers_excluding_-1",
+    "high_cardinality_check"
+  ]
+}

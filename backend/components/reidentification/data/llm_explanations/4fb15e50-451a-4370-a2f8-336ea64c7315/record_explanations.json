@@ -1,0 +1,12 @@
+[
+  {
+    "record_id": 385,
+    "risk_score": 0.969168978694821,
+    "explanation": "The risk score for this record is 0.9692. This is very high, close to the maximum of 1.0. It means there is a significant chance that the information could be linked back to a specific person.\n\nThe columns that contributed most to this risk are marital_status, industry, and sex. Marital_status increases risk because it can narrow down a person's identity. Industry also raises risk since certain jobs can be unique to specific individuals. Sex adds to the risk as it can help identify a person when combined with other details. On the other hand, education and age decrease the risk, making it less likely to connect to a specific individual.\n\nTo better protect privacy, columns like marital_status, industry, and sex need better anonymization. Changes could include generalizing these details. For example, instead of specific industries, use broader categories. Instead of exact marital status, use general terms like \"single\" or \"not single.\" This would help reduce the risk of linking the information to a specific person.\n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  },
+  {
+    "record_id": 312,
+    "risk_score": 0.0385184919038063,
+    "explanation": "The risk score for this record is 0.0385. This score is low, as it is much closer to 0.0 than to 1.0. A low score means there is not much risk of the information being linked back to a specific person.\n\nThe columns that increased the risk are marital_status, sex, and age. Marital_status can give clues about a person's life situation. Sex can narrow down the group of people. Age can also help identify someone, especially if combined with other details. On the other hand, education and industry lower the risk. These details are more common and less unique.\n\nTo improve privacy, columns like marital_status, sex, and age need better anonymization. This could mean changing how these details are shown. For example, instead of exact age, we could use age ranges. For marital_status and sex, using broader categories could help. These changes would make it harder to link the information back to someone specific. \n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  }
+]

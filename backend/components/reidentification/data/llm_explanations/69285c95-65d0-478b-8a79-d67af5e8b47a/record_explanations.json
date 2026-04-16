@@ -1,0 +1,12 @@
+[
+  {
+    "record_id": 67,
+    "risk_score": 0.9355104796659256,
+    "explanation": "The risk score of 0.9355 is very high. This means there is a strong chance that this record could be linked back to a specific person. A score close to 1.0 indicates a serious privacy concern.\n\nThe columns that contributed most to this risk are marital_status and sex, which both increase the risk. Marital_status can reveal personal relationships, while sex can narrow down the search for a person. On the other hand, education and age decrease the risk. Education can help protect identity by showing a broader group, and age can also make it harder to pinpoint someone.\n\nTo improve privacy, the columns that need better anonymization are marital_status and sex. Changing how this information is presented could help. For example, using broader categories for marital_status or removing specific details about sex could reduce the risk. This way, the data remains useful but less likely to connect to an individual.\n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  },
+  {
+    "record_id": 18,
+    "risk_score": 0.1534373568675235,
+    "explanation": "The risk score for this record is 0.1534. This score is low, as it is closer to 0.0 than to 1.0. A low score means there is less chance of linking this record to a specific person.\n\nThe columns that increased the risk are marital_status and sex. These details can help narrow down who someone is. The columns that decreased the risk are education and age. These details are more common and do not point to one person easily.\n\nTo lower the risk further, marital_status and sex need better anonymization. Changing these details to more general categories could help. For example, instead of specific marital statuses, using broader terms like \"single\" or \"not single\" could reduce risk. This way, it is harder to identify someone based on these details.\n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  }
+]

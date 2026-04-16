@@ -1,0 +1,179 @@
+{
+  "dataset_overview": {
+    "total_rows": 86,
+    "total_columns": 6,
+    "total_cells": 516,
+    "memory_usage_mb": 0.0077838897705078125,
+    "duplicate_rows": "1",
+    "duplicate_percentage": 1.1627906976744187
+  },
+  "column_profiles": {
+    "age": {
+      "data_type": "str",
+      "non_null_count": "86",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 5,
+      "unique_percentage": 5.813953488372093,
+      "avg_length": 4.372093023255814,
+      "min_length": 3,
+      "max_length": 5,
+      "most_common": "0-18"
+    },
+    "sex": {
+      "data_type": "int64",
+      "non_null_count": "86",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 2,
+      "unique_percentage": 2.3255813953488373,
+      "min": 1.0,
+      "max": 2.0,
+      "mean": 1.5930232558139534,
+      "median": 2.0,
+      "std": 0.49415184560176234,
+      "quartiles": {
+        "25%": 1.0,
+        "50%": 2.0,
+        "75%": 2.0
+      }
+    },
+    "education": {
+      "data_type": "int64",
+      "non_null_count": "86",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 14,
+      "unique_percentage": 16.27906976744186,
+      "min": -1.0,
+      "max": 16.0,
+      "mean": 9.511627906976743,
+      "median": 10.0,
+      "std": 3.223969734373016,
+      "quartiles": {
+        "25%": 8.0,
+        "50%": 10.0,
+        "75%": 12.0
+      }
+    },
+    "marital_status": {
+      "data_type": "int64",
+      "non_null_count": "86",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 3,
+      "unique_percentage": 3.488372093023256,
+      "min": 1.0,
+      "max": 4.0,
+      "mean": 1.813953488372093,
+      "median": 2.0,
+      "std": 0.847301986681695,
+      "quartiles": {
+        "25%": 1.0,
+        "50%": 2.0,
+        "75%": 2.0
+      }
+    },
+    "B_year": {
+      "data_type": "int64",
+      "non_null_count": "86",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 48,
+      "unique_percentage": 55.81395348837209,
+      "min": 1928.0,
+      "max": 2018.0,
+      "mean": 1983.1046511627908,
+      "median": 1987.0,
+      "std": 23.12321424317356,
+      "quartiles": {
+        "25%": 1964.25,
+        "50%": 1987.0,
+        "75%": 2002.0
+      }
+    },
+    "employment_status": {
+      "data_type": "int64",
+      "non_null_count": "86",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 7,
+      "unique_percentage": 8.13953488372093,
+      "min": -1.0,
+      "max": 6.0,
+      "mean": 0.872093023255814,
+      "median": -1.0,
+      "std": 2.3654200553609277,
+      "quartiles": {
+        "25%": -1.0,
+        "50%": -1.0,
+        "75%": 3.0
+      }
+    }
+  },
+  "data_quality": {
+    "completeness_percentage": 100.0,
+    "total_null_cells": 0,
+    "total_null_percentage": 0.0,
+    "columns_with_nulls": 0,
+    "columns_fully_null": 0
+  },
+  "statistical_summary": {
+    "numeric_columns_count": 5,
+    "categorical_columns_count": 1,
+    "datetime_columns_count": 0,
+    "numeric_summary": {
+      "sex": {
+        "count": 86.0,
+        "mean": 1.5930232558139534,
+        "std": 0.49415184560176234,
+        "min": 1.0,
+        "25%": 1.0,
+        "50%": 2.0,
+        "75%": 2.0,
+        "max": 2.0
+      },
+      "education": {
+        "count": 86.0,
+        "mean": 9.511627906976743,
+        "std": 3.223969734373016,
+        "min": -1.0,
+        "25%": 8.0,
+        "50%": 10.0,
+        "75%": 12.0,
+        "max": 16.0
+      },
+      "marital_status": {
+        "count": 86.0,
+        "mean": 1.813953488372093,
+        "std": 0.847301986681695,
+        "min": 1.0,
+        "25%": 1.0,
+        "50%": 2.0,
+        "75%": 2.0,
+        "max": 4.0
+      },
+      "B_year": {
+        "count": 86.0,
+        "mean": 1983.1046511627908,
+        "std": 23.12321424317356,
+        "min": 1928.0,
+        "25%": 1964.25,
+        "50%": 1987.0,
+        "75%": 2002.0,
+        "max": 2018.0
+      },
+      "employment_status": {
+        "count": 86.0,
+        "mean": 0.872093023255814,
+        "std": 2.3654200553609277,
+        "min": -1.0,
+        "25%": -1.0,
+        "50%": -1.0,
+        "75%": 3.0,
+        "max": 6.0
+      }
+    },
+    "sampled_for_summary": false
+  }
+}

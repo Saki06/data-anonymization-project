@@ -1,0 +1,6 @@
+COMPARATIVE ANALYSIS: HIGH-RISK vs LOW-RISK RECORDS
+============================================================
+
+High-risk records have higher max_attack_score and mean_attack_score compared to low-risk records. This means they are more likely to face serious threats. The pair_count may also be higher in high-risk records, indicating more connections that could be risky.
+
+Low-risk records show lower max_attack_score and mean_attack_score. They have fewer connections, which makes them safer. The risk_level for these records is less concerning. Overall, high-risk records are more vulnerable than low-risk records.

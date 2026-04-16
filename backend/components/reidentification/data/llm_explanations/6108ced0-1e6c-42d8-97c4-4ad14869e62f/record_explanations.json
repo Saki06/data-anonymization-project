@@ -1,0 +1,27 @@
+[
+  {
+    "record_id": "0.0",
+    "risk_score": 0.9515001599588838,
+    "explanation": "This record is classified as HIGH risk based on model score (0.9515). SHAP/LLM explanation was unavailable, so this is a fallback summary from available risk outputs."
+  },
+  {
+    "record_id": "98.0",
+    "risk_score": 0.9515001599588838,
+    "explanation": "This record is classified as HIGH risk based on model score (0.9515). SHAP/LLM explanation was unavailable, so this is a fallback summary from available risk outputs."
+  },
+  {
+    "record_id": "6.0",
+    "risk_score": 0.9514077919304664,
+    "explanation": "This record is classified as HIGH risk based on model score (0.9514). SHAP/LLM explanation was unavailable, so this is a fallback summary from available risk outputs."
+  },
+  {
+    "record_id": "94.0",
+    "risk_score": 0.9508584461482738,
+    "explanation": "This record is classified as HIGH risk based on model score (0.9509). SHAP/LLM explanation was unavailable, so this is a fallback summary from available risk outputs."
+  },
+  {
+    "record_id": "73.0",
+    "risk_score": 0.949954766117694,
+    "explanation": "This record is classified as HIGH risk based on model score (0.9500). SHAP/LLM explanation was unavailable, so this is a fallback summary from available risk outputs."
+  }
+]

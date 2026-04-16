@@ -1,0 +1,57 @@
+[
+  {
+    "feature": "overall_similarity",
+    "mean_abs_shap": 3.2950368027143333,
+    "rank": 1
+  },
+  {
+    "feature": "age_diff",
+    "mean_abs_shap": 1.5885917342423796,
+    "rank": 2
+  },
+  {
+    "feature": "manhattan_distance",
+    "mean_abs_shap": 1.3430158382360466,
+    "rank": 3
+  },
+  {
+    "feature": "euclidean_distance",
+    "mean_abs_shap": 1.0836113687092674,
+    "rank": 4
+  },
+  {
+    "feature": "sex_match",
+    "mean_abs_shap": 0.9257851990236732,
+    "rank": 5
+  },
+  {
+    "feature": "education_match",
+    "mean_abs_shap": 0.6214035089742171,
+    "rank": 6
+  },
+  {
+    "feature": "age_equal",
+    "mean_abs_shap": 0.27416965768007795,
+    "rank": 7
+  },
+  {
+    "feature": "ethnicity_match",
+    "mean_abs_shap": 0.259990831502519,
+    "rank": 8
+  },
+  {
+    "feature": "religion_match",
+    "mean_abs_shap": 0.1110360561744546,
+    "rank": 9
+  },
+  {
+    "feature": "marital_status_match",
+    "mean_abs_shap": 0.038123899959712514,
+    "rank": 10
+  },
+  {
+    "feature": "cosine_similarity",
+    "mean_abs_shap": 0.0,
+    "rank": 11
+  }
+]

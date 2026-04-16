@@ -1,0 +1,10 @@
+{
+  "total_columns": 5,
+  "total_rows": 6,
+  "duplicate_columns": [],
+  "empty_columns": [],
+  "constant_columns": [],
+  "high_null_columns": [],
+  "validation_passed": true,
+  "issues_found": 0
+}

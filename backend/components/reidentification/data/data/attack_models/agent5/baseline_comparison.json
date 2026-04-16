@@ -1,0 +1,24 @@
+{
+  "baseline": {
+    "type": "mean_of_binary_match_features",
+    "features_used": [
+      "sex_equal",
+      "district_equal",
+      "education_equal",
+      "marital_status_equal",
+      "B_year_equal",
+      "employment_status_equal",
+      "industry_equal",
+      "main_activity_equal",
+      "age_match"
+    ],
+    "pr_auc": 0.8813665443824508,
+    "roc_auc": 0.888003663003663
+  },
+  "best_ml_model": {
+    "name": "gbm",
+    "pr_auc": 0.9818114356844069,
+    "roc_auc": 0.9818027210884355
+  },
+  "pr_auc_lift": 0.10044489130195611
+}

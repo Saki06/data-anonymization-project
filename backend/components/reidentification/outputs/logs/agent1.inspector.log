@@ -1,0 +1,360 @@
+2026-03-03 00:26:12 - agent1.inspector - INFO - 🚀 Agent 1: Data Inspector initialized
+2026-03-03 00:26:12 - agent1.inspector - INFO - Output directory: F:\4th1st\New folder\New folder\agentic-reidentification-system\agentic-reidentification-system\data
+2026-03-03 00:26:12 - agent1.inspector - INFO - 
+================================================================================
+2026-03-03 00:26:12 - agent1.inspector - INFO - 🔍 AGENT 1: UNIVERSAL DATA INSPECTION START
+2026-03-03 00:26:12 - agent1.inspector - INFO - ================================================================================
+
+2026-03-03 00:26:12 - agent1.inspector - INFO - Files to process : 1
+2026-03-03 00:26:12 - agent1.inspector - INFO -   - data\temp_aux_0_auxiliary_from_anonymized_expanded.csv
+2026-03-03 00:26:12 - agent1.inspector - INFO - 
+📊 Step 0: Merge survey files (RAW)
+2026-03-03 00:26:12 - agent1.inspector - INFO - No composite keys provided - merger will choose strategy
+2026-03-03 00:26:12 - agent1.inspector - INFO - ✓ Merge complete (RAW): 1080 rows × 9 columns (strategy = single_file)
+2026-03-03 00:26:12 - agent1.inspector - INFO - 
+✅ Step 1: Schema validation (RAW)
+2026-03-03 00:26:12 - agent1.inspector - INFO - ✓ Schema validation complete (RAW) - 1 issue(s) found
+2026-03-03 00:26:12 - agent1.inspector - INFO - 
+🔍 Step 2: Missing value analysis (RAW)
+2026-03-03 00:26:12 - agent1.inspector - INFO - ✓ Missing analysis complete (RAW) - 1 missing values (0.01%)
+2026-03-03 00:26:12 - agent1.inspector - INFO - 
+🧹 Step 3: Cleaning merged data (type-aware)
+2026-03-03 00:26:12 - agent1.inspector - INFO -    Initial shape: 1,080 rows × 9 columns
+2026-03-03 00:26:12 - agent1.inspector - INFO -    Initial nulls: 1
+2026-03-03 00:26:12 - agent1.inspector - INFO -    Final shape: 1,080 rows × 9 columns
+2026-03-03 00:26:12 - agent1.inspector - INFO - 
+📈 Step 4: Data profile (CLEANED)
+2026-03-03 00:26:12 - agent1.inspector - INFO - ✓ Data profile generated
+2026-03-03 00:26:12 - agent1.inspector - INFO - 
+📊 Step 5: Column summarisation (CLEANED)
+2026-03-03 00:26:13 - agent1.inspector - INFO - ✓ Column summary complete
+2026-03-03 00:26:13 - agent1.inspector - INFO - 
+🚨 Step 6: Anomaly detection (CLEANED)
+2026-03-03 00:26:13 - agent1.inspector - INFO - ✓ Anomaly detection complete – 2 potential issue(s)
+2026-03-03 00:26:13 - agent1.inspector - INFO - 💾 Merged dataset saved: data\merged_dataset.csv
+2026-03-03 00:26:13 - agent1.inspector - INFO - 
+================================================================================
+2026-03-03 00:26:13 - agent1.inspector - INFO - ✅ INSPECTION COMPLETE
+2026-03-03 00:26:13 - agent1.inspector - INFO - ================================================================================
+2026-03-03 00:26:13 - agent1.inspector - INFO - Final dataset    : 1080 rows × 9 columns
+2026-03-03 00:26:13 - agent1.inspector - INFO - Reports generated: JSON + merged CSV
+2026-03-03 00:38:47 - agent1.inspector - INFO - 🚀 Agent 1: Data Inspector initialized
+2026-03-03 00:38:47 - agent1.inspector - INFO - Output directory: F:\4th1st\New folder\New folder\agentic-reidentification-system\agentic-reidentification-system\data
+2026-03-03 00:38:47 - agent1.inspector - INFO - 
+================================================================================
+2026-03-03 00:38:47 - agent1.inspector - INFO - 🔍 AGENT 1: UNIVERSAL DATA INSPECTION START
+2026-03-03 00:38:47 - agent1.inspector - INFO - ================================================================================
+
+2026-03-03 00:38:47 - agent1.inspector - INFO - Files to process : 1
+2026-03-03 00:38:47 - agent1.inspector - INFO -   - data\temp_aux_0_auxiliary_from_anonymized_expanded.csv
+2026-03-03 00:38:47 - agent1.inspector - INFO - 
+📊 Step 0: Merge survey files (RAW)
+2026-03-03 00:38:47 - agent1.inspector - INFO - No composite keys provided - merger will choose strategy
+2026-03-03 00:38:47 - agent1.inspector - INFO - ✓ Merge complete (RAW): 1080 rows × 9 columns (strategy = single_file)
+2026-03-03 00:38:47 - agent1.inspector - INFO - 
+✅ Step 1: Schema validation (RAW)
+2026-03-03 00:38:47 - agent1.inspector - INFO - ✓ Schema validation complete (RAW) - 1 issue(s) found
+2026-03-03 00:38:47 - agent1.inspector - INFO - 
+🔍 Step 2: Missing value analysis (RAW)
+2026-03-03 00:38:47 - agent1.inspector - INFO - ✓ Missing analysis complete (RAW) - 1 missing values (0.01%)
+2026-03-03 00:38:47 - agent1.inspector - INFO - 
+🧹 Step 3: Cleaning merged data (type-aware)
+2026-03-03 00:38:47 - agent1.inspector - INFO -    Initial shape: 1,080 rows × 9 columns
+2026-03-03 00:38:47 - agent1.inspector - INFO -    Initial nulls: 1
+2026-03-03 00:38:47 - agent1.inspector - INFO -    Final shape: 1,080 rows × 9 columns
+2026-03-03 00:38:47 - agent1.inspector - INFO - 
+📈 Step 4: Data profile (CLEANED)
+2026-03-03 00:38:47 - agent1.inspector - INFO - ✓ Data profile generated
+2026-03-03 00:38:47 - agent1.inspector - INFO - 
+📊 Step 5: Column summarisation (CLEANED)
+2026-03-03 00:38:47 - agent1.inspector - INFO - ✓ Column summary complete
+2026-03-03 00:38:47 - agent1.inspector - INFO - 
+🚨 Step 6: Anomaly detection (CLEANED)
+2026-03-03 00:38:47 - agent1.inspector - INFO - ✓ Anomaly detection complete – 2 potential issue(s)
+2026-03-03 00:38:47 - agent1.inspector - INFO - 💾 Merged dataset saved: data\merged_dataset.csv
+2026-03-03 00:38:47 - agent1.inspector - INFO - 
+================================================================================
+2026-03-03 00:38:47 - agent1.inspector - INFO - ✅ INSPECTION COMPLETE
+2026-03-03 00:38:47 - agent1.inspector - INFO - ================================================================================
+2026-03-03 00:38:47 - agent1.inspector - INFO - Final dataset    : 1080 rows × 9 columns
+2026-03-03 00:38:47 - agent1.inspector - INFO - Reports generated: JSON + merged CSV
+2026-03-03 12:45:42 - agent1.inspector - INFO - 🚀 Agent 1: Data Inspector initialized
+2026-03-03 12:45:42 - agent1.inspector - INFO - Output directory: F:\4th1st\New folder\New folder\agentic-reidentification-system\agentic-reidentification-system\data
+2026-03-03 12:45:42 - agent1.inspector - INFO - 
+================================================================================
+2026-03-03 12:45:42 - agent1.inspector - INFO - 🔍 AGENT 1: UNIVERSAL DATA INSPECTION START
+2026-03-03 12:45:42 - agent1.inspector - INFO - ================================================================================
+
+2026-03-03 12:45:42 - agent1.inspector - INFO - Files to process : 1
+2026-03-03 12:45:42 - agent1.inspector - INFO -   - data\temp_aux_0_auxiliary_from_anonymized_expanded.csv
+2026-03-03 12:45:42 - agent1.inspector - INFO - 
+📊 Step 0: Merge survey files (RAW)
+2026-03-03 12:45:42 - agent1.inspector - INFO - No composite keys provided - merger will choose strategy
+2026-03-03 12:45:42 - agent1.inspector - INFO - ✓ Merge complete (RAW): 1080 rows × 9 columns (strategy = single_file)
+2026-03-03 12:45:42 - agent1.inspector - INFO - 
+✅ Step 1: Schema validation (RAW)
+2026-03-03 12:45:42 - agent1.inspector - INFO - ✓ Schema validation complete (RAW) - 1 issue(s) found
+2026-03-03 12:45:42 - agent1.inspector - INFO - 
+🔍 Step 2: Missing value analysis (RAW)
+2026-03-03 12:45:42 - agent1.inspector - INFO - ✓ Missing analysis complete (RAW) - 1 missing values (0.01%)
+2026-03-03 12:45:42 - agent1.inspector - INFO - 
+🧹 Step 3: Cleaning merged data (type-aware)
+2026-03-03 12:45:42 - agent1.inspector - INFO -    Initial shape: 1,080 rows × 9 columns
+2026-03-03 12:45:42 - agent1.inspector - INFO -    Initial nulls: 1
+2026-03-03 12:45:42 - agent1.inspector - INFO -    Final shape: 1,080 rows × 9 columns
+2026-03-03 12:45:42 - agent1.inspector - INFO - 
+📈 Step 4: Data profile (CLEANED)
+2026-03-03 12:45:42 - agent1.inspector - INFO - ✓ Data profile generated
+2026-03-03 12:45:42 - agent1.inspector - INFO - 
+📊 Step 5: Column summarisation (CLEANED)
+2026-03-03 12:45:42 - agent1.inspector - INFO - ✓ Column summary complete
+2026-03-03 12:45:42 - agent1.inspector - INFO - 
+🚨 Step 6: Anomaly detection (CLEANED)
+2026-03-03 12:45:42 - agent1.inspector - INFO - ✓ Anomaly detection complete – 2 potential issue(s)
+2026-03-03 12:45:42 - agent1.inspector - INFO - 💾 Merged dataset saved: data\merged_dataset.csv
+2026-03-03 12:45:42 - agent1.inspector - INFO - 
+================================================================================
+2026-03-03 12:45:42 - agent1.inspector - INFO - ✅ INSPECTION COMPLETE
+2026-03-03 12:45:42 - agent1.inspector - INFO - ================================================================================
+2026-03-03 12:45:42 - agent1.inspector - INFO - Final dataset    : 1080 rows × 9 columns
+2026-03-03 12:45:42 - agent1.inspector - INFO - Reports generated: JSON + merged CSV
+2026-03-03 13:10:05 - agent1.inspector - INFO - 🚀 Agent 1: Data Inspector initialized
+2026-03-03 13:10:05 - agent1.inspector - INFO - Output directory: F:\4th1st\New folder\New folder\agentic-reidentification-system\agentic-reidentification-system\data
+2026-03-03 13:10:05 - agent1.inspector - INFO - 
+================================================================================
+2026-03-03 13:10:05 - agent1.inspector - INFO - 🔍 AGENT 1: UNIVERSAL DATA INSPECTION START
+2026-03-03 13:10:05 - agent1.inspector - INFO - ================================================================================
+
+2026-03-03 13:10:05 - agent1.inspector - INFO - Files to process : 1
+2026-03-03 13:10:05 - agent1.inspector - INFO -   - data\temp_aux_0_auxiliary_from_anonymized_expanded.csv
+2026-03-03 13:10:05 - agent1.inspector - INFO - 
+📊 Step 0: Merge survey files (RAW)
+2026-03-03 13:10:05 - agent1.inspector - INFO - No composite keys provided - merger will choose strategy
+2026-03-03 13:10:05 - agent1.inspector - INFO - ✓ Merge complete (RAW): 1080 rows × 9 columns (strategy = single_file)
+2026-03-03 13:10:05 - agent1.inspector - INFO - 
+✅ Step 1: Schema validation (RAW)
+2026-03-03 13:10:05 - agent1.inspector - INFO - ✓ Schema validation complete (RAW) - 1 issue(s) found
+2026-03-03 13:10:05 - agent1.inspector - INFO - 
+🔍 Step 2: Missing value analysis (RAW)
+2026-03-03 13:10:05 - agent1.inspector - INFO - ✓ Missing analysis complete (RAW) - 1 missing values (0.01%)
+2026-03-03 13:10:05 - agent1.inspector - INFO - 
+🧹 Step 3: Cleaning merged data (type-aware)
+2026-03-03 13:10:05 - agent1.inspector - INFO -    Initial shape: 1,080 rows × 9 columns
+2026-03-03 13:10:05 - agent1.inspector - INFO -    Initial nulls: 1
+2026-03-03 13:10:05 - agent1.inspector - INFO -    Final shape: 1,080 rows × 9 columns
+2026-03-03 13:10:05 - agent1.inspector - INFO - 
+📈 Step 4: Data profile (CLEANED)
+2026-03-03 13:10:05 - agent1.inspector - INFO - ✓ Data profile generated
+2026-03-03 13:10:05 - agent1.inspector - INFO - 
+📊 Step 5: Column summarisation (CLEANED)
+2026-03-03 13:10:05 - agent1.inspector - INFO - ✓ Column summary complete
+2026-03-03 13:10:05 - agent1.inspector - INFO - 
+🚨 Step 6: Anomaly detection (CLEANED)
+2026-03-03 13:10:05 - agent1.inspector - INFO - ✓ Anomaly detection complete – 2 potential issue(s)
+2026-03-03 13:10:05 - agent1.inspector - INFO - 💾 Merged dataset saved: data\merged_dataset.csv
+2026-03-03 13:10:05 - agent1.inspector - INFO - 
+================================================================================
+2026-03-03 13:10:05 - agent1.inspector - INFO - ✅ INSPECTION COMPLETE
+2026-03-03 13:10:05 - agent1.inspector - INFO - ================================================================================
+2026-03-03 13:10:05 - agent1.inspector - INFO - Final dataset    : 1080 rows × 9 columns
+2026-03-03 13:10:05 - agent1.inspector - INFO - Reports generated: JSON + merged CSV
+2026-03-03 13:17:28 - agent1.inspector - INFO - 🚀 Agent 1: Data Inspector initialized
+2026-03-03 13:17:28 - agent1.inspector - INFO - Output directory: F:\4th1st\New folder\New folder\agentic-reidentification-system\agentic-reidentification-system\data
+2026-03-03 13:17:28 - agent1.inspector - INFO - 
+================================================================================
+2026-03-03 13:17:28 - agent1.inspector - INFO - 🔍 AGENT 1: UNIVERSAL DATA INSPECTION START
+2026-03-03 13:17:28 - agent1.inspector - INFO - ================================================================================
+
+2026-03-03 13:17:28 - agent1.inspector - INFO - Files to process : 1
+2026-03-03 13:17:28 - agent1.inspector - INFO -   - data\temp_aux_0_auxiliary_from_anonymized_expanded.csv
+2026-03-03 13:17:28 - agent1.inspector - INFO - 
+📊 Step 0: Merge survey files (RAW)
+2026-03-03 13:17:28 - agent1.inspector - INFO - No composite keys provided - merger will choose strategy
+2026-03-03 13:17:28 - agent1.inspector - INFO - ✓ Merge complete (RAW): 1080 rows × 9 columns (strategy = single_file)
+2026-03-03 13:17:28 - agent1.inspector - INFO - 
+✅ Step 1: Schema validation (RAW)
+2026-03-03 13:17:28 - agent1.inspector - INFO - ✓ Schema validation complete (RAW) - 1 issue(s) found
+2026-03-03 13:17:28 - agent1.inspector - INFO - 
+🔍 Step 2: Missing value analysis (RAW)
+2026-03-03 13:17:28 - agent1.inspector - INFO - ✓ Missing analysis complete (RAW) - 1 missing values (0.01%)
+2026-03-03 13:17:28 - agent1.inspector - INFO - 
+🧹 Step 3: Cleaning merged data (type-aware)
+2026-03-03 13:17:28 - agent1.inspector - INFO -    Initial shape: 1,080 rows × 9 columns
+2026-03-03 13:17:28 - agent1.inspector - INFO -    Initial nulls: 1
+2026-03-03 13:17:28 - agent1.inspector - INFO -    Final shape: 1,080 rows × 9 columns
+2026-03-03 13:17:28 - agent1.inspector - INFO - 
+📈 Step 4: Data profile (CLEANED)
+2026-03-03 13:17:28 - agent1.inspector - INFO - ✓ Data profile generated
+2026-03-03 13:17:28 - agent1.inspector - INFO - 
+📊 Step 5: Column summarisation (CLEANED)
+2026-03-03 13:17:28 - agent1.inspector - INFO - ✓ Column summary complete
+2026-03-03 13:17:28 - agent1.inspector - INFO - 
+🚨 Step 6: Anomaly detection (CLEANED)
+2026-03-03 13:17:28 - agent1.inspector - INFO - ✓ Anomaly detection complete – 2 potential issue(s)
+2026-03-03 13:17:28 - agent1.inspector - INFO - 💾 Merged dataset saved: data\merged_dataset.csv
+2026-03-03 13:17:28 - agent1.inspector - INFO - 
+================================================================================
+2026-03-03 13:17:28 - agent1.inspector - INFO - ✅ INSPECTION COMPLETE
+2026-03-03 13:17:28 - agent1.inspector - INFO - ================================================================================
+2026-03-03 13:17:28 - agent1.inspector - INFO - Final dataset    : 1080 rows × 9 columns
+2026-03-03 13:17:28 - agent1.inspector - INFO - Reports generated: JSON + merged CSV
+2026-03-03 16:26:52 - agent1.inspector - INFO - 🚀 Agent 1: Data Inspector initialized
+2026-03-03 16:26:52 - agent1.inspector - INFO - Output directory: F:\4th1st\New folder\New folder\agentic-reidentification-system\agentic-reidentification-system\data
+2026-03-03 16:26:52 - agent1.inspector - INFO - 
+================================================================================
+2026-03-03 16:26:52 - agent1.inspector - INFO - 🔍 AGENT 1: UNIVERSAL DATA INSPECTION START
+2026-03-03 16:26:52 - agent1.inspector - INFO - ================================================================================
+
+2026-03-03 16:26:52 - agent1.inspector - INFO - Files to process : 1
+2026-03-03 16:26:52 - agent1.inspector - INFO -   - data\temp_aux_0_auxiliary_from_anonymized_expanded.csv
+2026-03-03 16:26:52 - agent1.inspector - INFO - 
+📊 Step 0: Merge survey files (RAW)
+2026-03-03 16:26:52 - agent1.inspector - INFO - No composite keys provided - merger will choose strategy
+2026-03-03 16:26:52 - agent1.inspector - INFO - ✓ Merge complete (RAW): 1080 rows × 9 columns (strategy = single_file)
+2026-03-03 16:26:52 - agent1.inspector - INFO - 
+✅ Step 1: Schema validation (RAW)
+2026-03-03 16:26:52 - agent1.inspector - INFO - ✓ Schema validation complete (RAW) - 1 issue(s) found
+2026-03-03 16:26:52 - agent1.inspector - INFO - 
+🔍 Step 2: Missing value analysis (RAW)
+2026-03-03 16:26:52 - agent1.inspector - INFO - ✓ Missing analysis complete (RAW) - 1 missing values (0.01%)
+2026-03-03 16:26:52 - agent1.inspector - INFO - 
+🧹 Step 3: Cleaning merged data (type-aware)
+2026-03-03 16:26:52 - agent1.inspector - INFO -    Initial shape: 1,080 rows × 9 columns
+2026-03-03 16:26:52 - agent1.inspector - INFO -    Initial nulls: 1
+2026-03-03 16:26:52 - agent1.inspector - INFO -    Final shape: 1,080 rows × 9 columns
+2026-03-03 16:26:52 - agent1.inspector - INFO - 
+📈 Step 4: Data profile (CLEANED)
+2026-03-03 16:26:52 - agent1.inspector - INFO - ✓ Data profile generated
+2026-03-03 16:26:52 - agent1.inspector - INFO - 
+📊 Step 5: Column summarisation (CLEANED)
+2026-03-03 16:26:52 - agent1.inspector - INFO - ✓ Column summary complete
+2026-03-03 16:26:52 - agent1.inspector - INFO - 
+🚨 Step 6: Anomaly detection (CLEANED)
+2026-03-03 16:26:53 - agent1.inspector - INFO - ✓ Anomaly detection complete – 2 potential issue(s)
+2026-03-03 16:26:53 - agent1.inspector - INFO - 💾 Merged dataset saved: data\merged_dataset.csv
+2026-03-03 16:26:53 - agent1.inspector - INFO - 
+================================================================================
+2026-03-03 16:26:53 - agent1.inspector - INFO - ✅ INSPECTION COMPLETE
+2026-03-03 16:26:53 - agent1.inspector - INFO - ================================================================================
+2026-03-03 16:26:53 - agent1.inspector - INFO - Final dataset    : 1080 rows × 9 columns
+2026-03-03 16:26:53 - agent1.inspector - INFO - Reports generated: JSON + merged CSV
+2026-03-03 16:32:49 - agent1.inspector - INFO - 🚀 Agent 1: Data Inspector initialized
+2026-03-03 16:32:49 - agent1.inspector - INFO - Output directory: F:\4th1st\New folder\New folder\agentic-reidentification-system\agentic-reidentification-system\data
+2026-03-03 16:32:49 - agent1.inspector - INFO - 
+================================================================================
+2026-03-03 16:32:49 - agent1.inspector - INFO - 🔍 AGENT 1: UNIVERSAL DATA INSPECTION START
+2026-03-03 16:32:49 - agent1.inspector - INFO - ================================================================================
+
+2026-03-03 16:32:49 - agent1.inspector - INFO - Files to process : 1
+2026-03-03 16:32:49 - agent1.inspector - INFO -   - data\temp_aux_0_auxiliary_from_anonymized_expanded.csv
+2026-03-03 16:32:49 - agent1.inspector - INFO - 
+📊 Step 0: Merge survey files (RAW)
+2026-03-03 16:32:49 - agent1.inspector - INFO - No composite keys provided - merger will choose strategy
+2026-03-03 16:32:49 - agent1.inspector - INFO - ✓ Merge complete (RAW): 1080 rows × 9 columns (strategy = single_file)
+2026-03-03 16:32:49 - agent1.inspector - INFO - 
+✅ Step 1: Schema validation (RAW)
+2026-03-03 16:32:49 - agent1.inspector - INFO - ✓ Schema validation complete (RAW) - 1 issue(s) found
+2026-03-03 16:32:49 - agent1.inspector - INFO - 
+🔍 Step 2: Missing value analysis (RAW)
+2026-03-03 16:32:49 - agent1.inspector - INFO - ✓ Missing analysis complete (RAW) - 1 missing values (0.01%)
+2026-03-03 16:32:49 - agent1.inspector - INFO - 
+🧹 Step 3: Cleaning merged data (type-aware)
+2026-03-03 16:32:49 - agent1.inspector - INFO -    Initial shape: 1,080 rows × 9 columns
+2026-03-03 16:32:49 - agent1.inspector - INFO -    Initial nulls: 1
+2026-03-03 16:32:49 - agent1.inspector - INFO -    Final shape: 1,080 rows × 9 columns
+2026-03-03 16:32:49 - agent1.inspector - INFO - 
+📈 Step 4: Data profile (CLEANED)
+2026-03-03 16:32:49 - agent1.inspector - INFO - ✓ Data profile generated
+2026-03-03 16:32:49 - agent1.inspector - INFO - 
+📊 Step 5: Column summarisation (CLEANED)
+2026-03-03 16:32:49 - agent1.inspector - INFO - ✓ Column summary complete
+2026-03-03 16:32:49 - agent1.inspector - INFO - 
+🚨 Step 6: Anomaly detection (CLEANED)
+2026-03-03 16:32:49 - agent1.inspector - INFO - ✓ Anomaly detection complete – 2 potential issue(s)
+2026-03-03 16:32:49 - agent1.inspector - INFO - 💾 Merged dataset saved: data\merged_dataset.csv
+2026-03-03 16:32:49 - agent1.inspector - INFO - 
+================================================================================
+2026-03-03 16:32:49 - agent1.inspector - INFO - ✅ INSPECTION COMPLETE
+2026-03-03 16:32:49 - agent1.inspector - INFO - ================================================================================
+2026-03-03 16:32:49 - agent1.inspector - INFO - Final dataset    : 1080 rows × 9 columns
+2026-03-03 16:32:49 - agent1.inspector - INFO - Reports generated: JSON + merged CSV
+2026-03-03 19:13:45 - agent1.inspector - INFO - 🚀 Agent 1: Data Inspector initialized
+2026-03-03 19:13:45 - agent1.inspector - INFO - Output directory: F:\4th1st\New folder\New folder\agentic-reidentification-system\agentic-reidentification-system\data
+2026-03-03 19:13:45 - agent1.inspector - INFO - 
+================================================================================
+2026-03-03 19:13:45 - agent1.inspector - INFO - 🔍 AGENT 1: UNIVERSAL DATA INSPECTION START
+2026-03-03 19:13:45 - agent1.inspector - INFO - ================================================================================
+
+2026-03-03 19:13:45 - agent1.inspector - INFO - Files to process : 1
+2026-03-03 19:13:45 - agent1.inspector - INFO -   - data\temp_aux_0_auxiliary_from_anonymized_expanded.csv
+2026-03-03 19:13:45 - agent1.inspector - INFO - 
+📊 Step 0: Merge survey files (RAW)
+2026-03-03 19:13:45 - agent1.inspector - INFO - No composite keys provided - merger will choose strategy
+2026-03-03 19:13:45 - agent1.inspector - INFO - ✓ Merge complete (RAW): 1080 rows × 9 columns (strategy = single_file)
+2026-03-03 19:13:45 - agent1.inspector - INFO - 
+✅ Step 1: Schema validation (RAW)
+2026-03-03 19:13:45 - agent1.inspector - INFO - ✓ Schema validation complete (RAW) - 1 issue(s) found
+2026-03-03 19:13:45 - agent1.inspector - INFO - 
+🔍 Step 2: Missing value analysis (RAW)
+2026-03-03 19:13:45 - agent1.inspector - INFO - ✓ Missing analysis complete (RAW) - 1 missing values (0.01%)
+2026-03-03 19:13:45 - agent1.inspector - INFO - 
+🧹 Step 3: Cleaning merged data (type-aware)
+2026-03-03 19:13:45 - agent1.inspector - INFO -    Initial shape: 1,080 rows × 9 columns
+2026-03-03 19:13:45 - agent1.inspector - INFO -    Initial nulls: 1
+2026-03-03 19:13:45 - agent1.inspector - INFO -    Final shape: 1,080 rows × 9 columns
+2026-03-03 19:13:45 - agent1.inspector - INFO - 
+📈 Step 4: Data profile (CLEANED)
+2026-03-03 19:13:45 - agent1.inspector - INFO - ✓ Data profile generated
+2026-03-03 19:13:45 - agent1.inspector - INFO - 
+📊 Step 5: Column summarisation (CLEANED)
+2026-03-03 19:13:45 - agent1.inspector - INFO - ✓ Column summary complete
+2026-03-03 19:13:45 - agent1.inspector - INFO - 
+🚨 Step 6: Anomaly detection (CLEANED)
+2026-03-03 19:13:45 - agent1.inspector - INFO - ✓ Anomaly detection complete – 2 potential issue(s)
+2026-03-03 19:13:45 - agent1.inspector - INFO - 💾 Merged dataset saved: data\merged_dataset.csv
+2026-03-03 19:13:45 - agent1.inspector - INFO - 
+================================================================================
+2026-03-03 19:13:45 - agent1.inspector - INFO - ✅ INSPECTION COMPLETE
+2026-03-03 19:13:45 - agent1.inspector - INFO - ================================================================================
+2026-03-03 19:13:45 - agent1.inspector - INFO - Final dataset    : 1080 rows × 9 columns
+2026-03-03 19:13:45 - agent1.inspector - INFO - Reports generated: JSON + merged CSV
+2026-03-03 19:21:40 - agent1.inspector - INFO - 🚀 Agent 1: Data Inspector initialized
+2026-03-03 19:21:40 - agent1.inspector - INFO - Output directory: F:\4th1st\New folder\New folder\agentic-reidentification-system\agentic-reidentification-system\data
+2026-03-03 19:21:40 - agent1.inspector - INFO - 
+================================================================================
+2026-03-03 19:21:40 - agent1.inspector - INFO - 🔍 AGENT 1: UNIVERSAL DATA INSPECTION START
+2026-03-03 19:21:40 - agent1.inspector - INFO - ================================================================================
+
+2026-03-03 19:21:40 - agent1.inspector - INFO - Files to process : 1
+2026-03-03 19:21:40 - agent1.inspector - INFO -   - data\temp_aux_0_auxiliary_from_anonymized_expanded.csv
+2026-03-03 19:21:40 - agent1.inspector - INFO - 
+📊 Step 0: Merge survey files (RAW)
+2026-03-03 19:21:40 - agent1.inspector - INFO - No composite keys provided - merger will choose strategy
+2026-03-03 19:21:40 - agent1.inspector - INFO - ✓ Merge complete (RAW): 1080 rows × 9 columns (strategy = single_file)
+2026-03-03 19:21:40 - agent1.inspector - INFO - 
+✅ Step 1: Schema validation (RAW)
+2026-03-03 19:21:40 - agent1.inspector - INFO - ✓ Schema validation complete (RAW) - 1 issue(s) found
+2026-03-03 19:21:40 - agent1.inspector - INFO - 
+🔍 Step 2: Missing value analysis (RAW)
+2026-03-03 19:21:40 - agent1.inspector - INFO - ✓ Missing analysis complete (RAW) - 1 missing values (0.01%)
+2026-03-03 19:21:40 - agent1.inspector - INFO - 
+🧹 Step 3: Cleaning merged data (type-aware)
+2026-03-03 19:21:40 - agent1.inspector - INFO -    Initial shape: 1,080 rows × 9 columns
+2026-03-03 19:21:40 - agent1.inspector - INFO -    Initial nulls: 1
+2026-03-03 19:21:40 - agent1.inspector - INFO -    Final shape: 1,080 rows × 9 columns
+2026-03-03 19:21:40 - agent1.inspector - INFO - 
+📈 Step 4: Data profile (CLEANED)
+2026-03-03 19:21:40 - agent1.inspector - INFO - ✓ Data profile generated
+2026-03-03 19:21:40 - agent1.inspector - INFO - 
+📊 Step 5: Column summarisation (CLEANED)
+2026-03-03 19:21:40 - agent1.inspector - INFO - ✓ Column summary complete
+2026-03-03 19:21:40 - agent1.inspector - INFO - 
+🚨 Step 6: Anomaly detection (CLEANED)
+2026-03-03 19:21:40 - agent1.inspector - INFO - ✓ Anomaly detection complete – 2 potential issue(s)
+2026-03-03 19:21:40 - agent1.inspector - INFO - 💾 Merged dataset saved: data\merged_dataset.csv
+2026-03-03 19:21:40 - agent1.inspector - INFO - 
+================================================================================
+2026-03-03 19:21:40 - agent1.inspector - INFO - ✅ INSPECTION COMPLETE
+2026-03-03 19:21:40 - agent1.inspector - INFO - ================================================================================
+2026-03-03 19:21:40 - agent1.inspector - INFO - Final dataset    : 1080 rows × 9 columns
+2026-03-03 19:21:40 - agent1.inspector - INFO - Reports generated: JSON + merged CSV

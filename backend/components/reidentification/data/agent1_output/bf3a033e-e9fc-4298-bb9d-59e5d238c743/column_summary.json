@@ -1,0 +1,191 @@
+{
+  "sex": {
+    "data_type": "str",
+    "total_values": 76,
+    "unique_values": 2,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "most_frequent": "Male",
+    "value_counts": {
+      "Male": 42,
+      "Female": 34
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 2.631578947368421
+  },
+  "birth_year": {
+    "data_type": "int64",
+    "total_values": 76,
+    "unique_values": 48,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "min": 0.0,
+    "max": 99.0,
+    "mean": 56.0,
+    "median": 67.0,
+    "std": 33.44806920187372,
+    "range": 99.0,
+    "iqr": 63.5,
+    "quartiles": {
+      "25%": 16.75,
+      "50%": 67.0,
+      "75%": 80.25
+    },
+    "outliers": {
+      "count": 0,
+      "percentage": 0.0,
+      "bounds": {
+        "lower": -78.5,
+        "upper": 175.5
+      }
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 63.1578947368421,
+    "extreme_outlier_percentage": 0.0
+  },
+  "birth_month": {
+    "data_type": "int64",
+    "total_values": 76,
+    "unique_values": 12,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "min": 1.0,
+    "max": 12.0,
+    "mean": 6.118421052631579,
+    "median": 6.0,
+    "std": 2.979785698169844,
+    "range": 11.0,
+    "iqr": 4.0,
+    "quartiles": {
+      "25%": 4.0,
+      "50%": 6.0,
+      "75%": 8.0
+    },
+    "outliers": {
+      "count": 0,
+      "percentage": 0.0,
+      "bounds": {
+        "lower": -2.0,
+        "upper": 14.0
+      }
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 15.789473684210526,
+    "extreme_outlier_percentage": 0.0
+  },
+  "age": {
+    "data_type": "int64",
+    "total_values": 76,
+    "unique_values": 45,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "min": 0.0,
+    "max": 82.0,
+    "mean": 35.39473684210526,
+    "median": 35.0,
+    "std": 20.27220030640872,
+    "range": 82.0,
+    "iqr": 32.0,
+    "quartiles": {
+      "25%": 18.0,
+      "50%": 35.0,
+      "75%": 50.0
+    },
+    "outliers": {
+      "count": 0,
+      "percentage": 0.0,
+      "bounds": {
+        "lower": -30.0,
+        "upper": 98.0
+      }
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 59.210526315789465,
+    "extreme_outlier_percentage": 0.0
+  },
+  "ethnicity": {
+    "data_type": "str",
+    "total_values": 76,
+    "unique_values": 3,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "most_frequent": "Sinhala",
+    "value_counts": {
+      "Sinhala": 63,
+      "Sri Lankan Tamil": 12,
+      "Sri Lankan Moors/Muslim": 1
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 3.9473684210526314
+  },
+  "religion": {
+    "data_type": "str",
+    "total_values": 76,
+    "unique_values": 4,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "most_frequent": "Buddhist",
+    "value_counts": {
+      "Buddhist": 44,
+      "Roman Catholic": 27,
+      "Other Christian": 4,
+      "Hindu": 1
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 5.263157894736842
+  },
+  "marital_status": {
+    "data_type": "str",
+    "total_values": 76,
+    "unique_values": 4,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "most_frequent": "Currently Married (Registered)",
+    "value_counts": {
+      "Currently Married (Registered)": 41,
+      "Never Married": 29,
+      "Widowed": 5,
+      "Legally Separated": 1
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 5.263157894736842
+  },
+  "curr_educ": {
+    "data_type": "str",
+    "total_values": 76,
+    "unique_values": 4,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "most_frequent": "Does not attend",
+    "value_counts": {
+      "Does not attend": 63,
+      "School": 11,
+      "Pending G.C.E.(O/L or A/L)": 1,
+      "Pre School": 1
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 5.263157894736842
+  },
+  "education": {
+    "data_type": "str",
+    "total_values": 76,
+    "unique_values": 15,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "most_frequent": "Passed Grade 10",
+    "value_counts": {
+      "Passed Grade 10": 23,
+      "Passed G.C.E (A/L) or equivalent": 10,
+      "Passed G.C.E (O/L) or equivalent": 7,
+      "Passed Grade 5": 6,
+      "Passed Grade 7": 5,
+      "Passed Grade 12": 4,
+      "Passed Grade 6": 3,
+      "Passed Grade 2": 3,
+      "Passed Grade 9": 3,
+      "Passed Grade 1": 3
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 19.736842105263158
+  }
+}

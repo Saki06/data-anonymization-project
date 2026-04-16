@@ -1,0 +1,27 @@
+[
+  {
+    "record_id": "312",
+    "risk_score": 0.5465082865083555,
+    "explanation": "This record is classified as MEDIUM risk based on model risk score (0.5465). SHAP/LLM explanation was unavailable, so this is a fallback summary from available risk outputs."
+  },
+  {
+    "record_id": "1812",
+    "risk_score": 0.5453775784766929,
+    "explanation": "This record is classified as MEDIUM risk based on model risk score (0.5454). SHAP/LLM explanation was unavailable, so this is a fallback summary from available risk outputs."
+  },
+  {
+    "record_id": "676",
+    "risk_score": 0.5418569354611874,
+    "explanation": "This record is classified as MEDIUM risk based on model risk score (0.5419). SHAP/LLM explanation was unavailable, so this is a fallback summary from available risk outputs."
+  },
+  {
+    "record_id": "1952",
+    "risk_score": 0.5413283951898009,
+    "explanation": "This record is classified as MEDIUM risk based on model risk score (0.5413). SHAP/LLM explanation was unavailable, so this is a fallback summary from available risk outputs."
+  },
+  {
+    "record_id": "543",
+    "risk_score": 0.5407307899645921,
+    "explanation": "This record is classified as MEDIUM risk based on model risk score (0.5407). SHAP/LLM explanation was unavailable, so this is a fallback summary from available risk outputs."
+  }
+]

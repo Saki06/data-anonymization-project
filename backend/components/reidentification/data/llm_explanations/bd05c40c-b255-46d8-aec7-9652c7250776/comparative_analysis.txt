@@ -1,0 +1,3 @@
+The high-risk group has a higher value in the _risk_tmp column. This means they are more likely to face certain problems or challenges. 
+
+The low-risk group has a lower value in the same _risk_tmp column. This suggests they are less likely to encounter those issues. Comparing these two groups helps understand different levels of risk.

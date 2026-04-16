@@ -1,0 +1,12 @@
+{
+  "total_columns": 9,
+  "total_rows": 1080,
+  "duplicate_columns": [],
+  "empty_columns": [],
+  "constant_columns": [
+    "district"
+  ],
+  "high_null_columns": [],
+  "validation_passed": false,
+  "issues_found": 1
+}

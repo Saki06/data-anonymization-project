@@ -1,0 +1,10 @@
+DATASET-LEVEL PRIVACY RISK SUMMARY
+============================================================
+
+The dataset has a total of 60 records. Every record has a high risk score, which means all of them are considered high risk. There are no medium or low risk records. This shows that every entry in the dataset poses a significant privacy risk.
+
+The columns that matter most for risk are r2_school_education, sector, and type_of_school. The r2_school_education column has the highest impact on risk. This means the information about education can help identify individuals. The sector and type_of_school columns also contribute to the risk. When these columns are combined, they can create a clearer picture of someone's identity.
+
+To reduce privacy risk, the dataset needs stronger anonymization. For example, consider grouping ages into broader ranges. You could also broaden categories in the sector or type_of_school columns. Removing rare values can help too. These steps can make it harder to link records back to specific individuals.
+
+Risk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability.

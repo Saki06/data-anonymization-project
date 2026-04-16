@@ -1,0 +1,10 @@
+DATASET-LEVEL PRIVACY RISK SUMMARY
+============================================================
+
+This dataset has 51 records. All of them are considered medium risk. There are no high or low risk records. This means that every record has some level of privacy concern.
+
+The column that matters most for risk is sector, with a score of 0.0537. This column is important because it can reveal sensitive information about the type of business or industry a person is connected to. When combined with other details, it can increase the chance of someone being linked to their data.
+
+To reduce privacy risks, some columns need stronger anonymization. Grouping ages into ranges, like 20-30 or 30-40, can help. Broadening categories in the sector column can also make it safer. Removing rare values that appear only a few times can further protect privacy. These steps can help keep the information more secure.
+
+Risk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability.

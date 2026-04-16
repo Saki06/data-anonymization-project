@@ -1,0 +1,468 @@
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO - Agent 6: Risk scoring started
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO - Loading ML attacker model from: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO - Loading pair dataset from: data\pairs\pair_dataset.csv
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO -    Loaded 1,954 rows × 25 columns
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO - Computing attack probabilities for each pair...
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO -    Using 21 feature columns for scoring.
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO -    Example scores:
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO -    attack_score
+0      0.999913
+1      0.997898
+2      0.999913
+3      0.999929
+4      0.999840
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO - Aggregating scores at anonymized-record level...
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO - 📊 Calculating dynamic risk thresholds based on data distribution...
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO -    Dynamic thresholds calculated:
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO -    CRITICAL risk: score >= 0.9999 (95th percentile)
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO -    HIGH risk:     score >= 0.9999 and < 0.9999 (80th-95th percentile)
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO -    MEDIUM risk:   score >= 0.9991 and < 0.9999 (50th-80th percentile)
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO -    LOW risk:      score < 0.9991 (below 50th percentile)
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO -    Sample of per-record risk:
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO -    anon_id  max_attack_score  mean_attack_score  pair_count risk_level
+0      0.0          0.999913           0.999913           1       high
+1      1.0          0.997898           0.997898           1        low
+2      2.0          0.999913           0.999913           1       high
+3      3.0          0.999913           0.999913           1       high
+4      4.0          0.998384           0.998384           1        low
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO - Creating risk summary statistics...
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO - 
+============================================================
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO - 📊 RISK ASSESSMENT SUMMARY (Dynamic Thresholds)
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO - ============================================================
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO - Total records assessed: 977
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO - 
+Risk Distribution:
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO -   CRITICAL: 57 (5.8%) - Score >= 0.9999
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO -   HIGH:     220 (22.5%) - Score >= 0.9999
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO -   MEDIUM:   212 (21.7%) - Score >= 0.9991
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO -   LOW:      488 (49.9%) - Score < 0.9991
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO - 
+Score Statistics:
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO -   Average: 0.9506
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO -   Maximum: 1.0000
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO -   Minimum: 0.0706
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO - ============================================================
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO - Saved pair-level scores:   data\risk_scores\agent6\risk_pairs_with_scores.csv
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO - Saved record-level scores: data\risk_scores\agent6\risk_per_record.csv
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO - Saved risk summary:        data\risk_scores\agent6\risk_summary.json
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO - Agent 6: Risk scoring complete
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO -    High risk records:   220
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO -    Medium risk records: 212
+2026-03-03 00:26:39 - agent6.risk_scorer - INFO -    Low risk records:    488
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO - Agent 6: Risk scoring started
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO - Loading ML attacker model from: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO - Loading pair dataset from: data\pairs\pair_dataset.csv
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO -    Loaded 1,954 rows × 25 columns
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO - Computing attack probabilities for each pair...
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO -    Using 21 feature columns for scoring.
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO -    Example scores:
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO -    attack_score
+0      0.999913
+1      0.997898
+2      0.999913
+3      0.999929
+4      0.999840
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO - Aggregating scores at anonymized-record level...
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO - 📊 Calculating dynamic risk thresholds based on data distribution...
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO -    Dynamic thresholds calculated:
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO -    CRITICAL risk: score >= 0.9999 (95th percentile)
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO -    HIGH risk:     score >= 0.9999 and < 0.9999 (80th-95th percentile)
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO -    MEDIUM risk:   score >= 0.9991 and < 0.9999 (50th-80th percentile)
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO -    LOW risk:      score < 0.9991 (below 50th percentile)
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO -    Sample of per-record risk:
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO -    anon_id  max_attack_score  mean_attack_score  pair_count risk_level
+0      0.0          0.999913           0.999913           1       high
+1      1.0          0.997898           0.997898           1        low
+2      2.0          0.999913           0.999913           1       high
+3      3.0          0.999913           0.999913           1       high
+4      4.0          0.998384           0.998384           1        low
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO - Creating risk summary statistics...
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO - 
+============================================================
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO - 📊 RISK ASSESSMENT SUMMARY (Dynamic Thresholds)
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO - ============================================================
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO - Total records assessed: 977
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO - 
+Risk Distribution:
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO -   CRITICAL: 57 (5.8%) - Score >= 0.9999
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO -   HIGH:     220 (22.5%) - Score >= 0.9999
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO -   MEDIUM:   212 (21.7%) - Score >= 0.9991
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO -   LOW:      488 (49.9%) - Score < 0.9991
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO - 
+Score Statistics:
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO -   Average: 0.9506
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO -   Maximum: 1.0000
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO -   Minimum: 0.0706
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO - ============================================================
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO - Saved pair-level scores:   data\risk_scores\agent6\risk_pairs_with_scores.csv
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO - Saved record-level scores: data\risk_scores\agent6\risk_per_record.csv
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO - Saved risk summary:        data\risk_scores\agent6\risk_summary.json
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO - Agent 6: Risk scoring complete
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO -    High risk records:   220
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO -    Medium risk records: 212
+2026-03-03 00:39:10 - agent6.risk_scorer - INFO -    Low risk records:    488
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO - Agent 6: Risk scoring started
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO - Loading ML attacker model from: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO - Loading pair dataset from: data\pairs\pair_dataset.csv
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO -    Loaded 1,954 rows × 25 columns
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO - Computing attack probabilities for each pair...
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO -    Using 21 feature columns for scoring.
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO -    Example scores:
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO -    attack_score
+0      0.999913
+1      0.997898
+2      0.999913
+3      0.999929
+4      0.999840
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO - Aggregating scores at anonymized-record level...
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO - 📊 Calculating dynamic risk thresholds based on data distribution...
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO -    Dynamic thresholds calculated:
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO -    CRITICAL risk: score >= 0.9999 (95th percentile)
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO -    HIGH risk:     score >= 0.9999 and < 0.9999 (80th-95th percentile)
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO -    MEDIUM risk:   score >= 0.9991 and < 0.9999 (50th-80th percentile)
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO -    LOW risk:      score < 0.9991 (below 50th percentile)
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO -    Sample of per-record risk:
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO -    anon_id  max_attack_score  mean_attack_score  pair_count risk_level
+0      0.0          0.999913           0.999913           1       high
+1      1.0          0.997898           0.997898           1        low
+2      2.0          0.999913           0.999913           1       high
+3      3.0          0.999913           0.999913           1       high
+4      4.0          0.998384           0.998384           1        low
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO - Creating risk summary statistics...
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO - 
+============================================================
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO - 📊 RISK ASSESSMENT SUMMARY (Dynamic Thresholds)
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO - ============================================================
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO - Total records assessed: 977
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO - 
+Risk Distribution:
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO -   CRITICAL: 57 (5.8%) - Score >= 0.9999
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO -   HIGH:     220 (22.5%) - Score >= 0.9999
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO -   MEDIUM:   212 (21.7%) - Score >= 0.9991
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO -   LOW:      488 (49.9%) - Score < 0.9991
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO - 
+Score Statistics:
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO -   Average: 0.9506
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO -   Maximum: 1.0000
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO -   Minimum: 0.0706
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO - ============================================================
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO - Saved pair-level scores:   data\risk_scores\agent6\risk_pairs_with_scores.csv
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO - Saved record-level scores: data\risk_scores\agent6\risk_per_record.csv
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO - Saved risk summary:        data\risk_scores\agent6\risk_summary.json
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO - Agent 6: Risk scoring complete
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO -    High risk records:   220
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO -    Medium risk records: 212
+2026-03-03 12:46:07 - agent6.risk_scorer - INFO -    Low risk records:    488
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO - Agent 6: Risk scoring started
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO - Loading ML attacker model from: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO - Loading pair dataset from: data\pairs\pair_dataset.csv
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO -    Loaded 1,954 rows × 25 columns
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO - Computing attack probabilities for each pair...
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO -    Using 21 feature columns for scoring.
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO -    Example scores:
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO -    attack_score
+0      0.996258
+1      0.977872
+2      0.996973
+3      0.996909
+4      0.995273
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO - Aggregating scores at anonymized-record level...
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO - 📊 Calculating dynamic risk thresholds based on data distribution...
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO -    Dynamic thresholds calculated:
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO -    CRITICAL risk: score >= 0.9964 (95th percentile)
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO -    HIGH risk:     score >= 0.9963 and < 0.9964 (80th-95th percentile)
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO -    MEDIUM risk:   score >= 0.9930 and < 0.9963 (50th-80th percentile)
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO -    LOW risk:      score < 0.9930 (below 50th percentile)
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO -    Sample of per-record risk:
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO -    anon_id  max_attack_score  mean_attack_score  pair_count risk_level
+0      0.0          0.996258           0.996258           1       high
+1      1.0          0.977872           0.977872           1        low
+2      2.0          0.996258           0.996258           1       high
+3      3.0          0.996258           0.996258           1       high
+4      4.0          0.984377           0.984377           1        low
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO - Creating risk summary statistics...
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO - 
+============================================================
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO - 📊 RISK ASSESSMENT SUMMARY (Dynamic Thresholds)
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO - ============================================================
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO - Total records assessed: 977
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO - 
+Risk Distribution:
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO -   CRITICAL: 75 (7.7%) - Score >= 0.9964
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO -   HIGH:     235 (24.1%) - Score >= 0.9963
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO -   MEDIUM:   179 (18.3%) - Score >= 0.9930
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO -   LOW:      488 (49.9%) - Score < 0.9930
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO - 
+Score Statistics:
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO -   Average: 0.9212
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO -   Maximum: 0.9982
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO -   Minimum: 0.1649
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO - ============================================================
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO - Saved pair-level scores:   data\risk_scores\agent6\risk_pairs_with_scores.csv
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO - Saved record-level scores: data\risk_scores\agent6\risk_per_record.csv
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO - Saved risk summary:        data\risk_scores\agent6\risk_summary.json
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO - Agent 6: Risk scoring complete
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO -    High risk records:   235
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO -    Medium risk records: 179
+2026-03-03 13:10:54 - agent6.risk_scorer - INFO -    Low risk records:    488
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO - Agent 6: Risk scoring started
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO - Loading ML attacker model from: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO - Loading pair dataset from: data\pairs\pair_dataset.csv
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO -    Loaded 1,954 rows × 25 columns
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO - Computing attack probabilities for each pair...
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO -    Using 21 feature columns for scoring.
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO -    Example scores:
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO -    attack_score
+0      0.996258
+1      0.977872
+2      0.996973
+3      0.996909
+4      0.995273
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO - Aggregating scores at anonymized-record level...
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO - 📊 Calculating dynamic risk thresholds based on data distribution...
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO -    Dynamic thresholds calculated:
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO -    CRITICAL risk: score >= 0.9964 (95th percentile)
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO -    HIGH risk:     score >= 0.9963 and < 0.9964 (80th-95th percentile)
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO -    MEDIUM risk:   score >= 0.9930 and < 0.9963 (50th-80th percentile)
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO -    LOW risk:      score < 0.9930 (below 50th percentile)
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO -    Sample of per-record risk:
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO -    anon_id  max_attack_score  mean_attack_score  pair_count risk_level
+0      0.0          0.996258           0.996258           1       high
+1      1.0          0.977872           0.977872           1        low
+2      2.0          0.996258           0.996258           1       high
+3      3.0          0.996258           0.996258           1       high
+4      4.0          0.984377           0.984377           1        low
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO - Creating risk summary statistics...
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO - 
+============================================================
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO - 📊 RISK ASSESSMENT SUMMARY (Dynamic Thresholds)
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO - ============================================================
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO - Total records assessed: 977
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO - 
+Risk Distribution:
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO -   CRITICAL: 75 (7.7%) - Score >= 0.9964
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO -   HIGH:     235 (24.1%) - Score >= 0.9963
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO -   MEDIUM:   179 (18.3%) - Score >= 0.9930
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO -   LOW:      488 (49.9%) - Score < 0.9930
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO - 
+Score Statistics:
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO -   Average: 0.9212
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO -   Maximum: 0.9982
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO -   Minimum: 0.1649
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO - ============================================================
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO - Saved pair-level scores:   data\risk_scores\agent6\risk_pairs_with_scores.csv
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO - Saved record-level scores: data\risk_scores\agent6\risk_per_record.csv
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO - Saved risk summary:        data\risk_scores\agent6\risk_summary.json
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO - Agent 6: Risk scoring complete
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO -    High risk records:   235
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO -    Medium risk records: 179
+2026-03-03 13:18:08 - agent6.risk_scorer - INFO -    Low risk records:    488
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO - Agent 6: Risk scoring started
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO - Loading ML attacker model from: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO - Loading pair dataset from: data\pairs\pair_dataset.csv
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO -    Loaded 1,954 rows × 25 columns
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO - Computing attack probabilities for each pair...
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO -    Using 21 feature columns for scoring.
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO -    Example scores:
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO -    attack_score
+0      0.996258
+1      0.977872
+2      0.996973
+3      0.996909
+4      0.995273
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO - Aggregating scores at anonymized-record level...
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO - 📊 Calculating dynamic risk thresholds based on data distribution...
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO -    Dynamic thresholds calculated:
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO -    CRITICAL risk: score >= 0.9964 (95th percentile)
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO -    HIGH risk:     score >= 0.9963 and < 0.9964 (80th-95th percentile)
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO -    MEDIUM risk:   score >= 0.9930 and < 0.9963 (50th-80th percentile)
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO -    LOW risk:      score < 0.9930 (below 50th percentile)
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO -    Sample of per-record risk:
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO -    anon_id  max_attack_score  mean_attack_score  pair_count risk_level
+0      0.0          0.996258           0.996258           1       high
+1      1.0          0.977872           0.977872           1        low
+2      2.0          0.996258           0.996258           1       high
+3      3.0          0.996258           0.996258           1       high
+4      4.0          0.984377           0.984377           1        low
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO - Creating risk summary statistics...
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO - 
+============================================================
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO - 📊 RISK ASSESSMENT SUMMARY (Dynamic Thresholds)
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO - ============================================================
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO - Total records assessed: 977
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO - 
+Risk Distribution:
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO -   CRITICAL: 75 (7.7%) - Score >= 0.9964
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO -   HIGH:     235 (24.1%) - Score >= 0.9963
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO -   MEDIUM:   179 (18.3%) - Score >= 0.9930
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO -   LOW:      488 (49.9%) - Score < 0.9930
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO - 
+Score Statistics:
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO -   Average: 0.9212
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO -   Maximum: 0.9982
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO -   Minimum: 0.1649
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO - ============================================================
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO - Saved pair-level scores:   data\risk_scores\agent6\risk_pairs_with_scores.csv
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO - Saved record-level scores: data\risk_scores\agent6\risk_per_record.csv
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO - Saved risk summary:        data\risk_scores\agent6\risk_summary.json
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO - Agent 6: Risk scoring complete
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO -    High risk records:   235
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO -    Medium risk records: 179
+2026-03-03 16:27:35 - agent6.risk_scorer - INFO -    Low risk records:    488
+2026-03-03 16:33:34 - agent6.risk_scorer - INFO - Agent 6: Risk scoring started
+2026-03-03 16:33:34 - agent6.risk_scorer - INFO - Loading ML attacker model from: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO - Loading pair dataset from: data\pairs\pair_dataset.csv
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO -    Loaded 1,954 rows × 25 columns
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO - Computing attack probabilities for each pair...
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO -    Using 21 feature columns for scoring.
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO -    Example scores:
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO -    attack_score
+0      0.996258
+1      0.977872
+2      0.996973
+3      0.996909
+4      0.995273
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO - Aggregating scores at anonymized-record level...
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO - 📊 Calculating dynamic risk thresholds based on data distribution...
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO -    Dynamic thresholds calculated:
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO -    CRITICAL risk: score >= 0.9964 (95th percentile)
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO -    HIGH risk:     score >= 0.9963 and < 0.9964 (80th-95th percentile)
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO -    MEDIUM risk:   score >= 0.9930 and < 0.9963 (50th-80th percentile)
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO -    LOW risk:      score < 0.9930 (below 50th percentile)
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO -    Sample of per-record risk:
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO -    anon_id  max_attack_score  mean_attack_score  pair_count risk_level
+0      0.0          0.996258           0.996258           1       high
+1      1.0          0.977872           0.977872           1        low
+2      2.0          0.996258           0.996258           1       high
+3      3.0          0.996258           0.996258           1       high
+4      4.0          0.984377           0.984377           1        low
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO - Creating risk summary statistics...
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO - 
+============================================================
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO - 📊 RISK ASSESSMENT SUMMARY (Dynamic Thresholds)
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO - ============================================================
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO - Total records assessed: 977
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO - 
+Risk Distribution:
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO -   CRITICAL: 75 (7.7%) - Score >= 0.9964
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO -   HIGH:     235 (24.1%) - Score >= 0.9963
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO -   MEDIUM:   179 (18.3%) - Score >= 0.9930
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO -   LOW:      488 (49.9%) - Score < 0.9930
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO - 
+Score Statistics:
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO -   Average: 0.9212
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO -   Maximum: 0.9982
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO -   Minimum: 0.1649
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO - ============================================================
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO - Saved pair-level scores:   data\risk_scores\agent6\risk_pairs_with_scores.csv
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO - Saved record-level scores: data\risk_scores\agent6\risk_per_record.csv
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO - Saved risk summary:        data\risk_scores\agent6\risk_summary.json
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO - Agent 6: Risk scoring complete
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO -    High risk records:   235
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO -    Medium risk records: 179
+2026-03-03 16:33:35 - agent6.risk_scorer - INFO -    Low risk records:    488
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO - Agent 6: Risk scoring started
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO - Loading ML attacker model from: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO - Loading pair dataset from: data\pairs\pair_dataset.csv
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO -    Loaded 1,954 rows × 25 columns
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO - Computing attack probabilities for each pair...
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO -    Using 21 feature columns for scoring.
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO -    Example scores:
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO -    attack_score
+0      0.996258
+1      0.977872
+2      0.996973
+3      0.996909
+4      0.995273
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO - Aggregating scores at anonymized-record level...
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO - 📊 Calculating dynamic risk thresholds based on data distribution...
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO -    Dynamic thresholds calculated:
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO -    CRITICAL risk: score >= 0.9964 (95th percentile)
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO -    HIGH risk:     score >= 0.9963 and < 0.9964 (80th-95th percentile)
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO -    MEDIUM risk:   score >= 0.9930 and < 0.9963 (50th-80th percentile)
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO -    LOW risk:      score < 0.9930 (below 50th percentile)
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO -    Sample of per-record risk:
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO -    anon_id  max_attack_score  mean_attack_score  pair_count risk_level
+0      0.0          0.996258           0.996258           1       high
+1      1.0          0.977872           0.977872           1        low
+2      2.0          0.996258           0.996258           1       high
+3      3.0          0.996258           0.996258           1       high
+4      4.0          0.984377           0.984377           1        low
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO - Creating risk summary statistics...
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO - 
+============================================================
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO - 📊 RISK ASSESSMENT SUMMARY (Dynamic Thresholds)
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO - ============================================================
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO - Total records assessed: 977
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO - 
+Risk Distribution:
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO -   CRITICAL: 75 (7.7%) - Score >= 0.9964
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO -   HIGH:     235 (24.1%) - Score >= 0.9963
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO -   MEDIUM:   179 (18.3%) - Score >= 0.9930
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO -   LOW:      488 (49.9%) - Score < 0.9930
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO - 
+Score Statistics:
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO -   Average: 0.9212
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO -   Maximum: 0.9982
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO -   Minimum: 0.1649
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO - ============================================================
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO - Saved pair-level scores:   data\risk_scores\agent6\risk_pairs_with_scores.csv
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO - Saved record-level scores: data\risk_scores\agent6\risk_per_record.csv
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO - Saved risk summary:        data\risk_scores\agent6\risk_summary.json
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO - Agent 6: Risk scoring complete
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO -    High risk records:   235
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO -    Medium risk records: 179
+2026-03-03 19:14:27 - agent6.risk_scorer - INFO -    Low risk records:    488
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO - Agent 6: Risk scoring started
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO - Loading ML attacker model from: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO - Loading pair dataset from: data\pairs\pair_dataset.csv
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO -    Loaded 1,954 rows × 25 columns
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO - Computing attack probabilities for each pair...
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO -    Using 21 feature columns for scoring.
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO -    Example scores:
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO -    attack_score
+0      0.996258
+1      0.977872
+2      0.996973
+3      0.996909
+4      0.995273
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO - Aggregating scores at anonymized-record level...
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO - 📊 Calculating dynamic risk thresholds based on data distribution...
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO -    Dynamic thresholds calculated:
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO -    CRITICAL risk: score >= 0.9964 (95th percentile)
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO -    HIGH risk:     score >= 0.9963 and < 0.9964 (80th-95th percentile)
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO -    MEDIUM risk:   score >= 0.9930 and < 0.9963 (50th-80th percentile)
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO -    LOW risk:      score < 0.9930 (below 50th percentile)
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO -    Sample of per-record risk:
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO -    anon_id  max_attack_score  mean_attack_score  pair_count risk_level
+0      0.0          0.996258           0.996258           1       high
+1      1.0          0.977872           0.977872           1        low
+2      2.0          0.996258           0.996258           1       high
+3      3.0          0.996258           0.996258           1       high
+4      4.0          0.984377           0.984377           1        low
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO - Creating risk summary statistics...
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO - 
+============================================================
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO - 📊 RISK ASSESSMENT SUMMARY (Dynamic Thresholds)
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO - ============================================================
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO - Total records assessed: 977
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO - 
+Risk Distribution:
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO -   CRITICAL: 75 (7.7%) - Score >= 0.9964
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO -   HIGH:     235 (24.1%) - Score >= 0.9963
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO -   MEDIUM:   179 (18.3%) - Score >= 0.9930
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO -   LOW:      488 (49.9%) - Score < 0.9930
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO - 
+Score Statistics:
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO -   Average: 0.9212
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO -   Maximum: 0.9982
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO -   Minimum: 0.1649
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO - ============================================================
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO - Saved pair-level scores:   data\risk_scores\agent6\risk_pairs_with_scores.csv
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO - Saved record-level scores: data\risk_scores\agent6\risk_per_record.csv
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO - Saved risk summary:        data\risk_scores\agent6\risk_summary.json
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO - Agent 6: Risk scoring complete
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO -    High risk records:   235
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO -    Medium risk records: 179
+2026-03-03 19:22:20 - agent6.risk_scorer - INFO -    Low risk records:    488

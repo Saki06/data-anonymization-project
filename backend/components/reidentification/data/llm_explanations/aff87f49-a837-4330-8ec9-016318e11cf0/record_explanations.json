@@ -1,0 +1,12 @@
+[
+  {
+    "record_id": 1,
+    "risk_score": 0.9358555155824982,
+    "explanation": "The risk score of 0.9359 is very high. This means there is a significant chance that someone could link this record to a specific person. A score close to 1.0 shows a serious privacy risk.\n\nThe columns that raised the risk the most are distance, sector, and r2_school_education. Distance can reveal where a person lives or works, which is sensitive information. Sector shows the industry a person is in, which can also be identifying. R2_school_education provides details about a person's education, making it easier to narrow down their identity. The type_of_school lowers the risk, but it still plays a role in the overall picture.\n\nTo better protect privacy, the columns distance, sector, and r2_school_education need better anonymization. Changing specific details or grouping them into broader categories could help. For example, instead of exact locations, using general areas could reduce risk. This way, the information stays useful but less likely to connect to an individual.\n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  },
+  {
+    "record_id": 59,
+    "risk_score": 0.8453863217395529,
+    "explanation": "The risk score of 0.8454 is quite high. This means there is a significant chance that the information could be linked back to someone. A score closer to 1.0 shows more risk, while a score closer to 0 shows less risk. \n\nThe columns that increased this risk the most are distance, sector, and r2_school_education. Distance can show where someone lives, which is sensitive information. The sector can reveal what kind of work someone does, and r2_school_education provides details about their education level. All these details can help narrow down who a person might be. The type_of_school decreases risk, meaning it offers less specific information about the individual.\n\nTo lower the risk, better anonymization is needed for distance, sector, and r2_school_education. For example, rounding distances to larger areas can help. Grouping sectors into broader categories can also protect identities. Lastly, using general education levels instead of specific details can make it harder to identify someone. \n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  }
+]

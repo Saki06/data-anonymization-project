@@ -1,0 +1,790 @@
+﻿t.js onenex<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anonymization - Professional SDC App</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <style>
+        .pill { display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border-radius:999px; background:#f8f9fa; border:1px solid #dee2e6; font-size:12px; }
+        .kpi { display:flex; flex-direction:column; gap:6px; padding:14px; background:white; border:1px solid #e9ecef; border-radius:10px; }
+        .kpi .label { color:#6c757d; font-size:12px; }
+        .kpi .value { font-size:22px; font-weight:700; color:#212529; }
+        .split { display:grid; grid-template-columns: 1.2fr 0.8fr; gap:16px; }
+        @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+        .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+        canvas { background:white; border:1px solid #e9ecef; border-radius:10px; }
+        .table-compact td, .table-compact th { padding: 8px 10px; }
+        .method-row { display:flex; justify-content:space-between; gap:10px; padding:10px; border:1px solid #e9ecef; border-radius:10px; background:white; }
+        .method-row strong { display:block; }
+        .muted { color:#6c757d; }
+        .controls { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="../../index.html">&larr; Back to Home</a>
+        </div>
+
+        <!-- Header -->
+        <div class="component-header">
+            <h1>Anonymization</h1>
+            <p>Risk profiling â†’ expert recommendations â†’ NSGAâ€‘II tuning â†’ enforced anonymization â†’ validation â†’ export</p>
+        </div>
+
+        <!-- Connection Status -->
+        <div id="status" class="status disconnected">Checking backend connectionâ€¦</div>
+
+        <div class="section" id="dataset-section">
+            <div class="split">
+                <div>
+                    <h2>Dataset</h2>
+                    <div id="dataset-info" class="card"></div>
+                    <div id="selected-qis" class="card"></div>
+                </div>
+                <div>
+                    <h2>Quick KPIs</h2>
+                    <div class="grid-2">
+                        <div class="kpi">
+                            <div class="label">Risk score</div>
+                            <div class="value" id="kpi-risk">â€”</div>
+                            <div class="muted" id="kpi-risk-note">Run analysis to compute</div>
+                        </div>
+                        <div class="kpi">
+                            <div class="label">Min equivalence class</div>
+                            <div class="value" id="kpi-min-ec">â€”</div>
+                            <div class="muted">Based on selected QIs</div>
+                        </div>
+                    </div>
+                    <div class="grid-2 mt-10">
+                        <div class="kpi">
+                            <div class="label">Unique records ratio</div>
+                            <div class="value" id="kpi-unique">â€”</div>
+                            <div class="muted">Higher â†’ higher linkage risk</div>
+                        </div>
+                        <div class="kpi">
+                            <div class="label">Optimizer (Pareto points)</div>
+                            <div class="value" id="kpi-pareto">â€”</div>
+                            <div class="muted">Disclosure risk vs utility loss</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="workflow-section">
+            <div class="tabs">
+                <div class="tab active" data-tab="tab-analyze">1) Analyze</div>
+                <div class="tab" data-tab="tab-plan">2) Plan</div>
+                <div class="tab" data-tab="tab-execute">3) Execute</div>
+                <div class="tab" data-tab="tab-compare">4) Compare</div>
+                <div class="tab" data-tab="tab-export">5) Export</div>
+            </div>
+
+            <!-- Analyze -->
+            <div id="tab-analyze">
+                <div class="controls">
+                    <button class="success" onclick="analyzeDataset()">Run risk analysis</button>
+                    <span class="pill"><span class="mono">/analyze</span> + NSGAâ€‘II</span>
+                </div>
+                <div id="analysis-results" class="mt-10"></div>
+                <div class="mt-20">
+                    <h3>Privacyâ€“Utility tradeâ€‘off</h3>
+                    <p class="small">Each point is a candidate parameter set. Lower is better on both axes.</p>
+                    <canvas id="paretoCanvas" width="900" height="320"></canvas>
+                </div>
+            </div>
+
+            <!-- Plan -->
+            <div id="tab-plan" style="display:none;">
+                <h3>Recommended method plan</h3>
+                <div id="plan-recommendations" class="mt-10"></div>
+                <div class="card mt-20">
+                    <h3>Editable execution settings</h3>
+                    <div class="grid-2">
+                        <div>
+                            <label><strong>Generalization strategy</strong></label><br>
+                            <select id="param-gen-strategy">
+                                <option value="hierarchy">Hierarchy-based (recommended)</option>
+                                <option value="traditional">Traditional (fallback)</option>
+                            </select>
+                            <div class="small muted">Hierarchy uses detected attribute types and Sri Lanka admin templates when available.</div>
+                        </div>
+                        <div>
+                            <label><strong>Force primary method (optional)</strong></label><br>
+                            <select id="param-force-method">
+                                <option value="">Use expert-system primary method</option>
+                                <option value="k_anonymity">Force K-Anonymity</option>
+                                <option value="l_diversity">Force L-Diversity</option>
+                                <option value="t_closeness">Force T-Closeness</option>
+                                <option value="pram">Force PRAM (Categorical Perturbation)</option>
+                                <option value="hybrid">Force Hybrid</option>
+                            </select>
+                            <div class="small muted">Lets you override the recommendation for experimentation.</div>
+                        </div>
+                    </div>
+                    <div class="grid-3 mt-10">
+                        <div>
+                            <label><strong>k</strong></label><br>
+                            <input type="number" id="param-k" value="5" min="2" max="50" style="width:120px;">
+                        </div>
+                        <div>
+                            <label><strong>l</strong></label><br>
+                            <input type="number" id="param-l" value="2" min="2" max="10" style="width:120px;">
+                        </div>
+                        <div>
+                            <label><strong>t</strong></label><br>
+                            <input type="number" id="param-t" value="0.2" min="0.01" max="0.5" step="0.01" style="width:120px;">
+                        </div>
+                    </div>
+                    <div class="grid-2 mt-10">
+                        <div>
+                            <label><strong>generalization level</strong> <span class="small muted">(0..1)</span></label><br>
+                            <input type="number" id="param-gen-level" value="0.5" min="0" max="1" step="0.05" style="width:120px;">
+                        </div>
+                        <div>
+                            <label><strong>max hierarchy level</strong></label><br>
+                            <input type="number" id="param-max-level" value="4" min="1" max="6" style="width:120px;">
+                        </div>
+                    </div>
+                    <div class="grid-2 mt-10">
+                        <div>
+                            <label><strong>perturbation rate</strong> <span class="small muted">(PRAM only, 0.05-0.10)</span></label><br>
+                            <input type="number" id="param-perturbation-rate" value="0.05" min="0.05" max="0.10" step="0.01" style="width:120px;">
+                        </div>
+                    </div>
+                    <div class="mt-10 small muted" id="plan-note">Tip: Run analysis first to auto-fill these from NSGAâ€‘II.</div>
+                </div>
+            </div>
+
+            <!-- Execute -->
+            <div id="tab-execute" style="display:none;">
+                <div class="controls">
+                    <button class="success" onclick="executeAnonymization()">Execute anonymization (enforced + validated)</button>
+                    <span class="pill"><span class="mono">/anonymize</span> execution engine</span>
+                </div>
+                <div id="execution-results" class="mt-10"></div>
+            </div>
+
+            <!-- Compare -->
+            <div id="tab-compare" style="display:none;">
+                <div class="controls">
+                    <button onclick="compareData()">Generate comparison report</button>
+                    <span class="pill"><span class="mono">/compare</span></span>
+                </div>
+                <div id="comparison-results" class="mt-10"></div>
+            </div>
+
+            <!-- Export -->
+            <div id="tab-export" style="display:none;">
+                <h3>Download anonymized dataset</h3>
+                <div class="button-group">
+                    <button onclick="downloadAnonymized('csv')" class="success">Download CSV</button>
+                    <button onclick="downloadAnonymized('excel')" class="info">Download Excel</button>
+                </div>
+                <div class="small muted">Exports the latest anonymized dataset stored in the backend session.</div>
+                
+                <div class="mt-20">
+                    <h3>Proceed to Re-identification Check</h3>
+                    <p class="small">After downloading, you can verify the anonymized data and check for potential re-identification risks.</p>
+                    <div class="button-group">
+                        <button onclick="proceedToReidentification()" class="primary">Check Re-identification Risk â†’</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="section">
+            <h3>Other Components</h3>
+            <div class="button-group">
+                <button onclick="goToQuasiSelection()" class="secondary">Back to Quasi Selection</button>
+                <button onclick="goHome()" class="secondary">Back to Home</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:8000';
+        let currentSessionId = null;
+        let currentQuasiIdentifiers = [];
+        let currentSensitiveAttributes = [];
+        let lastAnalysis = null;
+
+        // Get params from URL
+        function getQueryParam(name) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(name);
+        }
+
+        // Initialize
+        window.addEventListener('DOMContentLoaded', async () => {
+            await checkBackend();
+            loadSession();
+            initTabs();
+            drawPareto([]); // blank
+        });
+
+        function initTabs() {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    const target = tab.getAttribute('data-tab');
+                    ['tab-analyze','tab-plan','tab-execute','tab-compare','tab-export'].forEach(id => {
+                        document.getElementById(id).style.display = (id === target) ? 'block' : 'none';
+                    });
+                });
+            });
+        }
+
+        async function checkBackend() {
+            const statusDiv = document.getElementById('status');
+            try {
+                const response = await fetch(`${API_BASE_URL}/`);
+                if (response.ok) {
+                    statusDiv.className = 'status connected';
+                    statusDiv.textContent = 'âœ“ Backend connected';
+                } else {
+                    throw new Error('Backend not responding');
+                }
+            } catch (error) {
+                statusDiv.className = 'status disconnected';
+                statusDiv.textContent = 'âœ— Backend not connected';
+            }
+        }
+
+        async function loadSession() {
+            currentSessionId = getQueryParam('session_id');
+            
+            if (!currentSessionId) {
+                currentSessionId = sessionStorage.getItem('session_id');
+            }
+
+            if (!currentSessionId) {
+                document.getElementById('status').innerHTML = 'No session found. <a href="../../index.html">Go to home</a>';
+                return;
+            }
+
+            // Get QIs from URL params or sessionStorage
+            const qiParam = getQueryParam('quasi_identifiers');
+            const sensParam = getQueryParam('sensitive_attributes');
+            
+            if (qiParam) {
+                try {
+                    currentQuasiIdentifiers = JSON.parse(decodeURIComponent(qiParam));
+                } catch (e) {
+                    console.error('Error parsing QIs:', e);
+                }
+            } else {
+                const storedQi = sessionStorage.getItem('quasi_identifiers');
+                if (storedQi) {
+                    currentQuasiIdentifiers = JSON.parse(storedQi);
+                }
+            }
+            
+            if (sensParam) {
+                try {
+                    currentSensitiveAttributes = JSON.parse(decodeURIComponent(sensParam));
+                } catch (e) {
+                    console.error('Error parsing sensitive attributes:', e);
+                }
+            } else {
+                const storedSens = sessionStorage.getItem('sensitive_attributes');
+                if (storedSens) {
+                    currentSensitiveAttributes = JSON.parse(storedSens);
+                }
+            }
+
+            try {
+                // Get session info
+                const response = await fetch(`${API_BASE_URL}/session/${currentSessionId}`);
+                if (!response.ok) throw new Error('Session not found');
+                
+                const data = await response.json();
+                
+                // Display dataset info
+                document.getElementById('dataset-info').innerHTML = `
+                    <div class="grid-2">
+                        <div>
+                            <div class="small muted">Session</div>
+                            <div class="mono">${currentSessionId}</div>
+                        </div>
+                        <div>
+                            <div class="small muted">Shape</div>
+                            <div><strong>${data.shape[0]}</strong> rows Ã— <strong>${data.shape[1]}</strong> columns</div>
+                        </div>
+                    </div>
+                `;
+                
+                // Display selected QIs
+                if (currentQuasiIdentifiers && currentQuasiIdentifiers.length > 0) {
+                    document.getElementById('selected-qis').innerHTML = `
+                        <div>
+                            <div class="small muted">Quasi-identifiers (QI)</div>
+                            <div><strong>${currentQuasiIdentifiers.join(', ')}</strong></div>
+                            <div class="mt-10 small muted">Sensitive attributes (SI)</div>
+                            <div>${currentSensitiveAttributes.length > 0 ? `<strong>${currentSensitiveAttributes.join(', ')}</strong>` : '<span class="muted">None selected</span>'}</div>
+                        </div>
+                    `;
+                } else {
+                    document.getElementById('selected-qis').innerHTML = `
+                        <div class="warning" style="padding: 15px; margin: 10px 0; border-radius: 5px;">
+                            <p>No quasi-identifiers selected. <a href="../quasi_selection/index.html?session_id=${currentSessionId}">Go to Quasi Selection</a></p>
+                        </div>
+                    `;
+                }
+                
+            } catch (error) {
+                document.getElementById('status').innerHTML = 'Error: ' + error.message;
+            }
+        }
+
+        function setKpisFromAnalysis(data) {
+            const riskPercent = (Number(data?.risk_score ?? 0) * 100);
+            document.getElementById('kpi-risk').textContent = isFinite(riskPercent) ? `${riskPercent.toFixed(1)}%` : 'â€”';
+            document.getElementById('kpi-risk-note').textContent = riskPercent > 70 ? 'High risk' : (riskPercent > 40 ? 'Moderate risk' : 'Lower risk');
+            const minEC = data?.statistics?.min_equivalence_class_size;
+            document.getElementById('kpi-min-ec').textContent = (minEC ?? 'â€”');
+            const unique = data?.risk_metrics?.unique_records_ratio;
+            document.getElementById('kpi-unique').textContent = (unique !== undefined) ? `${(unique*100).toFixed(1)}%` : 'â€”';
+            const paretoCount = data?.optimization_results?.pareto_front?.length ?? data?.optimization_results?.pareto_front_size ?? 'â€”';
+            document.getElementById('kpi-pareto').textContent = paretoCount;
+        }
+
+        async function analyzeDataset() {
+            const formData = new FormData();
+            formData.append('session_id', currentSessionId);
+            const resultsDiv = document.getElementById('analysis-results');
+            resultsDiv.innerHTML = '<div class="loading">Analyzing...</div>';
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/analyze`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) throw new Error('Analysis failed');
+
+                const data = await response.json();
+                lastAnalysis = data;
+                setKpisFromAnalysis(data);
+
+                let html = '<div class="success">Analysis complete</div>';
+                
+                // Risk Score
+                const riskPercent = (Number(data.risk_score) * 100);
+                const riskClass = riskPercent > 70 ? 'error' : (riskPercent > 40 ? 'warning' : 'success');
+                html += `<div class="${riskClass}"><strong>Risk score:</strong> ${riskPercent.toFixed(1)}%</div>`;
+                
+                // Statistics
+                html += `<div class="card"><h3>Dataset statistics</h3>`;
+                html += `<table class="table-compact"><tbody>`;
+                html += `<tr><td><strong>Total records</strong></td><td>${data.statistics.total_records}</td></tr>`;
+                html += `<tr><td><strong>QI count</strong></td><td>${data.statistics.total_qis}</td></tr>`;
+                html += `<tr><td><strong>Unique QI combinations</strong></td><td>${data.statistics.unique_combinations}</td></tr>`;
+                html += `<tr><td><strong>Min equivalence class size</strong></td><td>${data.statistics.min_equivalence_class_size}</td></tr>`;
+                html += `<tr><td><strong>Avg equivalence class size</strong></td><td>${Number(data.statistics.avg_equivalence_class_size).toFixed(2)}</td></tr>`;
+                html += `</tbody></table></div>`;
+                
+                // Detected Problems
+                if (data.detected_problems && data.detected_problems.length > 0) {
+                    html += '<div class="warning"><strong>Detected issues</strong><ul style="margin: 10px 0; padding-left: 20px;">';
+                    data.detected_problems.forEach(p => {
+                        html += `<li style="margin: 8px 0;"><strong>${p.problem}</strong> <span class="badge badge-warning">${p.severity}</span><br><span class="muted small">${p.condition}</span></li>`;
+                    });
+                    html += '</ul></div>';
+                }
+
+                // Recommendations (from Expert System)
+                const rec = data.recommendations;
+                if (rec && rec.recommendations && rec.recommendations.length > 0) {
+                    html += '<div class="card"><h3>Expert recommendations</h3>';
+                    html += `<div class="small muted">Primary: <strong>${rec.primary_method}</strong> Â· Hybrid: <strong>${rec.hybrid_approach ? 'Yes' : 'No'}</strong></div>`;
+                    html += `<div class="small muted">Overall privacy: <strong>${rec.overall_privacy_level}</strong> Â· Utility impact: <strong>${rec.overall_utility_impact}</strong></div>`;
+                    rec.recommendations.slice(0, 8).forEach((r) => {
+                        html += `<div class="method-row mt-10"><div>`;
+                        html += `<strong>${r.method}</strong>`;
+                        html += `<div class="small muted">${r.details || ''}</div>`;
+                        html += `<div class="small muted">${r.explanation || ''}</div>`;
+                        html += `</div><div style="text-align:right;">`;
+                        html += `<div class="badge badge-info">Confidence ${(Number(r.confidence ?? 0)*100).toFixed(0)}%</div><br>`;
+                        html += `<div class="small muted">Privacy ${r.privacy_level} Â· Utility ${r.utility_impact}</div>`;
+                        html += `</div></div>`;
+                    });
+                    html += `</div>`;
+                }
+
+                // Triggered Rules (from Expert System)
+                if (data.triggered_rules && data.triggered_rules.length > 0) {
+                    html += '<div class="card"><h3>Triggered rules</h3>';
+                    html += '<ul style="margin: 5px 0; padding-left: 20px;">';
+                    data.triggered_rules.forEach(rule => {
+                        html += `<li>${rule}</li>`;
+                    });
+                    html += '</ul></div>';
+                }
+
+                // Optimal Parameters
+                if (data.optimal_parameters) {
+                    html += '<div class="info"><strong>NSGAâ€‘II suggested parameters:</strong> ';
+                    html += `k=${data.optimal_parameters.k}, l=${data.optimal_parameters.l}, t=${data.optimal_parameters.t}, gen=${Number(data.optimal_parameters.generalization_level ?? 0.5).toFixed(2)}`;
+                    html += '</div>';
+                    // Autofill plan inputs
+                    document.getElementById('param-k').value = data.optimal_parameters.k ?? 5;
+                    document.getElementById('param-l').value = data.optimal_parameters.l ?? 2;
+                    document.getElementById('param-t').value = data.optimal_parameters.t ?? 0.2;
+                    document.getElementById('param-gen-level').value = data.optimal_parameters.generalization_level ?? 0.5;
+                    document.getElementById('plan-note').textContent = 'Auto-filled from NSGAâ€‘II (you can edit).';
+                }
+
+                resultsDiv.innerHTML = html;
+                renderPlanFromAnalysis(data);
+                const pareto = data?.optimization_results?.pareto_front ?? [];
+                drawPareto(pareto);
+
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="error">Error: ${error.message}</div>`;
+            }
+        }
+
+        function renderPlanFromAnalysis(data) {
+            const container = document.getElementById('plan-recommendations');
+            const rec = data?.recommendations;
+            if (!rec || !rec.recommendations) {
+                container.innerHTML = '<div class="warning">Run analysis to generate recommendations.</div>';
+                return;
+            }
+            let html = `<div class="card">`;
+            html += `<div class="small muted">Primary</div><div><strong>${rec.primary_method}</strong></div>`;
+            html += `<div class="small muted mt-10">Secondary</div><div>${(rec.secondary_methods || []).length ? rec.secondary_methods.join(', ') : '<span class="muted">None</span>'}</div>`;
+            html += `<div class="small muted mt-10">Notes</div><div>${rec.additional_notes || '<span class="muted">â€”</span>'}</div>`;
+            html += `</div>`;
+            container.innerHTML = html;
+        }
+
+        async function executeAnonymization() {
+            const formData = new FormData();
+            formData.append('session_id', currentSessionId);
+            formData.append('use_recommended', 'false');
+            formData.append('anon_method', document.getElementById('param-gen-strategy').value);
+
+            const methods = {
+                k: parseInt(document.getElementById('param-k').value) || (lastAnalysis?.optimal_parameters?.k ?? 5),
+                l: parseInt(document.getElementById('param-l').value) || (lastAnalysis?.optimal_parameters?.l ?? 2),
+                t: parseFloat(document.getElementById('param-t').value) || (lastAnalysis?.optimal_parameters?.t ?? 0.2),
+                generalization_level: parseFloat(document.getElementById('param-gen-level').value) || (lastAnalysis?.optimal_parameters?.generalization_level ?? 0.5),
+                max_hierarchy_level: parseInt(document.getElementById('param-max-level').value) || 4,
+                perturbation_rate: parseFloat(document.getElementById('param-perturbation-rate').value) || 0.05,
+                forced_primary_method: document.getElementById('param-force-method').value || null,
+            };
+            formData.append('methods', JSON.stringify(methods));
+
+            const resultsDiv = document.getElementById('execution-results');
+            resultsDiv.innerHTML = '<div class="loading">Executing anonymizationâ€¦</div>';
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/anonymize`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({ detail: 'Anonymization failed' }));
+                    throw new Error(errorData.detail || 'Anonymization failed');
+                }
+
+                const data = await response.json();
+                let html = '<div class="success">Execution complete</div>';
+                html += `<div class="card"><h3>Result</h3>`;
+                html += `<div class="grid-3">`;
+                html += `<div class="kpi"><div class="label">Suppression ratio</div><div class="value">${(Number(data.metrics.suppression_ratio)*100).toFixed(1)}%</div></div>`;
+                html += `<div class="kpi"><div class="label">Min equivalence class</div><div class="value">${data.metrics.min_equivalence_class_size}</div></div>`;
+                html += `<div class="kpi"><div class="label">Avg equivalence class</div><div class="value">${data.metrics.avg_equivalence_class_size}</div></div>`;
+                html += `</div>`;
+                html += `<div class="mt-10 small muted">Applied: ${(data.applied_methods || []).join(', ') || 'â€”'}</div>`;
+                html += `</div>`;
+
+                // Validation summary
+                const validation = data.validation || {};
+                const keys = Object.keys(validation);
+                if (keys.length) {
+                    const allValid = keys.every(k => validation[k]?.is_valid);
+                    html += allValid ? `<div class="success">All constraints satisfied</div>` : `<div class="warning">Some constraints not fully satisfied</div>`;
+                    html += `<div class="card"><h3>Constraint validation</h3>`;
+                    keys.forEach(k => {
+                        const v = validation[k];
+                        html += `<div class="method-row mt-10"><div><strong>${k}</strong><div class="small muted">${v.message || ''}</div></div>`;
+                        html += `<div style="text-align:right;">${v.is_valid ? '<span class="badge badge-success">PASS</span>' : '<span class="badge badge-danger">FAIL</span>'}<br>`;
+                        html += `<span class="small muted">Actual ${v.actual_value} Â· Required ${v.required_value}</span></div></div>`;
+                    });
+                    html += `</div>`;
+                }
+                
+                // Preview
+                if (data.sample_data && data.sample_data.length > 0) {
+                    html += '<div class="card"><h3>Preview (first 5 rows)</h3>';
+                    html += '<div style="overflow-x: auto;"><table class="table-compact"><thead><tr>';
+                    Object.keys(data.sample_data[0]).forEach(col => {
+                        html += `<th>${col}</th>`;
+                    });
+                    html += '</tr></thead><tbody>';
+                    data.sample_data.slice(0, 5).forEach(row => {
+                        html += '<tr>';
+                        Object.values(row).forEach(val => {
+                            html += `<td>${val || ''}</td>`;
+                        });
+                        html += '</tr>';
+                    });
+                    html += '</tbody></table></div>';
+                    html += '</div>';
+                }
+
+                resultsDiv.innerHTML = html;
+
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="error">Error: ${error.message}</div>`;
+            }
+        }
+
+        async function compareData() {
+            const formData = new FormData();
+            formData.append('session_id', currentSessionId);
+            const resultsDiv = document.getElementById('comparison-results');
+            resultsDiv.innerHTML = '<div class="loading">Generating comparison report...</div>';
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/compare`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) throw new Error('Comparison failed');
+
+                const data = await response.json();
+                let html = '<div class="success">Comparison report generated</div>';
+
+                // Overall Statistics
+                html += '<div style="background: #e7f3ff; padding: 15px; border-radius: 5px; margin: 10px 0;">';
+                html += '<h3>ðŸ“Š Dataset Overview</h3>';
+                html += '<ul style="list-style: none; padding: 0;">';
+                html += `<li><strong>Original Records:</strong> ${data.original_shape[0]} | <strong>Anonymized Records:</strong> ${data.anonymized_shape[0]}</li>`;
+                html += `<li><strong>Original Columns:</strong> ${data.original_shape[1]} | <strong>Anonymized Columns:</strong> ${data.anonymized_shape[1]}</li>`;
+                html += '</ul></div>';
+
+                // Quasi-Identifier Changes
+                if (data.statistics_comparison && Object.keys(data.statistics_comparison).length > 0) {
+                    const stats = data.statistics_comparison;
+                    html += '<div style="background: #fff3cd; padding: 15px; border-radius: 5px; margin: 10px 0;">';
+                    html += '<h3>ðŸ” Quasi-Identifier Changes</h3>';
+                    html += '<ul style="list-style: none; padding: 0;">';
+                    html += `<li><strong>Original Unique QI Combinations:</strong> ${stats.original_unique_qi_combinations}</li>`;
+                    html += `<li><strong>Anonymized Unique QI Combinations:</strong> ${stats.anonymized_unique_qi_combinations}</li>`;
+                    html += `<li><strong>Combination Reduction:</strong> ${stats.combination_reduction.toFixed(1)}%</li>`;
+                    html += `<li><strong>Modified Rows:</strong> ${stats.modified_qi_rows} out of ${data.original_shape[0]} (${((stats.modified_qi_rows / data.original_shape[0]) * 100).toFixed(1)}%)</li>`;
+                    html += `<li><strong>Suppressed QI Values:</strong> ${stats.suppressed_qi_cells} out of ${stats.total_qi_cells} (${((stats.suppressed_qi_cells / stats.total_qi_cells) * 100).toFixed(1)}%)</li>`;
+                    html += '</ul></div>';
+                }
+
+                // Column-by-Column Comparison
+                html += '<div style="margin: 20px 0;">';
+                html += '<h3>ðŸ“‹ Column-by-Column Comparison</h3>';
+                html += '<table style="width: 100%; border-collapse: collapse; background: white;">';
+                html += '<thead>';
+                html += '<tr style="background: #667eea; color: white;">';
+                html += '<th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Column</th>';
+                html += '<th style="padding: 12px; text-align: left; border: 1px solid #ddd;">QI</th>';
+                html += '<th style="padding: 12px; text-align: center; border: 1px solid #ddd;">Original Unique</th>';
+                html += '<th style="padding: 12px; text-align: center; border: 1px solid #ddd;">Anonymized Unique</th>';
+                html += '<th style="padding: 12px; text-align: center; border: 1px solid #ddd;">Suppressed</th>';
+                html += '<th style="padding: 12px; text-align: center; border: 1px solid #ddd;">Changed</th>';
+                html += '</tr>';
+                html += '</thead>';
+                html += '<tbody>';
+
+                data.column_comparison.forEach(col => {
+                    const rowBg = col.changes_detected ? '#ffe6e6' : '#e6f3e6';
+                    const qiBadge = col.is_quasi_identifier ? 'âœ“ QI' : '-';
+                    const suppressed = col.suppressed_values || 0;
+                    const changed = col.changed_values || 0;
+                    
+                    html += `<tr style="background: ${rowBg}; border-bottom: 1px solid #ddd;">`;
+                    html += `<td style="padding: 12px; border: 1px solid #ddd;"><strong>${col.column_name}</strong></td>`;
+                    html += `<td style="padding: 12px; border: 1px solid #ddd; text-align: center; font-weight: bold;">${qiBadge}</td>`;
+                    html += `<td style="padding: 12px; border: 1px solid #ddd; text-align: center;">${col.original_unique}</td>`;
+                    html += `<td style="padding: 12px; border: 1px solid #ddd; text-align: center;">${col.anonymized_unique}</td>`;
+                    html += `<td style="padding: 12px; border: 1px solid #ddd; text-align: center;">`;
+                    if (suppressed > 0) {
+                        html += `<span style="background: #ff6b6b; color: white; padding: 4px 8px; border-radius: 3px;">${suppressed}</span>`;
+                    } else {
+                        html += '0';
+                    }
+                    html += `</td>`;
+                    html += `<td style="padding: 12px; border: 1px solid #ddd; text-align: center;">`;
+                    if (changed > 0) {
+                        html += `<span style="background: #ffa500; color: white; padding: 4px 8px; border-radius: 3px;">${changed}</span>`;
+                    } else {
+                        html += '0';
+                    }
+                    html += `</td>`;
+                    html += '</tr>';
+                });
+
+                html += '</tbody>';
+                html += '</table>';
+                html += '</div>';
+
+                // Sample Data Comparison
+                html += '<div style="margin: 20px 0;">';
+                html += '<h3>ðŸ”„ Sample Data Comparison (First 5 rows)</h3>';
+                
+                data.sample_comparison.slice(0, 5).forEach((row, idx) => {
+                    html += '<div style="margin: 15px 0; padding: 15px; background: white; border: 1px solid #ddd; border-radius: 5px;">';
+                    html += `<h4 style="margin-bottom: 10px;">Row ${idx + 1}</h4>`;
+                    html += '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">';
+                    
+                    // Original Data
+                    html += '<div><h5 style="color: #667eea;">Original</h5>';
+                    Object.entries(row.original).forEach(([col, val]) => {
+                        const isQI = data.quasi_identifiers.includes(col);
+                        const isChanged = row.differences.includes(col);
+                        const style = isChanged ? 'background: #fff3cd;' : '';
+                        html += `<div style="${style} padding: 8px; margin: 5px 0; border-left: 3px solid ${isQI ? '#667eea' : '#999'};"><strong>${col}:</strong> ${val || '(null)'}</div>`;
+                    });
+                    html += '</div>';
+                    
+                    // Anonymized Data
+                    html += '<div><h5 style="color: #764ba2;">Anonymized</h5>';
+                    Object.entries(row.anonymized).forEach(([col, val]) => {
+                        const isQI = data.quasi_identifiers.includes(col);
+                        const isChanged = row.differences.includes(col);
+                        const style = isChanged ? 'background: #ffe6e6;' : '';
+                        html += `<div style="${style} padding: 8px; margin: 5px 0; border-left: 3px solid ${isQI ? '#764ba2' : '#999'};"><strong>${col}:</strong> ${val || '(null)'}</div>`;
+                    });
+                    html += '</div>';
+                    
+                    html += '</div>';
+                    
+                    if (row.differences.length > 0) {
+                        html += `<p style="margin-top: 10px; color: #ff6b6b; font-size: 0.9em;"><strong>Changed columns:</strong> ${row.differences.join(', ')}</p>`;
+                    }
+                    
+                    html += '</div>';
+                });
+
+                html += '</div>';
+
+                // Proceed Button
+                html += '<div style="margin-top: 20px;">';
+                html += '<button onclick="proceedToDownload()" style="background: #28a745; padding: 12px 30px; font-size: 16px; color: white; border: none; border-radius: 5px; cursor: pointer;">Download Anonymized Data â†’</button>';
+                html += '</div>';
+
+                resultsDiv.innerHTML = html;
+
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="error">Error: ${error.message}</div>`;
+                console.error('Comparison error:', error);
+            }
+        }
+
+        async function downloadAnonymized(format) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/download-anonymized?session_id=${currentSessionId}&format=${format}`);
+                if (!response.ok) throw new Error('Download failed');
+
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `anonymized_data.${format === 'excel' ? 'xlsx' : 'csv'}`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } catch (error) {
+                alert('Error downloading: ' + error.message);
+            }
+        }
+
+        function goToQuasiSelection() {
+            window.location.href = `../quasi_selection/index.html?session_id=${currentSessionId}`;
+        }
+
+        function goHome() {
+            window.location.href = `../../index.html`;
+        }
+
+        function proceedToReidentification() {
+            // Store session info in sessionStorage for the reidentification page
+            sessionStorage.setItem('session_id', currentSessionId);
+            if (currentQuasiIdentifiers.length > 0) {
+                sessionStorage.setItem('quasi_identifiers', JSON.stringify(currentQuasiIdentifiers));
+            }
+            if (currentSensitiveAttributes.length > 0) {
+                sessionStorage.setItem('sensitive_attributes', JSON.stringify(currentSensitiveAttributes));
+            }
+            // Navigate to reidentification page
+            window.location.href = `../reidentification/index.html?session_id=${currentSessionId}`;
+        }
+
+        function proceedToDownload() {
+            // Navigate to export tab
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelector('[data-tab="tab-export"]').classList.add('active');
+            ['tab-analyze','tab-plan','tab-execute','tab-compare','tab-export'].forEach(id => {
+                document.getElementById(id).style.display = (id === 'tab-export') ? 'block' : 'none';
+            });
+        }
+
+        function drawPareto(paretoFront) {
+            const canvas = document.getElementById('paretoCanvas');
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width, h = canvas.height;
+            ctx.clearRect(0, 0, w, h);
+
+            // axes padding
+            const pad = 40;
+            ctx.strokeStyle = '#ced4da';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(pad, h - pad);
+            ctx.lineTo(w - pad, h - pad);
+            ctx.lineTo(w - pad, pad);
+            ctx.stroke();
+
+            ctx.fillStyle = '#6c757d';
+            ctx.font = '12px Arial';
+            ctx.fillText('Disclosure risk (minimize)', pad, pad - 10);
+            ctx.fillText('Utility loss (minimize)', w - 170, h - 10);
+
+            const pts = (paretoFront || []).filter(p => Array.isArray(p) && p.length >= 2 && isFinite(p[0]) && isFinite(p[1]));
+            if (!pts.length) {
+                ctx.fillStyle = '#adb5bd';
+                ctx.fillText('No Pareto front available (install pymoo for full NSGAâ€‘II).', pad, h/2);
+                return;
+            }
+
+            const xs = pts.map(p => p[0]);
+            const ys = pts.map(p => p[1]);
+            const xmin = Math.min(...xs), xmax = Math.max(...xs);
+            const ymin = Math.min(...ys), ymax = Math.max(...ys);
+            const xSpan = (xmax - xmin) || 1;
+            const ySpan = (ymax - ymin) || 1;
+
+            function xScale(x) { return pad + ((x - xmin) / xSpan) * (w - 2*pad); }
+            function yScale(y) { return (h - pad) - ((y - ymin) / ySpan) * (h - 2*pad); }
+
+            // plot points
+            ctx.fillStyle = '#667eea';
+            pts.forEach(p => {
+                const x = xScale(p[0]);
+                const y = yScale(p[1]);
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+    </script>
+</body>
+</html>

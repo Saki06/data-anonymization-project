@@ -1,0 +1,263 @@
+{
+  "dataset_overview": {
+    "total_rows": 100,
+    "total_columns": 9,
+    "total_cells": 900,
+    "memory_usage_mb": 0.011317253112792969,
+    "duplicate_rows": "1",
+    "duplicate_percentage": 1.0
+  },
+  "column_profiles": {
+    "age": {
+      "data_type": "str",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 5,
+      "unique_percentage": 5.0,
+      "avg_length": 4.35,
+      "min_length": 3,
+      "max_length": 5,
+      "most_common": "0-18"
+    },
+    "sex": {
+      "data_type": "int64",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 2,
+      "unique_percentage": 2.0,
+      "min": 1.0,
+      "max": 2.0,
+      "mean": 1.59,
+      "median": 2.0,
+      "std": 0.4943110704237103,
+      "quartiles": {
+        "25%": 1.0,
+        "50%": 2.0,
+        "75%": 2.0
+      }
+    },
+    "district": {
+      "data_type": "int64",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 8,
+      "unique_percentage": 8.0,
+      "min": 10.0,
+      "max": 19.0,
+      "mean": 11.24,
+      "median": 11.0,
+      "std": 1.0835780609358119,
+      "quartiles": {
+        "25%": 11.0,
+        "50%": 11.0,
+        "75%": 11.0
+      }
+    },
+    "education": {
+      "data_type": "int64",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 15,
+      "unique_percentage": 15.0,
+      "min": -1.0,
+      "max": 16.0,
+      "mean": 9.28,
+      "median": 10.0,
+      "std": 3.396611502213595,
+      "quartiles": {
+        "25%": 8.0,
+        "50%": 10.0,
+        "75%": 11.25
+      }
+    },
+    "marital_status": {
+      "data_type": "int64",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 4,
+      "unique_percentage": 4.0,
+      "min": 1.0,
+      "max": 5.0,
+      "mean": 1.87,
+      "median": 2.0,
+      "std": 0.9173413495069062,
+      "quartiles": {
+        "25%": 1.0,
+        "50%": 2.0,
+        "75%": 2.0
+      }
+    },
+    "B_year": {
+      "data_type": "int64",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 53,
+      "unique_percentage": 53.0,
+      "min": 1928.0,
+      "max": 2018.0,
+      "mean": 1981.84,
+      "median": 1983.0,
+      "std": 23.67572169923861,
+      "quartiles": {
+        "25%": 1963.75,
+        "50%": 1983.0,
+        "75%": 2002.0
+      }
+    },
+    "employment_status": {
+      "data_type": "int64",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 7,
+      "unique_percentage": 7.000000000000001,
+      "min": -1.0,
+      "max": 6.0,
+      "mean": 0.84,
+      "median": -1.0,
+      "std": 2.308176069470604,
+      "quartiles": {
+        "25%": -1.0,
+        "50%": -1.0,
+        "75%": 3.0
+      }
+    },
+    "industry": {
+      "data_type": "int64",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 26,
+      "unique_percentage": 26.0,
+      "min": -1.0,
+      "max": 97006.0,
+      "mean": 16997.43,
+      "median": -1.0,
+      "std": 26216.256068084433,
+      "quartiles": {
+        "25%": -1.0,
+        "50%": -1.0,
+        "75%": 41002.0
+      }
+    },
+    "main_activity": {
+      "data_type": "int64",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 7,
+      "unique_percentage": 7.000000000000001,
+      "min": -1.0,
+      "max": 9.0,
+      "mean": 2.87,
+      "median": 1.0,
+      "std": 3.6918009073342435,
+      "quartiles": {
+        "25%": 0.5,
+        "50%": 1.0,
+        "75%": 7.0
+      }
+    }
+  },
+  "data_quality": {
+    "completeness_percentage": 100.0,
+    "total_null_cells": 0,
+    "total_null_percentage": 0.0,
+    "columns_with_nulls": 0,
+    "columns_fully_null": 0
+  },
+  "statistical_summary": {
+    "numeric_columns_count": 8,
+    "categorical_columns_count": 1,
+    "datetime_columns_count": 0,
+    "numeric_summary": {
+      "sex": {
+        "count": 100.0,
+        "mean": 1.59,
+        "std": 0.4943110704237103,
+        "min": 1.0,
+        "25%": 1.0,
+        "50%": 2.0,
+        "75%": 2.0,
+        "max": 2.0
+      },
+      "district": {
+        "count": 100.0,
+        "mean": 11.24,
+        "std": 1.0835780609358119,
+        "min": 10.0,
+        "25%": 11.0,
+        "50%": 11.0,
+        "75%": 11.0,
+        "max": 19.0
+      },
+      "education": {
+        "count": 100.0,
+        "mean": 9.28,
+        "std": 3.396611502213595,
+        "min": -1.0,
+        "25%": 8.0,
+        "50%": 10.0,
+        "75%": 11.25,
+        "max": 16.0
+      },
+      "marital_status": {
+        "count": 100.0,
+        "mean": 1.87,
+        "std": 0.9173413495069062,
+        "min": 1.0,
+        "25%": 1.0,
+        "50%": 2.0,
+        "75%": 2.0,
+        "max": 5.0
+      },
+      "B_year": {
+        "count": 100.0,
+        "mean": 1981.84,
+        "std": 23.67572169923861,
+        "min": 1928.0,
+        "25%": 1963.75,
+        "50%": 1983.0,
+        "75%": 2002.0,
+        "max": 2018.0
+      },
+      "employment_status": {
+        "count": 100.0,
+        "mean": 0.84,
+        "std": 2.308176069470604,
+        "min": -1.0,
+        "25%": -1.0,
+        "50%": -1.0,
+        "75%": 3.0,
+        "max": 6.0
+      },
+      "industry": {
+        "count": 100.0,
+        "mean": 16997.43,
+        "std": 26216.256068084433,
+        "min": -1.0,
+        "25%": -1.0,
+        "50%": -1.0,
+        "75%": 41002.0,
+        "max": 97006.0
+      },
+      "main_activity": {
+        "count": 100.0,
+        "mean": 2.87,
+        "std": 3.6918009073342435,
+        "min": -1.0,
+        "25%": 0.5,
+        "50%": 1.0,
+        "75%": 7.0,
+        "max": 9.0
+      }
+    },
+    "sampled_for_summary": false
+  }
+}

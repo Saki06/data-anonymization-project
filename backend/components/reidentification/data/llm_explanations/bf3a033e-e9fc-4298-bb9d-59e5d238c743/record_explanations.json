@@ -1,0 +1,12 @@
+[
+  {
+    "record_id": 0,
+    "risk_score": 0.939146480301344,
+    "explanation": "The risk score of 0.9391 is very high. This means there is a strong chance that this record could be linked back to a specific person. A score close to 1.0 indicates a serious privacy risk.\n\nThe columns that increase this risk are age, education, sex, ethnicity, and religion. Age can help narrow down who someone is. Education shows their background, which can also be unique. Sex and ethnicity are personal details that can identify someone. Religion can add another layer of information that makes it easier to connect the record to a specific individual.\n\nTo reduce the risk, better anonymization is needed for these columns. For age, using broader age ranges could help. For education, generalizing the categories can make it less specific. For sex, using non-binary options or removing it altogether could help. Ethnicity and religion could be grouped into larger categories or removed. These changes can help protect privacy better.\n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  },
+  {
+    "record_id": 74,
+    "risk_score": 0.1195305230158371,
+    "explanation": "The risk score for this record is 0.1195. This score is low, as it is closer to 0.0 than to 1.0. A low score means there is not much risk of someone figuring out who this record belongs to.\n\nThe columns that increase the risk the most are age, education, sex, ethnicity, and religion. These details can help someone guess who the person might be. For example, age and sex are basic facts that can narrow down a group of people. Education, ethnicity, and religion can also give clues about someone's identity.\n\nTo lower the risk, better anonymization is needed for age, education, sex, ethnicity, and religion. For age, using a broader age range could help. For education, using general categories instead of specific degrees could work. For sex, using non-binary options or removing it altogether might help. For ethnicity and religion, using general terms or omitting them can reduce risk. \n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  }
+]

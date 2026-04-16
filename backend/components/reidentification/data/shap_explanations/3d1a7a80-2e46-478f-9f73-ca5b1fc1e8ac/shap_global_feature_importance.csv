@@ -1,0 +1,8 @@
+feature,mean_abs_shap,rank
+sector_equal,0.0537057288999132,1
+overall_similarity,0.05370572889991318,2
+cosine_similarity,0.043689121343244555,3
+manhattan_distance,0.009766296640908383,4
+euclidean_distance,0.00976629664090837,5
+sector_diff,0.00976629664090837,6
+sector_match,0.0,7

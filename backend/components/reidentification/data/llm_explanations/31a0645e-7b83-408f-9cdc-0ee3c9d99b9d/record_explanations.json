@@ -1,0 +1,12 @@
+[
+  {
+    "record_id": 0,
+    "risk_score": 0.5370370370084764,
+    "explanation": "The risk score for this record is 0.5370. This score is in the middle range. It suggests a moderate level of risk. It is not the highest risk, but it is also not the lowest. \n\nThe column that contributed most to this risk is age. In this case, age decreases the risk. This means that knowing the age of a person makes it less likely to identify them. However, other columns may also play a role in increasing risk, but they are not listed here.\n\nTo improve privacy, other columns should be better anonymized. This could mean changing or removing specific details that could help identify someone. For example, using broader age ranges instead of exact ages could help. Making these changes can lower the risk score and protect privacy better.\n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  },
+  {
+    "record_id": 5,
+    "risk_score": 0.5370370370084764,
+    "explanation": "The risk score for this record is 0.5370. This score is in the middle range. It means there is some risk, but it is not the highest. A score closer to 1.0 would mean more risk.\n\nThe column that contributed most to this risk is age. In this case, age decreases the risk. This means that knowing the age of a person can help protect their identity. It is important because it can help to narrow down who someone might be, but it also offers some level of safety.\n\nTo lower the risk further, other columns should be better protected. For example, adding more general information or removing specific details could help. This way, it becomes harder to link the information to a specific person. Better anonymization can keep the data safer.\n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  }
+]

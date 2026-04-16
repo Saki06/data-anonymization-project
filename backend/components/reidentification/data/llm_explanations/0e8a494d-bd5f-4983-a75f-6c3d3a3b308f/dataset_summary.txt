@@ -1,0 +1,7 @@
+This dataset has a total of 494 records. Most of the records, 327 or 66.2%, are considered high risk. Only 5 records, or 1.0%, are medium risk. The remaining 162 records, which is 32.8%, are low risk. This shows that a large portion of the data could potentially reveal personal information.
+
+The columns that matter most for risk are age, education, industry, marital_status, and sex. Age has the highest impact on risk. This means that knowing someone's age can help identify them. Education and industry also play a role. When these columns are combined, they can create a clearer picture of a person, increasing the risk.
+
+To reduce risk, some columns need stronger anonymization. For age, consider grouping ages into ranges, like 20-30 or 30-40. For education and industry, broadening categories can help. Removing rare values can also protect privacy. These steps can make it harder to link records to specific individuals. 
+
+Risk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability.

@@ -1,0 +1,20 @@
+{
+  "rf": {
+    "overall_similarity": 0.3602137196594469,
+    "sector_equal": 0.32973563532454,
+    "cosine_similarity": 0.1576864810964037,
+    "manhattan_distance": 0.06277062113205369,
+    "euclidean_distance": 0.05304213700723697,
+    "sector_diff": 0.036551405780318805,
+    "sector_match": 0.0
+  },
+  "gbm": {
+    "sector_equal": 0.5099740962966023,
+    "overall_similarity": 0.49002590370339766,
+    "sector_diff": 2.0474162501741986e-17,
+    "euclidean_distance": 0.0,
+    "manhattan_distance": 0.0,
+    "cosine_similarity": 0.0,
+    "sector_match": 0.0
+  }
+}

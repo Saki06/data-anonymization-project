@@ -1,0 +1,10 @@
+DATASET-LEVEL PRIVACY RISK SUMMARY
+============================================================
+
+This dataset has a high overall privacy risk. Out of 977 records, 882 are considered high risk. This means about 90% of the data could be sensitive. There are also 88 medium risk records and just 7 low risk records. This shows that most of the data is at risk of being linked back to individuals.
+
+The columns that matter most for risk are age, education, B_year, employment_status, and main_activity. Age is the biggest factor, meaning it can help identify individuals easily. Education and B_year also add to the risk by providing more personal details. Employment_status and main_activity give context about a person's life. When these columns are combined, they create a clearer picture of who someone is, increasing the risk.
+
+To protect privacy better, some columns need stronger anonymization. For example, age could be grouped into ranges like 20-29, 30-39, and so on. Education categories could be broadened to include fewer specific levels. Additionally, rare values in employment_status or main_activity could be removed or combined to reduce risk. 
+
+Risk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability.

@@ -1,0 +1,22 @@
+{
+  "model": "logreg",
+  "calibration_method": "sigmoid",
+  "pr_auc_before": 0.49257273599774243,
+  "pr_auc_after": 0.49257273599774243,
+  "reliability_table": [
+    {
+      "bin_lower": 0.4,
+      "bin_upper": 0.5,
+      "mean_pred_prob": 0.49599813407600046,
+      "frac_positive": 0.5127388535031847,
+      "count": 314
+    },
+    {
+      "bin_lower": 0.5,
+      "bin_upper": 0.6,
+      "mean_pred_prob": 0.512885556747764,
+      "frac_positive": 0.45348837209302323,
+      "count": 86
+    }
+  ]
+}

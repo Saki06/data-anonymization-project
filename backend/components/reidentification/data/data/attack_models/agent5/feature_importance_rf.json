@@ -1,0 +1,23 @@
+{
+  "age_match": 0.2935576588692587,
+  "overall_similarity": 0.21340969317749514,
+  "education_diff": 0.07913840909501375,
+  "manhattan_distance": 0.06636804007653842,
+  "cosine_similarity": 0.05275236698064534,
+  "euclidean_distance": 0.052425058548858636,
+  "B_year_diff": 0.04157194310011729,
+  "sex_diff": 0.0318983865696855,
+  "sex_equal": 0.02991256845872178,
+  "education_equal": 0.027607298836332568,
+  "industry_diff": 0.021840592308079845,
+  "employment_status_diff": 0.021639555913589473,
+  "main_activity_diff": 0.017677255337951073,
+  "marital_status_diff": 0.015123229826659229,
+  "marital_status_equal": 0.012342956668764477,
+  "employment_status_equal": 0.00850954317758196,
+  "main_activity_equal": 0.005629347467643125,
+  "B_year_equal": 0.0048712516195499695,
+  "industry_equal": 0.003724843967513725,
+  "district_diff": 0.0,
+  "district_equal": 0.0
+}

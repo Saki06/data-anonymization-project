@@ -1,0 +1,10 @@
+{
+  "rf": {
+    "age_match": 0.0,
+    "overall_similarity": 0.0
+  },
+  "gbm": {
+    "age_match": 0.0,
+    "overall_similarity": 0.0
+  }
+}

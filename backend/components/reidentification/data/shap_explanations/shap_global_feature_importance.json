@@ -1,0 +1,107 @@
+[
+  {
+    "feature": "age_match",
+    "mean_abs_shap": 2.916795966853606,
+    "rank": 1
+  },
+  {
+    "feature": "overall_similarity",
+    "mean_abs_shap": 1.627275401258488,
+    "rank": 2
+  },
+  {
+    "feature": "education_diff",
+    "mean_abs_shap": 0.4366186193509629,
+    "rank": 3
+  },
+  {
+    "feature": "cosine_similarity",
+    "mean_abs_shap": 0.36191559735363676,
+    "rank": 4
+  },
+  {
+    "feature": "B_year_diff",
+    "mean_abs_shap": 0.3111159444928298,
+    "rank": 5
+  },
+  {
+    "feature": "employment_status_diff",
+    "mean_abs_shap": 0.30689448686013,
+    "rank": 6
+  },
+  {
+    "feature": "main_activity_diff",
+    "mean_abs_shap": 0.21753860892364318,
+    "rank": 7
+  },
+  {
+    "feature": "sex_equal",
+    "mean_abs_shap": 0.19702642936413928,
+    "rank": 8
+  },
+  {
+    "feature": "euclidean_distance",
+    "mean_abs_shap": 0.16962673043802423,
+    "rank": 9
+  },
+  {
+    "feature": "sex_diff",
+    "mean_abs_shap": 0.15351537648621544,
+    "rank": 10
+  },
+  {
+    "feature": "manhattan_distance",
+    "mean_abs_shap": 0.12636359453445312,
+    "rank": 11
+  },
+  {
+    "feature": "employment_status_equal",
+    "mean_abs_shap": 0.06618432146334804,
+    "rank": 12
+  },
+  {
+    "feature": "main_activity_equal",
+    "mean_abs_shap": 0.021012287772364507,
+    "rank": 13
+  },
+  {
+    "feature": "industry_diff",
+    "mean_abs_shap": 0.019290389914048647,
+    "rank": 14
+  },
+  {
+    "feature": "marital_status_diff",
+    "mean_abs_shap": 0.01920169680166545,
+    "rank": 15
+  },
+  {
+    "feature": "education_equal",
+    "mean_abs_shap": 0.008669992102152992,
+    "rank": 16
+  },
+  {
+    "feature": "B_year_equal",
+    "mean_abs_shap": 0.007562172870835659,
+    "rank": 17
+  },
+  {
+    "feature": "industry_equal",
+    "mean_abs_shap": 0.0007448633541976408,
+    "rank": 18
+  },
+  {
+    "feature": "marital_status_equal",
+    "mean_abs_shap": 1.394755625561342e-05,
+    "rank": 19
+  },
+  {
+    "feature": "district_equal",
+    "mean_abs_shap": 0.0,
+    "rank": 20
+  },
+  {
+    "feature": "district_diff",
+    "mean_abs_shap": 0.0,
+    "rank": 21
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "record_id": 0,
+    "risk_score": 0.5370370370084764,
+    "explanation": "The risk score for this record is 0.5370. This score is in the middle range, meaning there is some risk but not the highest. A score of 0.0 means no risk, while 1.0 means the highest risk. So, this record has a moderate level of risk.\n\nThe column that contributed most to this risk is age. In this case, age decreases the risk. This means that knowing the age of a person makes it less likely to connect them to their personal information. However, other columns may also play a role in the overall risk.\n\nTo lower the risk further, we could improve how we protect the age column. For example, we could group ages into ranges instead of using exact ages. This would make it harder to link the age to a specific person. Other columns should also be reviewed for better protection. \n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  },
+  {
+    "record_id": 5,
+    "risk_score": 0.5370370370084764,
+    "explanation": "The risk score for this record is 0.5370. This score is in the middle range, meaning there is some risk but not the highest. A score of 0.0 means no risk, while 1.0 means the highest risk. So, this record has a moderate level of privacy risk.\n\nThe column that contributed most to this risk is age. In this case, age decreases the risk. This means that the age information does not make it easier to identify the person. However, other columns could still add to the risk if they were present.\n\nTo lower the risk, we need to focus on better anonymization of the data. We could consider removing or changing specific details that might be sensitive. This could include generalizing age into broader categories or removing other identifying information. Making these changes can help protect privacy better.\n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  }
+]

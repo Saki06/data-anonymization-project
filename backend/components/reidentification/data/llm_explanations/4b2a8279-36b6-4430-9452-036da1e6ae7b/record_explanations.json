@@ -1,0 +1,12 @@
+[
+  {
+    "record_id": 999,
+    "risk_score": 0.9580119389893054,
+    "explanation": "The risk score for this record is 0.9580. This is very high, close to the maximum risk level of 1.0. A high score means there is a strong chance that this record could be linked back to a specific person.\n\nThe columns that contributed most to this risk are sector and hhno. The sector increases the risk because it can give clues about the person's job or lifestyle. This information can make it easier to identify someone. On the other hand, hhno decreases the risk. This number helps to keep the record more private by not revealing personal details.\n\nTo improve privacy, the sector column needs better anonymization. This could mean using broader categories instead of specific job titles. The hhno column is already helping to lower the risk, so it may not need changes. Making these adjustments can help protect personal information better.\n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  },
+  {
+    "record_id": 995,
+    "risk_score": 0.4373528845580239,
+    "explanation": "The risk score for this record is 0.4374. This score is moderate. It is not the highest risk, but it is also not very low. There is some chance that this record could be linked back to a person.\n\nThe columns that increased the risk are \"sector\" and \"hhno.\" The \"sector\" column adds risk because it can help narrow down who the person might be based on their job or industry. The \"hhno\" column decreases risk. It is a unique number that can make it harder to connect the record to a specific person.\n\nTo improve privacy, the \"sector\" column could be made less specific. For example, instead of showing exact job titles, it could show broader categories. The \"hhno\" column might need changes too, like randomizing the numbers or using a different method to keep it private. This would help protect the person\u2019s identity better.\n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  }
+]

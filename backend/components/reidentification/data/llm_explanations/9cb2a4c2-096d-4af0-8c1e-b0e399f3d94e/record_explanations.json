@@ -1,0 +1,12 @@
+[
+  {
+    "record_id": 96,
+    "risk_score": 0.9666169069563418,
+    "explanation": "The risk score of 0.9666 is very high. This means there is a strong chance that the information could be linked back to a specific person. A score close to 1.0 shows a serious privacy risk.\n\nThe columns that increased the risk are marital_status and sex. These details can help narrow down who a person is. On the other hand, education, industry, and age lower the risk. These factors are less specific and can apply to many people. They make it harder to identify someone.\n\nTo better protect privacy, the columns that need more anonymization are marital_status and sex. Changing these details to more general categories could help. For example, instead of stating if someone is married or single, we could use broader terms like \"relationship status.\" This would make it harder to pinpoint an individual while still keeping useful information.\n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  },
+  {
+    "record_id": 40,
+    "risk_score": 0.0619330839483009,
+    "explanation": "The risk score for this record is 0.0619. This score is low, as it is much closer to 0.0 than to 1.0. A low score means there is little risk of someone figuring out who this record belongs to.\n\nThe columns that increased the risk the most are industry, education, marital_status, sex, and age. The industry can make someone more identifiable because certain jobs are unique. Education, marital_status, sex, and age help lower the risk. These details are common and do not point to a specific person.\n\nTo improve privacy, the industry column needs better anonymization. This could mean grouping similar industries together or removing specific job titles. The other columns, like education, marital_status, sex, and age, are already helping to lower the risk. Keeping them general can help maintain privacy.\n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  }
+]

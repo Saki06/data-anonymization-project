@@ -1,0 +1,12 @@
+[
+  {
+    "record_id": 0,
+    "risk_score": 0.9440355537166484,
+    "explanation": "The risk score for this record is 0.9440. This score is very high, close to the maximum of 1.0. It suggests that there is a significant chance of linking this information back to a person.\n\nThe columns that raised the risk the most are r2_school_education and sector. The r2_school_education column is important because it shows the educational background, which can be unique. The sector column also matters as it indicates the industry a person works in, which can narrow down identities. On the other hand, the type_of_school column decreases the risk. This means that knowing the type of school does not help much in identifying someone.\n\nTo better protect privacy, the columns r2_school_education and sector need better anonymization. Changes could include generalizing the education level or sector information. For example, instead of specific degrees or job titles, using broader categories could help. This would make it harder to link the data back to an individual.\n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  },
+  {
+    "record_id": 59,
+    "risk_score": 0.9440355537166484,
+    "explanation": "The risk score for this record is 0.9440. This is very high, close to the maximum of 1.0. A high score means there is a significant chance that someone could connect this record to a specific person.\n\nThe columns that increased the risk the most are r2_school_education and sector. The r2_school_education shows the level of education someone has, which can be unique to individuals. The sector indicates the industry where the person works, which can also narrow down their identity. On the other hand, type_of_school decreases the risk. This means that knowing what type of school someone attended is less helpful in identifying them.\n\nTo lower the risk, r2_school_education and sector need better anonymization. One way to do this is by grouping education levels into broader categories. For example, instead of specific degrees, we could use general terms like \"high school\" or \"college.\" For sector, using larger industry categories could help. This way, it becomes harder to pinpoint a specific person. \n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  }
+]

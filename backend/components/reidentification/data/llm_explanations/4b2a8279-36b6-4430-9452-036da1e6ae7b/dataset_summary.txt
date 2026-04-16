@@ -1,0 +1,10 @@
+DATASET-LEVEL PRIVACY RISK SUMMARY
+============================================================
+
+The dataset has 1,000 records. The average risk score is 0.6175. Out of these, 346 records are considered high risk, which is about 34.6%. The remaining 654 records are medium risk, making up 65.4%. There are no records classified as low risk.
+
+The columns that matter most for risk are sector and hhno. The sector column has a risk score of 0.1552, which means it can reveal important information about the group a person belongs to. The hhno column has a score of 0.0000, indicating it is not a risk factor on its own. However, when combined with other information, it can still contribute to risk.
+
+To improve privacy, the dataset needs stronger anonymization, especially in the sector column. One way to do this is by grouping similar sectors together. This makes it harder to identify individuals. Another suggestion is to broaden categories or remove rare values that might stand out. These steps can help protect the privacy of the people in the dataset.
+
+Risk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability.

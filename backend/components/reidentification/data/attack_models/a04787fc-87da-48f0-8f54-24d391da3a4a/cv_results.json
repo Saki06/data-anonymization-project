@@ -1,0 +1,14 @@
+{
+  "logreg": {
+    "pr_auc_mean": 0.6,
+    "pr_auc_std": 0.2
+  },
+  "rf": {
+    "pr_auc_mean": 0.6,
+    "pr_auc_std": 0.2
+  },
+  "gbm": {
+    "pr_auc_mean": 0.6,
+    "pr_auc_std": 0.2
+  }
+}

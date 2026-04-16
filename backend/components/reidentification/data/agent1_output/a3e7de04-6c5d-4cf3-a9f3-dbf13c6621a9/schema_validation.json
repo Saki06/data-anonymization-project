@@ -1,0 +1,15 @@
+{
+  "total_columns": 31,
+  "total_rows": 100,
+  "duplicate_columns": [],
+  "empty_columns": [],
+  "constant_columns": [
+    "district",
+    "hhno",
+    "nhh",
+    "result"
+  ],
+  "high_null_columns": [],
+  "validation_passed": false,
+  "issues_found": 4
+}

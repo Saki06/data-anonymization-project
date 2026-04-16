@@ -1,0 +1,12 @@
+feature,mean_abs_shap,rank
+overall_similarity,0.16526975453458073,1
+distance_equal,0.13561655675536338,2
+euclidean_distance,0.029158202025551257,3
+manhattan_distance,0.029158202025551257,4
+distance_diff,0.025784222369339607,5
+sector_diff,0.02522683369800779,6
+sector_equal,0.025226833698007742,7
+cosine_similarity,0.023697860333587187,8
+distance_match,0.01654309435036652,9
+r2_school_education_match,0.005968922790772493,10
+type_of_school_match,0.0,11

@@ -1,0 +1,36 @@
+{
+  "rf": {
+    "overall_similarity": 0.20141493034531968,
+    "cosine_similarity": 0.150608954305556,
+    "manhattan_distance": 0.1412882253176049,
+    "euclidean_distance": 0.12768886981541763,
+    "age_diff": 0.11364259189960976,
+    "age_equal": 0.08826871523018838,
+    "birth_year_diff": 0.06690162936911774,
+    "birth_year_equal": 0.029358975399677703,
+    "birth_month_diff": 0.025166996030748515,
+    "birth_month_equal": 0.024863248011867005,
+    "education_match": 0.01597968292685147,
+    "ethnicity_match": 0.0056088061134860565,
+    "religion_match": 0.004505315247316971,
+    "marital_status_match": 0.0026059614764214886,
+    "sex_match": 0.0020970985108168696
+  },
+  "gbm": {
+    "overall_similarity": 0.8513923056025053,
+    "cosine_similarity": 0.040838969850190185,
+    "birth_year_diff": 0.02848119481424939,
+    "manhattan_distance": 0.026499245150319265,
+    "birth_year_equal": 0.021916922128974583,
+    "euclidean_distance": 0.011451625838862525,
+    "birth_month_diff": 0.005852397036269434,
+    "age_diff": 0.005554498291960368,
+    "ethnicity_match": 0.003330797484799454,
+    "age_equal": 0.0022417808153210876,
+    "sex_match": 0.0013586044951893386,
+    "marital_status_match": 0.0005086287758053247,
+    "religion_match": 0.0003897923624936527,
+    "birth_month_equal": 0.00012841728477047134,
+    "education_match": 5.482006828960372e-05
+  }
+}

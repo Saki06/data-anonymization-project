@@ -1,0 +1,15 @@
+{
+  "quasi_identifiers": [
+    "age",
+    "sex",
+    "district",
+    "education",
+    "marital_status",
+    "B_year",
+    "employment_status",
+    "industry",
+    "main_activity"
+  ],
+  "column_mapping": {},
+  "source": "user_provided"
+}

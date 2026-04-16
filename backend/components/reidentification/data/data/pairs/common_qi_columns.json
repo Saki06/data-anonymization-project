@@ -1,0 +1,14 @@
+{
+  "common_qi_columns": [
+    "age",
+    "sex",
+    "district",
+    "education",
+    "marital_status",
+    "B_year",
+    "employment_status",
+    "industry",
+    "main_activity"
+  ],
+  "count": 9
+}

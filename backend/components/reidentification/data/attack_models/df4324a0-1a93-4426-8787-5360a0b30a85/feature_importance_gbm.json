@@ -1,0 +1,19 @@
+{
+  "overall_similarity": 0.5818806424592694,
+  "cosine_similarity": 0.2258641204596562,
+  "manhattan_distance": 0.06089545728665763,
+  "euclidean_distance": 0.05059893046904258,
+  "education_diff": 0.028701599329447228,
+  "industry_diff": 0.02777139242624877,
+  "marital_status_diff": 0.011601499576945536,
+  "education_equal": 0.007216781668812263,
+  "marital_status_equal": 0.0025182687933855276,
+  "sex_diff": 0.0013099921876680402,
+  "industry_equal": 0.0008942007520375248,
+  "sex_equal": 0.0007471145908293576,
+  "age_match": 0.0,
+  "industry_match": 0.0,
+  "education_match": 0.0,
+  "age_diff": 0.0,
+  "age_equal": 0.0
+}

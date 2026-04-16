@@ -1,0 +1,22 @@
+{
+  "total_columns": 30,
+  "total_rows": 1000,
+  "duplicate_columns": [],
+  "empty_columns": [],
+  "constant_columns": [
+    "district",
+    "result"
+  ],
+  "high_null_columns": [
+    {
+      "column": "uresidencf",
+      "null_rate": 0.969
+    },
+    {
+      "column": "live",
+      "null_rate": 0.969
+    }
+  ],
+  "validation_passed": false,
+  "issues_found": 4
+}

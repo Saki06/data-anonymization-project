@@ -1,0 +1,38 @@
+{
+  "total_missing": 312,
+  "missing_pct_overall": 2.95,
+  "by_column": {
+    "age": {
+      "missing_count": 39,
+      "missing_pct": 2.95
+    },
+    "sex": {
+      "missing_count": 39,
+      "missing_pct": 2.95
+    },
+    "district": {
+      "missing_count": 39,
+      "missing_pct": 2.95
+    },
+    "education": {
+      "missing_count": 39,
+      "missing_pct": 2.95
+    },
+    "marital_status": {
+      "missing_count": 39,
+      "missing_pct": 2.95
+    },
+    "employment_status": {
+      "missing_count": 39,
+      "missing_pct": 2.95
+    },
+    "industry": {
+      "missing_count": 39,
+      "missing_pct": 2.95
+    },
+    "main_activity": {
+      "missing_count": 39,
+      "missing_pct": 2.95
+    }
+  }
+}

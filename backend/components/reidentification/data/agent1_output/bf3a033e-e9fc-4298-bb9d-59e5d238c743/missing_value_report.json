@@ -1,0 +1,11 @@
+{
+  "missing_summary": {
+    "total_missing": 0,
+    "total_cells": 738,
+    "overall_missing_rate": 0.0,
+    "columns_with_missing": 0
+  },
+  "column_analysis": {},
+  "strategy": "simple_count",
+  "note": "RAW missing report (before cleaning). Numeric nulls will be filled with -1 later."
+}

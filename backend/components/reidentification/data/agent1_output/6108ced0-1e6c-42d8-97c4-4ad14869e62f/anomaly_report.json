@@ -1,0 +1,20 @@
+{
+  "anomalies": [
+    {
+      "column": "curr_educ",
+      "type": "statistical_outlier",
+      "method": "IQR(3x)",
+      "count": 24,
+      "percentage": 24.0,
+      "bounds": {
+        "lower": 6.0,
+        "upper": 11.25
+      }
+    }
+  ],
+  "total_anomalies": 1,
+  "detection_methods": [
+    "IQR_outliers_excluding_-1",
+    "high_cardinality_check"
+  ]
+}

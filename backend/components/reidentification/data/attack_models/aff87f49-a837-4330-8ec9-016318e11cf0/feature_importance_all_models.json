@@ -1,0 +1,28 @@
+{
+  "rf": {
+    "overall_similarity": 0.29742885964469595,
+    "euclidean_distance": 0.20390315043911703,
+    "manhattan_distance": 0.19601907420760975,
+    "cosine_similarity": 0.10597630762975498,
+    "distance_equal": 0.07432894748067877,
+    "distance_diff": 0.07197885131691165,
+    "sector_equal": 0.018627423696801853,
+    "sector_diff": 0.01755587191429649,
+    "r2_school_education_match": 0.00773709472134114,
+    "distance_match": 0.006444418948792433,
+    "type_of_school_match": 0.0
+  },
+  "gbm": {
+    "overall_similarity": 0.9999999999999996,
+    "distance_match": 2.542817633654227e-16,
+    "cosine_similarity": 6.94813765687098e-17,
+    "distance_equal": 6.496452945629769e-17,
+    "euclidean_distance": 0.0,
+    "manhattan_distance": 0.0,
+    "sector_diff": 0.0,
+    "sector_equal": 0.0,
+    "r2_school_education_match": 0.0,
+    "type_of_school_match": 0.0,
+    "distance_diff": 0.0
+  }
+}

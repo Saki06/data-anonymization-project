@@ -1,0 +1,36 @@
+{
+  "total_records": 85,
+  "critical_risk": 81,
+  "high_risk": 0,
+  "medium_risk": 0,
+  "low_risk": 4,
+  "avg_max_attack_score": 0.9221065501259821,
+  "max_attack_score": 0.9640169928656092,
+  "min_attack_score": 0.08194084729740109,
+  "dynamic_thresholds": {
+    "critical_threshold": 0.9482041816215755,
+    "high_threshold": 0.9482041816215755,
+    "medium_threshold": 0.9482041816215755,
+    "percentile_95": 0.9482041816215755,
+    "percentile_80": 0.9482041816215755,
+    "percentile_50": 0.9482041816215755
+  },
+  "counts": {
+    "total_records": 85,
+    "critical": 81,
+    "high": 0,
+    "medium": 0,
+    "low": 4
+  },
+  "percentages": {
+    "critical": 95.29411764705881,
+    "high": 0.0,
+    "medium": 0.0,
+    "low": 4.705882352941177
+  },
+  "attack_scores": {
+    "avg_max": 0.9221065501259821,
+    "max": 0.9640169928656092,
+    "min": 0.08194084729740109
+  }
+}

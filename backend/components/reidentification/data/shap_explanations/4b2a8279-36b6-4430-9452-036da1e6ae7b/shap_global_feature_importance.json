@@ -1,0 +1,227 @@
+[
+  {
+    "feature": "overall_similarity",
+    "mean_abs_shap": 0.09187423372934404,
+    "rank": 1
+  },
+  {
+    "feature": "snumber_match",
+    "mean_abs_shap": 0.06131165064110516,
+    "rank": 2
+  },
+  {
+    "feature": "month_equal",
+    "mean_abs_shap": 0.05631887094206152,
+    "rank": 3
+  },
+  {
+    "feature": "district_equal",
+    "mean_abs_shap": 0.05130352109330021,
+    "rank": 4
+  },
+  {
+    "feature": "distance_equal",
+    "mean_abs_shap": 0.0277420284417794,
+    "rank": 5
+  },
+  {
+    "feature": "month_diff",
+    "mean_abs_shap": 0.02407247331931945,
+    "rank": 6
+  },
+  {
+    "feature": "person_serial_no_equal",
+    "mean_abs_shap": 0.023208349676707395,
+    "rank": 7
+  },
+  {
+    "feature": "manhattan_distance",
+    "mean_abs_shap": 0.019104998295365966,
+    "rank": 8
+  },
+  {
+    "feature": "grade_last_year_equal",
+    "mean_abs_shap": 0.018559891959266845,
+    "rank": 9
+  },
+  {
+    "feature": "grade_this_year_equal",
+    "mean_abs_shap": 0.01694838401681729,
+    "rank": 10
+  },
+  {
+    "feature": "time_to_school_equal",
+    "mean_abs_shap": 0.016480391405848515,
+    "rank": 11
+  },
+  {
+    "feature": "euclidean_distance",
+    "mean_abs_shap": 0.015588686004276866,
+    "rank": 12
+  },
+  {
+    "feature": "person_serial_no_diff",
+    "mean_abs_shap": 0.012993373170516421,
+    "rank": 13
+  },
+  {
+    "feature": "transport_medium_equal",
+    "mean_abs_shap": 0.010083263708543176,
+    "rank": 14
+  },
+  {
+    "feature": "grade_this_year_diff",
+    "mean_abs_shap": 0.009193378175919326,
+    "rank": 15
+  },
+  {
+    "feature": "transport_medium_diff",
+    "mean_abs_shap": 0.009191974774365692,
+    "rank": 16
+  },
+  {
+    "feature": "district_diff",
+    "mean_abs_shap": 0.009139329846770178,
+    "rank": 17
+  },
+  {
+    "feature": "grade_last_year_diff",
+    "mean_abs_shap": 0.005588568324811791,
+    "rank": 18
+  },
+  {
+    "feature": "distance_diff",
+    "mean_abs_shap": 0.005219387197578321,
+    "rank": 19
+  },
+  {
+    "feature": "cosine_similarity",
+    "mean_abs_shap": 0.004282807869746484,
+    "rank": 20
+  },
+  {
+    "feature": "time_to_school_diff",
+    "mean_abs_shap": 0.003965168981492867,
+    "rank": 21
+  },
+  {
+    "feature": "sector_diff",
+    "mean_abs_shap": 0.002212651202400539,
+    "rank": 22
+  },
+  {
+    "feature": "r2_school_education_match",
+    "mean_abs_shap": 0.0016873502192212122,
+    "rank": 23
+  },
+  {
+    "feature": "reason_leave_school_equal",
+    "mean_abs_shap": 0.0012920775329432388,
+    "rank": 24
+  },
+  {
+    "feature": "sector_equal",
+    "mean_abs_shap": 0.0008682610876175429,
+    "rank": 25
+  },
+  {
+    "feature": "when_stop_schooling_equal",
+    "mean_abs_shap": 0.0007693413925558175,
+    "rank": 26
+  },
+  {
+    "feature": "grade_last_year_match",
+    "mean_abs_shap": 0.00047902570419782955,
+    "rank": 27
+  },
+  {
+    "feature": "distance_match",
+    "mean_abs_shap": 0.00046966422678149604,
+    "rank": 28
+  },
+  {
+    "feature": "grade_this_year_match",
+    "mean_abs_shap": 0.00044914614959448316,
+    "rank": 29
+  },
+  {
+    "feature": "time_to_school_match",
+    "mean_abs_shap": 0.0004235172701907536,
+    "rank": 30
+  },
+  {
+    "feature": "transport_medium_match",
+    "mean_abs_shap": 0.0004217746707134438,
+    "rank": 31
+  },
+  {
+    "feature": "noschooling_reason_equal",
+    "mean_abs_shap": 0.00036819241239050303,
+    "rank": 32
+  },
+  {
+    "feature": "nhh_equal",
+    "mean_abs_shap": 0.0002488076201780204,
+    "rank": 33
+  },
+  {
+    "feature": "nhh_diff",
+    "mean_abs_shap": 0.00023528503395001138,
+    "rank": 34
+  },
+  {
+    "feature": "when_stop_schooling_diff",
+    "mean_abs_shap": 0.00018913457952582214,
+    "rank": 35
+  },
+  {
+    "feature": "reason_leave_school_match",
+    "mean_abs_shap": 0.0001629312827680501,
+    "rank": 36
+  },
+  {
+    "feature": "when_stop_schooling_match",
+    "mean_abs_shap": 0.00012169302230457674,
+    "rank": 37
+  },
+  {
+    "feature": "noschooling_reason_match",
+    "mean_abs_shap": 4.5080349512712163e-05,
+    "rank": 38
+  },
+  {
+    "feature": "psu_match",
+    "mean_abs_shap": 0.0,
+    "rank": 39
+  },
+  {
+    "feature": "result_match",
+    "mean_abs_shap": 0.0,
+    "rank": 40
+  },
+  {
+    "feature": "reason_leave_school_diff",
+    "mean_abs_shap": 0.0,
+    "rank": 41
+  },
+  {
+    "feature": "type_of_school_match",
+    "mean_abs_shap": 0.0,
+    "rank": 42
+  },
+  {
+    "feature": "hhno_match",
+    "mean_abs_shap": 0.0,
+    "rank": 43
+  },
+  {
+    "feature": "sector_match",
+    "mean_abs_shap": 0.0,
+    "rank": 44
+  },
+  {
+    "feature": "noschooling_reason_diff",
+    "mean_abs_shap": 0.0,
+    "rank": 45
+  }
+]

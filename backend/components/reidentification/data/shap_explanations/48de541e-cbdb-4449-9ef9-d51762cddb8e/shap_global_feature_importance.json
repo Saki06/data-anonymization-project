@@ -1,0 +1,12 @@
+[
+  {
+    "feature": "age_match",
+    "mean_abs_shap": 0.0,
+    "rank": 1
+  },
+  {
+    "feature": "overall_similarity",
+    "mean_abs_shap": 0.0,
+    "rank": 2
+  }
+]

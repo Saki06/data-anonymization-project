@@ -1,0 +1,16 @@
+{
+  "total_columns": 19,
+  "total_rows": 60,
+  "duplicate_columns": [],
+  "empty_columns": [],
+  "constant_columns": [
+    "district",
+    "hhno",
+    "nhh",
+    "result",
+    "type_of_school"
+  ],
+  "high_null_columns": [],
+  "validation_passed": false,
+  "issues_found": 5
+}

@@ -1,0 +1,13 @@
+{
+  "total_records": 6,
+  "avg_final_risk_0_1": 0.2985185185042382,
+  "max_final_risk_0_1": 0.29851851850423816,
+  "avg_final_risk_0_100": 29.85185185042382,
+  "risk_level_counts": {
+    "moderate": 6
+  },
+  "risk_level_percentages": {
+    "moderate": 100.0
+  },
+  "top_risky_features": []
+}

@@ -1,0 +1,53 @@
+{
+  "anomalies": [
+    {
+      "column": "person_serial_no",
+      "type": "statistical_outlier",
+      "method": "IQR(3x)",
+      "count": 1,
+      "percentage": 0.1,
+      "bounds": {
+        "lower": -5.0,
+        "upper": 10.75
+      }
+    },
+    {
+      "column": "relationship",
+      "type": "statistical_outlier",
+      "method": "IQR(3x)",
+      "count": 6,
+      "percentage": 0.6,
+      "bounds": {
+        "lower": -2.0,
+        "upper": 6.75
+      }
+    },
+    {
+      "column": "marital_status",
+      "type": "statistical_outlier",
+      "method": "IQR(3x)",
+      "count": 9,
+      "percentage": 0.9,
+      "bounds": {
+        "lower": -2.0,
+        "upper": 5.0
+      }
+    },
+    {
+      "column": "main_activity",
+      "type": "statistical_outlier",
+      "method": "IQR(3x)",
+      "count": 6,
+      "percentage": 0.6,
+      "bounds": {
+        "lower": -17.0,
+        "upper": 25.0
+      }
+    }
+  ],
+  "total_anomalies": 4,
+  "detection_methods": [
+    "IQR_outliers_excluding_-1",
+    "high_cardinality_check"
+  ]
+}

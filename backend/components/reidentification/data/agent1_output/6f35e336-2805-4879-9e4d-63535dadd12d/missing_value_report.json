@@ -1,0 +1,52 @@
+{
+  "missing_summary": {
+    "total_missing": 312,
+    "total_cells": 10560,
+    "overall_missing_rate": 0.0295,
+    "columns_with_missing": 8
+  },
+  "column_analysis": {
+    "age": {
+      "missing_count": 39,
+      "missing_rate": 0.0295,
+      "dtype": "float64"
+    },
+    "sex": {
+      "missing_count": 39,
+      "missing_rate": 0.0295,
+      "dtype": "float64"
+    },
+    "district": {
+      "missing_count": 39,
+      "missing_rate": 0.0295,
+      "dtype": "float64"
+    },
+    "education": {
+      "missing_count": 39,
+      "missing_rate": 0.0295,
+      "dtype": "float64"
+    },
+    "marital_status": {
+      "missing_count": 39,
+      "missing_rate": 0.0295,
+      "dtype": "float64"
+    },
+    "employment_status": {
+      "missing_count": 39,
+      "missing_rate": 0.0295,
+      "dtype": "float64"
+    },
+    "industry": {
+      "missing_count": 39,
+      "missing_rate": 0.0295,
+      "dtype": "float64"
+    },
+    "main_activity": {
+      "missing_count": 39,
+      "missing_rate": 0.0295,
+      "dtype": "float64"
+    }
+  },
+  "strategy": "simple_count",
+  "note": "RAW missing report (before cleaning). Numeric nulls will be filled with -1 later."
+}

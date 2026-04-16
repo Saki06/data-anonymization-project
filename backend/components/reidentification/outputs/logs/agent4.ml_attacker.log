@@ -1,0 +1,615 @@
+2026-03-03 00:26:33 - agent4.ml_attacker - INFO - Agent 4: ML attacker training started
+2026-03-03 00:26:33 - agent4.ml_attacker - INFO - Loading train pairs: data\pairs\train_pairs.csv
+2026-03-03 00:26:33 - agent4.ml_attacker - INFO - Loading test pairs:  data\pairs\test_pairs.csv
+2026-03-03 00:26:33 - agent4.ml_attacker - INFO -    Train: 1,563 rows × 25 cols
+2026-03-03 00:26:33 - agent4.ml_attacker - INFO -    Test:  391 rows × 25 cols
+2026-03-03 00:26:33 - agent4.ml_attacker - INFO - Preparing feature matrices...
+2026-03-03 00:26:33 - agent4.ml_attacker - INFO -    Using 21 numeric features for training.
+2026-03-03 00:26:33 - agent4.ml_attacker - INFO -    Positive labels in train: 782
+2026-03-03 00:26:33 - agent4.ml_attacker - INFO -    Negative labels in train: 781
+2026-03-03 00:26:33 - agent4.ml_attacker - INFO -    Positive labels in test:  195
+2026-03-03 00:26:33 - agent4.ml_attacker - INFO -    Negative labels in test:  196
+2026-03-03 00:26:33 - agent4.ml_attacker - INFO - Training ML attacker models...
+2026-03-03 00:26:33 - agent4.ml_attacker - INFO - 
+Training model: logreg
+2026-03-03 00:26:35 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9693
+2026-03-03 00:26:35 - agent4.ml_attacker - INFO -    AUC (PR):    0.9706  <- Better for imbalanced data
+2026-03-03 00:26:35 - agent4.ml_attacker - INFO -    Accuracy:    0.8849
+2026-03-03 00:26:35 - agent4.ml_attacker - INFO -    Precision:   0.8906
+2026-03-03 00:26:35 - agent4.ml_attacker - INFO -    Recall:      0.8769
+2026-03-03 00:26:35 - agent4.ml_attacker - INFO -    F1-score:    0.8837
+2026-03-03 00:26:35 - agent4.ml_attacker - INFO - 
+Training model: rf
+2026-03-03 00:26:36 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9822
+2026-03-03 00:26:36 - agent4.ml_attacker - INFO -    AUC (PR):    0.9823  <- Better for imbalanced data
+2026-03-03 00:26:36 - agent4.ml_attacker - INFO -    Accuracy:    0.9309
+2026-03-03 00:26:36 - agent4.ml_attacker - INFO -    Precision:   0.9286
+2026-03-03 00:26:36 - agent4.ml_attacker - INFO -    Recall:      0.9333
+2026-03-03 00:26:36 - agent4.ml_attacker - INFO -    F1-score:    0.9309
+2026-03-03 00:26:36 - agent4.ml_attacker - INFO - 
+Training model: gbm
+2026-03-03 00:26:37 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9818
+2026-03-03 00:26:37 - agent4.ml_attacker - INFO -    AUC (PR):    0.9818  <- Better for imbalanced data
+2026-03-03 00:26:37 - agent4.ml_attacker - INFO -    Accuracy:    0.9233
+2026-03-03 00:26:37 - agent4.ml_attacker - INFO -    Precision:   0.9231
+2026-03-03 00:26:37 - agent4.ml_attacker - INFO -    Recall:      0.9231
+2026-03-03 00:26:37 - agent4.ml_attacker - INFO -    F1-score:    0.9231
+2026-03-03 00:26:37 - agent4.ml_attacker - INFO - 
+Training model: xgb
+2026-03-03 00:26:38 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9840
+2026-03-03 00:26:38 - agent4.ml_attacker - INFO -    AUC (PR):    0.9840  <- Better for imbalanced data
+2026-03-03 00:26:38 - agent4.ml_attacker - INFO -    Accuracy:    0.9258
+2026-03-03 00:26:38 - agent4.ml_attacker - INFO -    Precision:   0.9278
+2026-03-03 00:26:38 - agent4.ml_attacker - INFO -    Recall:      0.9231
+2026-03-03 00:26:38 - agent4.ml_attacker - INFO -    F1-score:    0.9254
+2026-03-03 00:26:38 - agent4.ml_attacker - INFO - Best model selected by PR-AUC: xgb (PR-AUC = 0.9840)
+2026-03-03 00:26:38 - agent4.ml_attacker - INFO - Best model saved to: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 00:26:38 - agent4.ml_attacker - INFO - Feature importance (best model: xgb) saved to: data\attack_models\agent5\feature_importance.json
+2026-03-03 00:26:39 - agent4.ml_attacker - INFO - Feature importance (rf) saved to: data\attack_models\agent5\feature_importance_rf.json
+2026-03-03 00:26:39 - agent4.ml_attacker - INFO - Feature importance (gbm) saved to: data\attack_models\agent5\feature_importance_gbm.json
+2026-03-03 00:26:39 - agent4.ml_attacker - INFO - Feature importance (xgb) saved to: data\attack_models\agent5\feature_importance_xgb.json
+2026-03-03 00:26:39 - agent4.ml_attacker - INFO - All tree model importances saved to: data\attack_models\agent5\feature_importance_all_models.json
+2026-03-03 00:26:39 - agent4.ml_attacker - INFO - Evaluation report saved to: data\attack_models\agent5\evaluation_report.json
+2026-03-03 00:26:39 - agent4.ml_attacker - INFO - Agent 4: training complete
+2026-03-03 00:26:39 - agent4.ml_attacker - INFO -    Best model: xgb
+2026-03-03 00:26:39 - agent4.ml_attacker - INFO -    Best PR-AUC:  0.9840  <- Primary metric
+2026-03-03 00:26:39 - agent4.ml_attacker - INFO -    Best ROC-AUC: 0.9840
+2026-03-03 00:26:39 - agent4.ml_attacker - INFO -    Best threshold: 0.6392
+2026-03-03 00:39:06 - agent4.ml_attacker - INFO - Agent 4: ML attacker training started
+2026-03-03 00:39:06 - agent4.ml_attacker - INFO - Loading train pairs: data\pairs\train_pairs.csv
+2026-03-03 00:39:06 - agent4.ml_attacker - INFO - Loading test pairs:  data\pairs\test_pairs.csv
+2026-03-03 00:39:06 - agent4.ml_attacker - INFO -    Train: 1,563 rows × 25 cols
+2026-03-03 00:39:06 - agent4.ml_attacker - INFO -    Test:  391 rows × 25 cols
+2026-03-03 00:39:06 - agent4.ml_attacker - INFO - Preparing feature matrices...
+2026-03-03 00:39:06 - agent4.ml_attacker - INFO -    Using 21 numeric features for training.
+2026-03-03 00:39:06 - agent4.ml_attacker - INFO -    Positive labels in train: 782
+2026-03-03 00:39:06 - agent4.ml_attacker - INFO -    Negative labels in train: 781
+2026-03-03 00:39:06 - agent4.ml_attacker - INFO -    Positive labels in test:  195
+2026-03-03 00:39:06 - agent4.ml_attacker - INFO -    Negative labels in test:  196
+2026-03-03 00:39:06 - agent4.ml_attacker - INFO - Training ML attacker models...
+2026-03-03 00:39:06 - agent4.ml_attacker - INFO - 
+Training model: logreg
+2026-03-03 00:39:08 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9693
+2026-03-03 00:39:08 - agent4.ml_attacker - INFO -    AUC (PR):    0.9706  <- Better for imbalanced data
+2026-03-03 00:39:08 - agent4.ml_attacker - INFO -    Accuracy:    0.8849
+2026-03-03 00:39:08 - agent4.ml_attacker - INFO -    Precision:   0.8906
+2026-03-03 00:39:08 - agent4.ml_attacker - INFO -    Recall:      0.8769
+2026-03-03 00:39:08 - agent4.ml_attacker - INFO -    F1-score:    0.8837
+2026-03-03 00:39:08 - agent4.ml_attacker - INFO - 
+Training model: rf
+2026-03-03 00:39:09 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9822
+2026-03-03 00:39:09 - agent4.ml_attacker - INFO -    AUC (PR):    0.9823  <- Better for imbalanced data
+2026-03-03 00:39:09 - agent4.ml_attacker - INFO -    Accuracy:    0.9309
+2026-03-03 00:39:09 - agent4.ml_attacker - INFO -    Precision:   0.9286
+2026-03-03 00:39:09 - agent4.ml_attacker - INFO -    Recall:      0.9333
+2026-03-03 00:39:09 - agent4.ml_attacker - INFO -    F1-score:    0.9309
+2026-03-03 00:39:09 - agent4.ml_attacker - INFO - 
+Training model: gbm
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9818
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO -    AUC (PR):    0.9818  <- Better for imbalanced data
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO -    Accuracy:    0.9233
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO -    Precision:   0.9231
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO -    Recall:      0.9231
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO -    F1-score:    0.9231
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO - 
+Training model: xgb
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9840
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO -    AUC (PR):    0.9840  <- Better for imbalanced data
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO -    Accuracy:    0.9258
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO -    Precision:   0.9278
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO -    Recall:      0.9231
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO -    F1-score:    0.9254
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO - Best model selected by PR-AUC: xgb (PR-AUC = 0.9840)
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO - Best model saved to: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO - Feature importance (best model: xgb) saved to: data\attack_models\agent5\feature_importance.json
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO - Feature importance (rf) saved to: data\attack_models\agent5\feature_importance_rf.json
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO - Feature importance (gbm) saved to: data\attack_models\agent5\feature_importance_gbm.json
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO - Feature importance (xgb) saved to: data\attack_models\agent5\feature_importance_xgb.json
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO - All tree model importances saved to: data\attack_models\agent5\feature_importance_all_models.json
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO - Evaluation report saved to: data\attack_models\agent5\evaluation_report.json
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO - Agent 4: training complete
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO -    Best model: xgb
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO -    Best PR-AUC:  0.9840  <- Primary metric
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO -    Best ROC-AUC: 0.9840
+2026-03-03 00:39:10 - agent4.ml_attacker - INFO -    Best threshold: 0.6392
+2026-03-03 12:46:01 - agent4.ml_attacker - INFO - Agent 4: ML attacker training started
+2026-03-03 12:46:01 - agent4.ml_attacker - INFO - Loading train pairs: data\pairs\train_pairs.csv
+2026-03-03 12:46:01 - agent4.ml_attacker - INFO - Loading test pairs:  data\pairs\test_pairs.csv
+2026-03-03 12:46:01 - agent4.ml_attacker - INFO -    Train: 1,563 rows × 25 cols
+2026-03-03 12:46:01 - agent4.ml_attacker - INFO -    Test:  391 rows × 25 cols
+2026-03-03 12:46:01 - agent4.ml_attacker - INFO - Preparing feature matrices...
+2026-03-03 12:46:01 - agent4.ml_attacker - INFO -    Using 21 numeric features for training.
+2026-03-03 12:46:01 - agent4.ml_attacker - INFO -    Positive labels in train: 782
+2026-03-03 12:46:01 - agent4.ml_attacker - INFO -    Negative labels in train: 781
+2026-03-03 12:46:01 - agent4.ml_attacker - INFO -    Positive labels in test:  195
+2026-03-03 12:46:01 - agent4.ml_attacker - INFO -    Negative labels in test:  196
+2026-03-03 12:46:01 - agent4.ml_attacker - INFO - Training ML attacker models...
+2026-03-03 12:46:01 - agent4.ml_attacker - INFO - 
+Training model: logreg
+2026-03-03 12:46:03 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9693
+2026-03-03 12:46:03 - agent4.ml_attacker - INFO -    AUC (PR):    0.9706  <- Better for imbalanced data
+2026-03-03 12:46:03 - agent4.ml_attacker - INFO -    Accuracy:    0.8849
+2026-03-03 12:46:03 - agent4.ml_attacker - INFO -    Precision:   0.8906
+2026-03-03 12:46:03 - agent4.ml_attacker - INFO -    Recall:      0.8769
+2026-03-03 12:46:03 - agent4.ml_attacker - INFO -    F1-score:    0.8837
+2026-03-03 12:46:03 - agent4.ml_attacker - INFO - 
+Training model: rf
+2026-03-03 12:46:04 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9822
+2026-03-03 12:46:04 - agent4.ml_attacker - INFO -    AUC (PR):    0.9823  <- Better for imbalanced data
+2026-03-03 12:46:04 - agent4.ml_attacker - INFO -    Accuracy:    0.9309
+2026-03-03 12:46:04 - agent4.ml_attacker - INFO -    Precision:   0.9286
+2026-03-03 12:46:04 - agent4.ml_attacker - INFO -    Recall:      0.9333
+2026-03-03 12:46:04 - agent4.ml_attacker - INFO -    F1-score:    0.9309
+2026-03-03 12:46:04 - agent4.ml_attacker - INFO - 
+Training model: gbm
+2026-03-03 12:46:05 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9818
+2026-03-03 12:46:05 - agent4.ml_attacker - INFO -    AUC (PR):    0.9818  <- Better for imbalanced data
+2026-03-03 12:46:05 - agent4.ml_attacker - INFO -    Accuracy:    0.9233
+2026-03-03 12:46:05 - agent4.ml_attacker - INFO -    Precision:   0.9231
+2026-03-03 12:46:05 - agent4.ml_attacker - INFO -    Recall:      0.9231
+2026-03-03 12:46:05 - agent4.ml_attacker - INFO -    F1-score:    0.9231
+2026-03-03 12:46:05 - agent4.ml_attacker - INFO - 
+Training model: xgb
+2026-03-03 12:46:07 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9840
+2026-03-03 12:46:07 - agent4.ml_attacker - INFO -    AUC (PR):    0.9840  <- Better for imbalanced data
+2026-03-03 12:46:07 - agent4.ml_attacker - INFO -    Accuracy:    0.9258
+2026-03-03 12:46:07 - agent4.ml_attacker - INFO -    Precision:   0.9278
+2026-03-03 12:46:07 - agent4.ml_attacker - INFO -    Recall:      0.9231
+2026-03-03 12:46:07 - agent4.ml_attacker - INFO -    F1-score:    0.9254
+2026-03-03 12:46:07 - agent4.ml_attacker - INFO - Best model selected by PR-AUC: xgb (PR-AUC = 0.9840)
+2026-03-03 12:46:07 - agent4.ml_attacker - INFO - Best model saved to: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 12:46:07 - agent4.ml_attacker - INFO - Feature importance (best model: xgb) saved to: data\attack_models\agent5\feature_importance.json
+2026-03-03 12:46:07 - agent4.ml_attacker - INFO - Feature importance (rf) saved to: data\attack_models\agent5\feature_importance_rf.json
+2026-03-03 12:46:07 - agent4.ml_attacker - INFO - Feature importance (gbm) saved to: data\attack_models\agent5\feature_importance_gbm.json
+2026-03-03 12:46:07 - agent4.ml_attacker - INFO - Feature importance (xgb) saved to: data\attack_models\agent5\feature_importance_xgb.json
+2026-03-03 12:46:07 - agent4.ml_attacker - INFO - All tree model importances saved to: data\attack_models\agent5\feature_importance_all_models.json
+2026-03-03 12:46:07 - agent4.ml_attacker - INFO - Evaluation report saved to: data\attack_models\agent5\evaluation_report.json
+2026-03-03 12:46:07 - agent4.ml_attacker - INFO - Agent 4: training complete
+2026-03-03 12:46:07 - agent4.ml_attacker - INFO -    Best model: xgb
+2026-03-03 12:46:07 - agent4.ml_attacker - INFO -    Best PR-AUC:  0.9840  <- Primary metric
+2026-03-03 12:46:07 - agent4.ml_attacker - INFO -    Best ROC-AUC: 0.9840
+2026-03-03 12:46:07 - agent4.ml_attacker - INFO -    Best threshold: 0.6392
+2026-03-03 13:10:24 - agent4.ml_attacker - INFO - Agent 4: ML attacker training started
+2026-03-03 13:10:24 - agent4.ml_attacker - INFO - Loading train pairs: data\pairs\train_pairs.csv
+2026-03-03 13:10:24 - agent4.ml_attacker - INFO - Loading test pairs:  data\pairs\test_pairs.csv
+2026-03-03 13:10:24 - agent4.ml_attacker - INFO -    Train: 1,563 rows × 25 cols
+2026-03-03 13:10:24 - agent4.ml_attacker - INFO -    Test:  391 rows × 25 cols
+2026-03-03 13:10:24 - agent4.ml_attacker - INFO - Preparing feature matrices...
+2026-03-03 13:10:24 - agent4.ml_attacker - INFO -    Using 21 numeric features for training.
+2026-03-03 13:10:24 - agent4.ml_attacker - INFO -    Feature list: ['euclidean_distance', 'manhattan_distance', 'cosine_similarity', 'sex_diff', 'sex_equal', 'district_diff', 'district_equal', 'education_diff', 'education_equal', 'marital_status_diff']...
+2026-03-03 13:10:24 - agent4.ml_attacker - INFO -    Train samples: 1,563  |  Positive rate: 0.500
+2026-03-03 13:10:24 - agent4.ml_attacker - INFO -    Positive labels in train: 782
+2026-03-03 13:10:24 - agent4.ml_attacker - INFO -    Negative labels in train: 781
+2026-03-03 13:10:24 - agent4.ml_attacker - INFO -    Positive labels in test:  195
+2026-03-03 13:10:24 - agent4.ml_attacker - INFO -    Negative labels in test:  196
+2026-03-03 13:10:24 - agent4.ml_attacker - INFO - Running Stratified K-Fold cross-validation (5 folds, PR-AUC)...
+2026-03-03 13:10:36 - agent4.ml_attacker - INFO -    CV [logreg]: PR-AUC = 0.9796 ± 0.0062
+2026-03-03 13:10:40 - agent4.ml_attacker - INFO -    CV [rf]: PR-AUC = 0.9850 ± 0.0040
+2026-03-03 13:10:45 - agent4.ml_attacker - INFO -    CV [gbm]: PR-AUC = 0.9888 ± 0.0051
+2026-03-03 13:10:46 - agent4.ml_attacker - INFO -    CV [xgb]: PR-AUC = 0.9869 ± 0.0051
+2026-03-03 13:10:46 - agent4.ml_attacker - INFO - CV results saved to: data\attack_models\agent5\cv_results.json
+2026-03-03 13:10:46 - agent4.ml_attacker - INFO - Training ML attacker models...
+2026-03-03 13:10:46 - agent4.ml_attacker - INFO - 
+Training model: logreg
+2026-03-03 13:10:48 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9693
+2026-03-03 13:10:48 - agent4.ml_attacker - INFO -    AUC (PR):    0.9706  <- Better for imbalanced data
+2026-03-03 13:10:48 - agent4.ml_attacker - INFO -    Accuracy:    0.8849
+2026-03-03 13:10:48 - agent4.ml_attacker - INFO -    Precision:   0.8906
+2026-03-03 13:10:48 - agent4.ml_attacker - INFO -    Recall:      0.8769
+2026-03-03 13:10:48 - agent4.ml_attacker - INFO -    F1-score:    0.8837
+2026-03-03 13:10:48 - agent4.ml_attacker - INFO - 
+Training model: rf
+2026-03-03 13:10:49 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9822
+2026-03-03 13:10:49 - agent4.ml_attacker - INFO -    AUC (PR):    0.9823  <- Better for imbalanced data
+2026-03-03 13:10:49 - agent4.ml_attacker - INFO -    Accuracy:    0.9309
+2026-03-03 13:10:49 - agent4.ml_attacker - INFO -    Precision:   0.9286
+2026-03-03 13:10:49 - agent4.ml_attacker - INFO -    Recall:      0.9333
+2026-03-03 13:10:49 - agent4.ml_attacker - INFO -    F1-score:    0.9309
+2026-03-03 13:10:49 - agent4.ml_attacker - INFO - 
+Training model: gbm
+2026-03-03 13:10:50 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9818
+2026-03-03 13:10:50 - agent4.ml_attacker - INFO -    AUC (PR):    0.9818  <- Better for imbalanced data
+2026-03-03 13:10:50 - agent4.ml_attacker - INFO -    Accuracy:    0.9233
+2026-03-03 13:10:50 - agent4.ml_attacker - INFO -    Precision:   0.9231
+2026-03-03 13:10:50 - agent4.ml_attacker - INFO -    Recall:      0.9231
+2026-03-03 13:10:50 - agent4.ml_attacker - INFO -    F1-score:    0.9231
+2026-03-03 13:10:50 - agent4.ml_attacker - INFO - 
+Training model: xgb
+2026-03-03 13:10:51 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9840
+2026-03-03 13:10:51 - agent4.ml_attacker - INFO -    AUC (PR):    0.9840  <- Better for imbalanced data
+2026-03-03 13:10:51 - agent4.ml_attacker - INFO -    Accuracy:    0.9258
+2026-03-03 13:10:51 - agent4.ml_attacker - INFO -    Precision:   0.9278
+2026-03-03 13:10:51 - agent4.ml_attacker - INFO -    Recall:      0.9231
+2026-03-03 13:10:51 - agent4.ml_attacker - INFO -    F1-score:    0.9254
+2026-03-03 13:10:51 - agent4.ml_attacker - INFO - Best model selected by CV PR-AUC mean: gbm (CV PR-AUC = 0.9888)
+2026-03-03 13:10:51 - agent4.ml_attacker - INFO - Calibrating best model (gbm) with method='sigmoid'...
+2026-03-03 13:10:54 - agent4.ml_attacker - INFO -    PR-AUC before calibration: 0.9818
+2026-03-03 13:10:54 - agent4.ml_attacker - INFO -    PR-AUC after  calibration: 0.9819
+2026-03-03 13:10:54 - agent4.ml_attacker - INFO - Calibration report saved to: data\attack_models\agent5\calibration_report.json
+2026-03-03 13:10:54 - agent4.ml_attacker - INFO - Computing deterministic baseline linkage model...
+2026-03-03 13:10:54 - agent4.ml_attacker - INFO -    Baseline using 9 binary match features: ['sex_equal', 'district_equal', 'education_equal', 'marital_status_equal', 'B_year_equal', 'employment_status_equal', 'industry_equal', 'main_activity_equal', 'age_match']
+2026-03-03 13:10:54 - agent4.ml_attacker - INFO -    Baseline  PR-AUC:  0.8814   |  ML model PR-AUC:  0.9818
+2026-03-03 13:10:54 - agent4.ml_attacker - INFO -    Baseline  ROC-AUC: 0.8880  |  ML model ROC-AUC: 0.9818
+2026-03-03 13:10:54 - agent4.ml_attacker - INFO - Baseline comparison saved to: data\attack_models\agent5\baseline_comparison.json
+2026-03-03 13:10:54 - agent4.ml_attacker - INFO - Best model saved to: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 13:10:54 - agent4.ml_attacker - INFO - Model does not expose feature importance.
+2026-03-03 13:10:54 - agent4.ml_attacker - INFO - Feature importance (rf) saved to: data\attack_models\agent5\feature_importance_rf.json
+2026-03-03 13:10:54 - agent4.ml_attacker - INFO - Feature importance (gbm) saved to: data\attack_models\agent5\feature_importance_gbm.json
+2026-03-03 13:10:54 - agent4.ml_attacker - INFO - Feature importance (xgb) saved to: data\attack_models\agent5\feature_importance_xgb.json
+2026-03-03 13:10:54 - agent4.ml_attacker - INFO - All tree model importances saved to: data\attack_models\agent5\feature_importance_all_models.json
+2026-03-03 13:10:54 - agent4.ml_attacker - INFO - Evaluation report saved to: data\attack_models\agent5\evaluation_report.json
+2026-03-03 13:10:54 - agent4.ml_attacker - INFO - Agent 4: training complete
+2026-03-03 13:10:54 - agent4.ml_attacker - INFO -    Best model: gbm
+2026-03-03 13:10:54 - agent4.ml_attacker - INFO -    Best PR-AUC:  0.9818  <- Primary metric
+2026-03-03 13:10:54 - agent4.ml_attacker - INFO -    Best ROC-AUC: 0.9818
+2026-03-03 13:10:54 - agent4.ml_attacker - INFO -    Best threshold: 0.4086
+2026-03-03 13:17:47 - agent4.ml_attacker - INFO - Agent 4: ML attacker training started
+2026-03-03 13:17:47 - agent4.ml_attacker - INFO - Loading train pairs: data\pairs\train_pairs.csv
+2026-03-03 13:17:47 - agent4.ml_attacker - INFO - Loading test pairs:  data\pairs\test_pairs.csv
+2026-03-03 13:17:47 - agent4.ml_attacker - INFO -    Train: 1,563 rows × 25 cols
+2026-03-03 13:17:47 - agent4.ml_attacker - INFO -    Test:  391 rows × 25 cols
+2026-03-03 13:17:47 - agent4.ml_attacker - INFO - Preparing feature matrices...
+2026-03-03 13:17:47 - agent4.ml_attacker - INFO -    Using 21 numeric features for training.
+2026-03-03 13:17:47 - agent4.ml_attacker - INFO -    Feature list: ['euclidean_distance', 'manhattan_distance', 'cosine_similarity', 'sex_diff', 'sex_equal', 'district_diff', 'district_equal', 'education_diff', 'education_equal', 'marital_status_diff']...
+2026-03-03 13:17:47 - agent4.ml_attacker - INFO -    Train samples: 1,563  |  Positive rate: 0.500
+2026-03-03 13:17:47 - agent4.ml_attacker - INFO -    Positive labels in train: 782
+2026-03-03 13:17:47 - agent4.ml_attacker - INFO -    Negative labels in train: 781
+2026-03-03 13:17:47 - agent4.ml_attacker - INFO -    Positive labels in test:  195
+2026-03-03 13:17:47 - agent4.ml_attacker - INFO -    Negative labels in test:  196
+2026-03-03 13:17:47 - agent4.ml_attacker - INFO - Running Stratified K-Fold cross-validation (5 folds, PR-AUC)...
+2026-03-03 13:17:54 - agent4.ml_attacker - INFO -    CV [logreg]: PR-AUC = 0.9796 ± 0.0062
+2026-03-03 13:17:57 - agent4.ml_attacker - INFO -    CV [rf]: PR-AUC = 0.9850 ± 0.0040
+2026-03-03 13:18:01 - agent4.ml_attacker - INFO -    CV [gbm]: PR-AUC = 0.9888 ± 0.0051
+2026-03-03 13:18:02 - agent4.ml_attacker - INFO -    CV [xgb]: PR-AUC = 0.9869 ± 0.0051
+2026-03-03 13:18:02 - agent4.ml_attacker - INFO - CV results saved to: data\attack_models\agent5\cv_results.json
+2026-03-03 13:18:02 - agent4.ml_attacker - INFO - Training ML attacker models...
+2026-03-03 13:18:02 - agent4.ml_attacker - INFO - 
+Training model: logreg
+2026-03-03 13:18:03 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9693
+2026-03-03 13:18:03 - agent4.ml_attacker - INFO -    AUC (PR):    0.9706  <- Better for imbalanced data
+2026-03-03 13:18:03 - agent4.ml_attacker - INFO -    Accuracy:    0.8849
+2026-03-03 13:18:03 - agent4.ml_attacker - INFO -    Precision:   0.8906
+2026-03-03 13:18:03 - agent4.ml_attacker - INFO -    Recall:      0.8769
+2026-03-03 13:18:03 - agent4.ml_attacker - INFO -    F1-score:    0.8837
+2026-03-03 13:18:03 - agent4.ml_attacker - INFO - 
+Training model: rf
+2026-03-03 13:18:04 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9822
+2026-03-03 13:18:04 - agent4.ml_attacker - INFO -    AUC (PR):    0.9823  <- Better for imbalanced data
+2026-03-03 13:18:04 - agent4.ml_attacker - INFO -    Accuracy:    0.9309
+2026-03-03 13:18:04 - agent4.ml_attacker - INFO -    Precision:   0.9286
+2026-03-03 13:18:04 - agent4.ml_attacker - INFO -    Recall:      0.9333
+2026-03-03 13:18:04 - agent4.ml_attacker - INFO -    F1-score:    0.9309
+2026-03-03 13:18:04 - agent4.ml_attacker - INFO - 
+Training model: gbm
+2026-03-03 13:18:05 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9818
+2026-03-03 13:18:05 - agent4.ml_attacker - INFO -    AUC (PR):    0.9818  <- Better for imbalanced data
+2026-03-03 13:18:05 - agent4.ml_attacker - INFO -    Accuracy:    0.9233
+2026-03-03 13:18:05 - agent4.ml_attacker - INFO -    Precision:   0.9231
+2026-03-03 13:18:05 - agent4.ml_attacker - INFO -    Recall:      0.9231
+2026-03-03 13:18:05 - agent4.ml_attacker - INFO -    F1-score:    0.9231
+2026-03-03 13:18:05 - agent4.ml_attacker - INFO - 
+Training model: xgb
+2026-03-03 13:18:05 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9840
+2026-03-03 13:18:05 - agent4.ml_attacker - INFO -    AUC (PR):    0.9840  <- Better for imbalanced data
+2026-03-03 13:18:05 - agent4.ml_attacker - INFO -    Accuracy:    0.9258
+2026-03-03 13:18:05 - agent4.ml_attacker - INFO -    Precision:   0.9278
+2026-03-03 13:18:05 - agent4.ml_attacker - INFO -    Recall:      0.9231
+2026-03-03 13:18:05 - agent4.ml_attacker - INFO -    F1-score:    0.9254
+2026-03-03 13:18:05 - agent4.ml_attacker - INFO - Best model selected by CV PR-AUC mean: gbm (CV PR-AUC = 0.9888)
+2026-03-03 13:18:05 - agent4.ml_attacker - INFO - Calibrating best model (gbm) with method='sigmoid'...
+2026-03-03 13:18:07 - agent4.ml_attacker - INFO -    PR-AUC before calibration: 0.9818
+2026-03-03 13:18:07 - agent4.ml_attacker - INFO -    PR-AUC after  calibration: 0.9819
+2026-03-03 13:18:07 - agent4.ml_attacker - INFO - Calibration report saved to: data\attack_models\agent5\calibration_report.json
+2026-03-03 13:18:07 - agent4.ml_attacker - INFO - Computing deterministic baseline linkage model...
+2026-03-03 13:18:07 - agent4.ml_attacker - INFO -    Baseline using 9 binary match features: ['sex_equal', 'district_equal', 'education_equal', 'marital_status_equal', 'B_year_equal', 'employment_status_equal', 'industry_equal', 'main_activity_equal', 'age_match']
+2026-03-03 13:18:07 - agent4.ml_attacker - INFO -    Baseline  PR-AUC:  0.8814   |  ML model PR-AUC:  0.9818
+2026-03-03 13:18:07 - agent4.ml_attacker - INFO -    Baseline  ROC-AUC: 0.8880  |  ML model ROC-AUC: 0.9818
+2026-03-03 13:18:07 - agent4.ml_attacker - INFO - Baseline comparison saved to: data\attack_models\agent5\baseline_comparison.json
+2026-03-03 13:18:07 - agent4.ml_attacker - INFO - Best model saved to: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 13:18:07 - agent4.ml_attacker - INFO - Model does not expose feature importance.
+2026-03-03 13:18:07 - agent4.ml_attacker - INFO - Feature importance (rf) saved to: data\attack_models\agent5\feature_importance_rf.json
+2026-03-03 13:18:07 - agent4.ml_attacker - INFO - Feature importance (gbm) saved to: data\attack_models\agent5\feature_importance_gbm.json
+2026-03-03 13:18:07 - agent4.ml_attacker - INFO - Feature importance (xgb) saved to: data\attack_models\agent5\feature_importance_xgb.json
+2026-03-03 13:18:07 - agent4.ml_attacker - INFO - All tree model importances saved to: data\attack_models\agent5\feature_importance_all_models.json
+2026-03-03 13:18:07 - agent4.ml_attacker - INFO - Evaluation report saved to: data\attack_models\agent5\evaluation_report.json
+2026-03-03 13:18:07 - agent4.ml_attacker - INFO - Agent 4: training complete
+2026-03-03 13:18:07 - agent4.ml_attacker - INFO -    Best model: gbm
+2026-03-03 13:18:07 - agent4.ml_attacker - INFO -    Best PR-AUC:  0.9818  <- Primary metric
+2026-03-03 13:18:08 - agent4.ml_attacker - INFO -    Best ROC-AUC: 0.9818
+2026-03-03 13:18:08 - agent4.ml_attacker - INFO -    Best threshold: 0.4086
+2026-03-03 16:27:11 - agent4.ml_attacker - INFO - Agent 4: ML attacker training started
+2026-03-03 16:27:11 - agent4.ml_attacker - INFO - Loading train pairs: data\pairs\train_pairs.csv
+2026-03-03 16:27:11 - agent4.ml_attacker - INFO - Loading test pairs:  data\pairs\test_pairs.csv
+2026-03-03 16:27:11 - agent4.ml_attacker - INFO -    Train: 1,563 rows × 25 cols
+2026-03-03 16:27:11 - agent4.ml_attacker - INFO -    Test:  391 rows × 25 cols
+2026-03-03 16:27:11 - agent4.ml_attacker - INFO - Preparing feature matrices...
+2026-03-03 16:27:11 - agent4.ml_attacker - INFO -    Using 21 numeric features for training.
+2026-03-03 16:27:11 - agent4.ml_attacker - INFO -    Feature list: ['euclidean_distance', 'manhattan_distance', 'cosine_similarity', 'sex_diff', 'sex_equal', 'district_diff', 'district_equal', 'education_diff', 'education_equal', 'marital_status_diff']...
+2026-03-03 16:27:11 - agent4.ml_attacker - INFO -    Train samples: 1,563  |  Positive rate: 0.500
+2026-03-03 16:27:11 - agent4.ml_attacker - INFO -    Positive labels in train: 782
+2026-03-03 16:27:11 - agent4.ml_attacker - INFO -    Negative labels in train: 781
+2026-03-03 16:27:11 - agent4.ml_attacker - INFO -    Positive labels in test:  195
+2026-03-03 16:27:11 - agent4.ml_attacker - INFO -    Negative labels in test:  196
+2026-03-03 16:27:11 - agent4.ml_attacker - INFO - Running Stratified K-Fold cross-validation (5 folds, PR-AUC)...
+2026-03-03 16:27:19 - agent4.ml_attacker - INFO -    CV [logreg]: PR-AUC = 0.9796 ± 0.0062
+2026-03-03 16:27:22 - agent4.ml_attacker - INFO -    CV [rf]: PR-AUC = 0.9850 ± 0.0040
+2026-03-03 16:27:26 - agent4.ml_attacker - INFO -    CV [gbm]: PR-AUC = 0.9888 ± 0.0051
+2026-03-03 16:27:29 - agent4.ml_attacker - INFO -    CV [xgb]: PR-AUC = 0.9869 ± 0.0051
+2026-03-03 16:27:29 - agent4.ml_attacker - INFO - CV results saved to: data\attack_models\agent5\cv_results.json
+2026-03-03 16:27:29 - agent4.ml_attacker - INFO - Training ML attacker models...
+2026-03-03 16:27:29 - agent4.ml_attacker - INFO - 
+Training model: logreg
+2026-03-03 16:27:30 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9693
+2026-03-03 16:27:30 - agent4.ml_attacker - INFO -    AUC (PR):    0.9706  <- Better for imbalanced data
+2026-03-03 16:27:30 - agent4.ml_attacker - INFO -    Accuracy:    0.8849
+2026-03-03 16:27:30 - agent4.ml_attacker - INFO -    Precision:   0.8906
+2026-03-03 16:27:30 - agent4.ml_attacker - INFO -    Recall:      0.8769
+2026-03-03 16:27:30 - agent4.ml_attacker - INFO -    F1-score:    0.8837
+2026-03-03 16:27:30 - agent4.ml_attacker - INFO - 
+Training model: rf
+2026-03-03 16:27:31 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9822
+2026-03-03 16:27:31 - agent4.ml_attacker - INFO -    AUC (PR):    0.9823  <- Better for imbalanced data
+2026-03-03 16:27:31 - agent4.ml_attacker - INFO -    Accuracy:    0.9309
+2026-03-03 16:27:31 - agent4.ml_attacker - INFO -    Precision:   0.9286
+2026-03-03 16:27:31 - agent4.ml_attacker - INFO -    Recall:      0.9333
+2026-03-03 16:27:31 - agent4.ml_attacker - INFO -    F1-score:    0.9309
+2026-03-03 16:27:31 - agent4.ml_attacker - INFO - 
+Training model: gbm
+2026-03-03 16:27:32 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9818
+2026-03-03 16:27:32 - agent4.ml_attacker - INFO -    AUC (PR):    0.9818  <- Better for imbalanced data
+2026-03-03 16:27:32 - agent4.ml_attacker - INFO -    Accuracy:    0.9233
+2026-03-03 16:27:32 - agent4.ml_attacker - INFO -    Precision:   0.9231
+2026-03-03 16:27:32 - agent4.ml_attacker - INFO -    Recall:      0.9231
+2026-03-03 16:27:32 - agent4.ml_attacker - INFO -    F1-score:    0.9231
+2026-03-03 16:27:32 - agent4.ml_attacker - INFO - 
+Training model: xgb
+2026-03-03 16:27:32 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9840
+2026-03-03 16:27:32 - agent4.ml_attacker - INFO -    AUC (PR):    0.9840  <- Better for imbalanced data
+2026-03-03 16:27:32 - agent4.ml_attacker - INFO -    Accuracy:    0.9258
+2026-03-03 16:27:32 - agent4.ml_attacker - INFO -    Precision:   0.9278
+2026-03-03 16:27:32 - agent4.ml_attacker - INFO -    Recall:      0.9231
+2026-03-03 16:27:32 - agent4.ml_attacker - INFO -    F1-score:    0.9254
+2026-03-03 16:27:32 - agent4.ml_attacker - INFO - Best model selected by CV PR-AUC mean: gbm (CV PR-AUC = 0.9888)
+2026-03-03 16:27:32 - agent4.ml_attacker - INFO - Calibrating best model (gbm) with method='sigmoid'...
+2026-03-03 16:27:34 - agent4.ml_attacker - INFO -    PR-AUC before calibration: 0.9818
+2026-03-03 16:27:34 - agent4.ml_attacker - INFO -    PR-AUC after  calibration: 0.9819
+2026-03-03 16:27:34 - agent4.ml_attacker - INFO - Calibration report saved to: data\attack_models\agent5\calibration_report.json
+2026-03-03 16:27:34 - agent4.ml_attacker - INFO - Computing deterministic baseline linkage model...
+2026-03-03 16:27:34 - agent4.ml_attacker - INFO -    Baseline using 9 binary match features: ['sex_equal', 'district_equal', 'education_equal', 'marital_status_equal', 'B_year_equal', 'employment_status_equal', 'industry_equal', 'main_activity_equal', 'age_match']
+2026-03-03 16:27:34 - agent4.ml_attacker - INFO -    Baseline  PR-AUC:  0.8814   |  ML model PR-AUC:  0.9818
+2026-03-03 16:27:34 - agent4.ml_attacker - INFO -    Baseline  ROC-AUC: 0.8880  |  ML model ROC-AUC: 0.9818
+2026-03-03 16:27:34 - agent4.ml_attacker - INFO - Baseline comparison saved to: data\attack_models\agent5\baseline_comparison.json
+2026-03-03 16:27:34 - agent4.ml_attacker - INFO - Best model saved to: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 16:27:34 - agent4.ml_attacker - INFO - Model does not expose feature importance.
+2026-03-03 16:27:35 - agent4.ml_attacker - INFO - Feature importance (rf) saved to: data\attack_models\agent5\feature_importance_rf.json
+2026-03-03 16:27:35 - agent4.ml_attacker - INFO - Feature importance (gbm) saved to: data\attack_models\agent5\feature_importance_gbm.json
+2026-03-03 16:27:35 - agent4.ml_attacker - INFO - Feature importance (xgb) saved to: data\attack_models\agent5\feature_importance_xgb.json
+2026-03-03 16:27:35 - agent4.ml_attacker - INFO - All tree model importances saved to: data\attack_models\agent5\feature_importance_all_models.json
+2026-03-03 16:27:35 - agent4.ml_attacker - INFO - Evaluation report saved to: data\attack_models\agent5\evaluation_report.json
+2026-03-03 16:27:35 - agent4.ml_attacker - INFO - Agent 4: training complete
+2026-03-03 16:27:35 - agent4.ml_attacker - INFO -    Best model: gbm
+2026-03-03 16:27:35 - agent4.ml_attacker - INFO -    Best PR-AUC:  0.9818  <- Primary metric
+2026-03-03 16:27:35 - agent4.ml_attacker - INFO -    Best ROC-AUC: 0.9818
+2026-03-03 16:27:35 - agent4.ml_attacker - INFO -    Best threshold: 0.4086
+2026-03-03 16:33:07 - agent4.ml_attacker - INFO - Agent 4: ML attacker training started
+2026-03-03 16:33:07 - agent4.ml_attacker - INFO - Loading train pairs: data\pairs\train_pairs.csv
+2026-03-03 16:33:07 - agent4.ml_attacker - INFO - Loading test pairs:  data\pairs\test_pairs.csv
+2026-03-03 16:33:07 - agent4.ml_attacker - INFO -    Train: 1,563 rows × 25 cols
+2026-03-03 16:33:07 - agent4.ml_attacker - INFO -    Test:  391 rows × 25 cols
+2026-03-03 16:33:07 - agent4.ml_attacker - INFO - Preparing feature matrices...
+2026-03-03 16:33:07 - agent4.ml_attacker - INFO -    Using 21 numeric features for training.
+2026-03-03 16:33:07 - agent4.ml_attacker - INFO -    Feature list: ['euclidean_distance', 'manhattan_distance', 'cosine_similarity', 'sex_diff', 'sex_equal', 'district_diff', 'district_equal', 'education_diff', 'education_equal', 'marital_status_diff']...
+2026-03-03 16:33:07 - agent4.ml_attacker - INFO -    Train samples: 1,563  |  Positive rate: 0.500
+2026-03-03 16:33:07 - agent4.ml_attacker - INFO -    Positive labels in train: 782
+2026-03-03 16:33:07 - agent4.ml_attacker - INFO -    Negative labels in train: 781
+2026-03-03 16:33:07 - agent4.ml_attacker - INFO -    Positive labels in test:  195
+2026-03-03 16:33:07 - agent4.ml_attacker - INFO -    Negative labels in test:  196
+2026-03-03 16:33:07 - agent4.ml_attacker - INFO - Running Stratified K-Fold cross-validation (5 folds, PR-AUC)...
+2026-03-03 16:33:17 - agent4.ml_attacker - INFO -    CV [logreg]: PR-AUC = 0.9796 ± 0.0062
+2026-03-03 16:33:21 - agent4.ml_attacker - INFO -    CV [rf]: PR-AUC = 0.9850 ± 0.0040
+2026-03-03 16:33:26 - agent4.ml_attacker - INFO -    CV [gbm]: PR-AUC = 0.9888 ± 0.0051
+2026-03-03 16:33:28 - agent4.ml_attacker - INFO -    CV [xgb]: PR-AUC = 0.9869 ± 0.0051
+2026-03-03 16:33:28 - agent4.ml_attacker - INFO - CV results saved to: data\attack_models\agent5\cv_results.json
+2026-03-03 16:33:28 - agent4.ml_attacker - INFO - Training ML attacker models...
+2026-03-03 16:33:28 - agent4.ml_attacker - INFO - 
+Training model: logreg
+2026-03-03 16:33:29 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9693
+2026-03-03 16:33:29 - agent4.ml_attacker - INFO -    AUC (PR):    0.9706  <- Better for imbalanced data
+2026-03-03 16:33:29 - agent4.ml_attacker - INFO -    Accuracy:    0.8849
+2026-03-03 16:33:29 - agent4.ml_attacker - INFO -    Precision:   0.8906
+2026-03-03 16:33:29 - agent4.ml_attacker - INFO -    Recall:      0.8769
+2026-03-03 16:33:29 - agent4.ml_attacker - INFO -    F1-score:    0.8837
+2026-03-03 16:33:29 - agent4.ml_attacker - INFO - 
+Training model: rf
+2026-03-03 16:33:30 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9822
+2026-03-03 16:33:30 - agent4.ml_attacker - INFO -    AUC (PR):    0.9823  <- Better for imbalanced data
+2026-03-03 16:33:30 - agent4.ml_attacker - INFO -    Accuracy:    0.9309
+2026-03-03 16:33:30 - agent4.ml_attacker - INFO -    Precision:   0.9286
+2026-03-03 16:33:30 - agent4.ml_attacker - INFO -    Recall:      0.9333
+2026-03-03 16:33:30 - agent4.ml_attacker - INFO -    F1-score:    0.9309
+2026-03-03 16:33:30 - agent4.ml_attacker - INFO - 
+Training model: gbm
+2026-03-03 16:33:31 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9818
+2026-03-03 16:33:31 - agent4.ml_attacker - INFO -    AUC (PR):    0.9818  <- Better for imbalanced data
+2026-03-03 16:33:31 - agent4.ml_attacker - INFO -    Accuracy:    0.9233
+2026-03-03 16:33:31 - agent4.ml_attacker - INFO -    Precision:   0.9231
+2026-03-03 16:33:31 - agent4.ml_attacker - INFO -    Recall:      0.9231
+2026-03-03 16:33:31 - agent4.ml_attacker - INFO -    F1-score:    0.9231
+2026-03-03 16:33:31 - agent4.ml_attacker - INFO - 
+Training model: xgb
+2026-03-03 16:33:32 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9840
+2026-03-03 16:33:32 - agent4.ml_attacker - INFO -    AUC (PR):    0.9840  <- Better for imbalanced data
+2026-03-03 16:33:32 - agent4.ml_attacker - INFO -    Accuracy:    0.9258
+2026-03-03 16:33:32 - agent4.ml_attacker - INFO -    Precision:   0.9278
+2026-03-03 16:33:32 - agent4.ml_attacker - INFO -    Recall:      0.9231
+2026-03-03 16:33:32 - agent4.ml_attacker - INFO -    F1-score:    0.9254
+2026-03-03 16:33:32 - agent4.ml_attacker - INFO - Best model selected by CV PR-AUC mean: gbm (CV PR-AUC = 0.9888)
+2026-03-03 16:33:32 - agent4.ml_attacker - INFO - Calibrating best model (gbm) with method='sigmoid'...
+2026-03-03 16:33:34 - agent4.ml_attacker - INFO -    PR-AUC before calibration: 0.9818
+2026-03-03 16:33:34 - agent4.ml_attacker - INFO -    PR-AUC after  calibration: 0.9819
+2026-03-03 16:33:34 - agent4.ml_attacker - INFO - Calibration report saved to: data\attack_models\agent5\calibration_report.json
+2026-03-03 16:33:34 - agent4.ml_attacker - INFO - Computing deterministic baseline linkage model...
+2026-03-03 16:33:34 - agent4.ml_attacker - INFO -    Baseline using 9 binary match features: ['sex_equal', 'district_equal', 'education_equal', 'marital_status_equal', 'B_year_equal', 'employment_status_equal', 'industry_equal', 'main_activity_equal', 'age_match']
+2026-03-03 16:33:34 - agent4.ml_attacker - INFO -    Baseline  PR-AUC:  0.8814   |  ML model PR-AUC:  0.9818
+2026-03-03 16:33:34 - agent4.ml_attacker - INFO -    Baseline  ROC-AUC: 0.8880  |  ML model ROC-AUC: 0.9818
+2026-03-03 16:33:34 - agent4.ml_attacker - INFO - Baseline comparison saved to: data\attack_models\agent5\baseline_comparison.json
+2026-03-03 16:33:34 - agent4.ml_attacker - INFO - Best model saved to: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 16:33:34 - agent4.ml_attacker - INFO - Model does not expose feature importance.
+2026-03-03 16:33:34 - agent4.ml_attacker - INFO - Feature importance (rf) saved to: data\attack_models\agent5\feature_importance_rf.json
+2026-03-03 16:33:34 - agent4.ml_attacker - INFO - Feature importance (gbm) saved to: data\attack_models\agent5\feature_importance_gbm.json
+2026-03-03 16:33:34 - agent4.ml_attacker - INFO - Feature importance (xgb) saved to: data\attack_models\agent5\feature_importance_xgb.json
+2026-03-03 16:33:34 - agent4.ml_attacker - INFO - All tree model importances saved to: data\attack_models\agent5\feature_importance_all_models.json
+2026-03-03 16:33:34 - agent4.ml_attacker - INFO - Evaluation report saved to: data\attack_models\agent5\evaluation_report.json
+2026-03-03 16:33:34 - agent4.ml_attacker - INFO - Agent 4: training complete
+2026-03-03 16:33:34 - agent4.ml_attacker - INFO -    Best model: gbm
+2026-03-03 16:33:34 - agent4.ml_attacker - INFO -    Best PR-AUC:  0.9818  <- Primary metric
+2026-03-03 16:33:34 - agent4.ml_attacker - INFO -    Best ROC-AUC: 0.9818
+2026-03-03 16:33:34 - agent4.ml_attacker - INFO -    Best threshold: 0.4086
+2026-03-03 19:14:04 - agent4.ml_attacker - INFO - Agent 4: ML attacker training started
+2026-03-03 19:14:04 - agent4.ml_attacker - INFO - Loading train pairs: data\pairs\train_pairs.csv
+2026-03-03 19:14:04 - agent4.ml_attacker - INFO - Loading test pairs:  data\pairs\test_pairs.csv
+2026-03-03 19:14:04 - agent4.ml_attacker - INFO -    Train: 1,563 rows × 25 cols
+2026-03-03 19:14:04 - agent4.ml_attacker - INFO -    Test:  391 rows × 25 cols
+2026-03-03 19:14:04 - agent4.ml_attacker - INFO - Preparing feature matrices...
+2026-03-03 19:14:04 - agent4.ml_attacker - INFO -    Using 21 numeric features for training.
+2026-03-03 19:14:04 - agent4.ml_attacker - INFO -    Feature list: ['euclidean_distance', 'manhattan_distance', 'cosine_similarity', 'sex_diff', 'sex_equal', 'district_diff', 'district_equal', 'education_diff', 'education_equal', 'marital_status_diff']...
+2026-03-03 19:14:04 - agent4.ml_attacker - INFO -    Train samples: 1,563  |  Positive rate: 0.500
+2026-03-03 19:14:04 - agent4.ml_attacker - INFO -    Positive labels in train: 782
+2026-03-03 19:14:04 - agent4.ml_attacker - INFO -    Negative labels in train: 781
+2026-03-03 19:14:04 - agent4.ml_attacker - INFO -    Positive labels in test:  195
+2026-03-03 19:14:04 - agent4.ml_attacker - INFO -    Negative labels in test:  196
+2026-03-03 19:14:04 - agent4.ml_attacker - INFO - Running Stratified K-Fold cross-validation (5 folds, PR-AUC)...
+2026-03-03 19:14:12 - agent4.ml_attacker - INFO -    CV [logreg]: PR-AUC = 0.9796 ± 0.0062
+2026-03-03 19:14:15 - agent4.ml_attacker - INFO -    CV [rf]: PR-AUC = 0.9850 ± 0.0040
+2026-03-03 19:14:19 - agent4.ml_attacker - INFO -    CV [gbm]: PR-AUC = 0.9888 ± 0.0051
+2026-03-03 19:14:22 - agent4.ml_attacker - INFO -    CV [xgb]: PR-AUC = 0.9869 ± 0.0051
+2026-03-03 19:14:22 - agent4.ml_attacker - INFO - CV results saved to: data\attack_models\agent5\cv_results.json
+2026-03-03 19:14:22 - agent4.ml_attacker - INFO - Training ML attacker models...
+2026-03-03 19:14:22 - agent4.ml_attacker - INFO - 
+Training model: logreg
+2026-03-03 19:14:23 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9693
+2026-03-03 19:14:23 - agent4.ml_attacker - INFO -    AUC (PR):    0.9706  <- Better for imbalanced data
+2026-03-03 19:14:23 - agent4.ml_attacker - INFO -    Accuracy:    0.8849
+2026-03-03 19:14:23 - agent4.ml_attacker - INFO -    Precision:   0.8906
+2026-03-03 19:14:23 - agent4.ml_attacker - INFO -    Recall:      0.8769
+2026-03-03 19:14:23 - agent4.ml_attacker - INFO -    F1-score:    0.8837
+2026-03-03 19:14:23 - agent4.ml_attacker - INFO - 
+Training model: rf
+2026-03-03 19:14:24 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9822
+2026-03-03 19:14:24 - agent4.ml_attacker - INFO -    AUC (PR):    0.9823  <- Better for imbalanced data
+2026-03-03 19:14:24 - agent4.ml_attacker - INFO -    Accuracy:    0.9309
+2026-03-03 19:14:24 - agent4.ml_attacker - INFO -    Precision:   0.9286
+2026-03-03 19:14:24 - agent4.ml_attacker - INFO -    Recall:      0.9333
+2026-03-03 19:14:24 - agent4.ml_attacker - INFO -    F1-score:    0.9309
+2026-03-03 19:14:24 - agent4.ml_attacker - INFO - 
+Training model: gbm
+2026-03-03 19:14:25 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9818
+2026-03-03 19:14:25 - agent4.ml_attacker - INFO -    AUC (PR):    0.9818  <- Better for imbalanced data
+2026-03-03 19:14:25 - agent4.ml_attacker - INFO -    Accuracy:    0.9233
+2026-03-03 19:14:25 - agent4.ml_attacker - INFO -    Precision:   0.9231
+2026-03-03 19:14:25 - agent4.ml_attacker - INFO -    Recall:      0.9231
+2026-03-03 19:14:25 - agent4.ml_attacker - INFO -    F1-score:    0.9231
+2026-03-03 19:14:25 - agent4.ml_attacker - INFO - 
+Training model: xgb
+2026-03-03 19:14:25 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9840
+2026-03-03 19:14:25 - agent4.ml_attacker - INFO -    AUC (PR):    0.9840  <- Better for imbalanced data
+2026-03-03 19:14:25 - agent4.ml_attacker - INFO -    Accuracy:    0.9258
+2026-03-03 19:14:25 - agent4.ml_attacker - INFO -    Precision:   0.9278
+2026-03-03 19:14:25 - agent4.ml_attacker - INFO -    Recall:      0.9231
+2026-03-03 19:14:25 - agent4.ml_attacker - INFO -    F1-score:    0.9254
+2026-03-03 19:14:25 - agent4.ml_attacker - INFO - Best model selected by CV PR-AUC mean: gbm (CV PR-AUC = 0.9888)
+2026-03-03 19:14:25 - agent4.ml_attacker - INFO - Calibrating best model (gbm) with method='sigmoid'...
+2026-03-03 19:14:27 - agent4.ml_attacker - INFO -    PR-AUC before calibration: 0.9818
+2026-03-03 19:14:27 - agent4.ml_attacker - INFO -    PR-AUC after  calibration: 0.9819
+2026-03-03 19:14:27 - agent4.ml_attacker - INFO - Calibration report saved to: data\attack_models\agent5\calibration_report.json
+2026-03-03 19:14:27 - agent4.ml_attacker - INFO - Computing deterministic baseline linkage model...
+2026-03-03 19:14:27 - agent4.ml_attacker - INFO -    Baseline using 9 binary match features: ['sex_equal', 'district_equal', 'education_equal', 'marital_status_equal', 'B_year_equal', 'employment_status_equal', 'industry_equal', 'main_activity_equal', 'age_match']
+2026-03-03 19:14:27 - agent4.ml_attacker - INFO -    Baseline  PR-AUC:  0.8814   |  ML model PR-AUC:  0.9818
+2026-03-03 19:14:27 - agent4.ml_attacker - INFO -    Baseline  ROC-AUC: 0.8880  |  ML model ROC-AUC: 0.9818
+2026-03-03 19:14:27 - agent4.ml_attacker - INFO - Baseline comparison saved to: data\attack_models\agent5\baseline_comparison.json
+2026-03-03 19:14:27 - agent4.ml_attacker - INFO - Best model saved to: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 19:14:27 - agent4.ml_attacker - INFO - Model does not expose feature importance.
+2026-03-03 19:14:27 - agent4.ml_attacker - INFO - Feature importance (rf) saved to: data\attack_models\agent5\feature_importance_rf.json
+2026-03-03 19:14:27 - agent4.ml_attacker - INFO - Feature importance (gbm) saved to: data\attack_models\agent5\feature_importance_gbm.json
+2026-03-03 19:14:27 - agent4.ml_attacker - INFO - Feature importance (xgb) saved to: data\attack_models\agent5\feature_importance_xgb.json
+2026-03-03 19:14:27 - agent4.ml_attacker - INFO - All tree model importances saved to: data\attack_models\agent5\feature_importance_all_models.json
+2026-03-03 19:14:27 - agent4.ml_attacker - INFO - Evaluation report saved to: data\attack_models\agent5\evaluation_report.json
+2026-03-03 19:14:27 - agent4.ml_attacker - INFO - Agent 4: training complete
+2026-03-03 19:14:27 - agent4.ml_attacker - INFO -    Best model: gbm
+2026-03-03 19:14:27 - agent4.ml_attacker - INFO -    Best PR-AUC:  0.9818  <- Primary metric
+2026-03-03 19:14:27 - agent4.ml_attacker - INFO -    Best ROC-AUC: 0.9818
+2026-03-03 19:14:27 - agent4.ml_attacker - INFO -    Best threshold: 0.4086
+2026-03-03 19:21:59 - agent4.ml_attacker - INFO - Agent 4: ML attacker training started
+2026-03-03 19:21:59 - agent4.ml_attacker - INFO - Loading train pairs: data\pairs\train_pairs.csv
+2026-03-03 19:21:59 - agent4.ml_attacker - INFO - Loading test pairs:  data\pairs\test_pairs.csv
+2026-03-03 19:21:59 - agent4.ml_attacker - INFO -    Train: 1,563 rows × 25 cols
+2026-03-03 19:21:59 - agent4.ml_attacker - INFO -    Test:  391 rows × 25 cols
+2026-03-03 19:21:59 - agent4.ml_attacker - INFO - Preparing feature matrices...
+2026-03-03 19:21:59 - agent4.ml_attacker - INFO -    Using 21 numeric features for training.
+2026-03-03 19:21:59 - agent4.ml_attacker - INFO -    Feature list: ['euclidean_distance', 'manhattan_distance', 'cosine_similarity', 'sex_diff', 'sex_equal', 'district_diff', 'district_equal', 'education_diff', 'education_equal', 'marital_status_diff']...
+2026-03-03 19:21:59 - agent4.ml_attacker - INFO -    Train samples: 1,563  |  Positive rate: 0.500
+2026-03-03 19:21:59 - agent4.ml_attacker - INFO -    Positive labels in train: 782
+2026-03-03 19:21:59 - agent4.ml_attacker - INFO -    Negative labels in train: 781
+2026-03-03 19:21:59 - agent4.ml_attacker - INFO -    Positive labels in test:  195
+2026-03-03 19:21:59 - agent4.ml_attacker - INFO -    Negative labels in test:  196
+2026-03-03 19:21:59 - agent4.ml_attacker - INFO - Running Stratified K-Fold cross-validation (5 folds, PR-AUC)...
+2026-03-03 19:22:07 - agent4.ml_attacker - INFO -    CV [logreg]: PR-AUC = 0.9796 ± 0.0062
+2026-03-03 19:22:10 - agent4.ml_attacker - INFO -    CV [rf]: PR-AUC = 0.9850 ± 0.0040
+2026-03-03 19:22:14 - agent4.ml_attacker - INFO -    CV [gbm]: PR-AUC = 0.9888 ± 0.0051
+2026-03-03 19:22:15 - agent4.ml_attacker - INFO -    CV [xgb]: PR-AUC = 0.9869 ± 0.0051
+2026-03-03 19:22:15 - agent4.ml_attacker - INFO - CV results saved to: data\attack_models\agent5\cv_results.json
+2026-03-03 19:22:15 - agent4.ml_attacker - INFO - Training ML attacker models...
+2026-03-03 19:22:15 - agent4.ml_attacker - INFO - 
+Training model: logreg
+2026-03-03 19:22:16 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9693
+2026-03-03 19:22:16 - agent4.ml_attacker - INFO -    AUC (PR):    0.9706  <- Better for imbalanced data
+2026-03-03 19:22:16 - agent4.ml_attacker - INFO -    Accuracy:    0.8849
+2026-03-03 19:22:16 - agent4.ml_attacker - INFO -    Precision:   0.8906
+2026-03-03 19:22:16 - agent4.ml_attacker - INFO -    Recall:      0.8769
+2026-03-03 19:22:16 - agent4.ml_attacker - INFO -    F1-score:    0.8837
+2026-03-03 19:22:16 - agent4.ml_attacker - INFO - 
+Training model: rf
+2026-03-03 19:22:17 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9822
+2026-03-03 19:22:17 - agent4.ml_attacker - INFO -    AUC (PR):    0.9823  <- Better for imbalanced data
+2026-03-03 19:22:17 - agent4.ml_attacker - INFO -    Accuracy:    0.9309
+2026-03-03 19:22:17 - agent4.ml_attacker - INFO -    Precision:   0.9286
+2026-03-03 19:22:17 - agent4.ml_attacker - INFO -    Recall:      0.9333
+2026-03-03 19:22:17 - agent4.ml_attacker - INFO -    F1-score:    0.9309
+2026-03-03 19:22:17 - agent4.ml_attacker - INFO - 
+Training model: gbm
+2026-03-03 19:22:18 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9818
+2026-03-03 19:22:18 - agent4.ml_attacker - INFO -    AUC (PR):    0.9818  <- Better for imbalanced data
+2026-03-03 19:22:18 - agent4.ml_attacker - INFO -    Accuracy:    0.9233
+2026-03-03 19:22:18 - agent4.ml_attacker - INFO -    Precision:   0.9231
+2026-03-03 19:22:18 - agent4.ml_attacker - INFO -    Recall:      0.9231
+2026-03-03 19:22:18 - agent4.ml_attacker - INFO -    F1-score:    0.9231
+2026-03-03 19:22:18 - agent4.ml_attacker - INFO - 
+Training model: xgb
+2026-03-03 19:22:18 - agent4.ml_attacker - INFO -    AUC (ROC):   0.9840
+2026-03-03 19:22:18 - agent4.ml_attacker - INFO -    AUC (PR):    0.9840  <- Better for imbalanced data
+2026-03-03 19:22:18 - agent4.ml_attacker - INFO -    Accuracy:    0.9258
+2026-03-03 19:22:18 - agent4.ml_attacker - INFO -    Precision:   0.9278
+2026-03-03 19:22:18 - agent4.ml_attacker - INFO -    Recall:      0.9231
+2026-03-03 19:22:18 - agent4.ml_attacker - INFO -    F1-score:    0.9254
+2026-03-03 19:22:18 - agent4.ml_attacker - INFO - Best model selected by CV PR-AUC mean: gbm (CV PR-AUC = 0.9888)
+2026-03-03 19:22:18 - agent4.ml_attacker - INFO - Calibrating best model (gbm) with method='sigmoid'...
+2026-03-03 19:22:20 - agent4.ml_attacker - INFO -    PR-AUC before calibration: 0.9818
+2026-03-03 19:22:20 - agent4.ml_attacker - INFO -    PR-AUC after  calibration: 0.9819
+2026-03-03 19:22:20 - agent4.ml_attacker - INFO - Calibration report saved to: data\attack_models\agent5\calibration_report.json
+2026-03-03 19:22:20 - agent4.ml_attacker - INFO - Computing deterministic baseline linkage model...
+2026-03-03 19:22:20 - agent4.ml_attacker - INFO -    Baseline using 9 binary match features: ['sex_equal', 'district_equal', 'education_equal', 'marital_status_equal', 'B_year_equal', 'employment_status_equal', 'industry_equal', 'main_activity_equal', 'age_match']
+2026-03-03 19:22:20 - agent4.ml_attacker - INFO -    Baseline  PR-AUC:  0.8814   |  ML model PR-AUC:  0.9818
+2026-03-03 19:22:20 - agent4.ml_attacker - INFO -    Baseline  ROC-AUC: 0.8880  |  ML model ROC-AUC: 0.9818
+2026-03-03 19:22:20 - agent4.ml_attacker - INFO - Baseline comparison saved to: data\attack_models\agent5\baseline_comparison.json
+2026-03-03 19:22:20 - agent4.ml_attacker - INFO - Best model saved to: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 19:22:20 - agent4.ml_attacker - INFO - Model does not expose feature importance.
+2026-03-03 19:22:20 - agent4.ml_attacker - INFO - Feature importance (rf) saved to: data\attack_models\agent5\feature_importance_rf.json
+2026-03-03 19:22:20 - agent4.ml_attacker - INFO - Feature importance (gbm) saved to: data\attack_models\agent5\feature_importance_gbm.json
+2026-03-03 19:22:20 - agent4.ml_attacker - INFO - Feature importance (xgb) saved to: data\attack_models\agent5\feature_importance_xgb.json
+2026-03-03 19:22:20 - agent4.ml_attacker - INFO - All tree model importances saved to: data\attack_models\agent5\feature_importance_all_models.json
+2026-03-03 19:22:20 - agent4.ml_attacker - INFO - Evaluation report saved to: data\attack_models\agent5\evaluation_report.json
+2026-03-03 19:22:20 - agent4.ml_attacker - INFO - Agent 4: training complete
+2026-03-03 19:22:20 - agent4.ml_attacker - INFO -    Best model: gbm
+2026-03-03 19:22:20 - agent4.ml_attacker - INFO -    Best PR-AUC:  0.9818  <- Primary metric
+2026-03-03 19:22:20 - agent4.ml_attacker - INFO -    Best ROC-AUC: 0.9818
+2026-03-03 19:22:20 - agent4.ml_attacker - INFO -    Best threshold: 0.4086

@@ -1,0 +1,36 @@
+{
+  "model": "rf",
+  "calibration_method": "sigmoid",
+  "pr_auc_before": 0.9791666666666666,
+  "pr_auc_after": 0.9759615384615384,
+  "reliability_table": [
+    {
+      "bin_lower": 0.0,
+      "bin_upper": 0.1,
+      "mean_pred_prob": 0.0765280508139275,
+      "frac_positive": 0.1111111111111111,
+      "count": 9
+    },
+    {
+      "bin_lower": 0.1,
+      "bin_upper": 0.2,
+      "mean_pred_prob": 0.14580937947580597,
+      "frac_positive": 0.0,
+      "count": 7
+    },
+    {
+      "bin_lower": 0.7,
+      "bin_upper": 0.8,
+      "mean_pred_prob": 0.7852546551941063,
+      "frac_positive": 0.0,
+      "count": 1
+    },
+    {
+      "bin_lower": 0.9,
+      "bin_upper": 1.0,
+      "mean_pred_prob": 0.9545361146364691,
+      "frac_positive": 1.0,
+      "count": 15
+    }
+  ]
+}

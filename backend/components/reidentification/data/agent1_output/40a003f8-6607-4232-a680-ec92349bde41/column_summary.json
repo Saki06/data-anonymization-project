@@ -1,0 +1,138 @@
+{
+  "row_id": {
+    "data_type": "int64",
+    "total_values": 9,
+    "unique_values": 9,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "min": 1.0,
+    "max": 9.0,
+    "mean": 5.0,
+    "median": 5.0,
+    "std": 2.7386127875258306,
+    "range": 8.0,
+    "iqr": 4.0,
+    "quartiles": {
+      "25%": 3.0,
+      "50%": 5.0,
+      "75%": 7.0
+    },
+    "outliers": {
+      "count": 0,
+      "percentage": 0.0,
+      "bounds": {
+        "lower": -3.0,
+        "upper": 13.0
+      }
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 100.0,
+    "extreme_outlier_percentage": 0.0
+  },
+  "age": {
+    "data_type": "int64",
+    "total_values": 9,
+    "unique_values": 6,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "min": 29.0,
+    "max": 90.0,
+    "mean": 47.22222222222222,
+    "median": 40.0,
+    "std": 22.648276853757427,
+    "range": 61.0,
+    "iqr": 38.0,
+    "quartiles": {
+      "25%": 29.0,
+      "50%": 40.0,
+      "75%": 67.0
+    },
+    "outliers": {
+      "count": 0,
+      "percentage": 0.0,
+      "bounds": {
+        "lower": -28.0,
+        "upper": 124.0
+      }
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 66.66666666666666,
+    "extreme_outlier_percentage": 0.0
+  },
+  "sex": {
+    "data_type": "int64",
+    "total_values": 9,
+    "unique_values": 2,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.4444444444444444,
+    "median": 0.0,
+    "std": 0.5270462766947299,
+    "range": 1.0,
+    "iqr": 1.0,
+    "quartiles": {
+      "25%": 0.0,
+      "50%": 0.0,
+      "75%": 1.0
+    },
+    "outliers": {
+      "count": 0,
+      "percentage": 0.0,
+      "bounds": {
+        "lower": -1.5,
+        "upper": 2.5
+      }
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 22.22222222222222,
+    "extreme_outlier_percentage": 0.0
+  },
+  "income": {
+    "data_type": "int64",
+    "total_values": 9,
+    "unique_values": 9,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "min": 40000.0,
+    "max": 400000.0,
+    "mean": 103222.22222222222,
+    "median": 55000.0,
+    "std": 114288.86404389731,
+    "range": 360000.0,
+    "iqr": 40000.0,
+    "quartiles": {
+      "25%": 50000.0,
+      "50%": 55000.0,
+      "75%": 90000.0
+    },
+    "outliers": {
+      "count": 1,
+      "percentage": 11.11111111111111,
+      "bounds": {
+        "lower": -10000.0,
+        "upper": 150000.0
+      }
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 100.0,
+    "extreme_outlier_percentage": 11.11111111111111
+  },
+  "diagnosis": {
+    "data_type": "str",
+    "total_values": 9,
+    "unique_values": 4,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "most_frequent": "HeartDisease",
+    "value_counts": {
+      "HeartDisease": 3,
+      "Healthy": 3,
+      "Diabetes": 2,
+      "-": 1
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 44.44444444444444
+  }
+}

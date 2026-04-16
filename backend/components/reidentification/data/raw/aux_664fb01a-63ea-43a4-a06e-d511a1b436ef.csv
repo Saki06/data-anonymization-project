@@ -1,0 +1,10 @@
+row_id,age,sex,income,diagnosis
+1,40,1,54000,Diabetes
+2,67,0,78000,HeartDisease
+3,70,1,55000,Diabetes
+4,29,0,42000,Healthy
+5,90,1,120000,HeartDisease
+6,29,0,40000,Healthy
+7,31,1,90000,Healthy
+8,40,0,50000,HeartDisease
+9,29,0,400000,-

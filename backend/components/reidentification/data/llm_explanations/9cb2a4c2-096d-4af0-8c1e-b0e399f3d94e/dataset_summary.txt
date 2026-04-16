@@ -1,0 +1,10 @@
+DATASET-LEVEL PRIVACY RISK SUMMARY
+============================================================
+
+This dataset has a high overall privacy risk. Out of 100 records, 88 are considered high risk. This means most of the data could potentially lead to privacy issues. There are also 6 medium risk records and 6 low risk records. However, the high number of high-risk records is concerning.
+
+The columns that matter most for risk are marital_status, sex, education, industry, and age. Marital_status, sex, and education can reveal personal details about individuals. When combined, these columns can create a clearer picture of a person. The industry column adds context about a person's job, which can also increase risk. Age has a low score, but it still contributes to the overall risk.
+
+To improve privacy, the dataset needs stronger anonymization. Grouping ages into ranges, like 20-30 or 30-40, can help. Broadening categories for marital_status and education can also reduce risk. Additionally, removing rare values in any column can help protect privacy further. 
+
+Risk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability.

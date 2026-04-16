@@ -1,0 +1,10 @@
+{
+  "overall_similarity": 0.5218698651764725,
+  "r2_school_education_match": 0.3660186737569359,
+  "euclidean_distance": 0.03548002136312059,
+  "manhattan_distance": 0.028072446463972275,
+  "sector_equal": 0.026686227163078686,
+  "sector_diff": 0.021872766076420157,
+  "cosine_similarity": 0.0,
+  "type_of_school_match": 0.0
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "record_id": 0,
+    "risk_score": 0.9648474887814732,
+    "explanation": "The risk score of 0.9648 is very high. This means there is a strong chance that someone could connect this record to a specific person. A score close to 1.0 shows a serious privacy risk.\n\nThe columns that raised the risk the most are r2_school_education and sector. r2_school_education is important because it can reveal a lot about someone's background. The sector also matters because it can show where a person works or lives. On the other hand, type_of_school actually lowers the risk. This means it does not give away as much personal information.\n\nTo better protect privacy, the columns r2_school_education and sector need better anonymization. This could mean changing the way this information is shown, like using broader categories or removing specific details. Making these changes can help keep personal information safer.\n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  },
+  {
+    "record_id": 99,
+    "risk_score": 0.9648474887814732,
+    "explanation": "The risk score of 0.9648 is very high. This means there is a strong chance that the information could be linked back to a specific person. A score close to 1.0 indicates a serious privacy risk.\n\nThe columns that raised the risk are r2_school_education and sector. r2_school_education gives details about a person's education level, which can be unique. The sector shows the industry a person works in, which can also narrow down who they are. On the other hand, type_of_school lowers the risk. It might be less specific and not give away much personal information.\n\nTo better protect privacy, the columns r2_school_education and sector need stronger anonymization. For example, using broader categories for education and sector can help. This way, it is harder to guess who the person is. Making these changes can reduce the risk score and help keep information safe.\n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  }
+]

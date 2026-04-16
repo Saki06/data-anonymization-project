@@ -1,0 +1,101 @@
+district,sector,month,strata,psu,snumber,hhno,nhh,result,person_serial_no,residence,relationship,sex,birth_year,birth_month,age,registration,ethnicity,religion,marital_status,curr_educ,education,main_activity,is_active,finalweight,B_year
+62,2,11,622,PSU_RECODED_7,1,1,1,1,1,Yes,Head of the household,Male,71,6,48,1,Sri Lankan Tamil,Buddhist,Currently Married (Registered),Does not attend,Passed G.C.E (O/L) or equivalent,Retired (Government pension),Yes,467.3529278,1971
+62,2,11,622,PSU_RECODED_7,1,1,1,1,2,Yes,Wife/Husband,Female,71,4,48,1,Sri Lankan Tamil,Other Christian,Currently Married (Registered),Does not attend,Passed Grade 6,Engaged in economic activity,Yes,467.3529278,1971
+62,2,11,622,PSU_RECODED_7,1,1,1,1,3,Yes,Other Relative,Male,43,8,76,1,Sri Lankan Tamil,Other Christian,Widowed,Does not attend,Passed Grade 2,Other,No,467.3529278,1943
+62,2,11,622,PSU_RECODED_7,1,1,1,1,4,Now,Son/Daughter,Male,1,1,18,1,Sri Lankan Tamil,Other Christian,Never Married,Does not attend,Passed Grade 12,Engaged in economic activity,No,467.3529278,2001
+62,2,11,622,PSU_RECODED_7,5,1,1,1,1,Yes,Head of the household,Male,66,8,53,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed Grade 5,Engaged in economic activity,Yes,467.3529278,1966
+62,2,11,622,PSU_RECODED_7,5,1,1,1,2,Yes,Wife/Husband,Female,71,2,48,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed Grade 9,Engaged in economic activity,Yes,467.3529278,1971
+62,2,11,622,PSU_RECODED_7,5,1,1,1,3,Yes,Son/Daughter,Male,94,3,25,1,Sinhala,Buddhist,Never Married,Does not attend,Passed Grade 10,Engaged in economic activity,Yes,467.3529278,1994
+62,2,12,622,PSU_RECODED_20,2,1,1,1,1,Yes,Head of the household,Male,71,4,48,1,Sinhala,Roman Catholic,Currently Married (Registered),Does not attend,Passed Grade 6,Engaged in economic activity,Yes,440.0542754,1971
+62,2,12,622,PSU_RECODED_20,2,1,1,1,2,Yes,Wife/Husband,Female,77,9,42,1,Sinhala,Roman Catholic,Currently Married (Registered),Does not attend,Passed G.C.E (O/L) or equivalent,Student,No,440.0542754,1977
+62,2,12,622,PSU_RECODED_20,2,1,1,1,3,Yes,Son/Daughter,Male,0,8,19,1,Sinhala,Roman Catholic,Never Married,School,Passed Grade 12,Too old / Disabled,No,440.0542754,2000
+62,2,12,622,PSU_RECODED_20,2,1,1,1,4,Yes,Son/Daughter,Male,4,3,15,1,Sinhala,Roman Catholic,Never Married,School,Passed Grade 9,Too old / Disabled,No,440.0542754,2004
+62,2,12,622,PSU_RECODED_20,6,1,1,1,1,Yes,Head of the household,Male,49,7,70,1,Sinhala,Roman Catholic,Currently Married (Registered),Does not attend,Passed G.C.E (O/L) or equivalent,Household activities,No,440.0542754,1949
+62,2,12,622,PSU_RECODED_20,6,1,1,1,2,Yes,Wife/Husband,Female,53,11,66,1,Sinhala,Roman Catholic,Currently Married (Registered),Does not attend,Passed G.C.E (A/L) or equivalent,Student,No,440.0542754,1953
+62,2,12,622,PSU_RECODED_20,6,1,1,1,3,Yes,Son/Daughter,Male,85,9,34,1,Sinhala,Roman Catholic,Currently Married (Registered),Does not attend,Passed G.C.E (O/L) or equivalent,Engaged in economic activity,Yes,440.0542754,1985
+62,2,12,622,PSU_RECODED_20,6,1,1,1,4,Yes,Other Relative,Female,89,4,30,1,Sinhala,Roman Catholic,Currently Married (Registered),Does not attend,Passed G.C.E (A/L) or equivalent,Engaged in economic activity,Yes,440.0542754,1989
+62,2,12,622,PSU_RECODED_20,6,1,1,1,5,Yes,Other Relative,Male,16,4,3,1,Sinhala,Roman Catholic,Never Married,Does not attend,Passed Grade 10,Engaged in economic activity,No,440.0542754,2016
+62,2,11,622,PSU_RECODED_15,2,1,1,1,1,Yes,Head of the household,Male,66,10,53,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed Grade 4,Engaged in economic activity,Yes,380.187144,1966
+62,2,11,622,PSU_RECODED_15,2,1,1,1,2,Yes,Wife/Husband,Female,66,6,53,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed Grade 2,Engaged in economic activity,Yes,380.187144,1966
+62,2,11,622,PSU_RECODED_15,2,1,1,1,3,Yes,Son/Daughter,Female,3,5,16,1,Sinhala,Buddhist,Never Married,School,Passed Grade 10,Too old / Disabled,No,380.187144,2003
+62,2,11,622,PSU_RECODED_15,2,1,1,1,4,Yes,Other Relative,Male,69,8,50,1,Sinhala,Buddhist,Never Married,Does not attend,Passed Grade 1,Engaged in economic activity,Yes,380.187144,1969
+62,2,11,622,PSU_RECODED_15,6,1,1,1,1,Yes,Head of the household,Male,84,9,35,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed Grade 10,Engaged in economic activity,Yes,380.187144,1984
+62,2,11,622,PSU_RECODED_15,6,1,1,1,2,Yes,Wife/Husband,Female,87,6,32,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed Grade 10,Engaged in economic activity,Yes,380.187144,1987
+62,2,11,622,PSU_RECODED_15,6,1,1,1,3,Yes,Son/Daughter,Female,8,7,11,1,Sinhala,Buddhist,Never Married,School,Passed Grade 5,Engaged in economic activity,No,380.187144,2008
+62,2,11,622,PSU_RECODED_15,6,1,1,1,4,Yes,Son/Daughter,Female,13,1,6,1,Sinhala,Buddhist,Never Married,School,Studying/Studied Grade 1,Engaged in economic activity,No,380.187144,2013
+62,2,11,622,PSU_RECODED_15,6,1,1,1,5,Yes,Other Relative,Male,68,2,51,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed Grade 10,Engaged in economic activity,Yes,380.187144,1968
+62,2,11,622,PSU_RECODED_15,6,1,1,1,6,Yes,Other Relative,Female,65,7,54,1,Sinhala,Buddhist,Never Married,Does not attend,No Schooling,Other,No,380.187144,1965
+62,2,12,622,PSU_RECODED_11,3,1,1,1,1,Yes,Head of the household,Male,84,5,35,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed G.C.E (A/L) or equivalent,Engaged in economic activity,Yes,439.6687241,1984
+62,2,12,622,PSU_RECODED_11,3,1,1,1,2,Yes,Wife/Husband,Female,89,4,30,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed G.C.E (A/L) or equivalent,Engaged in economic activity,Yes,439.6687241,1989
+62,2,12,622,PSU_RECODED_11,3,1,1,1,3,Yes,Son/Daughter,Female,19,4,0,1,Sinhala,Buddhist,Never Married,Does not attend,Passed Grade 10,Engaged in economic activity,No,439.6687241,2019
+62,2,12,622,PSU_RECODED_11,7,1,1,1,1,Yes,Head of the household,Female,79,4,40,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed Grade 10,Student,No,439.6687241,1979
+62,2,12,622,PSU_RECODED_11,7,1,1,1,2,Now,Wife/Husband,Male,81,3,38,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed Grade 10,Engaged in economic activity,No,439.6687241,1981
+62,2,1,622,PSU_RECODED_8,1,1,1,1,1,Yes,Head of the household,Male,66,11,52,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed G.C.E (A/L) or equivalent,Engaged in economic activity,Yes,387.7740271,1966
+62,2,1,622,PSU_RECODED_8,1,1,1,1,2,Yes,Wife/Husband,Female,75,5,43,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed Grade 10,Engaged in economic activity,Yes,387.7740271,1975
+62,2,1,622,PSU_RECODED_8,1,1,1,1,3,Yes,Son/Daughter,Male,5,11,13,1,Sinhala,Buddhist,Never Married,School,Passed Grade 7,Engaged in economic activity,No,387.7740271,2005
+62,2,1,622,PSU_RECODED_8,1,1,1,1,4,Yes,Son/Daughter,Male,12,5,6,1,Sinhala,Buddhist,Never Married,School,Passed Grade 1,Engaged in economic activity,No,387.7740271,2012
+62,2,1,622,PSU_RECODED_8,1,1,1,1,5,Yes,Parent of head/spouse,Female,48,6,70,1,Sinhala,Buddhist,Widowed,Does not attend,Passed Grade 2,Other,No,387.7740271,1948
+62,2,1,622,PSU_RECODED_8,1,1,1,1,6,Yes,Other Relative,Female,97,8,21,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed G.C.E (A/L) or equivalent,Engaged in economic activity,Yes,387.7740271,1997
+62,2,1,622,PSU_RECODED_8,1,1,1,1,7,Yes,Other Relative,Female,98,12,20,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed Grade 10,Engaged in economic activity,Yes,387.7740271,1998
+62,2,1,622,PSU_RECODED_8,1,1,1,1,8,Yes,Other Relative,Male,2,4,16,1,Sinhala,Buddhist,Never Married,Pending G.C.E.(O/L or A/L),Passed Grade 10,Too old / Disabled,No,387.7740271,2002
+62,2,1,622,PSU_RECODED_8,5,1,1,1,1,Yes,Head of the household,Female,43,10,75,1,Sinhala,Roman Catholic,Widowed,Does not attend,Passed Grade 7,Other,No,387.7740271,1943
+62,2,1,622,PSU_RECODED_8,9,1,1,1,1,Yes,Head of the household,Male,75,8,43,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed Grade 3,Engaged in economic activity,Yes,387.7740271,1975
+62,2,1,622,PSU_RECODED_8,9,1,1,1,2,Yes,Wife/Husband,Female,78,4,40,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed Grade 10,Engaged in economic activity,Yes,387.7740271,1978
+62,2,1,622,PSU_RECODED_8,9,1,1,1,3,Yes,Son/Daughter,Female,1,2,17,1,Sinhala,Buddhist,Never Married,Does not attend,Passed Grade 10,Student,No,387.7740271,2001
+62,2,1,622,PSU_RECODED_8,9,1,1,1,4,Yes,Son/Daughter,Male,6,10,12,1,Sinhala,Buddhist,Never Married,School,Passed Grade 7,Engaged in economic activity,No,387.7740271,2006
+62,2,1,622,PSU_RECODED_8,9,1,1,1,5,Yes,Son/Daughter,Male,15,6,3,1,Sinhala,Buddhist,Never Married,Does not attend,Passed Grade 10,Engaged in economic activity,No,387.7740271,2015
+62,2,2,622,PSU_RECODED_7,4,1,1,1,1,Yes,Head of the household,Male,66,3,52,1,Sinhala,Roman Catholic,Currently Married (Registered),Does not attend,No Schooling,Engaged in economic activity,Yes,289.5841038,1966
+62,2,2,622,PSU_RECODED_7,4,1,1,1,2,Yes,Wife/Husband,Female,68,8,50,1,Sinhala,Roman Catholic,Currently Married (Registered),Does not attend,Passed Grade 1,Student,No,289.5841038,1968
+62,2,2,622,PSU_RECODED_7,4,1,1,1,3,Yes,Son/Daughter,Male,91,9,27,1,Sinhala,Roman Catholic,Currently Married (Registered),Does not attend,Passed Grade 7,Engaged in economic activity,Yes,289.5841038,1991
+62,2,2,622,PSU_RECODED_7,4,1,1,1,4,Yes,Other Relative,Female,94,5,24,1,Sinhala,Roman Catholic,Currently Married (Registered),Does not attend,Passed Grade 10,Student,No,289.5841038,1994
+62,2,2,622,PSU_RECODED_7,4,1,1,1,5,Yes,Other Relative,Male,14,8,4,1,Sinhala,Roman Catholic,Never Married,Pre School,Passed Grade 10,Engaged in economic activity,No,289.5841038,2014
+62,2,2,622,PSU_RECODED_7,9,1,1,1,1,Yes,Head of the household,Female,79,5,39,1,Sinhala,Buddhist,Legally Separated,Does not attend,Passed Grade 8,Engaged in economic activity,Yes,289.5841038,1979
+62,2,2,622,PSU_RECODED_7,9,1,1,1,2,Yes,Son/Daughter,Male,97,10,21,1,Sinhala,Buddhist,Never Married,Does not attend,Passed Grade 10,Engaged in economic activity,Yes,289.5841038,1997
+62,2,2,622,PSU_RECODED_7,9,1,1,1,3,Yes,Other Relative,Female,0,9,18,1,Sinhala,Buddhist,Never Married,Does not attend,Passed Grade 10,Student,No,289.5841038,2000
+62,2,2,622,PSU_RECODED_7,9,1,1,1,4,Yes,Son/Daughter,Female,1,3,17,1,Sinhala,Buddhist,Never Married,Does not attend,Passed G.C.E (O/L) or equivalent,Student,No,289.5841038,2001
+62,2,2,622,PSU_RECODED_19,3,1,1,1,1,Yes,Head of the household,Male,80,5,38,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed Grade 6,Engaged in economic activity,Yes,375.0470847,1980
+62,2,2,622,PSU_RECODED_19,3,1,1,1,2,Yes,Wife/Husband,Female,83,3,35,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed Grade 7,Engaged in economic activity,Yes,375.0470847,1983
+62,2,2,622,PSU_RECODED_19,3,1,1,1,3,Yes,Son/Daughter,Male,3,2,16,1,Sinhala,Buddhist,Never Married,School,Passed Grade 10,Too old / Disabled,No,375.0470847,2003
+62,2,2,622,PSU_RECODED_19,3,1,1,1,4,Yes,Parent of head/spouse,Female,64,6,54,1,Sinhala,Buddhist,Widowed,Does not attend,No Schooling,Student,No,375.0470847,1964
+62,2,2,622,PSU_RECODED_19,7,1,1,1,1,Yes,Head of the household,Female,62,6,56,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed G.C.E (A/L) or equivalent,Engaged in economic activity,Yes,375.0470847,1962
+62,2,2,622,PSU_RECODED_19,7,1,1,1,2,Yes,Parent of head/spouse,Female,36,8,82,1,Sinhala,Buddhist,Widowed,Does not attend,Passed G.C.E (O/L) or equivalent,Student,No,375.0470847,1936
+62,2,2,622,PSU_RECODED_19,7,1,1,1,3,Now,Wife/Husband,Male,57,1,62,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed G.C.E (A/L) or equivalent,Engaged in economic activity,No,375.0470847,1957
+62,2,3,622,PSU_RECODED_11,3,1,1,1,1,Yes,Head of the household,Male,77,2,42,1,Sri Lankan Tamil,Roman Catholic,Currently Married (Registered),Does not attend,Passed Grade 5,Engaged in economic activity,Yes,416.3954434,1977
+62,2,3,622,PSU_RECODED_11,3,1,1,1,2,Yes,Wife/Husband,Female,79,2,40,1,Sri Lankan Tamil,Roman Catholic,Currently Married (Registered),Does not attend,Passed Grade 5,Engaged in economic activity,Yes,416.3954434,1979
+62,2,3,622,PSU_RECODED_11,3,1,1,1,3,Yes,Son/Daughter,Male,99,8,19,1,Sri Lankan Moors/Muslim,Hindu,Never Married,Does not attend,Passed Grade 8,Student,No,416.3954434,1999
+62,2,3,622,PSU_RECODED_11,3,1,1,1,4,Yes,Son/Daughter,Male,1,12,17,1,Sri Lankan Tamil,Roman Catholic,Never Married,School,Passed G.C.E (O/L) or equivalent,Too old / Disabled,No,416.3954434,2001
+62,2,3,622,PSU_RECODED_11,7,1,1,1,1,Yes,Head of the household,Male,63,8,55,1,Sri Lankan Tamil,Roman Catholic,Currently Married (Registered),Does not attend,Passed Grade 10,Engaged in economic activity,Yes,416.3954434,1963
+62,2,3,622,PSU_RECODED_11,7,1,1,1,2,Yes,Wife/Husband,Female,72,8,46,1,Sri Lankan Tamil,Roman Catholic,Currently Married (Registered),Does not attend,Passed Grade 9,Student,No,416.3954434,1972
+62,2,3,622,PSU_RECODED_11,7,1,1,1,3,Yes,Son/Daughter,Female,92,5,26,1,Sri Lankan Tamil,Roman Catholic,Never Married,Does not attend,Passed G.C.E (A/L) or equivalent,Student,No,416.3954434,1992
+62,2,4,622,PSU_RECODED_11,2,1,1,1,1,Yes,Head of the household,Female,91,12,27,1,Sinhala,Roman Catholic,Currently Married (Registered),Does not attend,Passed Grade 12,Student,No,357.9539777,1991
+62,2,4,622,PSU_RECODED_11,2,1,1,1,2,Now,Wife/Husband,Male,91,2,28,1,Sinhala,Roman Catholic,Currently Married (Registered),Does not attend,Passed G.C.E (A/L) or equivalent,Engaged in economic activity,No,357.9539777,1991
+62,2,4,622,PSU_RECODED_11,2,1,1,1,3,Yes,Son/Daughter,Male,17,5,1,1,Sinhala,Roman Catholic,Never Married,Does not attend,Passed Grade 10,Engaged in economic activity,No,357.9539777,2017
+62,2,4,622,PSU_RECODED_11,2,1,1,1,4,Yes,Other Relative,Male,68,6,50,1,Sinhala,Roman Catholic,Currently Married (Registered),Does not attend,Passed Grade 4,Engaged in economic activity,Yes,357.9539777,1968
+62,2,4,622,PSU_RECODED_11,2,1,1,1,5,Yes,Other Relative,Female,73,3,46,1,Sinhala,Roman Catholic,Currently Married (Registered),Does not attend,Passed Grade 5,Student,No,357.9539777,1973
+62,2,4,622,PSU_RECODED_11,2,1,1,1,6,Yes,Other Relative,Male,98,4,21,1,Sinhala,Roman Catholic,Never Married,Does not attend,Passed Grade 10,Engaged in economic activity,Yes,357.9539777,1998
+62,2,4,622,PSU_RECODED_11,2,1,1,1,7,Yes,Other Relative,Male,1,8,17,1,Sinhala,Roman Catholic,Never Married,Does not attend,Passed Grade 6,Student,No,357.9539777,2001
+62,2,4,622,PSU_RECODED_11,6,1,1,1,1,Yes,Head of the household,Male,53,7,65,1,Sinhala,Roman Catholic,Currently Married (Registered),Does not attend,Passed Grade 10,"Retired (Private, no pension)",No,357.9539777,1953
+62,2,4,622,PSU_RECODED_11,6,1,1,1,2,Yes,Wife/Husband,Female,59,3,60,2,Sinhala,Roman Catholic,Currently Married (Registered),Does not attend,Passed Grade 10,Student,No,357.9539777,1959
+62,1,5,621,PSU_RECODED_4,4,1,1,1,1,Yes,Head of the household,Male,90,9,28,1,Sri Lankan Moors/Muslim,Islam,Currently Married (Registered),Does not attend,Passed Grade 9,Engaged in economic activity,Yes,324.7316933,1990
+62,1,5,621,PSU_RECODED_4,4,1,1,1,2,Yes,Wife/Husband,Female,95,2,24,1,Sri Lankan Moors/Muslim,Islam,Currently Married (Registered),Does not attend,Passed Grade 8,Student,No,324.7316933,1995
+62,1,5,621,PSU_RECODED_4,4,1,1,1,3,Yes,Son/Daughter,Male,16,3,3,1,Sri Lankan Moors/Muslim,Islam,Never Married,Does not attend,Passed Grade 10,Engaged in economic activity,No,324.7316933,2016
+62,1,5,621,PSU_RECODED_4,4,1,1,1,4,Yes,Son/Daughter,Female,18,1,1,1,Sri Lankan Moors/Muslim,Islam,Never Married,Does not attend,Passed Grade 10,Engaged in economic activity,No,324.7316933,2018
+62,1,5,621,PSU_RECODED_4,9,1,1,1,1,Yes,Head of the household,Male,61,4,58,1,Sri Lankan Moors/Muslim,Islam,Widowed,Does not attend,Passed Grade 6,Engaged in economic activity,Yes,324.7316933,1961
+62,2,5,622,PSU_RECODED_8,1,1,1,1,1,Yes,Head of the household,Male,57,2,62,1,Sinhala,Roman Catholic,Currently Married (Registered),Does not attend,Passed G.C.E (O/L) or equivalent,"Retired (Private, no pension)",No,417.5425383,1957
+62,2,5,622,PSU_RECODED_8,1,1,1,1,2,Yes,Wife/Husband,Female,58,7,60,1,Sinhala,Roman Catholic,Currently Married (Registered),Does not attend,Passed G.C.E (A/L) or equivalent,Student,No,417.5425383,1958
+62,2,5,622,PSU_RECODED_8,1,1,1,1,3,Yes,Son/Daughter,Female,87,11,31,1,Sinhala,Roman Catholic,Currently Married (Registered),Does not attend,Passed Degree,Engaged in economic activity,Yes,417.5425383,1987
+62,2,5,622,PSU_RECODED_8,7,1,1,1,1,Yes,Head of the household,Male,59,5,60,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed Grade 8,Engaged in economic activity,Yes,417.5425383,1959
+62,2,5,622,PSU_RECODED_8,7,1,1,1,2,Yes,Wife/Husband,Female,63,4,56,1,Sinhala,Roman Catholic,Currently Married (Registered),Does not attend,Passed Grade 6,Student,No,417.5425383,1963
+62,2,5,622,PSU_RECODED_8,7,1,1,1,3,Yes,Son/Daughter,Female,80,1,39,1,Sinhala,Roman Catholic,Legally Separated,Does not attend,Passed Grade 10,Engaged in economic activity,Yes,417.5425383,1980
+62,2,5,622,PSU_RECODED_8,7,1,1,1,4,Yes,Other Relative,Male,9,6,9,1,Sinhala,Roman Catholic,Never Married,School,Passed Grade 4,Engaged in economic activity,No,417.5425383,2009
+62,2,5,622,PSU_RECODED_8,7,1,1,1,5,Yes,Other Relative,Female,56,3,63,1,Sinhala,Roman Catholic,Never Married,Does not attend,Passed Grade 2,Other,No,417.5425383,1956
+62,2,6,622,PSU_RECODED_3,2,1,1,1,1,Yes,Head of the household,Male,62,12,56,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed Grade 4,Engaged in economic activity,Yes,299.270308,1962
+62,2,6,622,PSU_RECODED_3,2,1,1,1,2,Yes,Wife/Husband,Female,63,2,56,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed Grade 12,Student,No,299.270308,1963
+62,2,6,622,PSU_RECODED_3,2,1,1,1,3,Yes,Son/Daughter,Male,2,4,17,1,Sinhala,Buddhist,Never Married,Does not attend,Passed Grade 9,"Retired (Private, no pension)",No,299.270308,2002
+62,2,6,622,PSU_RECODED_3,6,1,1,1,1,Yes,Head of the household,Male,63,7,55,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed Grade 5,Engaged in economic activity,Yes,299.270308,1963
+62,2,6,622,PSU_RECODED_3,6,1,1,1,2,Yes,Wife/Husband,Female,69,11,49,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed Grade 10,Engaged in economic activity,Yes,299.270308,1969
+62,2,6,622,PSU_RECODED_3,6,1,1,1,3,Yes,Son/Daughter,Male,1,4,18,1,Sinhala,Buddhist,Never Married,Does not attend,Passed Grade 10,Engaged in economic activity,Yes,299.270308,2001
+62,2,6,622,PSU_RECODED_3,6,1,1,1,4,Yes,Son/Daughter,Male,7,5,12,1,Sinhala,Buddhist,Never Married,School,Passed Grade 6,Engaged in economic activity,No,299.270308,2007
+62,2,6,622,PSU_RECODED_3,10,1,1,1,1,Yes,Head of the household,Male,62,9,56,1,Sinhala,Buddhist,Widowed,Does not attend,Passed Grade 5,Student,No,299.270308,1962
+62,2,6,622,PSU_RECODED_3,10,1,1,1,2,Yes,Son/Daughter,Female,83,4,36,1,Sinhala,Buddhist,Separated (Not legal),Does not attend,Passed Grade 10,99,No,299.270308,1983
+62,2,7,622,PSU_RECODED_OTHER,4,1,1,1,1,Yes,Head of the household,Male,66,10,52,1,Sinhala,Buddhist,Currently Married (Registered),Does not attend,Passed Grade 2,Engaged in economic activity,Yes,324.5991752,1966

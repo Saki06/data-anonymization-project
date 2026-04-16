@@ -1,0 +1,15 @@
+{
+  "manhattan_distance": 0.5215920515075525,
+  "euclidean_distance": 0.4784079484924475,
+  "age_match": 0.0,
+  "education_match": 0.0,
+  "industry_match": 0.0,
+  "marital_status_match": 0.0,
+  "sex_match": 0.0,
+  "overall_similarity": 0.0,
+  "cosine_similarity": 0.0,
+  "industry_diff": 0.0,
+  "industry_equal": 0.0,
+  "education_diff": 0.0,
+  "education_equal": 0.0
+}

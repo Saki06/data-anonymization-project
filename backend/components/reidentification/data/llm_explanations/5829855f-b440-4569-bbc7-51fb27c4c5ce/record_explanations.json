@@ -1,0 +1,12 @@
+[
+  {
+    "record_id": 28,
+    "risk_score": 0.9640169928656092,
+    "explanation": "The risk score of 0.9640 is very high. This means there is a strong chance that this record could be linked back to a specific person. A score close to 1.0 shows a serious privacy risk.\n\nThe columns that increased this risk the most are age, education, marital_status, and sex. Age can help narrow down who someone is. Education can show social status, which is often unique. Marital_status can indicate personal life details. Sex can also help identify someone, especially when combined with other details.\n\nTo improve privacy, the columns that need better anonymization are age, education, marital_status, and sex. One way to help is by grouping ages into ranges instead of using exact numbers. Education could be made more general, like using levels instead of specific degrees. Marital_status could be simplified to just married or single. These changes could help protect privacy better.\n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  },
+  {
+    "record_id": 84,
+    "risk_score": 0.081940847297401,
+    "explanation": "The risk score for this record is 0.0819. This score is low, as it is closer to 0.0 than to 1.0. A low score means there is not much risk of the information being linked back to a person.\n\nThe columns that increased the risk the most are age, education, marital_status, and sex. Age matters because certain age groups can be easier to identify. Education shows how much a person has studied, which can also narrow down possibilities. Marital_status reveals if someone is single or married, which can help in identifying them. Sex indicates whether the person is male or female, adding another layer of detail.\n\nTo lower the risk, better anonymization is needed for age, education, marital_status, and sex. For age, using broader age ranges can help. For education, using general categories like \"high school\" or \"college\" instead of specific degrees can be useful. Marital_status could be simplified to just \"single\" or \"not single.\" Finally, sex could be replaced with a non-specific term. \n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "record_id": 0,
+    "risk_score": 0.9552064099322148,
+    "explanation": "The risk score of 0.9552 is very high. This means there is a strong chance that someone could connect this record to a real person. A score close to 1.0 shows a high level of risk.\n\nThe columns that drove this risk are sex, education, and age, which increase the risk. Sex can help narrow down who a person is. Education can show social status, which might link to certain people. Age can also be a strong clue, as it can help identify someone based on their life stage. On the other hand, marital_status and birth_year lower the risk, making it harder to identify the person.\n\nTo reduce the risk, better anonymization is needed for sex, education, and age. For example, sex could be grouped into broader categories. Education could be simplified into fewer levels. Age could be shown as a range instead of a specific number. These changes would help protect the person's identity better. \n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  },
+  {
+    "record_id": 75,
+    "risk_score": 0.0895441901398177,
+    "explanation": "The risk score for this record is 0.0895. This score is low, meaning there is not much risk involved. A score of 0.0 means no risk, while 1.0 means the highest risk. So, this score suggests that the record is fairly safe.\n\nThe columns that contributed most to this risk are marital_status, sex, birth_year, education, and age. Marital_status and birth_year decrease the risk, which means they help keep the record safe. On the other hand, sex, education, and age increase the risk. This means these details could make it easier to connect the record to a specific person.\n\nTo improve privacy, the columns that need better anonymization are sex, education, and age. One way to help is by grouping ages into ranges instead of using exact numbers. For education, using broader categories could also help. For sex, using less specific terms might reduce risk. These changes can make it harder to link the record to an individual.\n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  }
+]

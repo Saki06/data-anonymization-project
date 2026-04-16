@@ -1,0 +1,57 @@
+{
+  "missing_summary": {
+    "total_missing": 4240,
+    "total_cells": 30000,
+    "overall_missing_rate": 0.1413,
+    "columns_with_missing": 9
+  },
+  "column_analysis": {
+    "curr_educ": {
+      "missing_count": 29,
+      "missing_rate": 0.029,
+      "dtype": "float64"
+    },
+    "education": {
+      "missing_count": 49,
+      "missing_rate": 0.049,
+      "dtype": "float64"
+    },
+    "main_activity": {
+      "missing_count": 215,
+      "missing_rate": 0.215,
+      "dtype": "float64"
+    },
+    "is_active": {
+      "missing_count": 215,
+      "missing_rate": 0.215,
+      "dtype": "float64"
+    },
+    "main_occupation": {
+      "missing_count": 598,
+      "missing_rate": 0.598,
+      "dtype": "float64"
+    },
+    "industry": {
+      "missing_count": 598,
+      "missing_rate": 0.598,
+      "dtype": "float64"
+    },
+    "employment_status": {
+      "missing_count": 598,
+      "missing_rate": 0.598,
+      "dtype": "float64"
+    },
+    "uresidencf": {
+      "missing_count": 969,
+      "missing_rate": 0.969,
+      "dtype": "float64"
+    },
+    "live": {
+      "missing_count": 969,
+      "missing_rate": 0.969,
+      "dtype": "float64"
+    }
+  },
+  "strategy": "simple_count",
+  "note": "RAW missing report (before cleaning). Numeric nulls will be filled with -1 later."
+}

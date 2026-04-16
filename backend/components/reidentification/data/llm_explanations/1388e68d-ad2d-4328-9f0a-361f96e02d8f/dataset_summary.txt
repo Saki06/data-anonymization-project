@@ -1,0 +1,10 @@
+DATASET-LEVEL PRIVACY RISK SUMMARY
+============================================================
+
+This dataset has a very high privacy risk. All 60 records are considered high risk. There are no medium or low risk records. This means every record in the dataset has a significant chance of revealing personal information.
+
+The columns that matter most for risk are distance, sector, r2_school_education, and type_of_school. The distance column shows how close data points are to each other. This can make it easier to guess identities. The sector column tells us what area someone works in, which can narrow down who they are. The r2_school_education and type_of_school columns provide details about education, adding more clues to identify individuals. Together, these columns increase the risk of revealing personal information.
+
+To improve privacy, the dataset needs stronger anonymization. Grouping ages into ranges can help. Broadening categories in the sector column can also reduce risk. Additionally, removing rare values can protect identities better. These steps can help keep personal information safe while still allowing for useful analysis. 
+
+Risk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability.

@@ -1,0 +1,676 @@
+2026-03-03 00:26:13 - agent4.pair_generator - INFO - 🚀 Agent 4: Pair Generator started (MODE SELECTOR)
+2026-03-03 00:26:13 - agent4.pair_generator - INFO -    Mode: external
+2026-03-03 00:26:13 - agent4.pair_generator - INFO -    ✅ Agent 3 Integration: Using 9 user-provided QI
+2026-03-03 00:26:13 - agent4.pair_generator - INFO - 📂 Loading auxiliary dataset:  data\dashboard_auxiliary.csv
+2026-03-03 00:26:13 - agent4.pair_generator - INFO - 📂 Loading anonymized dataset: data\dashboard_anonymized.csv
+2026-03-03 00:26:13 - agent4.pair_generator - INFO -    Auxiliary:   1,080 rows × 9 cols
+2026-03-03 00:26:13 - agent4.pair_generator - INFO -    Anonymized:  1,000 rows × 165 cols
+2026-03-03 00:26:13 - agent4.pair_generator - WARNING - ⚠️  Dataset size mismatch! Auxiliary has 1,080 rows, Anonymized has 1,000 rows
+2026-03-03 00:26:13 - agent4.pair_generator - WARNING - ⚠️  Column count mismatch! Auxiliary has 9 columns, Anonymized has 165 columns
+2026-03-03 00:26:13 - agent4.pair_generator - INFO -    Using specified mode: EXTERNAL
+2026-03-03 00:26:13 - agent4.pair_generator - INFO - 📌 Running in EXTERNAL MODE (Auxiliary vs Anonymized)
+2026-03-03 00:26:13 - agent4.pair_generator - INFO - ✅ Using user-provided QI list from Agent 3 (9 columns)
+2026-03-03 00:26:13 - agent4.pair_generator - INFO -    QI columns: ['age', 'sex', 'district', 'education', 'marital_status', 'B_year', 'employment_status', 'industry', 'main_activity']
+2026-03-03 00:26:13 - agent4.pair_generator - INFO - ✅ Validated 9 user-provided QI columns (after exclusions)
+2026-03-03 00:26:13 - agent4.pair_generator - INFO - ⚠️  Composite keys not found - using SOFT MATCHING
+2026-03-03 00:26:13 - agent4.pair_generator - INFO -    Soft match criteria:
+2026-03-03 00:26:13 - agent4.pair_generator - INFO -    - Age difference ≤ 3
+2026-03-03 00:26:13 - agent4.pair_generator - INFO -    - Same district/gender (if available)
+2026-03-03 00:26:13 - agent4.pair_generator - INFO -    - OR similarity score > 0.6
+2026-03-03 00:26:13 - agent4.pair_generator - INFO - 🔗 Generating positive pairs using SOFT MATCHING:
+2026-03-03 00:26:13 - agent4.pair_generator - INFO -    Using ALL 9 validated QI columns for matching
+2026-03-03 00:26:13 - agent4.pair_generator - INFO -    Processing 1,000 anonymized records against 1,080 auxiliary records
+2026-03-03 00:26:13 - agent4.pair_generator - INFO -    Numerical QI: 8 columns
+2026-03-03 00:26:13 - agent4.pair_generator - INFO -    Categorical QI: 1 columns
+2026-03-03 00:26:13 - agent4.pair_generator - INFO -    Numerical: ['sex', 'district', 'education', 'marital_status', 'B_year']...
+2026-03-03 00:26:13 - agent4.pair_generator - INFO -    Categorical: ['age']
+2026-03-03 00:26:13 - agent4.pair_generator - INFO - ✅ Using BLOCKING with keys: ['age']
+2026-03-03 00:26:13 - agent4.pair_generator - INFO -    This reduces comparisons from O(N^2) to O(N*B) where B is avg block size
+2026-03-03 00:26:13 - agent4.pair_generator - INFO -    Calculating similarity for 1,000 anonymized records...
+2026-03-03 00:26:13 - agent4.pair_generator - INFO -    Soft match threshold: 0.6
+2026-03-03 00:26:13 - agent4.pair_generator - INFO -    Creating blocks...
+2026-03-03 00:26:13 - agent4.pair_generator - INFO -    Auxiliary blocks: 6
+2026-03-03 00:26:13 - agent4.pair_generator - INFO -    Anonymized blocks: 6
+2026-03-03 00:26:13 - agent4.pair_generator - INFO -    Comparisons reduced from 1,080,000 to 225,285 (79.1% reduction)
+2026-03-03 00:26:14 - agent4.pair_generator - INFO -    Progress: 100/1,000 (10.0%) - Matches: 100
+2026-03-03 00:26:15 - agent4.pair_generator - INFO -    Progress: 200/1,000 (20.0%) - Matches: 200
+2026-03-03 00:26:16 - agent4.pair_generator - INFO -    Progress: 300/1,000 (30.0%) - Matches: 295
+2026-03-03 00:26:17 - agent4.pair_generator - INFO -    Progress: 400/1,000 (40.0%) - Matches: 395
+2026-03-03 00:26:17 - agent4.pair_generator - INFO -    Progress: 500/1,000 (50.0%) - Matches: 495
+2026-03-03 00:26:18 - agent4.pair_generator - INFO -    Progress: 600/1,000 (60.0%) - Matches: 595
+2026-03-03 00:26:19 - agent4.pair_generator - INFO -    Progress: 700/1,000 (70.0%) - Matches: 686
+2026-03-03 00:26:20 - agent4.pair_generator - INFO -    Progress: 800/1,000 (80.0%) - Matches: 786
+2026-03-03 00:26:20 - agent4.pair_generator - INFO -    Progress: 900/1,000 (90.0%) - Matches: 877
+2026-03-03 00:26:21 - agent4.pair_generator - INFO -    Progress: 1,000/1,000 (100.0%) - Matches: 977
+2026-03-03 00:26:21 - agent4.pair_generator - INFO -    → Soft matches found: 977
+2026-03-03 00:26:21 - agent4.pair_generator - INFO -    → Match rate: 97.70% of anonymized records
+2026-03-03 00:26:21 - agent4.pair_generator - INFO -    → Average similarity: 0.877
+2026-03-03 00:26:21 - agent4.pair_generator - INFO -    → Min similarity: 0.602
+2026-03-03 00:26:21 - agent4.pair_generator - INFO -    → Max similarity: 1.000
+2026-03-03 00:26:21 - agent4.pair_generator - INFO - 🧪 Generating 977 negative pairs with HARD NEGATIVE MINING (external mode)
+2026-03-03 00:26:21 - agent4.pair_generator - INFO -    Hard negative range: similarity 0.6 - 0.8
+2026-03-03 00:26:21 - agent4.pair_generator - INFO -    Using 8 numerical + 1 categorical QI columns
+2026-03-03 00:26:32 - agent4.pair_generator - INFO -    → Final negative pairs: 977
+2026-03-03 00:26:32 - agent4.pair_generator - INFO -    → Hard negatives: 977 (100.0%)
+2026-03-03 00:26:32 - agent4.pair_generator - INFO -    → Random fallbacks: 0 (0.0%)
+2026-03-03 00:26:32 - agent4.pair_generator - INFO -    → Avg hard negative similarity: 0.701
+2026-03-03 00:26:32 - agent4.pair_generator - INFO - ✅ Positive pairs: 977
+2026-03-03 00:26:32 - agent4.pair_generator - INFO - ✅ Negative pairs: 977
+2026-03-03 00:26:32 - agent4.pair_generator - INFO - 📦 Total pairs (before features): 1,954
+2026-03-03 00:26:32 - agent4.pair_generator - INFO - 🧮 Building feature dataset from pairs (using common QI only)...
+2026-03-03 00:26:32 - agent4.pair_generator - INFO -    Common QI columns: 9
+2026-03-03 00:26:33 - agent4.pair_generator - INFO -    Features per pair: 21
+2026-03-03 00:26:33 - agent4.pair_generator - INFO -    Feature columns: ['euclidean_distance', 'manhattan_distance', 'cosine_similarity', 'sex_diff', 'sex_equal', 'district_diff', 'district_equal', 'education_diff', 'education_equal', 'marital_status_diff']...
+2026-03-03 00:26:33 - agent4.pair_generator - INFO - 📈 Feature dataset shape: (1954, 25)
+2026-03-03 00:26:33 - agent4.pair_generator - INFO - 💾 Saved pair dataset      → data\pairs\pair_dataset.csv
+2026-03-03 00:26:33 - agent4.pair_generator - INFO - 💾 Saved train pairs       → data\pairs\train_pairs.csv
+2026-03-03 00:26:33 - agent4.pair_generator - INFO - 💾 Saved test pairs        → data\pairs\test_pairs.csv
+2026-03-03 00:26:33 - agent4.pair_generator - INFO - 💾 Saved common QI columns → data\pairs\common_qi_columns.json
+2026-03-03 00:26:33 - agent4.pair_generator - INFO - 💾 Saved positive count    → data\pairs\positive_pair_count.json
+2026-03-03 00:26:33 - agent4.pair_generator - INFO - 💾 Saved negative count    → data\pairs\negative_pair_count.json
+2026-03-03 00:26:33 - agent4.pair_generator - INFO - 💾 Saved matching strategy → data\pairs\matching_strategy.json
+2026-03-03 00:26:33 - agent4.pair_generator - INFO - 🎉 Agent 4: Pair generation complete (EXTERNAL MODE)
+2026-03-03 00:38:48 - agent4.pair_generator - INFO - 🚀 Agent 4: Pair Generator started (MODE SELECTOR)
+2026-03-03 00:38:48 - agent4.pair_generator - INFO -    Mode: external
+2026-03-03 00:38:48 - agent4.pair_generator - INFO -    ✅ Agent 3 Integration: Using 9 user-provided QI
+2026-03-03 00:38:48 - agent4.pair_generator - INFO - 📂 Loading auxiliary dataset:  data\dashboard_auxiliary.csv
+2026-03-03 00:38:48 - agent4.pair_generator - INFO - 📂 Loading anonymized dataset: data\dashboard_anonymized.csv
+2026-03-03 00:38:48 - agent4.pair_generator - INFO -    Auxiliary:   1,080 rows × 9 cols
+2026-03-03 00:38:48 - agent4.pair_generator - INFO -    Anonymized:  1,000 rows × 165 cols
+2026-03-03 00:38:48 - agent4.pair_generator - WARNING - ⚠️  Dataset size mismatch! Auxiliary has 1,080 rows, Anonymized has 1,000 rows
+2026-03-03 00:38:48 - agent4.pair_generator - WARNING - ⚠️  Column count mismatch! Auxiliary has 9 columns, Anonymized has 165 columns
+2026-03-03 00:38:48 - agent4.pair_generator - INFO -    Using specified mode: EXTERNAL
+2026-03-03 00:38:48 - agent4.pair_generator - INFO - 📌 Running in EXTERNAL MODE (Auxiliary vs Anonymized)
+2026-03-03 00:38:48 - agent4.pair_generator - INFO - ✅ Using user-provided QI list from Agent 3 (9 columns)
+2026-03-03 00:38:48 - agent4.pair_generator - INFO -    QI columns: ['age', 'sex', 'district', 'education', 'marital_status', 'B_year', 'employment_status', 'industry', 'main_activity']
+2026-03-03 00:38:48 - agent4.pair_generator - INFO - ✅ Validated 9 user-provided QI columns (after exclusions)
+2026-03-03 00:38:48 - agent4.pair_generator - INFO - ⚠️  Composite keys not found - using SOFT MATCHING
+2026-03-03 00:38:48 - agent4.pair_generator - INFO -    Soft match criteria:
+2026-03-03 00:38:48 - agent4.pair_generator - INFO -    - Age difference ≤ 3
+2026-03-03 00:38:48 - agent4.pair_generator - INFO -    - Same district/gender (if available)
+2026-03-03 00:38:48 - agent4.pair_generator - INFO -    - OR similarity score > 0.6
+2026-03-03 00:38:48 - agent4.pair_generator - INFO - 🔗 Generating positive pairs using SOFT MATCHING:
+2026-03-03 00:38:48 - agent4.pair_generator - INFO -    Using ALL 9 validated QI columns for matching
+2026-03-03 00:38:48 - agent4.pair_generator - INFO -    Processing 1,000 anonymized records against 1,080 auxiliary records
+2026-03-03 00:38:48 - agent4.pair_generator - INFO -    Numerical QI: 8 columns
+2026-03-03 00:38:48 - agent4.pair_generator - INFO -    Categorical QI: 1 columns
+2026-03-03 00:38:48 - agent4.pair_generator - INFO -    Numerical: ['sex', 'district', 'education', 'marital_status', 'B_year']...
+2026-03-03 00:38:48 - agent4.pair_generator - INFO -    Categorical: ['age']
+2026-03-03 00:38:48 - agent4.pair_generator - INFO - ✅ Using BLOCKING with keys: ['age']
+2026-03-03 00:38:48 - agent4.pair_generator - INFO -    This reduces comparisons from O(N^2) to O(N*B) where B is avg block size
+2026-03-03 00:38:48 - agent4.pair_generator - INFO -    Calculating similarity for 1,000 anonymized records...
+2026-03-03 00:38:48 - agent4.pair_generator - INFO -    Soft match threshold: 0.6
+2026-03-03 00:38:48 - agent4.pair_generator - INFO -    Creating blocks...
+2026-03-03 00:38:48 - agent4.pair_generator - INFO -    Auxiliary blocks: 6
+2026-03-03 00:38:48 - agent4.pair_generator - INFO -    Anonymized blocks: 6
+2026-03-03 00:38:48 - agent4.pair_generator - INFO -    Comparisons reduced from 1,080,000 to 225,285 (79.1% reduction)
+2026-03-03 00:38:49 - agent4.pair_generator - INFO -    Progress: 100/1,000 (10.0%) - Matches: 100
+2026-03-03 00:38:50 - agent4.pair_generator - INFO -    Progress: 200/1,000 (20.0%) - Matches: 200
+2026-03-03 00:38:51 - agent4.pair_generator - INFO -    Progress: 300/1,000 (30.0%) - Matches: 295
+2026-03-03 00:38:52 - agent4.pair_generator - INFO -    Progress: 400/1,000 (40.0%) - Matches: 395
+2026-03-03 00:38:52 - agent4.pair_generator - INFO -    Progress: 500/1,000 (50.0%) - Matches: 495
+2026-03-03 00:38:53 - agent4.pair_generator - INFO -    Progress: 600/1,000 (60.0%) - Matches: 595
+2026-03-03 00:38:53 - agent4.pair_generator - INFO -    Progress: 700/1,000 (70.0%) - Matches: 686
+2026-03-03 00:38:54 - agent4.pair_generator - INFO -    Progress: 800/1,000 (80.0%) - Matches: 786
+2026-03-03 00:38:54 - agent4.pair_generator - INFO -    Progress: 900/1,000 (90.0%) - Matches: 877
+2026-03-03 00:38:55 - agent4.pair_generator - INFO -    Progress: 1,000/1,000 (100.0%) - Matches: 977
+2026-03-03 00:38:55 - agent4.pair_generator - INFO -    → Soft matches found: 977
+2026-03-03 00:38:55 - agent4.pair_generator - INFO -    → Match rate: 97.70% of anonymized records
+2026-03-03 00:38:55 - agent4.pair_generator - INFO -    → Average similarity: 0.877
+2026-03-03 00:38:55 - agent4.pair_generator - INFO -    → Min similarity: 0.602
+2026-03-03 00:38:55 - agent4.pair_generator - INFO -    → Max similarity: 1.000
+2026-03-03 00:38:55 - agent4.pair_generator - INFO - 🧪 Generating 977 negative pairs with HARD NEGATIVE MINING (external mode)
+2026-03-03 00:38:55 - agent4.pair_generator - INFO -    Hard negative range: similarity 0.6 - 0.8
+2026-03-03 00:38:55 - agent4.pair_generator - INFO -    Using 8 numerical + 1 categorical QI columns
+2026-03-03 00:39:05 - agent4.pair_generator - INFO -    → Final negative pairs: 977
+2026-03-03 00:39:05 - agent4.pair_generator - INFO -    → Hard negatives: 977 (100.0%)
+2026-03-03 00:39:05 - agent4.pair_generator - INFO -    → Random fallbacks: 0 (0.0%)
+2026-03-03 00:39:05 - agent4.pair_generator - INFO -    → Avg hard negative similarity: 0.701
+2026-03-03 00:39:05 - agent4.pair_generator - INFO - ✅ Positive pairs: 977
+2026-03-03 00:39:05 - agent4.pair_generator - INFO - ✅ Negative pairs: 977
+2026-03-03 00:39:05 - agent4.pair_generator - INFO - 📦 Total pairs (before features): 1,954
+2026-03-03 00:39:05 - agent4.pair_generator - INFO - 🧮 Building feature dataset from pairs (using common QI only)...
+2026-03-03 00:39:05 - agent4.pair_generator - INFO -    Common QI columns: 9
+2026-03-03 00:39:06 - agent4.pair_generator - INFO -    Features per pair: 21
+2026-03-03 00:39:06 - agent4.pair_generator - INFO -    Feature columns: ['euclidean_distance', 'manhattan_distance', 'cosine_similarity', 'sex_diff', 'sex_equal', 'district_diff', 'district_equal', 'education_diff', 'education_equal', 'marital_status_diff']...
+2026-03-03 00:39:06 - agent4.pair_generator - INFO - 📈 Feature dataset shape: (1954, 25)
+2026-03-03 00:39:06 - agent4.pair_generator - INFO - 💾 Saved pair dataset      → data\pairs\pair_dataset.csv
+2026-03-03 00:39:06 - agent4.pair_generator - INFO - 💾 Saved train pairs       → data\pairs\train_pairs.csv
+2026-03-03 00:39:06 - agent4.pair_generator - INFO - 💾 Saved test pairs        → data\pairs\test_pairs.csv
+2026-03-03 00:39:06 - agent4.pair_generator - INFO - 💾 Saved common QI columns → data\pairs\common_qi_columns.json
+2026-03-03 00:39:06 - agent4.pair_generator - INFO - 💾 Saved positive count    → data\pairs\positive_pair_count.json
+2026-03-03 00:39:06 - agent4.pair_generator - INFO - 💾 Saved negative count    → data\pairs\negative_pair_count.json
+2026-03-03 00:39:06 - agent4.pair_generator - INFO - 💾 Saved matching strategy → data\pairs\matching_strategy.json
+2026-03-03 00:39:06 - agent4.pair_generator - INFO - 🎉 Agent 4: Pair generation complete (EXTERNAL MODE)
+2026-03-03 12:45:42 - agent4.pair_generator - INFO - 🚀 Agent 4: Pair Generator started (MODE SELECTOR)
+2026-03-03 12:45:42 - agent4.pair_generator - INFO -    Mode: external
+2026-03-03 12:45:42 - agent4.pair_generator - INFO -    ✅ Agent 3 Integration: Using 9 user-provided QI
+2026-03-03 12:45:42 - agent4.pair_generator - INFO - 📂 Loading auxiliary dataset:  data\dashboard_auxiliary.csv
+2026-03-03 12:45:42 - agent4.pair_generator - INFO - 📂 Loading anonymized dataset: data\dashboard_anonymized.csv
+2026-03-03 12:45:42 - agent4.pair_generator - INFO -    Auxiliary:   1,080 rows × 9 cols
+2026-03-03 12:45:42 - agent4.pair_generator - INFO -    Anonymized:  1,000 rows × 165 cols
+2026-03-03 12:45:42 - agent4.pair_generator - WARNING - ⚠️  Dataset size mismatch! Auxiliary has 1,080 rows, Anonymized has 1,000 rows
+2026-03-03 12:45:42 - agent4.pair_generator - WARNING - ⚠️  Column count mismatch! Auxiliary has 9 columns, Anonymized has 165 columns
+2026-03-03 12:45:42 - agent4.pair_generator - INFO -    Using specified mode: EXTERNAL
+2026-03-03 12:45:42 - agent4.pair_generator - INFO - 📌 Running in EXTERNAL MODE (Auxiliary vs Anonymized)
+2026-03-03 12:45:42 - agent4.pair_generator - INFO - ✅ Using user-provided QI list from Agent 3 (9 columns)
+2026-03-03 12:45:42 - agent4.pair_generator - INFO -    QI columns: ['age', 'sex', 'district', 'education', 'marital_status', 'B_year', 'employment_status', 'industry', 'main_activity']
+2026-03-03 12:45:42 - agent4.pair_generator - INFO - ✅ Validated 9 user-provided QI columns (after exclusions)
+2026-03-03 12:45:42 - agent4.pair_generator - INFO - 🎯 Attacker strength: STRONG
+2026-03-03 12:45:42 - agent4.pair_generator - INFO - 💪 Attacker strength: STRONG — using all 9 QIs
+2026-03-03 12:45:42 - agent4.pair_generator - INFO - ⚠️  Composite keys not found - using SOFT MATCHING
+2026-03-03 12:45:42 - agent4.pair_generator - INFO -    Soft match criteria:
+2026-03-03 12:45:42 - agent4.pair_generator - INFO -    - Age difference ≤ 3
+2026-03-03 12:45:42 - agent4.pair_generator - INFO -    - Same district/gender (if available)
+2026-03-03 12:45:42 - agent4.pair_generator - INFO -    - OR similarity score > 0.6
+2026-03-03 12:45:42 - agent4.pair_generator - INFO - 🔗 Generating positive pairs using SOFT MATCHING:
+2026-03-03 12:45:42 - agent4.pair_generator - INFO -    Using ALL 9 validated QI columns for matching
+2026-03-03 12:45:42 - agent4.pair_generator - INFO -    Processing 1,000 anonymized records against 1,080 auxiliary records
+2026-03-03 12:45:42 - agent4.pair_generator - INFO -    Numerical QI: 8 columns
+2026-03-03 12:45:42 - agent4.pair_generator - INFO -    Categorical QI: 1 columns
+2026-03-03 12:45:42 - agent4.pair_generator - INFO -    Numerical: ['sex', 'district', 'education', 'marital_status', 'B_year']...
+2026-03-03 12:45:42 - agent4.pair_generator - INFO -    Categorical: ['age']
+2026-03-03 12:45:42 - agent4.pair_generator - INFO - ✅ Using BLOCKING with keys: ['age']
+2026-03-03 12:45:42 - agent4.pair_generator - INFO -    This reduces comparisons from O(N^2) to O(N*B) where B is avg block size
+2026-03-03 12:45:42 - agent4.pair_generator - INFO -    Calculating similarity for 1,000 anonymized records...
+2026-03-03 12:45:42 - agent4.pair_generator - INFO -    Soft match threshold: 0.6
+2026-03-03 12:45:42 - agent4.pair_generator - INFO -    Creating blocks...
+2026-03-03 12:45:42 - agent4.pair_generator - INFO -    Auxiliary blocks: 6
+2026-03-03 12:45:42 - agent4.pair_generator - INFO -    Anonymized blocks: 6
+2026-03-03 12:45:42 - agent4.pair_generator - INFO -    Comparisons reduced from 1,080,000 to 225,285 (79.1% reduction)
+2026-03-03 12:45:43 - agent4.pair_generator - INFO -    Progress: 100/1,000 (10.0%) - Matches: 100
+2026-03-03 12:45:44 - agent4.pair_generator - INFO -    Progress: 200/1,000 (20.0%) - Matches: 200
+2026-03-03 12:45:45 - agent4.pair_generator - INFO -    Progress: 300/1,000 (30.0%) - Matches: 295
+2026-03-03 12:45:45 - agent4.pair_generator - INFO -    Progress: 400/1,000 (40.0%) - Matches: 395
+2026-03-03 12:45:46 - agent4.pair_generator - INFO -    Progress: 500/1,000 (50.0%) - Matches: 495
+2026-03-03 12:45:47 - agent4.pair_generator - INFO -    Progress: 600/1,000 (60.0%) - Matches: 595
+2026-03-03 12:45:47 - agent4.pair_generator - INFO -    Progress: 700/1,000 (70.0%) - Matches: 686
+2026-03-03 12:45:48 - agent4.pair_generator - INFO -    Progress: 800/1,000 (80.0%) - Matches: 786
+2026-03-03 12:45:48 - agent4.pair_generator - INFO -    Progress: 900/1,000 (90.0%) - Matches: 877
+2026-03-03 12:45:49 - agent4.pair_generator - INFO -    Progress: 1,000/1,000 (100.0%) - Matches: 977
+2026-03-03 12:45:49 - agent4.pair_generator - INFO -    → Soft matches found: 977
+2026-03-03 12:45:49 - agent4.pair_generator - INFO -    → Match rate: 97.70% of anonymized records
+2026-03-03 12:45:49 - agent4.pair_generator - INFO -    → Average similarity: 0.877
+2026-03-03 12:45:49 - agent4.pair_generator - INFO -    → Min similarity: 0.602
+2026-03-03 12:45:49 - agent4.pair_generator - INFO -    → Max similarity: 1.000
+2026-03-03 12:45:49 - agent4.pair_generator - INFO - 🧪 Generating 977 negative pairs with HARD NEGATIVE MINING (external mode)
+2026-03-03 12:45:49 - agent4.pair_generator - INFO -    Hard negative range: similarity 0.6 - 0.8
+2026-03-03 12:45:49 - agent4.pair_generator - INFO -    Using 8 numerical + 1 categorical QI columns
+2026-03-03 12:46:00 - agent4.pair_generator - INFO -    → Final negative pairs: 977
+2026-03-03 12:46:00 - agent4.pair_generator - INFO -    → Hard negatives: 977 (100.0%)
+2026-03-03 12:46:00 - agent4.pair_generator - INFO -    → Random fallbacks: 0 (0.0%)
+2026-03-03 12:46:00 - agent4.pair_generator - INFO -    → Avg hard negative similarity: 0.701
+2026-03-03 12:46:00 - agent4.pair_generator - INFO - ✅ Positive pairs: 977
+2026-03-03 12:46:00 - agent4.pair_generator - INFO - ✅ Negative pairs: 977
+2026-03-03 12:46:00 - agent4.pair_generator - WARNING - ⚠️  Cannot compute blocking recall (no id_mapping or composite_keys).
+2026-03-03 12:46:00 - agent4.pair_generator - INFO - 💾 Saved blocking report   → data\pairs\blocking_report_strong.json
+2026-03-03 12:46:00 - agent4.pair_generator - INFO - 📦 Total pairs (before features): 1,954
+2026-03-03 12:46:00 - agent4.pair_generator - INFO - 🧮 Building feature dataset from pairs (using common QI only)...
+2026-03-03 12:46:00 - agent4.pair_generator - INFO -    Common QI columns: 9
+2026-03-03 12:46:01 - agent4.pair_generator - INFO -    Features per pair: 21
+2026-03-03 12:46:01 - agent4.pair_generator - INFO -    Feature columns: ['euclidean_distance', 'manhattan_distance', 'cosine_similarity', 'sex_diff', 'sex_equal', 'district_diff', 'district_equal', 'education_diff', 'education_equal', 'marital_status_diff']...
+2026-03-03 12:46:01 - agent4.pair_generator - INFO - 📈 Feature dataset shape: (1954, 25)
+2026-03-03 12:46:01 - agent4.pair_generator - INFO - 💾 Saved pair dataset      → data\pairs\pair_dataset.csv
+2026-03-03 12:46:01 - agent4.pair_generator - INFO - 💾 Saved train pairs       → data\pairs\train_pairs.csv
+2026-03-03 12:46:01 - agent4.pair_generator - INFO - 💾 Saved test pairs        → data\pairs\test_pairs.csv
+2026-03-03 12:46:01 - agent4.pair_generator - INFO - 💾 Saved common QI columns → data\pairs\common_qi_columns.json
+2026-03-03 12:46:01 - agent4.pair_generator - INFO - 💾 Saved positive count    → data\pairs\positive_pair_count.json
+2026-03-03 12:46:01 - agent4.pair_generator - INFO - 💾 Saved negative count    → data\pairs\negative_pair_count.json
+2026-03-03 12:46:01 - agent4.pair_generator - INFO - 💾 Saved matching strategy → data\pairs\matching_strategy.json
+2026-03-03 12:46:01 - agent4.pair_generator - INFO - 🎉 Agent 4: Pair generation complete (EXTERNAL MODE)
+2026-03-03 13:10:05 - agent4.pair_generator - INFO - 🚀 Agent 4: Pair Generator started (MODE SELECTOR)
+2026-03-03 13:10:05 - agent4.pair_generator - INFO -    Mode: external
+2026-03-03 13:10:05 - agent4.pair_generator - INFO -    ✅ Agent 3 Integration: Using 9 user-provided QI
+2026-03-03 13:10:05 - agent4.pair_generator - INFO - 📂 Loading auxiliary dataset:  data\dashboard_auxiliary.csv
+2026-03-03 13:10:05 - agent4.pair_generator - INFO - 📂 Loading anonymized dataset: data\dashboard_anonymized.csv
+2026-03-03 13:10:05 - agent4.pair_generator - INFO -    Auxiliary:   1,080 rows × 9 cols
+2026-03-03 13:10:05 - agent4.pair_generator - INFO -    Anonymized:  1,000 rows × 165 cols
+2026-03-03 13:10:05 - agent4.pair_generator - WARNING - ⚠️  Dataset size mismatch! Auxiliary has 1,080 rows, Anonymized has 1,000 rows
+2026-03-03 13:10:05 - agent4.pair_generator - WARNING - ⚠️  Column count mismatch! Auxiliary has 9 columns, Anonymized has 165 columns
+2026-03-03 13:10:05 - agent4.pair_generator - INFO -    Using specified mode: EXTERNAL
+2026-03-03 13:10:05 - agent4.pair_generator - INFO - 📌 Running in EXTERNAL MODE (Auxiliary vs Anonymized)
+2026-03-03 13:10:05 - agent4.pair_generator - INFO - ✅ Using user-provided QI list from Agent 3 (9 columns)
+2026-03-03 13:10:05 - agent4.pair_generator - INFO -    QI columns: ['age', 'sex', 'district', 'education', 'marital_status', 'B_year', 'employment_status', 'industry', 'main_activity']
+2026-03-03 13:10:05 - agent4.pair_generator - INFO - ✅ Validated 9 user-provided QI columns (after exclusions)
+2026-03-03 13:10:05 - agent4.pair_generator - INFO - 🎯 Attacker strength: STRONG
+2026-03-03 13:10:05 - agent4.pair_generator - INFO - 💪 Attacker strength: STRONG — using all 9 QIs
+2026-03-03 13:10:05 - agent4.pair_generator - INFO - ⚠️  Composite keys not found - using SOFT MATCHING
+2026-03-03 13:10:05 - agent4.pair_generator - INFO -    Soft match criteria:
+2026-03-03 13:10:05 - agent4.pair_generator - INFO -    - Age difference ≤ 3
+2026-03-03 13:10:05 - agent4.pair_generator - INFO -    - Same district/gender (if available)
+2026-03-03 13:10:05 - agent4.pair_generator - INFO -    - OR similarity score > 0.6
+2026-03-03 13:10:05 - agent4.pair_generator - INFO - 🔗 Generating positive pairs using SOFT MATCHING:
+2026-03-03 13:10:05 - agent4.pair_generator - INFO -    Using ALL 9 validated QI columns for matching
+2026-03-03 13:10:05 - agent4.pair_generator - INFO -    Processing 1,000 anonymized records against 1,080 auxiliary records
+2026-03-03 13:10:05 - agent4.pair_generator - INFO -    Numerical QI: 8 columns
+2026-03-03 13:10:05 - agent4.pair_generator - INFO -    Categorical QI: 1 columns
+2026-03-03 13:10:05 - agent4.pair_generator - INFO -    Numerical: ['sex', 'district', 'education', 'marital_status', 'B_year']...
+2026-03-03 13:10:05 - agent4.pair_generator - INFO -    Categorical: ['age']
+2026-03-03 13:10:05 - agent4.pair_generator - INFO - ✅ Using BLOCKING with keys: ['age']
+2026-03-03 13:10:05 - agent4.pair_generator - INFO -    This reduces comparisons from O(N^2) to O(N*B) where B is avg block size
+2026-03-03 13:10:05 - agent4.pair_generator - INFO -    Calculating similarity for 1,000 anonymized records...
+2026-03-03 13:10:05 - agent4.pair_generator - INFO -    Soft match threshold: 0.6
+2026-03-03 13:10:05 - agent4.pair_generator - INFO -    Creating blocks...
+2026-03-03 13:10:05 - agent4.pair_generator - INFO -    Auxiliary blocks: 6
+2026-03-03 13:10:05 - agent4.pair_generator - INFO -    Anonymized blocks: 6
+2026-03-03 13:10:05 - agent4.pair_generator - INFO -    Comparisons reduced from 1,080,000 to 225,285 (79.1% reduction)
+2026-03-03 13:10:07 - agent4.pair_generator - INFO -    Progress: 100/1,000 (10.0%) - Matches: 100
+2026-03-03 13:10:08 - agent4.pair_generator - INFO -    Progress: 200/1,000 (20.0%) - Matches: 200
+2026-03-03 13:10:09 - agent4.pair_generator - INFO -    Progress: 300/1,000 (30.0%) - Matches: 295
+2026-03-03 13:10:10 - agent4.pair_generator - INFO -    Progress: 400/1,000 (40.0%) - Matches: 395
+2026-03-03 13:10:11 - agent4.pair_generator - INFO -    Progress: 500/1,000 (50.0%) - Matches: 495
+2026-03-03 13:10:12 - agent4.pair_generator - INFO -    Progress: 600/1,000 (60.0%) - Matches: 595
+2026-03-03 13:10:12 - agent4.pair_generator - INFO -    Progress: 700/1,000 (70.0%) - Matches: 686
+2026-03-03 13:10:13 - agent4.pair_generator - INFO -    Progress: 800/1,000 (80.0%) - Matches: 786
+2026-03-03 13:10:13 - agent4.pair_generator - INFO -    Progress: 900/1,000 (90.0%) - Matches: 877
+2026-03-03 13:10:13 - agent4.pair_generator - INFO -    Progress: 1,000/1,000 (100.0%) - Matches: 977
+2026-03-03 13:10:14 - agent4.pair_generator - INFO -    → Soft matches found: 977
+2026-03-03 13:10:14 - agent4.pair_generator - INFO -    → Match rate: 97.70% of anonymized records
+2026-03-03 13:10:14 - agent4.pair_generator - INFO -    → Average similarity: 0.877
+2026-03-03 13:10:14 - agent4.pair_generator - INFO -    → Min similarity: 0.602
+2026-03-03 13:10:14 - agent4.pair_generator - INFO -    → Max similarity: 1.000
+2026-03-03 13:10:14 - agent4.pair_generator - INFO - 🧪 Generating 977 negative pairs with HARD NEGATIVE MINING (external mode)
+2026-03-03 13:10:14 - agent4.pair_generator - INFO -    Hard negative range: similarity 0.6 - 0.8
+2026-03-03 13:10:14 - agent4.pair_generator - INFO -    Using 8 numerical + 1 categorical QI columns
+2026-03-03 13:10:24 - agent4.pair_generator - INFO -    → Final negative pairs: 977
+2026-03-03 13:10:24 - agent4.pair_generator - INFO -    → Hard negatives: 977 (100.0%)
+2026-03-03 13:10:24 - agent4.pair_generator - INFO -    → Random fallbacks: 0 (0.0%)
+2026-03-03 13:10:24 - agent4.pair_generator - INFO -    → Avg hard negative similarity: 0.701
+2026-03-03 13:10:24 - agent4.pair_generator - INFO - ✅ Positive pairs: 977
+2026-03-03 13:10:24 - agent4.pair_generator - INFO - ✅ Negative pairs: 977
+2026-03-03 13:10:24 - agent4.pair_generator - WARNING - ⚠️  Cannot compute blocking recall (no id_mapping or composite_keys).
+2026-03-03 13:10:24 - agent4.pair_generator - INFO - 💾 Saved blocking report   → data\pairs\blocking_report_strong.json
+2026-03-03 13:10:24 - agent4.pair_generator - INFO - 📦 Total pairs (before features): 1,954
+2026-03-03 13:10:24 - agent4.pair_generator - INFO - 🧮 Building feature dataset from pairs (using common QI only)...
+2026-03-03 13:10:24 - agent4.pair_generator - INFO -    Common QI columns: 9
+2026-03-03 13:10:24 - agent4.pair_generator - INFO -    Features per pair: 21
+2026-03-03 13:10:24 - agent4.pair_generator - INFO -    Feature columns: ['euclidean_distance', 'manhattan_distance', 'cosine_similarity', 'sex_diff', 'sex_equal', 'district_diff', 'district_equal', 'education_diff', 'education_equal', 'marital_status_diff']...
+2026-03-03 13:10:24 - agent4.pair_generator - INFO - 📈 Feature dataset shape: (1954, 25)
+2026-03-03 13:10:24 - agent4.pair_generator - INFO - 💾 Saved pair dataset      → data\pairs\pair_dataset.csv
+2026-03-03 13:10:24 - agent4.pair_generator - INFO - 💾 Saved train pairs       → data\pairs\train_pairs.csv
+2026-03-03 13:10:24 - agent4.pair_generator - INFO - 💾 Saved test pairs        → data\pairs\test_pairs.csv
+2026-03-03 13:10:24 - agent4.pair_generator - INFO - 💾 Saved common QI columns → data\pairs\common_qi_columns.json
+2026-03-03 13:10:24 - agent4.pair_generator - INFO - 💾 Saved positive count    → data\pairs\positive_pair_count.json
+2026-03-03 13:10:24 - agent4.pair_generator - INFO - 💾 Saved negative count    → data\pairs\negative_pair_count.json
+2026-03-03 13:10:24 - agent4.pair_generator - INFO - 💾 Saved matching strategy → data\pairs\matching_strategy.json
+2026-03-03 13:10:24 - agent4.pair_generator - INFO - 🎉 Agent 4: Pair generation complete (EXTERNAL MODE)
+2026-03-03 13:17:29 - agent4.pair_generator - INFO - 🚀 Agent 4: Pair Generator started (MODE SELECTOR)
+2026-03-03 13:17:29 - agent4.pair_generator - INFO -    Mode: external
+2026-03-03 13:17:29 - agent4.pair_generator - INFO -    ✅ Agent 3 Integration: Using 9 user-provided QI
+2026-03-03 13:17:29 - agent4.pair_generator - INFO - 📂 Loading auxiliary dataset:  data\dashboard_auxiliary.csv
+2026-03-03 13:17:29 - agent4.pair_generator - INFO - 📂 Loading anonymized dataset: data\dashboard_anonymized.csv
+2026-03-03 13:17:29 - agent4.pair_generator - INFO -    Auxiliary:   1,080 rows × 9 cols
+2026-03-03 13:17:29 - agent4.pair_generator - INFO -    Anonymized:  1,000 rows × 165 cols
+2026-03-03 13:17:29 - agent4.pair_generator - WARNING - ⚠️  Dataset size mismatch! Auxiliary has 1,080 rows, Anonymized has 1,000 rows
+2026-03-03 13:17:29 - agent4.pair_generator - WARNING - ⚠️  Column count mismatch! Auxiliary has 9 columns, Anonymized has 165 columns
+2026-03-03 13:17:29 - agent4.pair_generator - INFO -    Using specified mode: EXTERNAL
+2026-03-03 13:17:29 - agent4.pair_generator - INFO - 📌 Running in EXTERNAL MODE (Auxiliary vs Anonymized)
+2026-03-03 13:17:29 - agent4.pair_generator - INFO - ✅ Using user-provided QI list from Agent 3 (9 columns)
+2026-03-03 13:17:29 - agent4.pair_generator - INFO -    QI columns: ['age', 'sex', 'district', 'education', 'marital_status', 'B_year', 'employment_status', 'industry', 'main_activity']
+2026-03-03 13:17:29 - agent4.pair_generator - INFO - ✅ Validated 9 user-provided QI columns (after exclusions)
+2026-03-03 13:17:29 - agent4.pair_generator - INFO - 🎯 Attacker strength: STRONG
+2026-03-03 13:17:29 - agent4.pair_generator - INFO - 💪 Attacker strength: STRONG — using all 9 QIs
+2026-03-03 13:17:29 - agent4.pair_generator - INFO - ⚠️  Composite keys not found - using SOFT MATCHING
+2026-03-03 13:17:29 - agent4.pair_generator - INFO -    Soft match criteria:
+2026-03-03 13:17:29 - agent4.pair_generator - INFO -    - Age difference ≤ 3
+2026-03-03 13:17:29 - agent4.pair_generator - INFO -    - Same district/gender (if available)
+2026-03-03 13:17:29 - agent4.pair_generator - INFO -    - OR similarity score > 0.6
+2026-03-03 13:17:29 - agent4.pair_generator - INFO - 🔗 Generating positive pairs using SOFT MATCHING:
+2026-03-03 13:17:29 - agent4.pair_generator - INFO -    Using ALL 9 validated QI columns for matching
+2026-03-03 13:17:29 - agent4.pair_generator - INFO -    Processing 1,000 anonymized records against 1,080 auxiliary records
+2026-03-03 13:17:29 - agent4.pair_generator - INFO -    Numerical QI: 8 columns
+2026-03-03 13:17:29 - agent4.pair_generator - INFO -    Categorical QI: 1 columns
+2026-03-03 13:17:29 - agent4.pair_generator - INFO -    Numerical: ['sex', 'district', 'education', 'marital_status', 'B_year']...
+2026-03-03 13:17:29 - agent4.pair_generator - INFO -    Categorical: ['age']
+2026-03-03 13:17:29 - agent4.pair_generator - INFO - ✅ Using BLOCKING with keys: ['age']
+2026-03-03 13:17:29 - agent4.pair_generator - INFO -    This reduces comparisons from O(N^2) to O(N*B) where B is avg block size
+2026-03-03 13:17:29 - agent4.pair_generator - INFO -    Calculating similarity for 1,000 anonymized records...
+2026-03-03 13:17:29 - agent4.pair_generator - INFO -    Soft match threshold: 0.6
+2026-03-03 13:17:29 - agent4.pair_generator - INFO -    Creating blocks...
+2026-03-03 13:17:29 - agent4.pair_generator - INFO -    Auxiliary blocks: 6
+2026-03-03 13:17:29 - agent4.pair_generator - INFO -    Anonymized blocks: 6
+2026-03-03 13:17:29 - agent4.pair_generator - INFO -    Comparisons reduced from 1,080,000 to 225,285 (79.1% reduction)
+2026-03-03 13:17:30 - agent4.pair_generator - INFO -    Progress: 100/1,000 (10.0%) - Matches: 100
+2026-03-03 13:17:31 - agent4.pair_generator - INFO -    Progress: 200/1,000 (20.0%) - Matches: 200
+2026-03-03 13:17:32 - agent4.pair_generator - INFO -    Progress: 300/1,000 (30.0%) - Matches: 295
+2026-03-03 13:17:33 - agent4.pair_generator - INFO -    Progress: 400/1,000 (40.0%) - Matches: 395
+2026-03-03 13:17:34 - agent4.pair_generator - INFO -    Progress: 500/1,000 (50.0%) - Matches: 495
+2026-03-03 13:17:34 - agent4.pair_generator - INFO -    Progress: 600/1,000 (60.0%) - Matches: 595
+2026-03-03 13:17:35 - agent4.pair_generator - INFO -    Progress: 700/1,000 (70.0%) - Matches: 686
+2026-03-03 13:17:35 - agent4.pair_generator - INFO -    Progress: 800/1,000 (80.0%) - Matches: 786
+2026-03-03 13:17:36 - agent4.pair_generator - INFO -    Progress: 900/1,000 (90.0%) - Matches: 877
+2026-03-03 13:17:36 - agent4.pair_generator - INFO -    Progress: 1,000/1,000 (100.0%) - Matches: 977
+2026-03-03 13:17:36 - agent4.pair_generator - INFO -    → Soft matches found: 977
+2026-03-03 13:17:36 - agent4.pair_generator - INFO -    → Match rate: 97.70% of anonymized records
+2026-03-03 13:17:36 - agent4.pair_generator - INFO -    → Average similarity: 0.877
+2026-03-03 13:17:36 - agent4.pair_generator - INFO -    → Min similarity: 0.602
+2026-03-03 13:17:36 - agent4.pair_generator - INFO -    → Max similarity: 1.000
+2026-03-03 13:17:36 - agent4.pair_generator - INFO - 🧪 Generating 977 negative pairs with HARD NEGATIVE MINING (external mode)
+2026-03-03 13:17:36 - agent4.pair_generator - INFO -    Hard negative range: similarity 0.6 - 0.8
+2026-03-03 13:17:36 - agent4.pair_generator - INFO -    Using 8 numerical + 1 categorical QI columns
+2026-03-03 13:17:47 - agent4.pair_generator - INFO -    → Final negative pairs: 977
+2026-03-03 13:17:47 - agent4.pair_generator - INFO -    → Hard negatives: 977 (100.0%)
+2026-03-03 13:17:47 - agent4.pair_generator - INFO -    → Random fallbacks: 0 (0.0%)
+2026-03-03 13:17:47 - agent4.pair_generator - INFO -    → Avg hard negative similarity: 0.701
+2026-03-03 13:17:47 - agent4.pair_generator - INFO - ✅ Positive pairs: 977
+2026-03-03 13:17:47 - agent4.pair_generator - INFO - ✅ Negative pairs: 977
+2026-03-03 13:17:47 - agent4.pair_generator - WARNING - ⚠️  Cannot compute blocking recall (no id_mapping or composite_keys).
+2026-03-03 13:17:47 - agent4.pair_generator - INFO - 💾 Saved blocking report   → data\pairs\blocking_report_strong.json
+2026-03-03 13:17:47 - agent4.pair_generator - INFO - 📦 Total pairs (before features): 1,954
+2026-03-03 13:17:47 - agent4.pair_generator - INFO - 🧮 Building feature dataset from pairs (using common QI only)...
+2026-03-03 13:17:47 - agent4.pair_generator - INFO -    Common QI columns: 9
+2026-03-03 13:17:47 - agent4.pair_generator - INFO -    Features per pair: 21
+2026-03-03 13:17:47 - agent4.pair_generator - INFO -    Feature columns: ['euclidean_distance', 'manhattan_distance', 'cosine_similarity', 'sex_diff', 'sex_equal', 'district_diff', 'district_equal', 'education_diff', 'education_equal', 'marital_status_diff']...
+2026-03-03 13:17:47 - agent4.pair_generator - INFO - 📈 Feature dataset shape: (1954, 25)
+2026-03-03 13:17:47 - agent4.pair_generator - INFO - 💾 Saved pair dataset      → data\pairs\pair_dataset.csv
+2026-03-03 13:17:47 - agent4.pair_generator - INFO - 💾 Saved train pairs       → data\pairs\train_pairs.csv
+2026-03-03 13:17:47 - agent4.pair_generator - INFO - 💾 Saved test pairs        → data\pairs\test_pairs.csv
+2026-03-03 13:17:47 - agent4.pair_generator - INFO - 💾 Saved common QI columns → data\pairs\common_qi_columns.json
+2026-03-03 13:17:47 - agent4.pair_generator - INFO - 💾 Saved positive count    → data\pairs\positive_pair_count.json
+2026-03-03 13:17:47 - agent4.pair_generator - INFO - 💾 Saved negative count    → data\pairs\negative_pair_count.json
+2026-03-03 13:17:47 - agent4.pair_generator - INFO - 💾 Saved matching strategy → data\pairs\matching_strategy.json
+2026-03-03 13:17:47 - agent4.pair_generator - INFO - 🎉 Agent 4: Pair generation complete (EXTERNAL MODE)
+2026-03-03 16:26:53 - agent4.pair_generator - INFO - 🚀 Agent 4: Pair Generator started (MODE SELECTOR)
+2026-03-03 16:26:53 - agent4.pair_generator - INFO -    Mode: external
+2026-03-03 16:26:53 - agent4.pair_generator - INFO -    ✅ Agent 3 Integration: Using 9 user-provided QI
+2026-03-03 16:26:53 - agent4.pair_generator - INFO - 📂 Loading auxiliary dataset:  data\dashboard_auxiliary.csv
+2026-03-03 16:26:53 - agent4.pair_generator - INFO - 📂 Loading anonymized dataset: data\dashboard_anonymized.csv
+2026-03-03 16:26:53 - agent4.pair_generator - INFO -    Auxiliary:   1,080 rows × 9 cols
+2026-03-03 16:26:53 - agent4.pair_generator - INFO -    Anonymized:  1,000 rows × 165 cols
+2026-03-03 16:26:53 - agent4.pair_generator - WARNING - ⚠️  Dataset size mismatch! Auxiliary has 1,080 rows, Anonymized has 1,000 rows
+2026-03-03 16:26:53 - agent4.pair_generator - WARNING - ⚠️  Column count mismatch! Auxiliary has 9 columns, Anonymized has 165 columns
+2026-03-03 16:26:53 - agent4.pair_generator - INFO -    Using specified mode: EXTERNAL
+2026-03-03 16:26:53 - agent4.pair_generator - INFO - 📌 Running in EXTERNAL MODE (Auxiliary vs Anonymized)
+2026-03-03 16:26:53 - agent4.pair_generator - INFO - ✅ Using user-provided QI list from Agent 3 (9 columns)
+2026-03-03 16:26:53 - agent4.pair_generator - INFO -    QI columns: ['age', 'sex', 'district', 'education', 'marital_status', 'B_year', 'employment_status', 'industry', 'main_activity']
+2026-03-03 16:26:53 - agent4.pair_generator - INFO - ✅ Validated 9 user-provided QI columns (after exclusions)
+2026-03-03 16:26:53 - agent4.pair_generator - INFO - 🎯 Attacker strength: STRONG
+2026-03-03 16:26:53 - agent4.pair_generator - INFO - 💪 Attacker strength: STRONG — using all 9 QIs
+2026-03-03 16:26:53 - agent4.pair_generator - INFO - ⚠️  Composite keys not found - using SOFT MATCHING
+2026-03-03 16:26:53 - agent4.pair_generator - INFO -    Soft match criteria:
+2026-03-03 16:26:53 - agent4.pair_generator - INFO -    - Age difference ≤ 3
+2026-03-03 16:26:53 - agent4.pair_generator - INFO -    - Same district/gender (if available)
+2026-03-03 16:26:53 - agent4.pair_generator - INFO -    - OR similarity score > 0.6
+2026-03-03 16:26:53 - agent4.pair_generator - INFO - 🔗 Generating positive pairs using SOFT MATCHING:
+2026-03-03 16:26:53 - agent4.pair_generator - INFO -    Using ALL 9 validated QI columns for matching
+2026-03-03 16:26:53 - agent4.pair_generator - INFO -    Processing 1,000 anonymized records against 1,080 auxiliary records
+2026-03-03 16:26:53 - agent4.pair_generator - INFO -    Numerical QI: 8 columns
+2026-03-03 16:26:53 - agent4.pair_generator - INFO -    Categorical QI: 1 columns
+2026-03-03 16:26:53 - agent4.pair_generator - INFO -    Numerical: ['sex', 'district', 'education', 'marital_status', 'B_year']...
+2026-03-03 16:26:53 - agent4.pair_generator - INFO -    Categorical: ['age']
+2026-03-03 16:26:53 - agent4.pair_generator - INFO - ✅ Using BLOCKING with keys: ['age']
+2026-03-03 16:26:53 - agent4.pair_generator - INFO -    This reduces comparisons from O(N^2) to O(N*B) where B is avg block size
+2026-03-03 16:26:53 - agent4.pair_generator - INFO -    Calculating similarity for 1,000 anonymized records...
+2026-03-03 16:26:53 - agent4.pair_generator - INFO -    Soft match threshold: 0.6
+2026-03-03 16:26:53 - agent4.pair_generator - INFO -    Creating blocks...
+2026-03-03 16:26:53 - agent4.pair_generator - INFO -    Auxiliary blocks: 6
+2026-03-03 16:26:53 - agent4.pair_generator - INFO -    Anonymized blocks: 6
+2026-03-03 16:26:53 - agent4.pair_generator - INFO -    Comparisons reduced from 1,080,000 to 225,285 (79.1% reduction)
+2026-03-03 16:26:55 - agent4.pair_generator - INFO -    Progress: 100/1,000 (10.0%) - Matches: 100
+2026-03-03 16:26:55 - agent4.pair_generator - INFO -    Progress: 200/1,000 (20.0%) - Matches: 200
+2026-03-03 16:26:56 - agent4.pair_generator - INFO -    Progress: 300/1,000 (30.0%) - Matches: 295
+2026-03-03 16:26:57 - agent4.pair_generator - INFO -    Progress: 400/1,000 (40.0%) - Matches: 395
+2026-03-03 16:26:58 - agent4.pair_generator - INFO -    Progress: 500/1,000 (50.0%) - Matches: 495
+2026-03-03 16:26:58 - agent4.pair_generator - INFO -    Progress: 600/1,000 (60.0%) - Matches: 595
+2026-03-03 16:26:59 - agent4.pair_generator - INFO -    Progress: 700/1,000 (70.0%) - Matches: 686
+2026-03-03 16:26:59 - agent4.pair_generator - INFO -    Progress: 800/1,000 (80.0%) - Matches: 786
+2026-03-03 16:27:00 - agent4.pair_generator - INFO -    Progress: 900/1,000 (90.0%) - Matches: 877
+2026-03-03 16:27:00 - agent4.pair_generator - INFO -    Progress: 1,000/1,000 (100.0%) - Matches: 977
+2026-03-03 16:27:00 - agent4.pair_generator - INFO -    → Soft matches found: 977
+2026-03-03 16:27:00 - agent4.pair_generator - INFO -    → Match rate: 97.70% of anonymized records
+2026-03-03 16:27:00 - agent4.pair_generator - INFO -    → Average similarity: 0.877
+2026-03-03 16:27:00 - agent4.pair_generator - INFO -    → Min similarity: 0.602
+2026-03-03 16:27:00 - agent4.pair_generator - INFO -    → Max similarity: 1.000
+2026-03-03 16:27:00 - agent4.pair_generator - INFO - 🧪 Generating 977 negative pairs with HARD NEGATIVE MINING (external mode)
+2026-03-03 16:27:00 - agent4.pair_generator - INFO -    Hard negative range: similarity 0.6 - 0.8
+2026-03-03 16:27:00 - agent4.pair_generator - INFO -    Using 8 numerical + 1 categorical QI columns
+2026-03-03 16:27:10 - agent4.pair_generator - INFO -    → Final negative pairs: 977
+2026-03-03 16:27:10 - agent4.pair_generator - INFO -    → Hard negatives: 977 (100.0%)
+2026-03-03 16:27:10 - agent4.pair_generator - INFO -    → Random fallbacks: 0 (0.0%)
+2026-03-03 16:27:10 - agent4.pair_generator - INFO -    → Avg hard negative similarity: 0.701
+2026-03-03 16:27:10 - agent4.pair_generator - INFO - ✅ Positive pairs: 977
+2026-03-03 16:27:10 - agent4.pair_generator - INFO - ✅ Negative pairs: 977
+2026-03-03 16:27:10 - agent4.pair_generator - WARNING - ⚠️  Cannot compute blocking recall (no id_mapping or composite_keys).
+2026-03-03 16:27:10 - agent4.pair_generator - INFO - 💾 Saved blocking report   → data\pairs\blocking_report_strong.json
+2026-03-03 16:27:10 - agent4.pair_generator - INFO - 📦 Total pairs (before features): 1,954
+2026-03-03 16:27:10 - agent4.pair_generator - INFO - 🧮 Building feature dataset from pairs (using common QI only)...
+2026-03-03 16:27:10 - agent4.pair_generator - INFO -    Common QI columns: 9
+2026-03-03 16:27:11 - agent4.pair_generator - INFO -    Features per pair: 21
+2026-03-03 16:27:11 - agent4.pair_generator - INFO -    Feature columns: ['euclidean_distance', 'manhattan_distance', 'cosine_similarity', 'sex_diff', 'sex_equal', 'district_diff', 'district_equal', 'education_diff', 'education_equal', 'marital_status_diff']...
+2026-03-03 16:27:11 - agent4.pair_generator - INFO - 📈 Feature dataset shape: (1954, 25)
+2026-03-03 16:27:11 - agent4.pair_generator - INFO - 💾 Saved pair dataset      → data\pairs\pair_dataset.csv
+2026-03-03 16:27:11 - agent4.pair_generator - INFO - 💾 Saved train pairs       → data\pairs\train_pairs.csv
+2026-03-03 16:27:11 - agent4.pair_generator - INFO - 💾 Saved test pairs        → data\pairs\test_pairs.csv
+2026-03-03 16:27:11 - agent4.pair_generator - INFO - 💾 Saved common QI columns → data\pairs\common_qi_columns.json
+2026-03-03 16:27:11 - agent4.pair_generator - INFO - 💾 Saved positive count    → data\pairs\positive_pair_count.json
+2026-03-03 16:27:11 - agent4.pair_generator - INFO - 💾 Saved negative count    → data\pairs\negative_pair_count.json
+2026-03-03 16:27:11 - agent4.pair_generator - INFO - 💾 Saved matching strategy → data\pairs\matching_strategy.json
+2026-03-03 16:27:11 - agent4.pair_generator - INFO - 🎉 Agent 4: Pair generation complete (EXTERNAL MODE)
+2026-03-03 16:32:49 - agent4.pair_generator - INFO - 🚀 Agent 4: Pair Generator started (MODE SELECTOR)
+2026-03-03 16:32:49 - agent4.pair_generator - INFO -    Mode: external
+2026-03-03 16:32:49 - agent4.pair_generator - INFO -    ✅ Agent 3 Integration: Using 9 user-provided QI
+2026-03-03 16:32:49 - agent4.pair_generator - INFO - 📂 Loading auxiliary dataset:  data\dashboard_auxiliary.csv
+2026-03-03 16:32:49 - agent4.pair_generator - INFO - 📂 Loading anonymized dataset: data\dashboard_anonymized.csv
+2026-03-03 16:32:49 - agent4.pair_generator - INFO -    Auxiliary:   1,080 rows × 9 cols
+2026-03-03 16:32:49 - agent4.pair_generator - INFO -    Anonymized:  1,000 rows × 165 cols
+2026-03-03 16:32:49 - agent4.pair_generator - WARNING - ⚠️  Dataset size mismatch! Auxiliary has 1,080 rows, Anonymized has 1,000 rows
+2026-03-03 16:32:49 - agent4.pair_generator - WARNING - ⚠️  Column count mismatch! Auxiliary has 9 columns, Anonymized has 165 columns
+2026-03-03 16:32:49 - agent4.pair_generator - INFO -    Using specified mode: EXTERNAL
+2026-03-03 16:32:49 - agent4.pair_generator - INFO - 📌 Running in EXTERNAL MODE (Auxiliary vs Anonymized)
+2026-03-03 16:32:49 - agent4.pair_generator - INFO - ✅ Using user-provided QI list from Agent 3 (9 columns)
+2026-03-03 16:32:49 - agent4.pair_generator - INFO -    QI columns: ['age', 'sex', 'district', 'education', 'marital_status', 'B_year', 'employment_status', 'industry', 'main_activity']
+2026-03-03 16:32:49 - agent4.pair_generator - INFO - ✅ Validated 9 user-provided QI columns (after exclusions)
+2026-03-03 16:32:49 - agent4.pair_generator - INFO - 🎯 Attacker strength: STRONG
+2026-03-03 16:32:49 - agent4.pair_generator - INFO - 💪 Attacker strength: STRONG — using all 9 QIs
+2026-03-03 16:32:49 - agent4.pair_generator - INFO - ⚠️  Composite keys not found - using SOFT MATCHING
+2026-03-03 16:32:49 - agent4.pair_generator - INFO -    Soft match criteria:
+2026-03-03 16:32:49 - agent4.pair_generator - INFO -    - Age difference ≤ 3
+2026-03-03 16:32:49 - agent4.pair_generator - INFO -    - Same district/gender (if available)
+2026-03-03 16:32:49 - agent4.pair_generator - INFO -    - OR similarity score > 0.6
+2026-03-03 16:32:49 - agent4.pair_generator - INFO - 🔗 Generating positive pairs using SOFT MATCHING:
+2026-03-03 16:32:49 - agent4.pair_generator - INFO -    Using ALL 9 validated QI columns for matching
+2026-03-03 16:32:49 - agent4.pair_generator - INFO -    Processing 1,000 anonymized records against 1,080 auxiliary records
+2026-03-03 16:32:49 - agent4.pair_generator - INFO -    Numerical QI: 8 columns
+2026-03-03 16:32:49 - agent4.pair_generator - INFO -    Categorical QI: 1 columns
+2026-03-03 16:32:49 - agent4.pair_generator - INFO -    Numerical: ['sex', 'district', 'education', 'marital_status', 'B_year']...
+2026-03-03 16:32:49 - agent4.pair_generator - INFO -    Categorical: ['age']
+2026-03-03 16:32:49 - agent4.pair_generator - INFO - ✅ Using BLOCKING with keys: ['age']
+2026-03-03 16:32:49 - agent4.pair_generator - INFO -    This reduces comparisons from O(N^2) to O(N*B) where B is avg block size
+2026-03-03 16:32:49 - agent4.pair_generator - INFO -    Calculating similarity for 1,000 anonymized records...
+2026-03-03 16:32:49 - agent4.pair_generator - INFO -    Soft match threshold: 0.6
+2026-03-03 16:32:49 - agent4.pair_generator - INFO -    Creating blocks...
+2026-03-03 16:32:49 - agent4.pair_generator - INFO -    Auxiliary blocks: 6
+2026-03-03 16:32:49 - agent4.pair_generator - INFO -    Anonymized blocks: 6
+2026-03-03 16:32:49 - agent4.pair_generator - INFO -    Comparisons reduced from 1,080,000 to 225,285 (79.1% reduction)
+2026-03-03 16:32:50 - agent4.pair_generator - INFO -    Progress: 100/1,000 (10.0%) - Matches: 100
+2026-03-03 16:32:51 - agent4.pair_generator - INFO -    Progress: 200/1,000 (20.0%) - Matches: 200
+2026-03-03 16:32:52 - agent4.pair_generator - INFO -    Progress: 300/1,000 (30.0%) - Matches: 295
+2026-03-03 16:32:53 - agent4.pair_generator - INFO -    Progress: 400/1,000 (40.0%) - Matches: 395
+2026-03-03 16:32:54 - agent4.pair_generator - INFO -    Progress: 500/1,000 (50.0%) - Matches: 495
+2026-03-03 16:32:54 - agent4.pair_generator - INFO -    Progress: 600/1,000 (60.0%) - Matches: 595
+2026-03-03 16:32:55 - agent4.pair_generator - INFO -    Progress: 700/1,000 (70.0%) - Matches: 686
+2026-03-03 16:32:55 - agent4.pair_generator - INFO -    Progress: 800/1,000 (80.0%) - Matches: 786
+2026-03-03 16:32:56 - agent4.pair_generator - INFO -    Progress: 900/1,000 (90.0%) - Matches: 877
+2026-03-03 16:32:56 - agent4.pair_generator - INFO -    Progress: 1,000/1,000 (100.0%) - Matches: 977
+2026-03-03 16:32:56 - agent4.pair_generator - INFO -    → Soft matches found: 977
+2026-03-03 16:32:56 - agent4.pair_generator - INFO -    → Match rate: 97.70% of anonymized records
+2026-03-03 16:32:56 - agent4.pair_generator - INFO -    → Average similarity: 0.877
+2026-03-03 16:32:56 - agent4.pair_generator - INFO -    → Min similarity: 0.602
+2026-03-03 16:32:56 - agent4.pair_generator - INFO -    → Max similarity: 1.000
+2026-03-03 16:32:56 - agent4.pair_generator - INFO - 🧪 Generating 977 negative pairs with HARD NEGATIVE MINING (external mode)
+2026-03-03 16:32:56 - agent4.pair_generator - INFO -    Hard negative range: similarity 0.6 - 0.8
+2026-03-03 16:32:56 - agent4.pair_generator - INFO -    Using 8 numerical + 1 categorical QI columns
+2026-03-03 16:33:06 - agent4.pair_generator - INFO -    → Final negative pairs: 977
+2026-03-03 16:33:06 - agent4.pair_generator - INFO -    → Hard negatives: 977 (100.0%)
+2026-03-03 16:33:06 - agent4.pair_generator - INFO -    → Random fallbacks: 0 (0.0%)
+2026-03-03 16:33:06 - agent4.pair_generator - INFO -    → Avg hard negative similarity: 0.701
+2026-03-03 16:33:06 - agent4.pair_generator - INFO - ✅ Positive pairs: 977
+2026-03-03 16:33:06 - agent4.pair_generator - INFO - ✅ Negative pairs: 977
+2026-03-03 16:33:06 - agent4.pair_generator - WARNING - ⚠️  Cannot compute blocking recall (no id_mapping or composite_keys).
+2026-03-03 16:33:06 - agent4.pair_generator - INFO - 💾 Saved blocking report   → data\pairs\blocking_report_strong.json
+2026-03-03 16:33:06 - agent4.pair_generator - INFO - 📦 Total pairs (before features): 1,954
+2026-03-03 16:33:06 - agent4.pair_generator - INFO - 🧮 Building feature dataset from pairs (using common QI only)...
+2026-03-03 16:33:06 - agent4.pair_generator - INFO -    Common QI columns: 9
+2026-03-03 16:33:07 - agent4.pair_generator - INFO -    Features per pair: 21
+2026-03-03 16:33:07 - agent4.pair_generator - INFO -    Feature columns: ['euclidean_distance', 'manhattan_distance', 'cosine_similarity', 'sex_diff', 'sex_equal', 'district_diff', 'district_equal', 'education_diff', 'education_equal', 'marital_status_diff']...
+2026-03-03 16:33:07 - agent4.pair_generator - INFO - 📈 Feature dataset shape: (1954, 25)
+2026-03-03 16:33:07 - agent4.pair_generator - INFO - 💾 Saved pair dataset      → data\pairs\pair_dataset.csv
+2026-03-03 16:33:07 - agent4.pair_generator - INFO - 💾 Saved train pairs       → data\pairs\train_pairs.csv
+2026-03-03 16:33:07 - agent4.pair_generator - INFO - 💾 Saved test pairs        → data\pairs\test_pairs.csv
+2026-03-03 16:33:07 - agent4.pair_generator - INFO - 💾 Saved common QI columns → data\pairs\common_qi_columns.json
+2026-03-03 16:33:07 - agent4.pair_generator - INFO - 💾 Saved positive count    → data\pairs\positive_pair_count.json
+2026-03-03 16:33:07 - agent4.pair_generator - INFO - 💾 Saved negative count    → data\pairs\negative_pair_count.json
+2026-03-03 16:33:07 - agent4.pair_generator - INFO - 💾 Saved matching strategy → data\pairs\matching_strategy.json
+2026-03-03 16:33:07 - agent4.pair_generator - INFO - 🎉 Agent 4: Pair generation complete (EXTERNAL MODE)
+2026-03-03 19:13:45 - agent4.pair_generator - INFO - 🚀 Agent 4: Pair Generator started (MODE SELECTOR)
+2026-03-03 19:13:45 - agent4.pair_generator - INFO -    Mode: external
+2026-03-03 19:13:45 - agent4.pair_generator - INFO -    ✅ Agent 3 Integration: Using 9 user-provided QI
+2026-03-03 19:13:45 - agent4.pair_generator - INFO - 📂 Loading auxiliary dataset:  data\dashboard_auxiliary.csv
+2026-03-03 19:13:45 - agent4.pair_generator - INFO - 📂 Loading anonymized dataset: data\dashboard_anonymized.csv
+2026-03-03 19:13:46 - agent4.pair_generator - INFO -    Auxiliary:   1,080 rows × 9 cols
+2026-03-03 19:13:46 - agent4.pair_generator - INFO -    Anonymized:  1,000 rows × 165 cols
+2026-03-03 19:13:46 - agent4.pair_generator - WARNING - ⚠️  Dataset size mismatch! Auxiliary has 1,080 rows, Anonymized has 1,000 rows
+2026-03-03 19:13:46 - agent4.pair_generator - WARNING - ⚠️  Column count mismatch! Auxiliary has 9 columns, Anonymized has 165 columns
+2026-03-03 19:13:46 - agent4.pair_generator - INFO -    Using specified mode: EXTERNAL
+2026-03-03 19:13:46 - agent4.pair_generator - INFO - 📌 Running in EXTERNAL MODE (Auxiliary vs Anonymized)
+2026-03-03 19:13:46 - agent4.pair_generator - INFO - ✅ Using user-provided QI list from Agent 3 (9 columns)
+2026-03-03 19:13:46 - agent4.pair_generator - INFO -    QI columns: ['age', 'sex', 'district', 'education', 'marital_status', 'B_year', 'employment_status', 'industry', 'main_activity']
+2026-03-03 19:13:46 - agent4.pair_generator - INFO - ✅ Validated 9 user-provided QI columns (after exclusions)
+2026-03-03 19:13:46 - agent4.pair_generator - INFO - 🎯 Attacker strength: STRONG
+2026-03-03 19:13:46 - agent4.pair_generator - INFO - 💪 Attacker strength: STRONG — using all 9 QIs
+2026-03-03 19:13:46 - agent4.pair_generator - INFO - ⚠️  Composite keys not found - using SOFT MATCHING
+2026-03-03 19:13:46 - agent4.pair_generator - INFO -    Soft match criteria:
+2026-03-03 19:13:46 - agent4.pair_generator - INFO -    - Age difference ≤ 3
+2026-03-03 19:13:46 - agent4.pair_generator - INFO -    - Same district/gender (if available)
+2026-03-03 19:13:46 - agent4.pair_generator - INFO -    - OR similarity score > 0.6
+2026-03-03 19:13:46 - agent4.pair_generator - INFO - 🔗 Generating positive pairs using SOFT MATCHING:
+2026-03-03 19:13:46 - agent4.pair_generator - INFO -    Using ALL 9 validated QI columns for matching
+2026-03-03 19:13:46 - agent4.pair_generator - INFO -    Processing 1,000 anonymized records against 1,080 auxiliary records
+2026-03-03 19:13:46 - agent4.pair_generator - INFO -    Numerical QI: 8 columns
+2026-03-03 19:13:46 - agent4.pair_generator - INFO -    Categorical QI: 1 columns
+2026-03-03 19:13:46 - agent4.pair_generator - INFO -    Numerical: ['sex', 'district', 'education', 'marital_status', 'B_year']...
+2026-03-03 19:13:46 - agent4.pair_generator - INFO -    Categorical: ['age']
+2026-03-03 19:13:46 - agent4.pair_generator - INFO - ✅ Using BLOCKING with keys: ['age']
+2026-03-03 19:13:46 - agent4.pair_generator - INFO -    This reduces comparisons from O(N^2) to O(N*B) where B is avg block size
+2026-03-03 19:13:46 - agent4.pair_generator - INFO -    Calculating similarity for 1,000 anonymized records...
+2026-03-03 19:13:46 - agent4.pair_generator - INFO -    Soft match threshold: 0.6
+2026-03-03 19:13:46 - agent4.pair_generator - INFO -    Creating blocks...
+2026-03-03 19:13:46 - agent4.pair_generator - INFO -    Auxiliary blocks: 6
+2026-03-03 19:13:46 - agent4.pair_generator - INFO -    Anonymized blocks: 6
+2026-03-03 19:13:46 - agent4.pair_generator - INFO -    Comparisons reduced from 1,080,000 to 225,285 (79.1% reduction)
+2026-03-03 19:13:47 - agent4.pair_generator - INFO -    Progress: 100/1,000 (10.0%) - Matches: 100
+2026-03-03 19:13:47 - agent4.pair_generator - INFO -    Progress: 200/1,000 (20.0%) - Matches: 200
+2026-03-03 19:13:48 - agent4.pair_generator - INFO -    Progress: 300/1,000 (30.0%) - Matches: 295
+2026-03-03 19:13:49 - agent4.pair_generator - INFO -    Progress: 400/1,000 (40.0%) - Matches: 395
+2026-03-03 19:13:50 - agent4.pair_generator - INFO -    Progress: 500/1,000 (50.0%) - Matches: 495
+2026-03-03 19:13:50 - agent4.pair_generator - INFO -    Progress: 600/1,000 (60.0%) - Matches: 595
+2026-03-03 19:13:51 - agent4.pair_generator - INFO -    Progress: 700/1,000 (70.0%) - Matches: 686
+2026-03-03 19:13:51 - agent4.pair_generator - INFO -    Progress: 800/1,000 (80.0%) - Matches: 786
+2026-03-03 19:13:52 - agent4.pair_generator - INFO -    Progress: 900/1,000 (90.0%) - Matches: 877
+2026-03-03 19:13:52 - agent4.pair_generator - INFO -    Progress: 1,000/1,000 (100.0%) - Matches: 977
+2026-03-03 19:13:52 - agent4.pair_generator - INFO -    → Soft matches found: 977
+2026-03-03 19:13:52 - agent4.pair_generator - INFO -    → Match rate: 97.70% of anonymized records
+2026-03-03 19:13:52 - agent4.pair_generator - INFO -    → Average similarity: 0.877
+2026-03-03 19:13:52 - agent4.pair_generator - INFO -    → Min similarity: 0.602
+2026-03-03 19:13:52 - agent4.pair_generator - INFO -    → Max similarity: 1.000
+2026-03-03 19:13:52 - agent4.pair_generator - INFO - 🧪 Generating 977 negative pairs with HARD NEGATIVE MINING (external mode)
+2026-03-03 19:13:52 - agent4.pair_generator - INFO -    Hard negative range: similarity 0.6 - 0.8
+2026-03-03 19:13:52 - agent4.pair_generator - INFO -    Using 8 numerical + 1 categorical QI columns
+2026-03-03 19:14:04 - agent4.pair_generator - INFO -    → Final negative pairs: 977
+2026-03-03 19:14:04 - agent4.pair_generator - INFO -    → Hard negatives: 977 (100.0%)
+2026-03-03 19:14:04 - agent4.pair_generator - INFO -    → Random fallbacks: 0 (0.0%)
+2026-03-03 19:14:04 - agent4.pair_generator - INFO -    → Avg hard negative similarity: 0.701
+2026-03-03 19:14:04 - agent4.pair_generator - INFO - ✅ Positive pairs: 977
+2026-03-03 19:14:04 - agent4.pair_generator - INFO - ✅ Negative pairs: 977
+2026-03-03 19:14:04 - agent4.pair_generator - WARNING - ⚠️  Cannot compute blocking recall (no id_mapping or composite_keys).
+2026-03-03 19:14:04 - agent4.pair_generator - INFO - 💾 Saved blocking report   → data\pairs\blocking_report_strong.json
+2026-03-03 19:14:04 - agent4.pair_generator - INFO - 📦 Total pairs (before features): 1,954
+2026-03-03 19:14:04 - agent4.pair_generator - INFO - 🧮 Building feature dataset from pairs (using common QI only)...
+2026-03-03 19:14:04 - agent4.pair_generator - INFO -    Common QI columns: 9
+2026-03-03 19:14:04 - agent4.pair_generator - INFO -    Features per pair: 21
+2026-03-03 19:14:04 - agent4.pair_generator - INFO -    Feature columns: ['euclidean_distance', 'manhattan_distance', 'cosine_similarity', 'sex_diff', 'sex_equal', 'district_diff', 'district_equal', 'education_diff', 'education_equal', 'marital_status_diff']...
+2026-03-03 19:14:04 - agent4.pair_generator - INFO - 📈 Feature dataset shape: (1954, 25)
+2026-03-03 19:14:04 - agent4.pair_generator - INFO - 💾 Saved pair dataset      → data\pairs\pair_dataset.csv
+2026-03-03 19:14:04 - agent4.pair_generator - INFO - 💾 Saved train pairs       → data\pairs\train_pairs.csv
+2026-03-03 19:14:04 - agent4.pair_generator - INFO - 💾 Saved test pairs        → data\pairs\test_pairs.csv
+2026-03-03 19:14:04 - agent4.pair_generator - INFO - 💾 Saved common QI columns → data\pairs\common_qi_columns.json
+2026-03-03 19:14:04 - agent4.pair_generator - INFO - 💾 Saved positive count    → data\pairs\positive_pair_count.json
+2026-03-03 19:14:04 - agent4.pair_generator - INFO - 💾 Saved negative count    → data\pairs\negative_pair_count.json
+2026-03-03 19:14:04 - agent4.pair_generator - INFO - 💾 Saved matching strategy → data\pairs\matching_strategy.json
+2026-03-03 19:14:04 - agent4.pair_generator - INFO - 🎉 Agent 4: Pair generation complete (EXTERNAL MODE)
+2026-03-03 19:21:40 - agent4.pair_generator - INFO - 🚀 Agent 4: Pair Generator started (MODE SELECTOR)
+2026-03-03 19:21:40 - agent4.pair_generator - INFO -    Mode: external
+2026-03-03 19:21:40 - agent4.pair_generator - INFO -    ✅ Agent 3 Integration: Using 9 user-provided QI
+2026-03-03 19:21:40 - agent4.pair_generator - INFO - 📂 Loading auxiliary dataset:  data\dashboard_auxiliary.csv
+2026-03-03 19:21:40 - agent4.pair_generator - INFO - 📂 Loading anonymized dataset: data\dashboard_anonymized.csv
+2026-03-03 19:21:40 - agent4.pair_generator - INFO -    Auxiliary:   1,080 rows × 9 cols
+2026-03-03 19:21:40 - agent4.pair_generator - INFO -    Anonymized:  1,000 rows × 165 cols
+2026-03-03 19:21:40 - agent4.pair_generator - WARNING - ⚠️  Dataset size mismatch! Auxiliary has 1,080 rows, Anonymized has 1,000 rows
+2026-03-03 19:21:40 - agent4.pair_generator - WARNING - ⚠️  Column count mismatch! Auxiliary has 9 columns, Anonymized has 165 columns
+2026-03-03 19:21:40 - agent4.pair_generator - INFO -    Using specified mode: EXTERNAL
+2026-03-03 19:21:40 - agent4.pair_generator - INFO - 📌 Running in EXTERNAL MODE (Auxiliary vs Anonymized)
+2026-03-03 19:21:40 - agent4.pair_generator - INFO - ✅ Using user-provided QI list from Agent 3 (9 columns)
+2026-03-03 19:21:40 - agent4.pair_generator - INFO -    QI columns: ['age', 'sex', 'district', 'education', 'marital_status', 'B_year', 'employment_status', 'industry', 'main_activity']
+2026-03-03 19:21:40 - agent4.pair_generator - INFO - ✅ Validated 9 user-provided QI columns (after exclusions)
+2026-03-03 19:21:40 - agent4.pair_generator - INFO - 🎯 Attacker strength: STRONG
+2026-03-03 19:21:40 - agent4.pair_generator - INFO - 💪 Attacker strength: STRONG — using all 9 QIs
+2026-03-03 19:21:40 - agent4.pair_generator - INFO - ⚠️  Composite keys not found - using SOFT MATCHING
+2026-03-03 19:21:40 - agent4.pair_generator - INFO -    Soft match criteria:
+2026-03-03 19:21:40 - agent4.pair_generator - INFO -    - Age difference ≤ 3
+2026-03-03 19:21:40 - agent4.pair_generator - INFO -    - Same district/gender (if available)
+2026-03-03 19:21:40 - agent4.pair_generator - INFO -    - OR similarity score > 0.6
+2026-03-03 19:21:40 - agent4.pair_generator - INFO - 🔗 Generating positive pairs using SOFT MATCHING:
+2026-03-03 19:21:40 - agent4.pair_generator - INFO -    Using ALL 9 validated QI columns for matching
+2026-03-03 19:21:40 - agent4.pair_generator - INFO -    Processing 1,000 anonymized records against 1,080 auxiliary records
+2026-03-03 19:21:40 - agent4.pair_generator - INFO -    Numerical QI: 8 columns
+2026-03-03 19:21:40 - agent4.pair_generator - INFO -    Categorical QI: 1 columns
+2026-03-03 19:21:40 - agent4.pair_generator - INFO -    Numerical: ['sex', 'district', 'education', 'marital_status', 'B_year']...
+2026-03-03 19:21:40 - agent4.pair_generator - INFO -    Categorical: ['age']
+2026-03-03 19:21:40 - agent4.pair_generator - INFO - ✅ Using BLOCKING with keys: ['age']
+2026-03-03 19:21:40 - agent4.pair_generator - INFO -    This reduces comparisons from O(N^2) to O(N*B) where B is avg block size
+2026-03-03 19:21:40 - agent4.pair_generator - INFO -    Calculating similarity for 1,000 anonymized records...
+2026-03-03 19:21:40 - agent4.pair_generator - INFO -    Soft match threshold: 0.6
+2026-03-03 19:21:40 - agent4.pair_generator - INFO -    Creating blocks...
+2026-03-03 19:21:40 - agent4.pair_generator - INFO -    Auxiliary blocks: 6
+2026-03-03 19:21:40 - agent4.pair_generator - INFO -    Anonymized blocks: 6
+2026-03-03 19:21:40 - agent4.pair_generator - INFO -    Comparisons reduced from 1,080,000 to 225,285 (79.1% reduction)
+2026-03-03 19:21:41 - agent4.pair_generator - INFO -    Progress: 100/1,000 (10.0%) - Matches: 100
+2026-03-03 19:21:42 - agent4.pair_generator - INFO -    Progress: 200/1,000 (20.0%) - Matches: 200
+2026-03-03 19:21:43 - agent4.pair_generator - INFO -    Progress: 300/1,000 (30.0%) - Matches: 295
+2026-03-03 19:21:44 - agent4.pair_generator - INFO -    Progress: 400/1,000 (40.0%) - Matches: 395
+2026-03-03 19:21:45 - agent4.pair_generator - INFO -    Progress: 500/1,000 (50.0%) - Matches: 495
+2026-03-03 19:21:45 - agent4.pair_generator - INFO -    Progress: 600/1,000 (60.0%) - Matches: 595
+2026-03-03 19:21:46 - agent4.pair_generator - INFO -    Progress: 700/1,000 (70.0%) - Matches: 686
+2026-03-03 19:21:47 - agent4.pair_generator - INFO -    Progress: 800/1,000 (80.0%) - Matches: 786
+2026-03-03 19:21:47 - agent4.pair_generator - INFO -    Progress: 900/1,000 (90.0%) - Matches: 877
+2026-03-03 19:21:47 - agent4.pair_generator - INFO -    Progress: 1,000/1,000 (100.0%) - Matches: 977
+2026-03-03 19:21:47 - agent4.pair_generator - INFO -    → Soft matches found: 977
+2026-03-03 19:21:47 - agent4.pair_generator - INFO -    → Match rate: 97.70% of anonymized records
+2026-03-03 19:21:47 - agent4.pair_generator - INFO -    → Average similarity: 0.877
+2026-03-03 19:21:47 - agent4.pair_generator - INFO -    → Min similarity: 0.602
+2026-03-03 19:21:48 - agent4.pair_generator - INFO -    → Max similarity: 1.000
+2026-03-03 19:21:48 - agent4.pair_generator - INFO - 🧪 Generating 977 negative pairs with HARD NEGATIVE MINING (external mode)
+2026-03-03 19:21:48 - agent4.pair_generator - INFO -    Hard negative range: similarity 0.6 - 0.8
+2026-03-03 19:21:48 - agent4.pair_generator - INFO -    Using 8 numerical + 1 categorical QI columns
+2026-03-03 19:21:58 - agent4.pair_generator - INFO -    → Final negative pairs: 977
+2026-03-03 19:21:58 - agent4.pair_generator - INFO -    → Hard negatives: 977 (100.0%)
+2026-03-03 19:21:58 - agent4.pair_generator - INFO -    → Random fallbacks: 0 (0.0%)
+2026-03-03 19:21:58 - agent4.pair_generator - INFO -    → Avg hard negative similarity: 0.701
+2026-03-03 19:21:58 - agent4.pair_generator - INFO - ✅ Positive pairs: 977
+2026-03-03 19:21:58 - agent4.pair_generator - INFO - ✅ Negative pairs: 977
+2026-03-03 19:21:58 - agent4.pair_generator - WARNING - ⚠️  Cannot compute blocking recall (no id_mapping or composite_keys).
+2026-03-03 19:21:59 - agent4.pair_generator - INFO - 💾 Saved blocking report   → data\pairs\blocking_report_strong.json
+2026-03-03 19:21:59 - agent4.pair_generator - INFO - 📦 Total pairs (before features): 1,954
+2026-03-03 19:21:59 - agent4.pair_generator - INFO - 🧮 Building feature dataset from pairs (using common QI only)...
+2026-03-03 19:21:59 - agent4.pair_generator - INFO -    Common QI columns: 9
+2026-03-03 19:21:59 - agent4.pair_generator - INFO -    Features per pair: 21
+2026-03-03 19:21:59 - agent4.pair_generator - INFO -    Feature columns: ['euclidean_distance', 'manhattan_distance', 'cosine_similarity', 'sex_diff', 'sex_equal', 'district_diff', 'district_equal', 'education_diff', 'education_equal', 'marital_status_diff']...
+2026-03-03 19:21:59 - agent4.pair_generator - INFO - 📈 Feature dataset shape: (1954, 25)
+2026-03-03 19:21:59 - agent4.pair_generator - INFO - 💾 Saved pair dataset      → data\pairs\pair_dataset.csv
+2026-03-03 19:21:59 - agent4.pair_generator - INFO - 💾 Saved train pairs       → data\pairs\train_pairs.csv
+2026-03-03 19:21:59 - agent4.pair_generator - INFO - 💾 Saved test pairs        → data\pairs\test_pairs.csv
+2026-03-03 19:21:59 - agent4.pair_generator - INFO - 💾 Saved common QI columns → data\pairs\common_qi_columns.json
+2026-03-03 19:21:59 - agent4.pair_generator - INFO - 💾 Saved positive count    → data\pairs\positive_pair_count.json
+2026-03-03 19:21:59 - agent4.pair_generator - INFO - 💾 Saved negative count    → data\pairs\negative_pair_count.json
+2026-03-03 19:21:59 - agent4.pair_generator - INFO - 💾 Saved matching strategy → data\pairs\matching_strategy.json
+2026-03-03 19:21:59 - agent4.pair_generator - INFO - 🎉 Agent 4: Pair generation complete (EXTERNAL MODE)

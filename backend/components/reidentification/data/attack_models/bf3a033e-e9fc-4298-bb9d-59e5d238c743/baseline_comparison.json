@@ -1,0 +1,21 @@
+{
+  "baseline": {
+    "type": "mean_of_binary_match_features",
+    "features_used": [
+      "age_equal",
+      "education_match",
+      "marital_status_match",
+      "sex_match",
+      "ethnicity_match",
+      "religion_match"
+    ],
+    "pr_auc": 0.9719827586206896,
+    "roc_auc": 0.974609375
+  },
+  "best_ml_model": {
+    "name": "gbm",
+    "pr_auc": 0.969758064516129,
+    "roc_auc": 0.958984375
+  },
+  "pr_auc_lift": -0.0022246941045606095
+}

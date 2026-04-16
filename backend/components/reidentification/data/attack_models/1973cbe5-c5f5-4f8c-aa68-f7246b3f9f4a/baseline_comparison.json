@@ -1,0 +1,22 @@
+{
+  "baseline": {
+    "type": "mean_of_binary_match_features",
+    "features_used": [
+      "age_match",
+      "education_match",
+      "industry_match",
+      "marital_status_match",
+      "sex_match",
+      "industry_equal",
+      "education_equal"
+    ],
+    "pr_auc": 0.5,
+    "roc_auc": 0.5
+  },
+  "best_ml_model": {
+    "name": "logreg",
+    "pr_auc": 0.49257273599774243,
+    "roc_auc": 0.49002500000000004
+  },
+  "pr_auc_lift": -0.007427264002257572
+}

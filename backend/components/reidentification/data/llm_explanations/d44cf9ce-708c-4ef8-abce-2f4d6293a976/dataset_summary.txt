@@ -1,0 +1,10 @@
+DATASET-LEVEL PRIVACY RISK SUMMARY
+============================================================
+
+The dataset has a total of 6 records. All of these records are at medium risk. This means there is a concern for privacy, but no records are at high or low risk. Since all records fall into the medium risk category, it suggests that there are factors that could lead to privacy issues.
+
+The columns that matter most for risk are age. The age column is important because it can help identify individuals when combined with other information. Even though there is only one column, it can still increase the risk of privacy loss if the ages are specific and unique.
+
+To reduce the risk, the age column needs stronger anonymization. One way to do this is by grouping ages into broader categories, like 20-29 or 30-39. This makes it harder to pinpoint exact ages. Another option is to remove any rare values that might stand out. These steps can help protect privacy better.
+
+Risk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability.

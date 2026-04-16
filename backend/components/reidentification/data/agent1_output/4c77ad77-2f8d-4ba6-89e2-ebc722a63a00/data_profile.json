@@ -1,0 +1,351 @@
+{
+  "dataset_overview": {
+    "total_rows": 100,
+    "total_columns": 19,
+    "total_cells": 1900,
+    "memory_usage_mb": 0.07121944427490234,
+    "duplicate_rows": "0",
+    "duplicate_percentage": 0.0
+  },
+  "column_profiles": {
+    "district": {
+      "data_type": "int64",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 1,
+      "unique_percentage": 1.0,
+      "min": 11.0,
+      "max": 11.0,
+      "mean": 11.0,
+      "median": 11.0,
+      "std": 0.0,
+      "quartiles": {
+        "25%": 11.0,
+        "50%": 11.0,
+        "75%": 11.0
+      }
+    },
+    "sector": {
+      "data_type": "int64",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 2,
+      "unique_percentage": 2.0,
+      "min": 1.0,
+      "max": 2.0,
+      "mean": 1.22,
+      "median": 1.0,
+      "std": 0.4163331998932266,
+      "quartiles": {
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 1.0
+      }
+    },
+    "month": {
+      "data_type": "int64",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 6,
+      "unique_percentage": 6.0,
+      "min": 1.0,
+      "max": 6.0,
+      "mean": 2.82,
+      "median": 3.0,
+      "std": 1.5851584377365164,
+      "quartiles": {
+        "25%": 1.0,
+        "50%": 3.0,
+        "75%": 4.0
+      }
+    },
+    "psu": {
+      "data_type": "int64",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 44,
+      "unique_percentage": 44.0,
+      "min": 111004.0,
+      "max": 111064.0,
+      "mean": 111034.33,
+      "median": 111036.0,
+      "std": 18.215353164544762,
+      "quartiles": {
+        "25%": 111016.0,
+        "50%": 111036.0,
+        "75%": 111051.0
+      }
+    },
+    "snumber": {
+      "data_type": "str",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 10,
+      "unique_percentage": 10.0,
+      "avg_length": 7.14,
+      "min_length": 7,
+      "max_length": 8,
+      "most_common": "Grade 1"
+    },
+    "hhno": {
+      "data_type": "str",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 1,
+      "unique_percentage": 1.0,
+      "avg_length": 7.0,
+      "min_length": 7,
+      "max_length": 7,
+      "most_common": "Grade 1"
+    },
+    "nhh": {
+      "data_type": "int64",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 1,
+      "unique_percentage": 1.0,
+      "min": 1.0,
+      "max": 1.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "std": 0.0,
+      "quartiles": {
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 1.0
+      }
+    },
+    "result": {
+      "data_type": "str",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 1,
+      "unique_percentage": 1.0,
+      "avg_length": 7.0,
+      "min_length": 7,
+      "max_length": 7,
+      "most_common": "Walking"
+    },
+    "person_serial_no": {
+      "data_type": "int64",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 7,
+      "unique_percentage": 7.000000000000001,
+      "min": 2.0,
+      "max": 8.0,
+      "mean": 3.94,
+      "median": 4.0,
+      "std": 1.108461487236642,
+      "quartiles": {
+        "25%": 3.0,
+        "50%": 4.0,
+        "75%": 4.25
+      }
+    },
+    "r2_school_education": {
+      "data_type": "str",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 3,
+      "unique_percentage": 3.0,
+      "avg_length": 20.54,
+      "min_length": 18,
+      "max_length": 31,
+      "most_common": "School too far away"
+    },
+    "type_of_school": {
+      "data_type": "str",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 1,
+      "unique_percentage": 1.0,
+      "avg_length": 9.0,
+      "min_length": 9,
+      "max_length": 9,
+      "most_common": "_missing_"
+    },
+    "grade_this_year": {
+      "data_type": "str",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 14,
+      "unique_percentage": 14.000000000000002,
+      "avg_length": 1.23,
+      "min_length": 1,
+      "max_length": 2,
+      "most_common": " "
+    },
+    "grade_last_year": {
+      "data_type": "str",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 14,
+      "unique_percentage": 14.000000000000002,
+      "avg_length": 1.23,
+      "min_length": 1,
+      "max_length": 2,
+      "most_common": " "
+    },
+    "distance": {
+      "data_type": "str",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 17,
+      "unique_percentage": 17.0,
+      "avg_length": 1.1,
+      "min_length": 1,
+      "max_length": 2,
+      "most_common": "2"
+    },
+    "transport_medium": {
+      "data_type": "str",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 7,
+      "unique_percentage": 7.000000000000001,
+      "avg_length": 1.0,
+      "min_length": 1,
+      "max_length": 1,
+      "most_common": "3"
+    },
+    "time_to_school": {
+      "data_type": "str",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 14,
+      "unique_percentage": 14.000000000000002,
+      "avg_length": 1.84,
+      "min_length": 1,
+      "max_length": 2,
+      "most_common": "10"
+    },
+    "noschooling_reason": {
+      "data_type": "str",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 2,
+      "unique_percentage": 2.0,
+      "avg_length": 1.0,
+      "min_length": 1,
+      "max_length": 1,
+      "most_common": " "
+    },
+    "reason_leave_school": {
+      "data_type": "str",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 7,
+      "unique_percentage": 7.000000000000001,
+      "avg_length": 1.03,
+      "min_length": 1,
+      "max_length": 2,
+      "most_common": " "
+    },
+    "when_stop_schooling": {
+      "data_type": "str",
+      "non_null_count": "100",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 6,
+      "unique_percentage": 6.0,
+      "avg_length": 1.36,
+      "min_length": 1,
+      "max_length": 4,
+      "most_common": " "
+    }
+  },
+  "data_quality": {
+    "completeness_percentage": 100.0,
+    "total_null_cells": 0,
+    "total_null_percentage": 0.0,
+    "columns_with_nulls": 0,
+    "columns_fully_null": 0
+  },
+  "statistical_summary": {
+    "numeric_columns_count": 6,
+    "categorical_columns_count": 13,
+    "datetime_columns_count": 0,
+    "numeric_summary": {
+      "district": {
+        "count": 100.0,
+        "mean": 11.0,
+        "std": 0.0,
+        "min": 11.0,
+        "25%": 11.0,
+        "50%": 11.0,
+        "75%": 11.0,
+        "max": 11.0
+      },
+      "sector": {
+        "count": 100.0,
+        "mean": 1.22,
+        "std": 0.4163331998932266,
+        "min": 1.0,
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 1.0,
+        "max": 2.0
+      },
+      "month": {
+        "count": 100.0,
+        "mean": 2.82,
+        "std": 1.5851584377365164,
+        "min": 1.0,
+        "25%": 1.0,
+        "50%": 3.0,
+        "75%": 4.0,
+        "max": 6.0
+      },
+      "psu": {
+        "count": 100.0,
+        "mean": 111034.33,
+        "std": 18.215353164544762,
+        "min": 111004.0,
+        "25%": 111016.0,
+        "50%": 111036.0,
+        "75%": 111051.0,
+        "max": 111064.0
+      },
+      "nhh": {
+        "count": 100.0,
+        "mean": 1.0,
+        "std": 0.0,
+        "min": 1.0,
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 1.0,
+        "max": 1.0
+      },
+      "person_serial_no": {
+        "count": 100.0,
+        "mean": 3.94,
+        "std": 1.108461487236642,
+        "min": 2.0,
+        "25%": 3.0,
+        "50%": 4.0,
+        "75%": 4.25,
+        "max": 8.0
+      }
+    },
+    "sampled_for_summary": false
+  }
+}

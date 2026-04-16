@@ -1,0 +1,6 @@
+COMPARATIVE ANALYSIS: HIGH-RISK vs LOW-RISK RECORDS
+============================================================
+
+The high-risk group has higher max_attack_score and mean_attack_score compared to the low-risk group. This means they are more likely to face threats. The pair_count may also be different, showing how many connections each record has.
+
+The risk_level in the high-risk group indicates a greater chance of danger. In contrast, the low-risk group has lower scores and a safer risk_level. This shows they are less likely to be affected by attacks.

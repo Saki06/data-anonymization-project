@@ -1,0 +1,12 @@
+[
+  {
+    "record_id": 92,
+    "risk_score": 0.9981518534464012,
+    "explanation": "The risk score of 0.9982 is very high. This means there is a strong chance that the information could be linked back to a person. A score close to 1.0 indicates a serious privacy risk.\n\nThe columns that increased this risk are feature_value and pred_prob. The feature_value raises the risk because it contains specific details that can be easily connected to someone. The pred_prob also increases the risk by showing a high likelihood of matching this record to a person. In contrast, the shap_value decreases the risk, suggesting it has less impact on privacy.\n\nTo better protect privacy, the columns feature_value and pred_prob need stronger anonymization. This could mean changing or removing specific details in feature_value to make it less identifiable. For pred_prob, using broader categories instead of exact probabilities could help. These changes can make it harder to connect the information back to a person.\n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  },
+  {
+    "record_id": 500,
+    "risk_score": 0.1648684739383166,
+    "explanation": "The risk score for this record is 0.1649. This score is low, as it is closer to 0.0 than to 1.0. A low score means there is not a high chance of privacy issues for this record.\n\nThe columns that increased the risk the most are feature_value, pred_prob, and shap_value. The feature_value shows specific details that can make someone identifiable. The pred_prob indicates how likely it is that this record can be linked to a person. The shap_value shows how much each part of the data contributes to the risk. All these factors combined raise the overall risk score.\n\nTo improve privacy, the columns feature_value and pred_prob need better anonymization. For feature_value, removing or changing specific details can help. For pred_prob, adjusting the way likelihood is calculated can lower the risk. These changes can make it harder to connect the data back to a person.\n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  }
+]

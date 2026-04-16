@@ -1,0 +1,78 @@
+{
+  "model": "gbm",
+  "calibration_method": "sigmoid",
+  "pr_auc_before": 0.9818114356844069,
+  "pr_auc_after": 0.9818530052019525,
+  "reliability_table": [
+    {
+      "bin_lower": 0.0,
+      "bin_upper": 0.1,
+      "mean_pred_prob": 0.013656243776516185,
+      "frac_positive": 0.0,
+      "count": 146
+    },
+    {
+      "bin_lower": 0.1,
+      "bin_upper": 0.2,
+      "mean_pred_prob": 0.1535524511442958,
+      "frac_positive": 0.15384615384615385,
+      "count": 13
+    },
+    {
+      "bin_lower": 0.2,
+      "bin_upper": 0.3,
+      "mean_pred_prob": 0.23905043769297532,
+      "frac_positive": 0.2727272727272727,
+      "count": 11
+    },
+    {
+      "bin_lower": 0.3,
+      "bin_upper": 0.4,
+      "mean_pred_prob": 0.3600400916005913,
+      "frac_positive": 0.3076923076923077,
+      "count": 13
+    },
+    {
+      "bin_lower": 0.4,
+      "bin_upper": 0.5,
+      "mean_pred_prob": 0.4338478040102877,
+      "frac_positive": 0.1111111111111111,
+      "count": 9
+    },
+    {
+      "bin_lower": 0.5,
+      "bin_upper": 0.6,
+      "mean_pred_prob": 0.5530809053840836,
+      "frac_positive": 0.9090909090909091,
+      "count": 11
+    },
+    {
+      "bin_lower": 0.6,
+      "bin_upper": 0.7,
+      "mean_pred_prob": 0.647533310369553,
+      "frac_positive": 0.6470588235294118,
+      "count": 17
+    },
+    {
+      "bin_lower": 0.7,
+      "bin_upper": 0.8,
+      "mean_pred_prob": 0.754435440343755,
+      "frac_positive": 1.0,
+      "count": 10
+    },
+    {
+      "bin_lower": 0.8,
+      "bin_upper": 0.9,
+      "mean_pred_prob": 0.8580932712012574,
+      "frac_positive": 0.6470588235294118,
+      "count": 17
+    },
+    {
+      "bin_lower": 0.9,
+      "bin_upper": 1.0,
+      "mean_pred_prob": 0.9834037760717808,
+      "frac_positive": 0.9930555555555556,
+      "count": 144
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+2026-03-03 00:26:39 - agent6.shap_explainer - INFO - Agent 6-SHAP: Starting explainability analysis...
+2026-03-03 00:26:39 - agent6.shap_explainer - INFO - Loading attack model from: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 00:26:39 - agent6.shap_explainer - INFO - Loading pair dataset from: data\pairs\pair_dataset.csv
+2026-03-03 00:26:39 - agent6.shap_explainer - INFO -    Loaded 1,954 rows × 25 cols
+2026-03-03 00:26:39 - agent6.shap_explainer - INFO -    Sampled down to 100 rows for SHAP
+2026-03-03 00:26:39 - agent6.shap_explainer - INFO -    Detected 21 feature columns for SHAP.
+2026-03-03 00:26:39 - agent6.shap_explainer - INFO - Building SHAP explainer (may take a moment)...
+2026-03-03 00:26:39 - agent6.shap_explainer - INFO -    Using TreeExplainer.
+2026-03-03 00:26:39 - agent6.shap_explainer - INFO -    SHAP values computed.
+2026-03-03 00:26:39 - agent6.shap_explainer - INFO - Computing global SHAP feature importance...
+2026-03-03 00:26:39 - agent6.shap_explainer - INFO -    Saved global importance CSV: data\shap_explanations\shap_global_feature_importance.csv
+2026-03-03 00:26:39 - agent6.shap_explainer - INFO -    Saved global importance JSON: data\shap_explanations\shap_global_feature_importance.json
+2026-03-03 00:26:40 - agent6.shap_explainer - INFO -    Saved SHAP summary plot: data\shap_explanations\shap_global_summary.png
+2026-03-03 00:26:40 - agent6.shap_explainer - INFO - Computing local SHAP explanations for top risky pairs...
+2026-03-03 00:26:40 - agent6.shap_explainer - INFO -    Saved local SHAP explanations: data\shap_explanations\shap_local_explanations.csv
+2026-03-03 00:26:40 - agent6.shap_explainer - INFO - Agent 6-SHAP: Completed successfully.
+2026-03-03 00:39:10 - agent6.shap_explainer - INFO - Agent 6-SHAP: Starting explainability analysis...
+2026-03-03 00:39:10 - agent6.shap_explainer - INFO - Loading attack model from: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 00:39:10 - agent6.shap_explainer - INFO - Loading pair dataset from: data\pairs\pair_dataset.csv
+2026-03-03 00:39:10 - agent6.shap_explainer - INFO -    Loaded 1,954 rows × 25 cols
+2026-03-03 00:39:10 - agent6.shap_explainer - INFO -    Sampled down to 100 rows for SHAP
+2026-03-03 00:39:10 - agent6.shap_explainer - INFO -    Detected 21 feature columns for SHAP.
+2026-03-03 00:39:10 - agent6.shap_explainer - INFO - Building SHAP explainer (may take a moment)...
+2026-03-03 00:39:10 - agent6.shap_explainer - INFO -    Using TreeExplainer.
+2026-03-03 00:39:10 - agent6.shap_explainer - INFO -    SHAP values computed.
+2026-03-03 00:39:10 - agent6.shap_explainer - INFO - Computing global SHAP feature importance...
+2026-03-03 00:39:10 - agent6.shap_explainer - INFO -    Saved global importance CSV: data\shap_explanations\shap_global_feature_importance.csv
+2026-03-03 00:39:10 - agent6.shap_explainer - INFO -    Saved global importance JSON: data\shap_explanations\shap_global_feature_importance.json
+2026-03-03 00:39:11 - agent6.shap_explainer - INFO -    Saved SHAP summary plot: data\shap_explanations\shap_global_summary.png
+2026-03-03 00:39:11 - agent6.shap_explainer - INFO - Computing local SHAP explanations for top risky pairs...
+2026-03-03 00:39:11 - agent6.shap_explainer - INFO -    Saved local SHAP explanations: data\shap_explanations\shap_local_explanations.csv
+2026-03-03 00:39:11 - agent6.shap_explainer - INFO - Agent 6-SHAP: Completed successfully.
+2026-03-03 12:46:07 - agent6.shap_explainer - INFO - Agent 6-SHAP: Starting explainability analysis...
+2026-03-03 12:46:07 - agent6.shap_explainer - INFO - Loading attack model from: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 12:46:07 - agent6.shap_explainer - INFO - Loading pair dataset from: data\pairs\pair_dataset.csv
+2026-03-03 12:46:07 - agent6.shap_explainer - INFO -    Loaded 1,954 rows × 25 cols
+2026-03-03 12:46:07 - agent6.shap_explainer - INFO -    Sampled down to 100 rows for SHAP
+2026-03-03 12:46:07 - agent6.shap_explainer - INFO -    Detected 21 feature columns for SHAP.
+2026-03-03 12:46:07 - agent6.shap_explainer - INFO - Building SHAP explainer (may take a moment)...
+2026-03-03 12:46:08 - agent6.shap_explainer - INFO -    Using TreeExplainer.
+2026-03-03 12:46:08 - agent6.shap_explainer - INFO -    SHAP values computed.
+2026-03-03 12:46:08 - agent6.shap_explainer - INFO - Computing global SHAP feature importance...
+2026-03-03 12:46:08 - agent6.shap_explainer - INFO -    Saved global importance CSV: data\shap_explanations\shap_global_feature_importance.csv
+2026-03-03 12:46:08 - agent6.shap_explainer - INFO -    Saved global importance JSON: data\shap_explanations\shap_global_feature_importance.json
+2026-03-03 12:46:09 - agent6.shap_explainer - INFO -    Saved SHAP summary plot: data\shap_explanations\shap_global_summary.png
+2026-03-03 12:46:09 - agent6.shap_explainer - INFO - Computing local SHAP explanations for top risky pairs...
+2026-03-03 12:46:09 - agent6.shap_explainer - INFO -    Saved local SHAP explanations: data\shap_explanations\shap_local_explanations.csv
+2026-03-03 12:46:09 - agent6.shap_explainer - INFO - Agent 6-SHAP: Completed successfully.
+2026-03-03 13:10:54 - agent6.shap_explainer - INFO - Agent 6-SHAP: Starting explainability analysis...
+2026-03-03 13:10:54 - agent6.shap_explainer - INFO - Loading attack model from: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 13:10:54 - agent6.shap_explainer - INFO - Loading pair dataset from: data\pairs\pair_dataset.csv
+2026-03-03 13:10:54 - agent6.shap_explainer - INFO -    Loaded 1,954 rows × 25 cols
+2026-03-03 13:10:54 - agent6.shap_explainer - INFO -    Sampled down to 100 rows for SHAP
+2026-03-03 13:10:54 - agent6.shap_explainer - INFO -    Detected 21 feature columns for SHAP.
+2026-03-03 13:10:54 - agent6.shap_explainer - INFO - Building SHAP explainer (may take a moment)...
+2026-03-03 13:10:54 - agent6.shap_explainer - WARNING -    TreeExplainer failed: Model type not yet supported by TreeExplainer: <class 'sklearn.calibration.CalibratedClassifierCV'>
+2026-03-03 13:10:54 - agent6.shap_explainer - INFO -    Falling back to KernelExplainer (slower).
+2026-03-03 13:13:47 - agent6.shap_explainer - INFO -    SHAP values computed.
+2026-03-03 13:13:47 - agent6.shap_explainer - INFO - Computing global SHAP feature importance...
+2026-03-03 13:13:47 - agent6.shap_explainer - INFO -    Saved global importance CSV: data\shap_explanations\shap_global_feature_importance.csv
+2026-03-03 13:13:47 - agent6.shap_explainer - INFO -    Saved global importance JSON: data\shap_explanations\shap_global_feature_importance.json
+2026-03-03 13:13:48 - agent6.shap_explainer - INFO -    Saved SHAP summary plot: data\shap_explanations\shap_global_summary.png
+2026-03-03 13:13:48 - agent6.shap_explainer - INFO - Computing local SHAP explanations for top risky pairs...
+2026-03-03 13:15:02 - agent6.shap_explainer - INFO -    Saved local SHAP explanations: data\shap_explanations\shap_local_explanations.csv
+2026-03-03 13:15:02 - agent6.shap_explainer - INFO - Agent 6-SHAP: Completed successfully.
+2026-03-03 13:18:08 - agent6.shap_explainer - INFO - Agent 6-SHAP: Starting explainability analysis...
+2026-03-03 13:18:08 - agent6.shap_explainer - INFO - Loading attack model from: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 13:18:08 - agent6.shap_explainer - INFO - Loading pair dataset from: data\pairs\pair_dataset.csv
+2026-03-03 13:18:08 - agent6.shap_explainer - INFO -    Loaded 1,954 rows × 25 cols
+2026-03-03 13:18:08 - agent6.shap_explainer - INFO -    Sampled down to 100 rows for SHAP
+2026-03-03 13:18:08 - agent6.shap_explainer - INFO -    Detected 21 feature columns for SHAP.
+2026-03-03 13:18:08 - agent6.shap_explainer - INFO - Building SHAP explainer (may take a moment)...
+2026-03-03 13:18:08 - agent6.shap_explainer - INFO -    Unwrapped CalibratedClassifierCV → using base estimator for TreeExplainer.
+2026-03-03 13:18:08 - agent6.shap_explainer - INFO -    Using TreeExplainer.
+2026-03-03 13:18:08 - agent6.shap_explainer - INFO -    SHAP values computed.
+2026-03-03 13:18:08 - agent6.shap_explainer - INFO - Computing global SHAP feature importance...
+2026-03-03 13:18:08 - agent6.shap_explainer - INFO -    Saved global importance CSV: data\shap_explanations\shap_global_feature_importance.csv
+2026-03-03 13:18:08 - agent6.shap_explainer - INFO -    Saved global importance JSON: data\shap_explanations\shap_global_feature_importance.json
+2026-03-03 13:18:08 - agent6.shap_explainer - INFO -    Saved SHAP summary plot: data\shap_explanations\shap_global_summary.png
+2026-03-03 13:18:08 - agent6.shap_explainer - INFO - Computing local SHAP explanations for top risky pairs...
+2026-03-03 13:18:08 - agent6.shap_explainer - INFO -    Saved local SHAP explanations: data\shap_explanations\shap_local_explanations.csv
+2026-03-03 13:18:08 - agent6.shap_explainer - INFO - Agent 6-SHAP: Completed successfully.
+2026-03-03 16:27:35 - agent6.shap_explainer - INFO - Agent 6-SHAP: Starting explainability analysis...
+2026-03-03 16:27:35 - agent6.shap_explainer - INFO - Loading attack model from: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 16:27:35 - agent6.shap_explainer - INFO - Loading pair dataset from: data\pairs\pair_dataset.csv
+2026-03-03 16:27:35 - agent6.shap_explainer - INFO -    Loaded 1,954 rows × 25 cols
+2026-03-03 16:27:35 - agent6.shap_explainer - INFO -    Sampled down to 100 rows for SHAP
+2026-03-03 16:27:35 - agent6.shap_explainer - INFO -    Detected 21 feature columns for SHAP.
+2026-03-03 16:27:35 - agent6.shap_explainer - INFO - Building SHAP explainer (may take a moment)...
+2026-03-03 16:27:35 - agent6.shap_explainer - INFO -    Unwrapped CalibratedClassifierCV → using base estimator for TreeExplainer.
+2026-03-03 16:27:35 - agent6.shap_explainer - INFO -    Using TreeExplainer.
+2026-03-03 16:27:35 - agent6.shap_explainer - INFO -    SHAP values computed.
+2026-03-03 16:27:35 - agent6.shap_explainer - INFO - Computing global SHAP feature importance...
+2026-03-03 16:27:35 - agent6.shap_explainer - INFO -    Saved global importance CSV: data\shap_explanations\shap_global_feature_importance.csv
+2026-03-03 16:27:35 - agent6.shap_explainer - INFO -    Saved global importance JSON: data\shap_explanations\shap_global_feature_importance.json
+2026-03-03 16:27:36 - agent6.shap_explainer - INFO -    Saved SHAP summary plot: data\shap_explanations\shap_global_summary.png
+2026-03-03 16:27:36 - agent6.shap_explainer - INFO - Computing local SHAP explanations for top risky pairs...
+2026-03-03 16:27:36 - agent6.shap_explainer - INFO -    Saved local SHAP explanations: data\shap_explanations\shap_local_explanations.csv
+2026-03-03 16:27:36 - agent6.shap_explainer - INFO - Agent 6-SHAP: Completed successfully.
+2026-03-03 19:22:20 - agent6.shap_explainer - INFO - Agent 6-SHAP: Starting explainability analysis...
+2026-03-03 19:22:20 - agent6.shap_explainer - INFO - Loading attack model from: data\attack_models\agent5\best_attack_model.pkl
+2026-03-03 19:22:20 - agent6.shap_explainer - INFO - Loading pair dataset from: data\pairs\pair_dataset.csv
+2026-03-03 19:22:20 - agent6.shap_explainer - INFO -    Loaded 1,954 rows × 25 cols
+2026-03-03 19:22:20 - agent6.shap_explainer - INFO -    Sampled down to 100 rows for SHAP
+2026-03-03 19:22:20 - agent6.shap_explainer - INFO -    Detected 21 feature columns for SHAP.
+2026-03-03 19:22:20 - agent6.shap_explainer - INFO - Building SHAP explainer (may take a moment)...
+2026-03-03 19:22:20 - agent6.shap_explainer - INFO -    Unwrapped CalibratedClassifierCV → using base estimator for TreeExplainer.
+2026-03-03 19:22:20 - agent6.shap_explainer - INFO -    Using TreeExplainer.
+2026-03-03 19:22:20 - agent6.shap_explainer - INFO -    SHAP values computed.
+2026-03-03 19:22:20 - agent6.shap_explainer - INFO - Computing global SHAP feature importance...
+2026-03-03 19:22:20 - agent6.shap_explainer - INFO -    Saved global importance CSV: data\shap_explanations\shap_global_feature_importance.csv
+2026-03-03 19:22:20 - agent6.shap_explainer - INFO -    Saved global importance JSON: data\shap_explanations\shap_global_feature_importance.json
+2026-03-03 19:22:21 - agent6.shap_explainer - INFO -    Saved SHAP summary plot: data\shap_explanations\shap_global_summary.png
+2026-03-03 19:22:21 - agent6.shap_explainer - INFO - Computing local SHAP explanations for top risky pairs...
+2026-03-03 19:22:21 - agent6.shap_explainer - INFO -    Saved local SHAP explanations: data\shap_explanations\shap_local_explanations.csv
+2026-03-03 19:22:21 - agent6.shap_explainer - INFO - Agent 6-SHAP: Completed successfully.

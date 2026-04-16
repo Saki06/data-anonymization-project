@@ -1,0 +1,43 @@
+{
+  "baseline": {
+    "type": "mean_of_binary_match_features",
+    "features_used": [
+      "sector_equal",
+      "district_equal",
+      "month_equal",
+      "nhh_equal",
+      "person_serial_no_equal",
+      "reason_leave_school_equal",
+      "hhno_match",
+      "psu_match",
+      "snumber_match",
+      "result_match",
+      "r2_school_education_match",
+      "type_of_school_match",
+      "grade_last_year_match",
+      "grade_this_year_match",
+      "when_stop_schooling_match",
+      "noschooling_reason_match",
+      "time_to_school_match",
+      "transport_medium_match",
+      "distance_match",
+      "grade_last_year_equal",
+      "grade_this_year_equal",
+      "time_to_school_equal",
+      "transport_medium_equal",
+      "distance_equal",
+      "reason_leave_school_match",
+      "when_stop_schooling_equal",
+      "sector_match",
+      "noschooling_reason_equal"
+    ],
+    "pr_auc": 1.0,
+    "roc_auc": 1.0
+  },
+  "best_ml_model": {
+    "name": "logreg",
+    "pr_auc": 1.0,
+    "roc_auc": 1.0
+  },
+  "pr_auc_lift": 0.0
+}

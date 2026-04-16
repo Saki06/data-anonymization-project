@@ -1,0 +1,9 @@
+{
+  "overall_similarity": 0.3602137196594469,
+  "sector_equal": 0.32973563532454,
+  "cosine_similarity": 0.1576864810964037,
+  "manhattan_distance": 0.06277062113205369,
+  "euclidean_distance": 0.05304213700723697,
+  "sector_diff": 0.036551405780318805,
+  "sector_match": 0.0
+}

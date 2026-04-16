@@ -1,0 +1,9 @@
+{
+  "common_qi_columns": [
+    "sector",
+    "distance",
+    "r2_school_education",
+    "type_of_school"
+  ],
+  "count": 4
+}

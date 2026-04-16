@@ -1,0 +1,12 @@
+[
+  {
+    "record_id": 385,
+    "risk_score": 0.969168978694821,
+    "explanation": "The risk score of 0.9692 is very high. This means there is a significant chance that the information could be linked back to a person. A score close to 1.0 shows a serious privacy risk.\n\nThe columns that increased the risk are marital_status, industry, and sex. Marital_status can give clues about a person's life situation. Industry can reveal where someone works, which can be unique. Sex is also a strong identifier. On the other hand, education and age lower the risk. They are less specific and do not point to a single person as easily.\n\nTo better protect privacy, columns like marital_status, industry, and sex need better anonymization. This could mean changing the way this information is shared. For example, using broader categories for industry or combining marital_status with other data could help. This way, it\u2019s harder to link the data back to someone specific. \n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  },
+  {
+    "record_id": 312,
+    "risk_score": 0.0385184919038063,
+    "explanation": "The risk score of 0.0385 is low. This means there is not much risk associated with this record. A score of 0.0 means no risk at all, while 1.0 means the highest risk. So, this score suggests that the chances of privacy issues are minimal.\n\nThe columns that increased the risk are marital_status, sex, and age. Marital_status can reveal personal life details. Sex can also narrow down identity. Age can give clues about a person's life stage. On the other hand, education and industry decrease the risk. They are less specific and do not point to an individual as clearly.\n\nTo improve privacy, marital_status, sex, and age need better anonymization. One way to do this is to group ages into ranges instead of using exact numbers. Marital_status could be made more general, like \"single\" or \"not single.\" This would help protect personal information better.\n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  }
+]

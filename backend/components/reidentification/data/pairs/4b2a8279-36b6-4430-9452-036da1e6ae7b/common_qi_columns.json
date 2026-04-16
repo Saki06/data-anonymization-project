@@ -1,0 +1,24 @@
+{
+  "common_qi_columns": [
+    "sector",
+    "hhno",
+    "district",
+    "month",
+    "psu",
+    "snumber",
+    "nhh",
+    "result",
+    "person_serial_no",
+    "r2_school_education",
+    "type_of_school",
+    "grade_last_year",
+    "grade_this_year",
+    "when_stop_schooling",
+    "reason_leave_school",
+    "noschooling_reason",
+    "time_to_school",
+    "transport_medium",
+    "distance"
+  ],
+  "count": 19
+}

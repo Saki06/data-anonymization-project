@@ -1,0 +1,12 @@
+[
+  {
+    "record_id": 983,
+    "risk_score": 0.5271079873937018,
+    "explanation": "The risk score for this record is 0.5271. This score is in the middle range. It means there is some risk, but it is not the highest level. A score closer to 0 means low risk, while a score closer to 1 means high risk.\n\nThe columns that contributed most to this risk are age, education, industry, marital_status, and sex. All of these columns actually decrease the risk. This means that the information in these areas is less likely to help someone identify the person behind the data. Lower risk is good for privacy.\n\nTo improve privacy, we could better anonymize the columns. For example, we could group ages into ranges instead of using exact numbers. We could also use broader categories for education and industry. This would make it harder to link the data to a specific person. \n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  },
+  {
+    "record_id": 10,
+    "risk_score": 0.4959326370712342,
+    "explanation": "The risk score for this record is 0.4959. This score is close to the middle of the scale. It means there is a moderate level of risk. It is not the highest risk, but it is also not very low.\n\nThe columns that contributed most to this risk are age, education, industry, marital_status, and sex. All these columns actually decrease the risk. This means that the information in these columns does not make it easier to identify the person. For example, knowing someone's age or education level is not enough to find them.\n\nTo improve privacy, the columns that need better anonymization include age, education, industry, marital_status, and sex. Changes could include grouping ages into ranges or using general terms for education levels. This way, the data is less specific and harder to link back to an individual. \n\nRisk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability."
+  }
+]

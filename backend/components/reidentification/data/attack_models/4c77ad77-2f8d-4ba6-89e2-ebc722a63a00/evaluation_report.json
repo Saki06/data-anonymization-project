@@ -1,0 +1,205 @@
+{
+  "best_model": "logreg",
+  "selection_metric": "pr_auc",
+  "model_info": {
+    "model_type": "logreg",
+    "n_features": 8,
+    "n_train_samples": 160,
+    "n_test_samples": 40,
+    "best_threshold": 0.9863872517816195,
+    "best_pr_auc": 1.0,
+    "best_roc_auc": 1.0
+  },
+  "models": {
+    "logreg": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "pr_auc": 1.0,
+      "pr_curve": {
+        "precision": [
+          0.5,
+          0.5882352941176471,
+          1.0,
+          1.0
+        ],
+        "recall": [
+          1.0,
+          1.0,
+          1.0,
+          0.0
+        ],
+        "thresholds": [
+          0.006968223183384261,
+          0.01520072947934573,
+          0.9863872517816195
+        ]
+      },
+      "best_threshold": 0.9863872517816195,
+      "confusion_matrix": [
+        [
+          20,
+          0
+        ],
+        [
+          0,
+          20
+        ]
+      ],
+      "classification_report": {
+        "0": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 20.0
+        },
+        "1": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 20.0
+        },
+        "accuracy": 1.0,
+        "macro avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 40.0
+        },
+        "weighted avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 40.0
+        }
+      },
+      "pr_auc_calibrated": 1.0
+    },
+    "rf": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "pr_auc": 1.0,
+      "pr_curve": {
+        "precision": [
+          0.5,
+          1.0,
+          1.0
+        ],
+        "recall": [
+          1.0,
+          1.0,
+          0.0
+        ],
+        "thresholds": [
+          0.0,
+          1.0
+        ]
+      },
+      "best_threshold": 1.0,
+      "confusion_matrix": [
+        [
+          20,
+          0
+        ],
+        [
+          0,
+          20
+        ]
+      ],
+      "classification_report": {
+        "0": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 20.0
+        },
+        "1": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 20.0
+        },
+        "accuracy": 1.0,
+        "macro avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 40.0
+        },
+        "weighted avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 40.0
+        }
+      }
+    },
+    "gbm": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "pr_auc": 1.0,
+      "pr_curve": {
+        "precision": [
+          0.5,
+          1.0,
+          1.0
+        ],
+        "recall": [
+          1.0,
+          1.0,
+          0.0
+        ],
+        "thresholds": [
+          1.502816706949113e-07,
+          0.9999998497183292
+        ]
+      },
+      "best_threshold": 0.9999998497183292,
+      "confusion_matrix": [
+        [
+          20,
+          0
+        ],
+        [
+          0,
+          20
+        ]
+      ],
+      "classification_report": {
+        "0": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 20.0
+        },
+        "1": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 20.0
+        },
+        "accuracy": 1.0,
+        "macro avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 40.0
+        },
+        "weighted avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 40.0
+        }
+      }
+    }
+  }
+}

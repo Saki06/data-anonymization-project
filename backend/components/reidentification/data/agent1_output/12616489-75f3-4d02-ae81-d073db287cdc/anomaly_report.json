@@ -1,0 +1,8 @@
+{
+  "anomalies": [],
+  "total_anomalies": 0,
+  "detection_methods": [
+    "IQR_outliers_excluding_-1",
+    "high_cardinality_check"
+  ]
+}

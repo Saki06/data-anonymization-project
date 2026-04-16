@@ -1,0 +1,101 @@
+{
+  "total_records": 100,
+  "risk_level_counts": {
+    "high": 81,
+    "moderate": 10,
+    "low": 9
+  },
+  "risk_level_percentages": {
+    "high": 81.0,
+    "moderate": 10.0,
+    "low": 9.0
+  },
+  "final_risk_score_summary": {
+    "mean": 43.16305918881663,
+    "median": 48.17828715461897,
+    "min": 0.0,
+    "max": 50.0
+  },
+  "top_risky_columns": [
+    {
+      "column": "cosine_similarity",
+      "shap_importance": 2.219859660696006,
+      "pair_risk_correlation": NaN,
+      "shap_importance_norm": 1.0,
+      "pair_corr_abs_norm": 0.0,
+      "column_risk_score": 70.0
+    },
+    {
+      "column": "manhattan_distance",
+      "shap_importance": 1.0013687113019516,
+      "pair_risk_correlation": NaN,
+      "shap_importance_norm": 0.45109550348240773,
+      "pair_corr_abs_norm": 0.0,
+      "column_risk_score": 31.576685243768537
+    },
+    {
+      "column": "overall_similarity",
+      "shap_importance": 0.8528132994873391,
+      "pair_risk_correlation": NaN,
+      "shap_importance_norm": 0.38417442083701425,
+      "pair_corr_abs_norm": 0.0,
+      "column_risk_score": 26.892209458590994
+    },
+    {
+      "column": "marital_status_diff",
+      "shap_importance": 0.8414640653160609,
+      "pair_risk_correlation": NaN,
+      "shap_importance_norm": 0.3790618299952492,
+      "pair_corr_abs_norm": 0.0,
+      "column_risk_score": 26.53432809966744
+    },
+    {
+      "column": "marital_status_equal",
+      "shap_importance": 0.6391382946697037,
+      "pair_risk_correlation": NaN,
+      "shap_importance_norm": 0.28791833375147274,
+      "pair_corr_abs_norm": 0.0,
+      "column_risk_score": 20.15428336260309
+    },
+    {
+      "column": "euclidean_distance",
+      "shap_importance": 0.5664845604255193,
+      "pair_risk_correlation": NaN,
+      "shap_importance_norm": 0.25518935744249077,
+      "pair_corr_abs_norm": 0.0,
+      "column_risk_score": 17.863255020974353
+    },
+    {
+      "column": "industry_diff",
+      "shap_importance": 0.4610421334147906,
+      "pair_risk_correlation": NaN,
+      "shap_importance_norm": 0.20768976596936642,
+      "pair_corr_abs_norm": 0.0,
+      "column_risk_score": 14.53828361785565
+    },
+    {
+      "column": "education_diff",
+      "shap_importance": 0.3556458199602946,
+      "pair_risk_correlation": NaN,
+      "shap_importance_norm": 0.16021094768161462,
+      "pair_corr_abs_norm": 0.0,
+      "column_risk_score": 11.214766337713023
+    },
+    {
+      "column": "education_equal",
+      "shap_importance": 0.2193373814456133,
+      "pair_risk_correlation": NaN,
+      "shap_importance_norm": 0.09880686843818007,
+      "pair_corr_abs_norm": 0.0,
+      "column_risk_score": 6.916480790672604
+    },
+    {
+      "column": "sex_equal",
+      "shap_importance": 0.2120357883197117,
+      "pair_risk_correlation": NaN,
+      "shap_importance_norm": 0.09551765459498951,
+      "pair_corr_abs_norm": 0.0,
+      "column_risk_score": 6.686235821649265
+    }
+  ]
+}

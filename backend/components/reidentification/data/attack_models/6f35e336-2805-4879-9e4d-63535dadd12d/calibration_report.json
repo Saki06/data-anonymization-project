@@ -1,0 +1,78 @@
+{
+  "model": "xgb",
+  "calibration_method": "sigmoid",
+  "pr_auc_before": 0.8681971106665411,
+  "pr_auc_after": 0.8726978298620119,
+  "reliability_table": [
+    {
+      "bin_lower": 0.0,
+      "bin_upper": 0.1,
+      "mean_pred_prob": 0.07282190334026505,
+      "frac_positive": 0.0,
+      "count": 49
+    },
+    {
+      "bin_lower": 0.1,
+      "bin_upper": 0.2,
+      "mean_pred_prob": 0.13579950040137326,
+      "frac_positive": 0.3333333333333333,
+      "count": 9
+    },
+    {
+      "bin_lower": 0.2,
+      "bin_upper": 0.3,
+      "mean_pred_prob": 0.22215282171964645,
+      "frac_positive": 0.3333333333333333,
+      "count": 3
+    },
+    {
+      "bin_lower": 0.3,
+      "bin_upper": 0.4,
+      "mean_pred_prob": 0.3477620131646593,
+      "frac_positive": 0.5,
+      "count": 8
+    },
+    {
+      "bin_lower": 0.4,
+      "bin_upper": 0.5,
+      "mean_pred_prob": 0.4516897319505612,
+      "frac_positive": 0.75,
+      "count": 4
+    },
+    {
+      "bin_lower": 0.5,
+      "bin_upper": 0.6,
+      "mean_pred_prob": 0.5375985205173492,
+      "frac_positive": 1.0,
+      "count": 5
+    },
+    {
+      "bin_lower": 0.6,
+      "bin_upper": 0.7,
+      "mean_pred_prob": 0.6652044296264649,
+      "frac_positive": 0.6,
+      "count": 10
+    },
+    {
+      "bin_lower": 0.7,
+      "bin_upper": 0.8,
+      "mean_pred_prob": 0.7502425034840902,
+      "frac_positive": 0.6,
+      "count": 5
+    },
+    {
+      "bin_lower": 0.8,
+      "bin_upper": 0.9,
+      "mean_pred_prob": 0.8592865740259489,
+      "frac_positive": 0.875,
+      "count": 32
+    },
+    {
+      "bin_lower": 0.9,
+      "bin_upper": 1.0,
+      "mean_pred_prob": 0.9103977550035236,
+      "frac_positive": 0.8275862068965517,
+      "count": 29
+    }
+  ]
+}

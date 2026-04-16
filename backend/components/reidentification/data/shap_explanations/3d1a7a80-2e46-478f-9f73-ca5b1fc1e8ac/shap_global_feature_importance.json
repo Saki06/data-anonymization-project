@@ -1,0 +1,37 @@
+[
+  {
+    "feature": "sector_equal",
+    "mean_abs_shap": 0.0537057288999132,
+    "rank": 1
+  },
+  {
+    "feature": "overall_similarity",
+    "mean_abs_shap": 0.05370572889991318,
+    "rank": 2
+  },
+  {
+    "feature": "cosine_similarity",
+    "mean_abs_shap": 0.043689121343244555,
+    "rank": 3
+  },
+  {
+    "feature": "manhattan_distance",
+    "mean_abs_shap": 0.009766296640908383,
+    "rank": 4
+  },
+  {
+    "feature": "euclidean_distance",
+    "mean_abs_shap": 0.00976629664090837,
+    "rank": 5
+  },
+  {
+    "feature": "sector_diff",
+    "mean_abs_shap": 0.00976629664090837,
+    "rank": 6
+  },
+  {
+    "feature": "sector_match",
+    "mean_abs_shap": 0.0,
+    "rank": 7
+  }
+]

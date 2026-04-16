@@ -1,0 +1,42 @@
+{
+  "auxiliary_shape": [
+    1320,
+    8
+  ],
+  "anonymized_shape": [
+    1000,
+    30
+  ],
+  "resolved_qi_mapping": {
+    "age": "age",
+    "education": "education",
+    "industry": "industry",
+    "marital_status": "marital_status",
+    "sex": "sex"
+  },
+  "direct_identifiers": [],
+  "sensitive_attributes": [],
+  "positive_pair_count": 330,
+  "negative_pair_count": 330,
+  "total_pair_count": 660,
+  "feature_columns": [
+    "age_diff",
+    "age_ratio",
+    "age_close",
+    "education_diff",
+    "education_ratio",
+    "education_close",
+    "industry_diff",
+    "industry_ratio",
+    "industry_close",
+    "marital_status_diff",
+    "marital_status_ratio",
+    "marital_status_close",
+    "sex_diff",
+    "sex_ratio",
+    "sex_close",
+    "overall_similarity"
+  ],
+  "train_size": 528,
+  "test_size": 132
+}

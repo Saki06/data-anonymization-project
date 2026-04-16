@@ -1,0 +1,23 @@
+{
+  "baseline": {
+    "type": "mean_of_binary_match_features",
+    "features_used": [
+      "education_equal",
+      "marital_status_equal",
+      "sex_equal",
+      "age_match",
+      "industry_match",
+      "industry_equal",
+      "education_match",
+      "age_equal"
+    ],
+    "pr_auc": 0.3914529914529914,
+    "roc_auc": 0.11249999999999999
+  },
+  "best_ml_model": {
+    "name": "gbm",
+    "pr_auc": 0.8428381789778849,
+    "roc_auc": 0.91125
+  },
+  "pr_auc_lift": 0.45138518752489354
+}

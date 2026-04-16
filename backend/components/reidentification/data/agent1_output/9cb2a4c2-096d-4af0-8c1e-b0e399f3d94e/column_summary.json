@@ -1,0 +1,259 @@
+{
+  "age": {
+    "data_type": "str",
+    "total_values": 100,
+    "unique_values": 5,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "most_frequent": "0-18",
+    "value_counts": {
+      "0-18": 27,
+      "19-35": 22,
+      "66+": 19,
+      "36-50": 17,
+      "51-65": 15
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 5.0
+  },
+  "sex": {
+    "data_type": "int64",
+    "total_values": 100,
+    "unique_values": 2,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "min": 1.0,
+    "max": 2.0,
+    "mean": 1.59,
+    "median": 2.0,
+    "std": 0.4943110704237103,
+    "range": 1.0,
+    "iqr": 1.0,
+    "quartiles": {
+      "25%": 1.0,
+      "50%": 2.0,
+      "75%": 2.0
+    },
+    "outliers": {
+      "count": 0,
+      "percentage": 0.0,
+      "bounds": {
+        "lower": -0.5,
+        "upper": 3.5
+      }
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 2.0,
+    "extreme_outlier_percentage": 0.0
+  },
+  "district": {
+    "data_type": "int64",
+    "total_values": 100,
+    "unique_values": 8,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "min": 10.0,
+    "max": 19.0,
+    "mean": 11.24,
+    "median": 11.0,
+    "std": 1.0835780609358119,
+    "range": 9.0,
+    "iqr": 0.0,
+    "quartiles": {
+      "25%": 11.0,
+      "50%": 11.0,
+      "75%": 11.0
+    },
+    "outliers": {
+      "count": 9,
+      "percentage": 9.0,
+      "bounds": {
+        "lower": 11.0,
+        "upper": 11.0
+      }
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 8.0,
+    "extreme_outlier_percentage": 9.0
+  },
+  "education": {
+    "data_type": "int64",
+    "total_values": 100,
+    "unique_values": 15,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "min": -1.0,
+    "max": 16.0,
+    "mean": 9.28,
+    "median": 10.0,
+    "std": 3.396611502213595,
+    "range": 17.0,
+    "iqr": 3.25,
+    "quartiles": {
+      "25%": 8.0,
+      "50%": 10.0,
+      "75%": 11.25
+    },
+    "outliers": {
+      "count": 8,
+      "percentage": 8.0,
+      "bounds": {
+        "lower": 3.125,
+        "upper": 16.125
+      }
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 15.0,
+    "extreme_outlier_percentage": 0.0
+  },
+  "marital_status": {
+    "data_type": "int64",
+    "total_values": 100,
+    "unique_values": 4,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "min": 1.0,
+    "max": 5.0,
+    "mean": 1.87,
+    "median": 2.0,
+    "std": 0.9173413495069062,
+    "range": 4.0,
+    "iqr": 1.0,
+    "quartiles": {
+      "25%": 1.0,
+      "50%": 2.0,
+      "75%": 2.0
+    },
+    "outliers": {
+      "count": 11,
+      "percentage": 11.0,
+      "bounds": {
+        "lower": -0.5,
+        "upper": 3.5
+      }
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 4.0,
+    "extreme_outlier_percentage": 0.0
+  },
+  "B_year": {
+    "data_type": "int64",
+    "total_values": 100,
+    "unique_values": 53,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "min": 1928.0,
+    "max": 2018.0,
+    "mean": 1981.84,
+    "median": 1983.0,
+    "std": 23.67572169923861,
+    "range": 90.0,
+    "iqr": 38.25,
+    "quartiles": {
+      "25%": 1963.75,
+      "50%": 1983.0,
+      "75%": 2002.0
+    },
+    "outliers": {
+      "count": 0,
+      "percentage": 0.0,
+      "bounds": {
+        "lower": 1906.375,
+        "upper": 2059.375
+      }
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 53.0,
+    "extreme_outlier_percentage": 0.0
+  },
+  "employment_status": {
+    "data_type": "int64",
+    "total_values": 100,
+    "unique_values": 7,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "min": -1.0,
+    "max": 6.0,
+    "mean": 0.84,
+    "median": -1.0,
+    "std": 2.308176069470604,
+    "range": 7.0,
+    "iqr": 4.0,
+    "quartiles": {
+      "25%": -1.0,
+      "50%": -1.0,
+      "75%": 3.0
+    },
+    "outliers": {
+      "count": 0,
+      "percentage": 0.0,
+      "bounds": {
+        "lower": -7.0,
+        "upper": 9.0
+      }
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 7.000000000000001,
+    "extreme_outlier_percentage": 0.0
+  },
+  "industry": {
+    "data_type": "int64",
+    "total_values": 100,
+    "unique_values": 26,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "min": -1.0,
+    "max": 97006.0,
+    "mean": 16997.43,
+    "median": -1.0,
+    "std": 26216.256068084433,
+    "range": 97007.0,
+    "iqr": 41003.0,
+    "quartiles": {
+      "25%": -1.0,
+      "50%": -1.0,
+      "75%": 41002.0
+    },
+    "outliers": {
+      "count": 0,
+      "percentage": 0.0,
+      "bounds": {
+        "lower": -61505.5,
+        "upper": 102506.5
+      }
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 26.0,
+    "extreme_outlier_percentage": 0.0
+  },
+  "main_activity": {
+    "data_type": "int64",
+    "total_values": 100,
+    "unique_values": 7,
+    "null_count": 0,
+    "null_percentage": 0.0,
+    "min": -1.0,
+    "max": 9.0,
+    "mean": 2.87,
+    "median": 1.0,
+    "std": 3.6918009073342435,
+    "range": 10.0,
+    "iqr": 6.5,
+    "quartiles": {
+      "25%": 0.5,
+      "50%": 1.0,
+      "75%": 7.0
+    },
+    "outliers": {
+      "count": 0,
+      "percentage": 0.0,
+      "bounds": {
+        "lower": -9.25,
+        "upper": 16.75
+      }
+    },
+    "completeness_score": 100.0,
+    "uniqueness_score": 7.000000000000001,
+    "extreme_outlier_percentage": 0.0
+  }
+}

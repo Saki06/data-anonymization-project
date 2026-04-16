@@ -1,0 +1,183 @@
+{
+  "dataset_overview": {
+    "total_rows": 82,
+    "total_columns": 9,
+    "total_cells": 738,
+    "memory_usage_mb": 0.03111553192138672,
+    "duplicate_rows": "6",
+    "duplicate_percentage": 7.317073170731707
+  },
+  "column_profiles": {
+    "sex": {
+      "data_type": "str",
+      "non_null_count": "82",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 2,
+      "unique_percentage": 2.4390243902439024,
+      "avg_length": 4.902439024390244,
+      "min_length": 4,
+      "max_length": 6,
+      "most_common": "Male"
+    },
+    "birth_year": {
+      "data_type": "int64",
+      "non_null_count": "82",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 48,
+      "unique_percentage": 58.536585365853654,
+      "min": 0.0,
+      "max": 99.0,
+      "mean": 56.81707317073171,
+      "median": 68.0,
+      "std": 33.020056773915535,
+      "quartiles": {
+        "25%": 17.5,
+        "50%": 68.0,
+        "75%": 79.75
+      }
+    },
+    "birth_month": {
+      "data_type": "int64",
+      "non_null_count": "82",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 12,
+      "unique_percentage": 14.634146341463413,
+      "min": 1.0,
+      "max": 12.0,
+      "mean": 6.024390243902439,
+      "median": 6.0,
+      "std": 2.93541849186326,
+      "quartiles": {
+        "25%": 4.0,
+        "50%": 6.0,
+        "75%": 8.0
+      }
+    },
+    "age": {
+      "data_type": "int64",
+      "non_null_count": "82",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 45,
+      "unique_percentage": 54.87804878048781,
+      "min": 0.0,
+      "max": 82.0,
+      "mean": 35.329268292682926,
+      "median": 36.5,
+      "std": 19.962344105190752,
+      "quartiles": {
+        "25%": 18.25,
+        "50%": 36.5,
+        "75%": 50.0
+      }
+    },
+    "ethnicity": {
+      "data_type": "str",
+      "non_null_count": "82",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 3,
+      "unique_percentage": 3.6585365853658534,
+      "avg_length": 8.731707317073171,
+      "min_length": 7,
+      "max_length": 23,
+      "most_common": "Sinhala"
+    },
+    "religion": {
+      "data_type": "str",
+      "non_null_count": "82",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 4,
+      "unique_percentage": 4.878048780487805,
+      "avg_length": 10.646341463414634,
+      "min_length": 5,
+      "max_length": 15,
+      "most_common": "Buddhist"
+    },
+    "marital_status": {
+      "data_type": "str",
+      "non_null_count": "82",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 4,
+      "unique_percentage": 4.878048780487805,
+      "avg_length": 21.853658536585368,
+      "min_length": 7,
+      "max_length": 30,
+      "most_common": "Currently Married (Registered)"
+    },
+    "curr_educ": {
+      "data_type": "str",
+      "non_null_count": "82",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 4,
+      "unique_percentage": 4.878048780487805,
+      "avg_length": 13.804878048780488,
+      "min_length": 6,
+      "max_length": 26,
+      "most_common": "Does not attend"
+    },
+    "education": {
+      "data_type": "str",
+      "non_null_count": "82",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 15,
+      "unique_percentage": 18.29268292682927,
+      "avg_length": 18.341463414634145,
+      "min_length": 12,
+      "max_length": 32,
+      "most_common": "Passed Grade 10"
+    }
+  },
+  "data_quality": {
+    "completeness_percentage": 100.0,
+    "total_null_cells": 0,
+    "total_null_percentage": 0.0,
+    "columns_with_nulls": 0,
+    "columns_fully_null": 0
+  },
+  "statistical_summary": {
+    "numeric_columns_count": 3,
+    "categorical_columns_count": 6,
+    "datetime_columns_count": 0,
+    "numeric_summary": {
+      "birth_year": {
+        "count": 82.0,
+        "mean": 56.81707317073171,
+        "std": 33.020056773915535,
+        "min": 0.0,
+        "25%": 17.5,
+        "50%": 68.0,
+        "75%": 79.75,
+        "max": 99.0
+      },
+      "birth_month": {
+        "count": 82.0,
+        "mean": 6.024390243902439,
+        "std": 2.93541849186326,
+        "min": 1.0,
+        "25%": 4.0,
+        "50%": 6.0,
+        "75%": 8.0,
+        "max": 12.0
+      },
+      "age": {
+        "count": 82.0,
+        "mean": 35.329268292682926,
+        "std": 19.962344105190752,
+        "min": 0.0,
+        "25%": 18.25,
+        "50%": 36.5,
+        "75%": 50.0,
+        "max": 82.0
+      }
+    },
+    "sampled_for_summary": false
+  }
+}

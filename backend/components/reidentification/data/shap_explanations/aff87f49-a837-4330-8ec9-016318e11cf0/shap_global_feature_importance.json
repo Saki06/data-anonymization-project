@@ -1,0 +1,57 @@
+[
+  {
+    "feature": "overall_similarity",
+    "mean_abs_shap": 0.17149484200621984,
+    "rank": 1
+  },
+  {
+    "feature": "distance_equal",
+    "mean_abs_shap": 0.1296735825837039,
+    "rank": 2
+  },
+  {
+    "feature": "manhattan_distance",
+    "mean_abs_shap": 0.029179929303760475,
+    "rank": 3
+  },
+  {
+    "feature": "euclidean_distance",
+    "mean_abs_shap": 0.029179929303760423,
+    "rank": 4
+  },
+  {
+    "feature": "distance_diff",
+    "mean_abs_shap": 0.02586848810254119,
+    "rank": 5
+  },
+  {
+    "feature": "sector_diff",
+    "mean_abs_shap": 0.024967871341137263,
+    "rank": 6
+  },
+  {
+    "feature": "sector_equal",
+    "mean_abs_shap": 0.024967871341137225,
+    "rank": 7
+  },
+  {
+    "feature": "cosine_similarity",
+    "mean_abs_shap": 0.023603128745053027,
+    "rank": 8
+  },
+  {
+    "feature": "distance_match",
+    "mean_abs_shap": 0.02332896864123303,
+    "rank": 9
+  },
+  {
+    "feature": "r2_school_education_match",
+    "mean_abs_shap": 0.007130759543364731,
+    "rank": 10
+  },
+  {
+    "feature": "type_of_school_match",
+    "mean_abs_shap": 0.0,
+    "rank": 11
+  }
+]

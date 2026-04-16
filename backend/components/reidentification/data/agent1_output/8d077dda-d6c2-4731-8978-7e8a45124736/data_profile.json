@@ -1,0 +1,151 @@
+{
+  "dataset_overview": {
+    "total_rows": 6,
+    "total_columns": 5,
+    "total_cells": 30,
+    "memory_usage_mb": 0.000640869140625,
+    "duplicate_rows": "0",
+    "duplicate_percentage": 0.0
+  },
+  "column_profiles": {
+    "row_id": {
+      "data_type": "int64",
+      "non_null_count": "6",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 6,
+      "unique_percentage": 100.0,
+      "min": 1.0,
+      "max": 6.0,
+      "mean": 3.5,
+      "median": 3.5,
+      "std": 1.8708286933869707,
+      "quartiles": {
+        "25%": 2.25,
+        "50%": 3.5,
+        "75%": 4.75
+      }
+    },
+    "age": {
+      "data_type": "int64",
+      "non_null_count": "6",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 4,
+      "unique_percentage": 66.66666666666666,
+      "min": 29.0,
+      "max": 88.0,
+      "mean": 46.833333333333336,
+      "median": 34.0,
+      "std": 24.76624046290972,
+      "quartiles": {
+        "25%": 30.25,
+        "50%": 34.0,
+        "75%": 58.75
+      }
+    },
+    "zipcode": {
+      "data_type": "int64",
+      "non_null_count": "6",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 4,
+      "unique_percentage": 66.66666666666666,
+      "min": 2138.0,
+      "max": 2141.0,
+      "mean": 2139.1666666666665,
+      "median": 2139.0,
+      "std": 1.1690451944500122,
+      "quartiles": {
+        "25%": 2138.25,
+        "50%": 2139.0,
+        "75%": 2139.75
+      }
+    },
+    "income": {
+      "data_type": "int64",
+      "non_null_count": "6",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 6,
+      "unique_percentage": 100.0,
+      "min": 40000.0,
+      "max": 120000.0,
+      "mean": 64833.333333333336,
+      "median": 54500.0,
+      "std": 30228.573678998924,
+      "quartiles": {
+        "25%": 45000.0,
+        "50%": 54500.0,
+        "75%": 72250.0
+      }
+    },
+    "diagnosis": {
+      "data_type": "object",
+      "non_null_count": "6",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 3,
+      "unique_percentage": 50.0,
+      "avg_length": 9.0,
+      "min_length": 7,
+      "max_length": 12,
+      "most_common": "Diabetes"
+    }
+  },
+  "data_quality": {
+    "completeness_percentage": 100.0,
+    "total_null_cells": 0,
+    "total_null_percentage": 0.0,
+    "columns_with_nulls": 0,
+    "columns_fully_null": 0
+  },
+  "statistical_summary": {
+    "numeric_columns_count": 4,
+    "categorical_columns_count": 1,
+    "datetime_columns_count": 0,
+    "numeric_summary": {
+      "row_id": {
+        "count": 6.0,
+        "mean": 3.5,
+        "std": 1.8708286933869707,
+        "min": 1.0,
+        "25%": 2.25,
+        "50%": 3.5,
+        "75%": 4.75,
+        "max": 6.0
+      },
+      "age": {
+        "count": 6.0,
+        "mean": 46.833333333333336,
+        "std": 24.76624046290972,
+        "min": 29.0,
+        "25%": 30.25,
+        "50%": 34.0,
+        "75%": 58.75,
+        "max": 88.0
+      },
+      "zipcode": {
+        "count": 6.0,
+        "mean": 2139.1666666666665,
+        "std": 1.1690451944500122,
+        "min": 2138.0,
+        "25%": 2138.25,
+        "50%": 2139.0,
+        "75%": 2139.75,
+        "max": 2141.0
+      },
+      "income": {
+        "count": 6.0,
+        "mean": 64833.333333333336,
+        "std": 30228.573678998924,
+        "min": 40000.0,
+        "25%": 45000.0,
+        "50%": 54500.0,
+        "75%": 72250.0,
+        "max": 120000.0
+      }
+    },
+    "sampled_for_summary": false
+  }
+}

@@ -1,0 +1,10 @@
+DATASET-LEVEL PRIVACY RISK SUMMARY
+============================================================
+
+This dataset has a total of 6 records. The average risk score is 0.5370. All records fall into the medium risk category, meaning they have some potential for privacy issues. There are no records in the high or low risk categories.
+
+The columns that matter most for risk are age. The age column is important because it can reveal personal information about individuals. When combined with other details, it can increase the chance of someone being linked to their data. Even though there is only one column, it still poses a risk.
+
+To make this dataset safer, the age column needs stronger anonymization. One way to do this is by grouping ages into ranges, like 20-29 or 30-39. This makes it harder to identify specific individuals. Another option is to broaden categories or remove any rare values that might stand out. These steps can help protect privacy better.
+
+Risk scores represent ML model confidence under simulated attack conditions, not real-world re-identification probability.

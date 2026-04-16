@@ -1,0 +1,867 @@
+{
+  "dataset_overview": {
+    "total_rows": 1000,
+    "total_columns": 30,
+    "total_cells": 30000,
+    "memory_usage_mb": 0.22900772094726562,
+    "duplicate_rows": "0",
+    "duplicate_percentage": 0.0
+  },
+  "column_profiles": {
+    "district": {
+      "data_type": "int64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 1,
+      "unique_percentage": 0.1,
+      "min": 11.0,
+      "max": 11.0,
+      "mean": 11.0,
+      "median": 11.0,
+      "std": 0.0,
+      "quartiles": {
+        "25%": 11.0,
+        "50%": 11.0,
+        "75%": 11.0
+      }
+    },
+    "sector": {
+      "data_type": "int64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 2,
+      "unique_percentage": 0.2,
+      "min": 1.0,
+      "max": 2.0,
+      "mean": 1.245,
+      "median": 1.0,
+      "std": 0.4303024054780082,
+      "quartiles": {
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 1.0
+      }
+    },
+    "month": {
+      "data_type": "int64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 2,
+      "unique_percentage": 0.2,
+      "min": 1.0,
+      "max": 2.0,
+      "mean": 1.299,
+      "median": 1.0,
+      "std": 0.4580489153014215,
+      "quartiles": {
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 2.0
+      }
+    },
+    "psu": {
+      "data_type": "int64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 32,
+      "unique_percentage": 3.2,
+      "min": 111001.0,
+      "max": 111114.0,
+      "mean": 111043.792,
+      "median": 111017.0,
+      "std": 39.777216631672,
+      "quartiles": {
+        "25%": 111008.0,
+        "50%": 111017.0,
+        "75%": 111088.0
+      }
+    },
+    "snumber": {
+      "data_type": "int64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 10,
+      "unique_percentage": 1.0,
+      "min": 1.0,
+      "max": 10.0,
+      "mean": 5.484,
+      "median": 6.0,
+      "std": 2.823068138340574,
+      "quartiles": {
+        "25%": 3.0,
+        "50%": 6.0,
+        "75%": 8.0
+      }
+    },
+    "hhno": {
+      "data_type": "int64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 2,
+      "unique_percentage": 0.2,
+      "min": 1.0,
+      "max": 2.0,
+      "mean": 1.003,
+      "median": 1.0,
+      "std": 0.054717401199198004,
+      "quartiles": {
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 1.0
+      }
+    },
+    "nhh": {
+      "data_type": "int64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 2,
+      "unique_percentage": 0.2,
+      "min": 1.0,
+      "max": 2.0,
+      "mean": 1.004,
+      "median": 1.0,
+      "std": 0.06315051850925683,
+      "quartiles": {
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 1.0
+      }
+    },
+    "result": {
+      "data_type": "int64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 1,
+      "unique_percentage": 0.1,
+      "min": 1.0,
+      "max": 1.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "std": 0.0,
+      "quartiles": {
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 1.0
+      }
+    },
+    "person_serial_no": {
+      "data_type": "int64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 11,
+      "unique_percentage": 1.0999999999999999,
+      "min": 1.0,
+      "max": 11.0,
+      "mean": 2.824,
+      "median": 3.0,
+      "std": 1.6259359359051229,
+      "quartiles": {
+        "25%": 1.75,
+        "50%": 3.0,
+        "75%": 4.0
+      }
+    },
+    "residence": {
+      "data_type": "int64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 2,
+      "unique_percentage": 0.2,
+      "min": 1.0,
+      "max": 2.0,
+      "mean": 1.031,
+      "median": 1.0,
+      "std": 0.1734043513556366,
+      "quartiles": {
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 1.0
+      }
+    },
+    "relationship": {
+      "data_type": "int64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 8,
+      "unique_percentage": 0.8,
+      "min": 1.0,
+      "max": 9.0,
+      "mean": 2.635,
+      "median": 3.0,
+      "std": 1.3651515075765908,
+      "quartiles": {
+        "25%": 1.75,
+        "50%": 3.0,
+        "75%": 3.0
+      }
+    },
+    "sex": {
+      "data_type": "int64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 2,
+      "unique_percentage": 0.2,
+      "min": 1.0,
+      "max": 2.0,
+      "mean": 1.53,
+      "median": 2.0,
+      "std": 0.4993489254512813,
+      "quartiles": {
+        "25%": 1.0,
+        "50%": 2.0,
+        "75%": 2.0
+      }
+    },
+    "birth_year": {
+      "data_type": "int64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 91,
+      "unique_percentage": 9.1,
+      "min": 0.0,
+      "max": 99.0,
+      "mean": 55.844,
+      "median": 64.0,
+      "std": 31.569293376385293,
+      "quartiles": {
+        "25%": 18.0,
+        "50%": 64.0,
+        "75%": 81.0
+      }
+    },
+    "birth_month": {
+      "data_type": "int64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 12,
+      "unique_percentage": 1.2,
+      "min": 1.0,
+      "max": 12.0,
+      "mean": 6.27,
+      "median": 6.0,
+      "std": 3.3885959603621356,
+      "quartiles": {
+        "25%": 3.0,
+        "50%": 6.0,
+        "75%": 9.0
+      }
+    },
+    "age": {
+      "data_type": "int64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 89,
+      "unique_percentage": 8.9,
+      "min": 0.0,
+      "max": 94.0,
+      "mean": 37.171,
+      "median": 38.0,
+      "std": 21.710668163649686,
+      "quartiles": {
+        "25%": 19.0,
+        "50%": 38.0,
+        "75%": 54.0
+      }
+    },
+    "registration": {
+      "data_type": "int64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 4,
+      "unique_percentage": 0.4,
+      "min": 1.0,
+      "max": 4.0,
+      "mean": 1.007,
+      "median": 1.0,
+      "std": 0.1223354648741156,
+      "quartiles": {
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 1.0
+      }
+    },
+    "ethnicity": {
+      "data_type": "int64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 5,
+      "unique_percentage": 0.5,
+      "min": 1.0,
+      "max": 6.0,
+      "mean": 1.425,
+      "median": 1.0,
+      "std": 0.955661178602693,
+      "quartiles": {
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 1.0
+      }
+    },
+    "religion": {
+      "data_type": "int64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 5,
+      "unique_percentage": 0.5,
+      "min": 1.0,
+      "max": 5.0,
+      "mean": 1.567,
+      "median": 1.0,
+      "std": 1.0443187260609672,
+      "quartiles": {
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 2.0
+      }
+    },
+    "marital_status": {
+      "data_type": "int64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 5,
+      "unique_percentage": 0.5,
+      "min": 1.0,
+      "max": 7.0,
+      "mean": 1.767,
+      "median": 2.0,
+      "std": 0.9129866069907842,
+      "quartiles": {
+        "25%": 1.0,
+        "50%": 2.0,
+        "75%": 2.0
+      }
+    },
+    "curr_educ": {
+      "data_type": "float64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 8,
+      "unique_percentage": 0.8,
+      "min": -1.0,
+      "max": 9.0,
+      "mean": 7.024,
+      "median": 9.0,
+      "std": 3.240358610389277,
+      "quartiles": {
+        "25%": 4.0,
+        "50%": 9.0,
+        "75%": 9.0
+      }
+    },
+    "education": {
+      "data_type": "float64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 20,
+      "unique_percentage": 2.0,
+      "min": -1.0,
+      "max": 19.0,
+      "mean": 9.476,
+      "median": 10.0,
+      "std": 4.177424430779673,
+      "quartiles": {
+        "25%": 8.0,
+        "50%": 10.0,
+        "75%": 12.25
+      }
+    },
+    "main_activity": {
+      "data_type": "float64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 11,
+      "unique_percentage": 1.0999999999999999,
+      "min": -1.0,
+      "max": 99.0,
+      "mean": 3.499,
+      "median": 1.0,
+      "std": 8.20373697166726,
+      "quartiles": {
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 7.0
+      }
+    },
+    "is_active": {
+      "data_type": "float64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 3,
+      "unique_percentage": 0.3,
+      "min": -1.0,
+      "max": 2.0,
+      "mean": 0.953,
+      "median": 1.0,
+      "std": 1.1144653574844905,
+      "quartiles": {
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 2.0
+      }
+    },
+    "main_occupation": {
+      "data_type": "float64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 126,
+      "unique_percentage": 12.6,
+      "min": -1.0,
+      "max": 9998.0,
+      "mean": 2225.517,
+      "median": -1.0,
+      "std": 3195.5525734935045,
+      "quartiles": {
+        "25%": -1.0,
+        "50%": -1.0,
+        "75%": 4311.0
+      }
+    },
+    "industry": {
+      "data_type": "float64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 176,
+      "unique_percentage": 17.599999999999998,
+      "min": -1.0,
+      "max": 99998.0,
+      "mean": 19926.875,
+      "median": -1.0,
+      "std": 29652.901011566755,
+      "quartiles": {
+        "25%": -1.0,
+        "50%": -1.0,
+        "75%": 46303.5
+      }
+    },
+    "employment_status": {
+      "data_type": "float64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 7,
+      "unique_percentage": 0.7000000000000001,
+      "min": -1.0,
+      "max": 6.0,
+      "mean": 0.77,
+      "median": -1.0,
+      "std": 2.3079052030849163,
+      "quartiles": {
+        "25%": -1.0,
+        "50%": -1.0,
+        "75%": 3.0
+      }
+    },
+    "uresidencf": {
+      "data_type": "float64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 3,
+      "unique_percentage": 0.3,
+      "min": -1.0,
+      "max": 2.0,
+      "mean": -0.922,
+      "median": -1.0,
+      "std": 0.44510011695585305,
+      "quartiles": {
+        "25%": -1.0,
+        "50%": -1.0,
+        "75%": -1.0
+      }
+    },
+    "live": {
+      "data_type": "float64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 4,
+      "unique_percentage": 0.4,
+      "min": -1.0,
+      "max": 3.0,
+      "mean": -0.923,
+      "median": -1.0,
+      "std": 0.448633784140553,
+      "quartiles": {
+        "25%": -1.0,
+        "50%": -1.0,
+        "75%": -1.0
+      }
+    },
+    "finalweight": {
+      "data_type": "float64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 32,
+      "unique_percentage": 3.2,
+      "min": 223.5695291,
+      "max": 553.9297573,
+      "mean": 329.1762840179,
+      "median": 296.258656,
+      "std": 87.39374512222732,
+      "quartiles": {
+        "25%": 264.530716,
+        "50%": 296.258656,
+        "75%": 379.287389875
+      }
+    },
+    "B_year": {
+      "data_type": "int64",
+      "non_null_count": "1000",
+      "null_count": "0",
+      "null_percentage": 0.0,
+      "unique_count": 91,
+      "unique_percentage": 9.1,
+      "min": 1924.0,
+      "max": 2018.0,
+      "mean": 1980.944,
+      "median": 1981.0,
+      "std": 21.709817598961543,
+      "quartiles": {
+        "25%": 1964.0,
+        "50%": 1981.0,
+        "75%": 2000.0
+      }
+    }
+  },
+  "data_quality": {
+    "completeness_percentage": 100.0,
+    "total_null_cells": 0,
+    "total_null_percentage": 0.0,
+    "columns_with_nulls": 0,
+    "columns_fully_null": 0
+  },
+  "statistical_summary": {
+    "numeric_columns_count": 30,
+    "categorical_columns_count": 0,
+    "datetime_columns_count": 0,
+    "numeric_summary": {
+      "district": {
+        "count": 1000.0,
+        "mean": 11.0,
+        "std": 0.0,
+        "min": 11.0,
+        "25%": 11.0,
+        "50%": 11.0,
+        "75%": 11.0,
+        "max": 11.0
+      },
+      "sector": {
+        "count": 1000.0,
+        "mean": 1.245,
+        "std": 0.4303024054780082,
+        "min": 1.0,
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 1.0,
+        "max": 2.0
+      },
+      "month": {
+        "count": 1000.0,
+        "mean": 1.299,
+        "std": 0.4580489153014215,
+        "min": 1.0,
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 2.0,
+        "max": 2.0
+      },
+      "psu": {
+        "count": 1000.0,
+        "mean": 111043.792,
+        "std": 39.777216631672,
+        "min": 111001.0,
+        "25%": 111008.0,
+        "50%": 111017.0,
+        "75%": 111088.0,
+        "max": 111114.0
+      },
+      "snumber": {
+        "count": 1000.0,
+        "mean": 5.484,
+        "std": 2.823068138340574,
+        "min": 1.0,
+        "25%": 3.0,
+        "50%": 6.0,
+        "75%": 8.0,
+        "max": 10.0
+      },
+      "hhno": {
+        "count": 1000.0,
+        "mean": 1.003,
+        "std": 0.054717401199198004,
+        "min": 1.0,
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 1.0,
+        "max": 2.0
+      },
+      "nhh": {
+        "count": 1000.0,
+        "mean": 1.004,
+        "std": 0.06315051850925683,
+        "min": 1.0,
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 1.0,
+        "max": 2.0
+      },
+      "result": {
+        "count": 1000.0,
+        "mean": 1.0,
+        "std": 0.0,
+        "min": 1.0,
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 1.0,
+        "max": 1.0
+      },
+      "person_serial_no": {
+        "count": 1000.0,
+        "mean": 2.824,
+        "std": 1.6259359359051229,
+        "min": 1.0,
+        "25%": 1.75,
+        "50%": 3.0,
+        "75%": 4.0,
+        "max": 11.0
+      },
+      "residence": {
+        "count": 1000.0,
+        "mean": 1.031,
+        "std": 0.1734043513556366,
+        "min": 1.0,
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 1.0,
+        "max": 2.0
+      },
+      "relationship": {
+        "count": 1000.0,
+        "mean": 2.635,
+        "std": 1.3651515075765908,
+        "min": 1.0,
+        "25%": 1.75,
+        "50%": 3.0,
+        "75%": 3.0,
+        "max": 9.0
+      },
+      "sex": {
+        "count": 1000.0,
+        "mean": 1.53,
+        "std": 0.4993489254512813,
+        "min": 1.0,
+        "25%": 1.0,
+        "50%": 2.0,
+        "75%": 2.0,
+        "max": 2.0
+      },
+      "birth_year": {
+        "count": 1000.0,
+        "mean": 55.844,
+        "std": 31.569293376385293,
+        "min": 0.0,
+        "25%": 18.0,
+        "50%": 64.0,
+        "75%": 81.0,
+        "max": 99.0
+      },
+      "birth_month": {
+        "count": 1000.0,
+        "mean": 6.27,
+        "std": 3.3885959603621356,
+        "min": 1.0,
+        "25%": 3.0,
+        "50%": 6.0,
+        "75%": 9.0,
+        "max": 12.0
+      },
+      "age": {
+        "count": 1000.0,
+        "mean": 37.171,
+        "std": 21.710668163649686,
+        "min": 0.0,
+        "25%": 19.0,
+        "50%": 38.0,
+        "75%": 54.0,
+        "max": 94.0
+      },
+      "registration": {
+        "count": 1000.0,
+        "mean": 1.007,
+        "std": 0.1223354648741156,
+        "min": 1.0,
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 1.0,
+        "max": 4.0
+      },
+      "ethnicity": {
+        "count": 1000.0,
+        "mean": 1.425,
+        "std": 0.955661178602693,
+        "min": 1.0,
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 1.0,
+        "max": 6.0
+      },
+      "religion": {
+        "count": 1000.0,
+        "mean": 1.567,
+        "std": 1.0443187260609672,
+        "min": 1.0,
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 2.0,
+        "max": 5.0
+      },
+      "marital_status": {
+        "count": 1000.0,
+        "mean": 1.767,
+        "std": 0.9129866069907842,
+        "min": 1.0,
+        "25%": 1.0,
+        "50%": 2.0,
+        "75%": 2.0,
+        "max": 7.0
+      },
+      "curr_educ": {
+        "count": 1000.0,
+        "mean": 7.024,
+        "std": 3.240358610389277,
+        "min": -1.0,
+        "25%": 4.0,
+        "50%": 9.0,
+        "75%": 9.0,
+        "max": 9.0
+      },
+      "education": {
+        "count": 1000.0,
+        "mean": 9.476,
+        "std": 4.177424430779673,
+        "min": -1.0,
+        "25%": 8.0,
+        "50%": 10.0,
+        "75%": 12.25,
+        "max": 19.0
+      },
+      "main_activity": {
+        "count": 1000.0,
+        "mean": 3.499,
+        "std": 8.20373697166726,
+        "min": -1.0,
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 7.0,
+        "max": 99.0
+      },
+      "is_active": {
+        "count": 1000.0,
+        "mean": 0.953,
+        "std": 1.1144653574844905,
+        "min": -1.0,
+        "25%": 1.0,
+        "50%": 1.0,
+        "75%": 2.0,
+        "max": 2.0
+      },
+      "main_occupation": {
+        "count": 1000.0,
+        "mean": 2225.517,
+        "std": 3195.5525734935045,
+        "min": -1.0,
+        "25%": -1.0,
+        "50%": -1.0,
+        "75%": 4311.0,
+        "max": 9998.0
+      },
+      "industry": {
+        "count": 1000.0,
+        "mean": 19926.875,
+        "std": 29652.901011566755,
+        "min": -1.0,
+        "25%": -1.0,
+        "50%": -1.0,
+        "75%": 46303.5,
+        "max": 99998.0
+      },
+      "employment_status": {
+        "count": 1000.0,
+        "mean": 0.77,
+        "std": 2.3079052030849163,
+        "min": -1.0,
+        "25%": -1.0,
+        "50%": -1.0,
+        "75%": 3.0,
+        "max": 6.0
+      },
+      "uresidencf": {
+        "count": 1000.0,
+        "mean": -0.922,
+        "std": 0.44510011695585305,
+        "min": -1.0,
+        "25%": -1.0,
+        "50%": -1.0,
+        "75%": -1.0,
+        "max": 2.0
+      },
+      "live": {
+        "count": 1000.0,
+        "mean": -0.923,
+        "std": 0.448633784140553,
+        "min": -1.0,
+        "25%": -1.0,
+        "50%": -1.0,
+        "75%": -1.0,
+        "max": 3.0
+      },
+      "finalweight": {
+        "count": 1000.0,
+        "mean": 329.1762840179,
+        "std": 87.39374512222732,
+        "min": 223.5695291,
+        "25%": 264.530716,
+        "50%": 296.258656,
+        "75%": 379.287389875,
+        "max": 553.9297573
+      },
+      "B_year": {
+        "count": 1000.0,
+        "mean": 1980.944,
+        "std": 21.709817598961543,
+        "min": 1924.0,
+        "25%": 1964.0,
+        "50%": 1981.0,
+        "75%": 2000.0,
+        "max": 2018.0
+      }
+    },
+    "sampled_for_summary": false
+  }
+}

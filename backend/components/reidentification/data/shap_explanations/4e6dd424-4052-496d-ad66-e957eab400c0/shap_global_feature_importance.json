@@ -1,0 +1,66 @@
+[
+  {
+    "feature": "overall_similarity",
+    "mean_abs_shap": 4.0498275042994605
+  },
+  {
+    "feature": "age_diff",
+    "mean_abs_shap": 0.6841240504969099
+  },
+  {
+    "feature": "age_ratio",
+    "mean_abs_shap": 0.36762277492290557
+  },
+  {
+    "feature": "education_close",
+    "mean_abs_shap": 0.14982937546208572
+  },
+  {
+    "feature": "industry_ratio",
+    "mean_abs_shap": 0.09197764748319115
+  },
+  {
+    "feature": "education_diff",
+    "mean_abs_shap": 0.08244660242443415
+  },
+  {
+    "feature": "industry_diff",
+    "mean_abs_shap": 0.0712198859729933
+  },
+  {
+    "feature": "education_ratio",
+    "mean_abs_shap": 0.023005355659955058
+  },
+  {
+    "feature": "marital_status_diff",
+    "mean_abs_shap": 0.021538192170235972
+  },
+  {
+    "feature": "marital_status_ratio",
+    "mean_abs_shap": 0.018498618822274868
+  },
+  {
+    "feature": "marital_status_close",
+    "mean_abs_shap": 0.00872247151017769
+  },
+  {
+    "feature": "sex_close",
+    "mean_abs_shap": 0.003220814650979536
+  },
+  {
+    "feature": "sex_diff",
+    "mean_abs_shap": 0.0024769322217843832
+  },
+  {
+    "feature": "sex_ratio",
+    "mean_abs_shap": 0.001575108184383409
+  },
+  {
+    "feature": "age_close",
+    "mean_abs_shap": 0.0001493931845539347
+  },
+  {
+    "feature": "industry_close",
+    "mean_abs_shap": 0.0
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "baseline": {
+    "type": "mean_of_binary_match_features",
+    "features_used": [
+      "age_match"
+    ],
+    "pr_auc": 0.3333333333333333,
+    "roc_auc": 0.5
+  },
+  "best_ml_model": {
+    "name": "logreg",
+    "pr_auc": 0.3333333333333333,
+    "roc_auc": 0.5
+  },
+  "pr_auc_lift": 0.0
+}
