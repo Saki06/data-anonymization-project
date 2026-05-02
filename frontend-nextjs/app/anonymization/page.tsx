@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
@@ -245,6 +245,58 @@ function AnonymizationInner() {
   useEffect(() => {
     fetch(`${API_BASE}/`).then(r => setBackendOk(r.ok)).catch(() => setBackendOk(false));
   }, []);
+
+  // ── Auto-restore previous results on mount ────────────────────────────────
+  useEffect(() => {
+    if (!sid) return;
+    (async () => {
+      // 1. Restore analysis results
+      try {
+        const r = await fetch(`${API_BASE}/analysis-results/${sid}`);
+        if (r.ok) {
+          const d = await r.json();
+          if (d.has_results) {
+            setAnalysis(d as AnalysisResult);
+            // Restore plan params
+            const op = d.optimal_parameters;
+            if (op) {
+              setParamK(op.k ?? 5);
+              setParamL(op.l ?? 2);
+              setParamT(op.t ?? 0.2);
+              setParamGenLevel(op.generalization_level ?? 0.5);
+              setPlanNote('Restored from previous analysis run.');
+            }
+            // Restore Pareto front
+            const pf = d.optimization_results?.pareto_front;
+            if (Array.isArray(pf)) setParetoFront(pf as number[][]);
+          }
+        }
+      } catch { /* analysis not run yet */ }
+
+      // 2. Restore execution results
+      try {
+        const r = await fetch(`${API_BASE}/execution-results/${sid}`);
+        if (r.ok) {
+          const d = await r.json();
+          if (d.has_results) {
+            setExecResult(d as ExecutionResult);
+          }
+        }
+      } catch { /* execution not run yet */ }
+
+      // 3. Restore comparison results (if anonymized data exists)
+      try {
+        const fd = new FormData();
+        fd.append('session_id', sid);
+        const r = await fetch(`${API_BASE}/compare`, { method: 'POST', body: fd });
+        if (r.ok) {
+          const d = await r.json();
+          setCompareResult(d as CompareResult);
+        }
+      } catch { /* compare not available yet */ }
+    })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sid]);
 
   // ── KPI values derived from latest analysis ──────────────────────────────
   const riskPct = analysis ? (analysis.risk_score * 100) : null;
