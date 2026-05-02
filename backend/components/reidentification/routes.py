@@ -1250,7 +1250,11 @@ async def get_risk_scores_data(session_id: str):
 
 
 @router.get("/results/matched-row-pairs/{session_id}")
-async def get_matched_row_pairs(session_id: str, limit: int = Query(default=50, ge=1, le=1000)):
+async def get_matched_row_pairs(
+    session_id: str,
+    limit: int = Query(default=50, ge=0, le=100000),
+    include_all: bool = Query(default=False),
+):
     session = _sessions.get(session_id, {})
     aux_df = session.get("auxiliary_df")
     anon_df = session.get("anonymized_df")
@@ -1291,25 +1295,34 @@ async def get_matched_row_pairs(session_id: str, limit: int = Query(default=50, 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to read pair dataset: {e}")
 
-    if "label" in pair_df.columns:
-        labels = pair_df["label"].astype(str).str.strip().str.lower()
-        matched_df = pair_df[labels.isin({"1", "1.0", "true", "yes"})].copy()
-    elif "overall_similarity" in pair_df.columns:
-        matched_df = pair_df[pair_df["overall_similarity"] >= 0.6].copy()
-    else:
+    if include_all:
         matched_df = pair_df.copy()
+    else:
+        if "label" in pair_df.columns:
+            labels = pair_df["label"].astype(str).str.strip().str.lower()
+            matched_df = pair_df[labels.isin({"1", "1.0", "true", "yes"})].copy()
+        elif "overall_similarity" in pair_df.columns:
+            matched_df = pair_df[pair_df["overall_similarity"] >= 0.6].copy()
+        else:
+            matched_df = pair_df.copy()
 
     if matched_df.empty:
         if "overall_similarity" in pair_df.columns:
-            matched_df = pair_df.sort_values(by="overall_similarity", ascending=False).head(limit).copy()
+            matched_df = pair_df.sort_values(by="overall_similarity", ascending=False).copy()
         else:
-            matched_df = pair_df.head(limit).copy()
+            matched_df = pair_df.copy()
+
+        if limit > 0:
+            matched_df = matched_df.head(limit)
 
     sort_col = "overall_similarity" if "overall_similarity" in matched_df.columns else None
     if sort_col:
         matched_df = matched_df.sort_values(by=sort_col, ascending=False)
 
-    matched_df = matched_df.head(limit)
+    total_available = int(len(matched_df))
+    if limit > 0:
+        matched_df = matched_df.head(limit)
+
     output_pairs: List[Dict[str, Any]] = []
 
     for _, row in matched_df.iterrows():
@@ -1335,7 +1348,12 @@ async def get_matched_row_pairs(session_id: str, limit: int = Query(default=50, 
 
         output_pairs.append(item)
 
-    return {"pairs": output_pairs, "total": int(len(output_pairs))}
+    return {
+        "pairs": output_pairs,
+        "total": int(len(output_pairs)),
+        "total_available": total_available,
+        "include_all": include_all,
+    }
 
 
 @router.get("/results/shap-global/{session_id}")

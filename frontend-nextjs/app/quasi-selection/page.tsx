@@ -62,6 +62,13 @@ function QuasiSelectionInner() {
           setColumns(data.columns ?? []);
           setSampleData(data.sample_data ?? []);
           setShape(data.shape ?? [0, 0]);
+          // Restore previously saved selections
+          if (data.quasi_identifiers?.length) {
+            setSelectedQIs(new Set(data.quasi_identifiers));
+          }
+          if (data.sensitive_attributes?.length) {
+            setSelectedSens(new Set(data.sensitive_attributes));
+          }
         }
       })
       .catch(() => {});

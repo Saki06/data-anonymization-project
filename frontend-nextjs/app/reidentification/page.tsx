@@ -39,15 +39,23 @@ function valuesMatch(auxValue: unknown, anonValue: unknown): boolean {
   return normalizeCompareValue(auxValue) === normalizeCompareValue(anonValue);
 }
 
+function bothValuesEmpty(auxValue: unknown, anonValue: unknown): boolean {
+  return normalizeCompareValue(auxValue) === '' && normalizeCompareValue(anonValue) === '';
+}
+
 function isNumericValue(value: unknown): boolean {
   if (value === null || value === undefined || value === '') return false;
   return !Number.isNaN(Number(value));
 }
 
-function compareStatus(auxValue: unknown, anonValue: unknown): 'match' | 'close' | 'changed' {
+function compareStatus(auxValue: unknown, anonValue: unknown): 'match' | 'close' | 'changed' | 'missing' {
+  if (bothValuesEmpty(auxValue, anonValue)) return 'missing';
   if (valuesMatch(auxValue, anonValue)) return 'match';
   if (isNumericValue(auxValue) && isNumericValue(anonValue)) {
-    const delta = Math.abs(Number(auxValue) - Number(anonValue));
+    const auxNum = Number(auxValue);
+    const anonNum = Number(anonValue);
+    if (auxNum === anonNum) return 'match';  // 10 === 10.0
+    const delta = Math.abs(auxNum - anonNum);
     if (delta <= 1) return 'close';
   }
   return 'changed';
@@ -195,41 +203,52 @@ function LlmTabAutoLoader({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sid]);
 
-  if (loading) return <p className="text-sm text-gray-400 mt-3">⏳ Loading LLM explanations…</p>;
-  if (!llmResult) return <p className="text-sm text-gray-500 mt-3">ℹ️ No LLM explanations available yet. Run the pipeline first — explanations are generated automatically.</p>;
+  if (loading) return <div className="mt-6 flex items-center justify-center p-8 bg-slate-900/30 rounded-xl border border-slate-800 animate-pulse"><p className="text-slate-400">⏳ Loading AI Explanations…</p></div>;
+  if (!llmResult) return <div className="mt-6 p-6 bg-slate-900/30 border border-slate-800 rounded-xl"><p className="text-slate-500 text-center">ℹ️ No AI Explanations available yet. Run the pipeline first — explanations are generated automatically.</p></div>;
 
   return (
-    <div className="mt-3">
+    <div className="mt-4 space-y-6">
       {/* Dataset Summary */}
       {llmResult.summary && (
-        <>
-          <h4 className="font-semibold text-gray-700 mb-2">📊 Dataset Risk Summary</h4>
-          <div className="bg-slate-100 border-l-4 border-slate-700 rounded p-4 text-sm whitespace-pre-wrap font-mono leading-relaxed text-slate-800">{llmResult.summary}</div>
-        </>
+        <div className="bg-slate-900/50 border border-slate-700/50 rounded-2xl p-6 shadow-inner">
+          <h3 className="text-xl font-bold text-slate-100 flex items-center gap-2 mb-4">
+            <span className="text-purple-400">📊</span> Dataset Risk Summary
+          </h3>
+          <div className="bg-slate-950/50 border-l-4 border-purple-500 rounded-r-lg p-5 text-sm whitespace-pre-wrap font-mono leading-relaxed text-slate-300 shadow-sm">
+            {llmResult.summary}
+          </div>
+        </div>
       )}
 
       {llmResult.explanations?.length ? (
-        <>
-          <h4 className="mt-5 font-semibold text-gray-700">📝 Individual Record Explanations</h4>
+        <div className="bg-slate-900/30 border border-slate-700/50 p-6 rounded-2xl">
+          <h3 className="text-xl font-bold text-slate-100 flex items-center gap-2 mb-5">
+            <span className="text-blue-400">🤖</span> Individual Record Explanations
+          </h3>
 
           {/* Record Selector */}
-          <div className="mt-2">
-            <label className="text-xs font-semibold text-gray-500">Select a record to view explanation:</label>
-            <select
-              className="mt-1 block w-full border border-gray-300 rounded p-2 text-sm"
-              value={selectedLlmIdx}
-              onChange={e => setSelectedLlmIdx(Number(e.target.value))}
-            >
-              {llmResult.explanations.map((exp, i) => {
-                const rs = exp.risk_score ?? 0;
-                const icon = rs >= 0.7 ? '🔴' : rs >= 0.3 ? '🟡' : '🟢';
-                return (
-                  <option key={exp.record_id} value={i}>
-                    Record {exp.record_id} — Risk: {rs.toFixed(4)} {icon}
-                  </option>
-                );
-              })}
-            </select>
+          <div className="mb-6">
+            <label className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2 block">Select a record to view explanation:</label>
+            <div className="relative">
+              <select
+                className="w-full appearance-none bg-slate-800 border border-slate-600 text-slate-200 rounded-lg p-3 pr-10 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors shadow-sm cursor-pointer"
+                value={selectedLlmIdx}
+                onChange={e => setSelectedLlmIdx(Number(e.target.value))}
+              >
+                {llmResult.explanations.map((exp, i) => {
+                  const rs = exp.risk_score ?? 0;
+                  const icon = rs >= 0.7 ? '🔴' : rs >= 0.3 ? '🟡' : '🟢';
+                  return (
+                    <option key={exp.record_id} value={i} className="bg-slate-800 text-slate-200">
+                      Record {exp.record_id} — Risk: {rs.toFixed(4)} {icon}
+                    </option>
+                  );
+                })}
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
+                ▼
+              </div>
+            </div>
           </div>
 
           {/* Selected record detail */}
@@ -238,52 +257,86 @@ function LlmTabAutoLoader({
             if (!exp) return null;
             const rs = exp.risk_score ?? 0;
             const cat = rs >= 0.7 ? 'HIGH' : rs >= 0.3 ? 'MEDIUM' : 'LOW';
-            const icon = cat === 'HIGH' ? '🔴' : cat === 'MEDIUM' ? '🟡' : '🟢';
-            const [bg, border] = cat === 'HIGH' ? ['#ffebee','#f44336'] : cat === 'MEDIUM' ? ['#fff3e0','#ff9800'] : ['#e8f5e9','#4caf50'];
+            
+            // Premium styling based on risk level
+            const theme = cat === 'HIGH' 
+              ? { icon: '🔴', cardBg: 'bg-red-900/10 border-red-800/50', valColor: 'text-red-400', expBg: 'bg-red-950/40 border-l-red-500 text-red-200', label: 'bg-red-500/20 text-red-300 border-red-500/30' }
+              : cat === 'MEDIUM' 
+                ? { icon: '🟡', cardBg: 'bg-yellow-900/10 border-yellow-800/50', valColor: 'text-yellow-400', expBg: 'bg-yellow-950/40 border-l-yellow-500 text-yellow-200', label: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30' }
+                : { icon: '🟢', cardBg: 'bg-emerald-900/10 border-emerald-800/50', valColor: 'text-emerald-400', expBg: 'bg-emerald-950/40 border-l-emerald-500 text-emerald-200', label: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' };
+
             return (
-              <div className="mt-3">
-                <div className="grid grid-cols-3 gap-3 mb-3">
-                  {[
-                    { label: 'Record ID', val: exp.record_id },
-                    { label: 'Risk Score', val: rs.toFixed(4) },
-                    { label: 'Risk Level', val: `${icon} ${cat}` },
-                  ].map(m => (
-                    <div key={m.label} className="bg-gray-50 border border-gray-200 rounded p-3 text-center">
-                      <div className="text-lg font-bold text-gray-800">{m.val}</div>
-                      <div className="text-xs text-gray-500 mt-0.5">{m.label}</div>
+              <div className="mt-4 bg-slate-800/40 border border-slate-700/50 rounded-xl p-5">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
+                  <div className="bg-slate-900/60 border border-slate-700/50 rounded-lg p-4 text-center">
+                    <div className="text-2xl font-black text-slate-200">{exp.record_id}</div>
+                    <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mt-1">Record ID</div>
+                  </div>
+                  <div className={`bg-slate-900/60 border border-slate-700/50 rounded-lg p-4 text-center`}>
+                    <div className={`text-2xl font-black ${theme.valColor}`}>{rs.toFixed(4)}</div>
+                    <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mt-1">Risk Score</div>
+                  </div>
+                  <div className={`bg-slate-900/60 border border-slate-700/50 rounded-lg p-4 flex flex-col items-center justify-center`}>
+                    <div className={`px-3 py-1 rounded border ${theme.label} font-bold text-sm flex items-center gap-2`}>
+                      {theme.icon} {cat}
                     </div>
-                  ))}
+                    <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mt-2">Risk Level</div>
+                  </div>
                 </div>
-                <h5 className="text-sm font-semibold text-gray-600 mb-1">🤖 AI-Generated Explanation</h5>
-                <div className="p-4 rounded-lg text-sm text-gray-800 border-l-4"
-                  style={{ backgroundColor: bg, borderColor: border }}>
-                  {exp.explanation}
+                
+                <div>
+                  <h5 className="text-sm font-bold text-slate-300 flex items-center gap-2 mb-3">
+                    <span className="text-purple-400">✨</span> AI-Generated Explanation
+                  </h5>
+                  <div className={`p-5 rounded-r-xl border border-y-slate-700/30 border-r-slate-700/30 border-l-4 text-sm leading-relaxed ${theme.expBg} shadow-inner`}>
+                    {exp.explanation}
+                  </div>
                 </div>
               </div>
             );
           })()}
 
           {/* All records collapsible */}
-          <details className="mt-4">
-            <summary className="cursor-pointer text-sm font-medium text-blue-600 hover:underline">📚 View All Explained Records</summary>
-            <div className="mt-2 space-y-2">
+          <details className="mt-6 group">
+            <summary className="cursor-pointer text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-2 select-none outline-none">
+              <span className="bg-blue-500/10 p-1.5 rounded-md group-open:rotate-90 transition-transform">▶</span>
+              📚 View All {llmResult.explanations.length} Explained Records
+            </summary>
+            <div className="mt-4 space-y-3 pl-2">
               {llmResult.explanations.map((exp, i) => {
                 const rs = exp.risk_score ?? 0;
-                const icon = rs >= 0.7 ? '🔴' : rs >= 0.3 ? '🟡' : '🟢';
+                const cat = rs >= 0.7 ? 'HIGH' : rs >= 0.3 ? 'MEDIUM' : 'LOW';
+                const theme = cat === 'HIGH' ? { icon: '🔴', border: 'border-l-red-500', text: 'text-red-400' } : cat === 'MEDIUM' ? { icon: '🟡', border: 'border-l-yellow-500', text: 'text-yellow-400' } : { icon: '🟢', border: 'border-l-emerald-500', text: 'text-emerald-400' };
+                
                 return (
-                  <div key={exp.record_id} className="border border-slate-200 shadow-sm rounded p-3 text-sm bg-white">
-                    <div className="font-semibold text-slate-800">{icon} Record {exp.record_id} <span className="text-slate-500 font-normal">(Risk: {rs.toFixed(4)})</span></div>
-                    <p className="text-slate-600 mt-1 text-xs">{exp.explanation.slice(0, 200)}…
-                      <button className="ml-1 text-blue-600 hover:underline font-medium" onClick={() => setSelectedLlmIdx(i)}>view full</button>
+                  <div key={exp.record_id} className={`bg-slate-800/40 border border-slate-700/50 border-l-4 ${theme.border} rounded-lg p-4 hover:bg-slate-800/80 transition-colors`}>
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="font-bold text-slate-200 flex items-center gap-2">
+                        {theme.icon} Record {exp.record_id}
+                      </div>
+                      <div className={`text-xs font-bold ${theme.text}`}>
+                        Risk: {rs.toFixed(4)}
+                      </div>
+                    </div>
+                    <p className="text-slate-400 text-sm leading-relaxed">
+                      {exp.explanation.slice(0, 180)}…
+                      <button className="ml-2 text-blue-400 hover:text-blue-300 font-semibold underline decoration-blue-400/30 underline-offset-2" onClick={(e) => {
+                        e.preventDefault();
+                        setSelectedLlmIdx(i);
+                        // Using a small hack to scroll the details component into view
+                        e.currentTarget.closest('details')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }}>Read full</button>
                     </p>
                   </div>
                 );
               })}
             </div>
           </details>
-        </>
+        </div>
       ) : (
-        <p className="text-sm text-gray-500 mt-3">No explanations found in results.</p>
+        <div className="bg-slate-900/30 border border-slate-800 rounded-xl p-6 text-center">
+          <p className="text-slate-500">No individual explanations found in results.</p>
+        </div>
       )}
     </div>
   );
@@ -348,27 +401,32 @@ function SemiGauge({ value, label }: { value: number; label: string }) {
   const [p50x, p50y] = pt(50);
   const [p100x, p100y] = pt(100);
 
+  // Modern gauge styling
+  let strokeColor = "#22c55e"; // green
+  if (v >= 40) strokeColor = "#eab308"; // yellow
+  if (v >= 70) strokeColor = "#ef4444"; // red
+
   return (
     <div className="flex flex-col items-center">
-      <svg viewBox="0 0 120 68" width="130" height="68">
-        {/* Background track */}
-        <path d={arcPath(0, 100)} fill="none" stroke="#e2e8f0" strokeWidth="14" strokeLinecap="butt" />
-        {/* Color bands: green 0–40%, yellow 40–70%, red 70–100% */}
-        <path d={arcPath(0, 40)}   fill="none" stroke="#22c55e" strokeWidth="10" strokeLinecap="butt" />
-        <path d={arcPath(40, 70)}  fill="none" stroke="#eab308" strokeWidth="10" strokeLinecap="butt" />
-        <path d={arcPath(70, 100)} fill="none" stroke="#ef4444" strokeWidth="10" strokeLinecap="butt" />
-        {/* Dark fill arc 0 → value */}
-        {v > 0.5 && (
-          <path d={arcPath(0, v)} fill="none" stroke="#334155" strokeWidth="14" strokeLinecap="butt" />
+      <svg viewBox="0 0 120 72" width="130" height="78" className="drop-shadow-sm">
+        {/* Background track (darker/faint) */}
+        <path d={arcPath(0, 100)} fill="none" stroke="#1e293b" strokeWidth="12" strokeLinecap="round" />
+        
+        {/* Value track (colored, matching the risk level) */}
+        {v > 0 && (
+          <path d={arcPath(0, v)} fill="none" stroke={strokeColor} strokeWidth="12" strokeLinecap="round" 
+                style={{ filter: `drop-shadow(0 0 4px ${strokeColor}60)` }} />
         )}
+        
         {/* Tick labels */}
-        <text x={p0x - 7}  y={p0y + 5}   fontSize="9" fontWeight="600" fill="#e2e8f0" textAnchor="middle">0</text>
-        <text x={p50x}     y={p50y - 4}  fontSize="9" fontWeight="600" fill="#e2e8f0" textAnchor="middle">50</text>
-        <text x={p100x + 7} y={p100y + 5} fontSize="9" fontWeight="600" fill="#e2e8f0" textAnchor="middle">100</text>
-        {/* Value */}
-        <text x={cx} y={cy + 10} fontSize="11" fontWeight="bold" fill="#f1f5f9" textAnchor="middle">{v.toFixed(1)}</text>
+        <text x={p0x - 8}  y={p0y + 8}   fontSize="8" fontWeight="600" fill="#64748b" textAnchor="middle">0</text>
+        <text x={p50x}     y={p50y - 12} fontSize="8" fontWeight="600" fill="#64748b" textAnchor="middle">50</text>
+        <text x={p100x + 8} y={p100y + 8} fontSize="8" fontWeight="600" fill="#64748b" textAnchor="middle">100</text>
+        
+        {/* Value text in center */}
+        <text x={cx} y={cy + 8} fontSize="20" fontWeight="800" fill={strokeColor} textAnchor="middle">{v.toFixed(1)}</text>
       </svg>
-      <div className="text-xs text-slate-500 text-center -mt-1 leading-tight" style={{ maxWidth: 130 }}>{label}</div>
+      <div className="text-xs text-slate-400 font-medium text-center leading-tight mt-1" style={{ maxWidth: 130 }}>{label}</div>
     </div>
   );
 }
@@ -711,7 +769,7 @@ function ReidentificationInner() {
 
     // ── Matched row pairs (optional) ─────────────────────────────────────────
     try {
-      const pairsRes = await fetch(`${API_BASE}/results/matched-row-pairs/${sid}?limit=200`);
+      const pairsRes = await fetch(`${API_BASE}/results/matched-row-pairs/${sid}?include_all=true&limit=0`);
       if (pairsRes.ok) {
         const d = await pairsRes.json();
         const pairs: MatchedRowPair[] = d.pairs ?? [];
@@ -1008,72 +1066,83 @@ function ReidentificationInner() {
                 : (result.total_records ?? matched);
             const unmatched = Math.max(0, total - matched);
             const avgPct = (result.overall_risk_score ?? 0) * 100;
-            const gaugeColor = avgPct >= 70 ? '#dc3545' : avgPct >= 30 ? '#ffc107' : '#28a745';
+            const gaugeColor = avgPct >= 70 ? '#ef4444' : avgPct >= 30 ? '#eab308' : '#22c55e';
             const p95 = result.p95 ?? 0; const p80 = result.p80 ?? 0; const p50 = result.p50 ?? 0;
             const riskRows = [
               { label: `Critical (≥${(p95*100).toFixed(1)}%)`,  count: result.critical_count ?? 0, color: 'bg-red-500' },
-              { label: `High (≥${(p80*100).toFixed(1)}%)`,      count: result.high_risk_count ?? 0, color: 'bg-orange-400' },
-              { label: `Medium (≥${(p50*100).toFixed(1)}%)`,    count: result.medium_count ?? 0,    color: 'bg-yellow-400' },
+              { label: `High (≥${(p80*100).toFixed(1)}%)`,      count: result.high_risk_count ?? 0, color: 'bg-orange-500' },
+              { label: `Medium (≥${(p50*100).toFixed(1)}%)`,    count: result.medium_count ?? 0,    color: 'bg-yellow-500' },
               { label: `Low (<${(p50*100).toFixed(1)}%)`,       count: result.low_count ?? 0,       color: 'bg-green-500' },
             ];
             return (
-              <div className="mt-3 space-y-5">
+              <div className="mt-4 space-y-8">
                 {/* Gauge */}
-                <div>
-                  <h3 className="font-semibold text-gray-700 mb-1">⚡ Average ML Attacker Confidence (Matched Records Only)</h3>
-                  <p className="text-xs text-gray-500 mb-2">Average ML model confidence computed <strong>only on successfully matched records</strong>. Represents model's reliance on learned patterns, not absolute re-identification probability.</p>
-                  <div className="flex items-center gap-4">
-                    <div className="relative w-32 h-32 flex-shrink-0">
-                      <svg viewBox="0 0 36 36" className="w-full h-full -rotate-90">
-                        <circle cx="18" cy="18" r="15.9" fill="none" stroke="#e9ecef" strokeWidth="3" />
-                        <circle cx="18" cy="18" r="15.9" fill="none" stroke={gaugeColor} strokeWidth="3"
-                          strokeDasharray={`${avgPct} ${100 - avgPct}`} strokeLinecap="round" />
-                      </svg>
-                      <div className="absolute inset-0 flex flex-col items-center justify-center rotate-0">
-                        <span className="text-xl font-bold" style={{ color: gaugeColor }}>{avgPct.toFixed(1)}%</span>
-                        <span className="text-xs text-gray-400">confidence</span>
-                      </div>
+                <div className="bg-slate-900/50 border border-slate-700/50 rounded-2xl p-6 flex flex-col md:flex-row items-center gap-8 shadow-inner">
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-slate-100 flex items-center gap-2 mb-2">
+                      <span className="text-yellow-400">⚡</span> Average Attacker Confidence
+                    </h3>
+                    <p className="text-sm text-slate-400 leading-relaxed mb-4">
+                      Average ML model confidence computed <strong>only on successfully matched records</strong>. This represents the model's reliance on learned patterns, not absolute re-identification probability.
+                    </p>
+                    <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-3 text-xs text-blue-300">
+                      <span className="font-semibold text-blue-200">ℹ️ Clarification:</span> This represents the ML attacker's confidence in its matching predictions. It measures how strongly the model relies on learned patterns.
                     </div>
-                    <div className="alert-info text-sm flex-1">
-                      ℹ️ <strong>Clarification:</strong> This represents the ML attacker's <strong>confidence in its matching predictions</strong>, not absolute re-identification probability. It measures how strongly the model relies on learned patterns.
+                  </div>
+                  
+                  <div className="relative w-40 h-40 flex-shrink-0 drop-shadow-lg">
+                    <svg viewBox="0 0 36 36" className="w-full h-full -rotate-90">
+                      <circle cx="18" cy="18" r="15.9" fill="none" stroke="#1e293b" strokeWidth="2.5" />
+                      <circle cx="18" cy="18" r="15.9" fill="none" stroke={gaugeColor} strokeWidth="2.5"
+                        strokeDasharray={`${avgPct} ${100 - avgPct}`} strokeLinecap="round" 
+                        style={{ filter: `drop-shadow(0 0 6px ${gaugeColor}80)` }} />
+                    </svg>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                      <span className="text-3xl font-black tracking-tight" style={{ color: gaugeColor }}>{avgPct.toFixed(1)}%</span>
+                      <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold mt-1">Confidence</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Match Coverage */}
                 <div>
-                  <h3 className="font-semibold text-gray-700 mb-2">📊 Dataset Context</h3>
-                  <div className="grid grid-cols-3 gap-3">
-                    {[
-                      { label: 'Total Anonymized Records', val: total, sub: '' },
-                      { label: 'Matched Records (scored)', val: matched, sub: matched && total ? `${((matched/total)*100).toFixed(1)}% coverage` : '' },
-                      { label: 'Unmatched Records', val: unmatched, sub: 'risk unknown' },
-                    ].map(m => (
-                      <div key={m.label} className="bg-blue-50 border border-blue-100 rounded-lg p-3 text-center">
-                        <div className="text-2xl font-bold text-blue-900">{m.val}</div>
-                        <div className="text-xs text-gray-600 mt-0.5 font-medium">{m.label}</div>
-                        {m.sub && <div className="text-xs text-gray-400">{m.sub}</div>}
-                      </div>
-                    ))}
+                  <h3 className="font-semibold text-slate-300 mb-3 text-lg flex items-center gap-2">📊 Dataset Context</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="bg-slate-900/30 border border-slate-700/50 rounded-xl p-5 text-center">
+                      <div className="text-3xl font-black text-slate-300">{total.toLocaleString()}</div>
+                      <div className="text-sm text-slate-400 mt-2 font-semibold">Total Anonymized Records</div>
+                    </div>
+                    <div className="bg-blue-900/20 border border-blue-800/50 rounded-xl p-5 text-center">
+                      <div className="text-3xl font-black text-blue-400">{matched.toLocaleString()}</div>
+                      <div className="text-sm text-blue-200 mt-2 font-semibold">Matched Records</div>
+                      <div className="text-xs text-blue-400/60 mt-1">{matched && total ? `${((matched/total)*100).toFixed(1)}% coverage` : 'Scored by ML'}</div>
+                    </div>
+                    <div className="bg-slate-900/30 border border-slate-700/50 rounded-xl p-5 text-center opacity-70">
+                      <div className="text-3xl font-black text-slate-500">{unmatched.toLocaleString()}</div>
+                      <div className="text-sm text-slate-500 mt-2 font-semibold">Unmatched Records</div>
+                      <div className="text-xs text-slate-600 mt-1">Risk unknown</div>
+                    </div>
                   </div>
                 </div>
 
                 {/* Risk Breakdown */}
                 <div>
-                  <h3 className="font-semibold text-gray-700 mb-1">📋 ML Risk Level Distribution among {matched.toLocaleString()} Matched Records</h3>
-                  <div className="alert-warning text-xs mb-3">
-                    ⚠️ <strong>IMPORTANT:</strong> This shows ML model confidence distribution for <strong>{matched.toLocaleString()} matched records only</strong>. Unmatched records are excluded.
+                  <h3 className="font-semibold text-slate-300 mb-2 text-lg">📋 ML Risk Level Distribution</h3>
+                  <div className="text-xs text-amber-500/80 mb-4 bg-amber-500/10 border border-amber-500/20 rounded-md p-2 inline-block">
+                    ⚠️ <strong>IMPORTANT:</strong> This shows distribution for <strong>{matched.toLocaleString()} matched records only</strong>.
                   </div>
-                  <div className="space-y-2">
+                  <div className="space-y-4 bg-slate-900/30 border border-slate-700/50 p-6 rounded-xl">
                     {riskRows.map(row => {
                       const pct = matched > 0 ? (row.count / matched) * 100 : 0;
                       return (
-                        <div key={row.label} className="flex items-center gap-3">
-                          <div className="w-48 text-sm text-white flex-shrink-0">{row.label}</div>
-                          <div className="flex-1 h-5 bg-gray-100 rounded overflow-hidden">
-                            <div className={`h-full ${row.color} rounded transition-all`} style={{ width: `${pct}%` }} />
+                        <div key={row.label} className="flex items-center gap-4">
+                          <div className="w-48 text-sm font-semibold text-slate-300 flex-shrink-0">{row.label}</div>
+                          <div className="flex-1 h-3 bg-slate-800 rounded-full overflow-hidden shadow-inner">
+                            <div className={`h-full ${row.color} transition-all rounded-full`} style={{ width: `${pct}%`, boxShadow: `0 0 10px var(--tw-shadow-color)` }} />
                           </div>
-                          <div className="text-sm font-semibold w-20 text-right">{row.count.toLocaleString()} <span className="text-gray-400 font-normal">({pct.toFixed(1)}%)</span></div>
+                          <div className="text-sm font-bold w-28 text-right text-slate-200">
+                            {row.count.toLocaleString()} <span className="text-slate-500 font-normal ml-1">({pct.toFixed(1)}%)</span>
+                          </div>
                         </div>
                       );
                     })}
@@ -1101,7 +1170,7 @@ function ReidentificationInner() {
                 <DataTable
                   columns={['anon_id', riskCol, ...(Object.keys(shapTopFeatures).length > 0 ? ['Top Risk Factors'] : []), ...(result?.columns?.slice(0, 5) ?? [])]}
                   rows={filteredRecords.map(r => {
-                    const id = String(r.anon_id ?? r.record_id ?? '');
+                    const id = String(r.anon_id ?? r.record_id ?? r.anon_index ?? '');
                     return {
                       anon_id: id,
                       [riskCol]: typeof r[riskCol] === 'number' ? (r[riskCol] as number).toFixed(4) : r[riskCol],
@@ -1119,7 +1188,7 @@ function ReidentificationInner() {
                     const csv = [
                       cols.join(','),
                       ...filteredRecords.map(r => {
-                        const id = String(r.anon_id ?? r.record_id ?? '');
+                        const id = String(r.anon_id ?? r.record_id ?? r.anon_index ?? '');
                         return cols.map(c => {
                           if (c === 'anon_id') return id;
                           if (c === 'Top Risk Factors') return shapTopFeatures[id] ?? '';
@@ -1140,7 +1209,7 @@ function ReidentificationInner() {
 
               {/* Matched row comparison */}
               <div className="mt-6">
-                <h3 className="font-semibold text-gray-700 mb-2">🔗 Matched Pair Comparison (Auxiliary vs Anonymized)</h3>
+                <h3 className="font-semibold text-gray-700 mb-2">🔗 Pair Comparison (Auxiliary vs Anonymized)</h3>
                 {matchedPairs.length > 0 ? (
                   <>
                     {(() => {
@@ -1150,7 +1219,15 @@ function ReidentificationInner() {
                       const auxCols = Object.keys(pair.auxiliary_row ?? {});
                       const anonCols = Object.keys(pair.anonymized_row ?? {});
                       const unionCols = Array.from(new Set([...auxCols, ...anonCols]));
-                      const changedCount = unionCols.filter((col) => compareStatus(pair.auxiliary_row?.[col], pair.anonymized_row?.[col]) === 'changed').length;
+                      const statusesByCol = unionCols.map((col) => ({
+                        col,
+                        status: compareStatus(pair.auxiliary_row?.[col], pair.anonymized_row?.[col]),
+                      }));
+                      const comparedStatuses = statusesByCol.filter((x) => x.status !== 'missing');
+                      const changedCount = comparedStatuses.filter((x) => x.status === 'changed').length;
+                      const matchedCount = comparedStatuses.filter((x) => x.status === 'match').length;
+                      const closeCount = comparedStatuses.filter((x) => x.status === 'close').length;
+                      const excludedCount = statusesByCol.length - comparedStatuses.length;
                       const matchScore = pair.overall_similarity ?? 0;
                       const riskLevel = riskLevelFromAttackScore(pair.attack_score);
                       const visibleCols = showFullPairData ? unionCols : unionCols.slice(0, 6);
@@ -1158,7 +1235,7 @@ function ReidentificationInner() {
                       return (
                         <div className="rounded-xl border border-slate-700 bg-slate-900/95 p-4 space-y-4 text-slate-100">
                           <div className="flex items-center gap-3 flex-wrap">
-                            <label className="text-sm font-medium text-slate-300">Matched Pair:</label>
+                            <label className="text-sm font-medium text-slate-300">Pair:</label>
                             <select
                               className="rounded-md border border-slate-600 bg-slate-800 px-3 py-2 text-sm text-slate-100"
                               value={selectedPairIdx}
@@ -1174,7 +1251,7 @@ function ReidentificationInner() {
                                 </option>
                               ))}
                             </select>
-                            <span className="text-xs text-slate-400">{matchedPairs.length} matched pairs loaded</span>
+                            <span className="text-xs text-slate-400">{matchedPairs.length} pair rows loaded</span>
                           </div>
 
                           <div className="flex items-center gap-2 flex-wrap text-xs">
@@ -1182,8 +1259,11 @@ function ReidentificationInner() {
                             <span className={`rounded px-2 py-1 border ${riskLevel === 'High' ? 'bg-red-500/20 text-red-300 border-red-500/40' : riskLevel === 'Medium' ? 'bg-yellow-500/20 text-yellow-300 border-yellow-500/40' : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'}`}>
                               Risk Level: {riskLevel}
                             </span>
+                            <span className="rounded px-2 py-1 bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">Matched: {matchedCount}</span>
+                            <span className="rounded px-2 py-1 bg-lime-500/20 text-lime-300 border border-lime-500/40">Close: {closeCount}</span>
                             <span className="rounded px-2 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/40">Changed: {changedCount}</span>
-                            <span className="text-slate-400">Total compared fields: {unionCols.length}</span>
+                            <span className="rounded px-2 py-1 bg-slate-500/20 text-slate-300 border border-slate-500/40">Excluded (both empty): {excludedCount}</span>
+                            <span className="text-slate-400">Total compared fields: {comparedStatuses.length}</span>
                           </div>
 
                           <div className="overflow-x-auto rounded-lg border border-slate-700">
@@ -1205,7 +1285,7 @@ function ReidentificationInner() {
                                     <tr key={col} className="border-t border-slate-800 bg-slate-900/70">
                                       <td className="p-2 font-medium text-slate-200">{col}</td>
                                       <td className="p-2">
-                                        <span className={`px-2 py-0.5 rounded text-xs ${status === 'match' ? 'bg-emerald-500/20 text-emerald-300' : status === 'close' ? 'bg-lime-500/20 text-lime-300' : 'bg-rose-500/20 text-rose-300'}`}>
+                                        <span className={`px-2 py-0.5 rounded text-xs ${status === 'match' ? 'bg-emerald-500/20 text-emerald-300' : status === 'close' ? 'bg-lime-500/20 text-lime-300' : status === 'missing' ? 'bg-slate-500/20 text-slate-300' : 'bg-rose-500/20 text-rose-300'}`}>
                                           {String(auxVal ?? '—')}
                                         </span>
                                       </td>
@@ -1214,6 +1294,7 @@ function ReidentificationInner() {
                                         {status === 'match' && <span className="px-2 py-0.5 rounded text-xs bg-emerald-500/20 text-emerald-300">Match</span>}
                                         {status === 'close' && <span className="px-2 py-0.5 rounded text-xs bg-lime-500/20 text-lime-300">Close</span>}
                                         {status === 'changed' && <span className="px-2 py-0.5 rounded text-xs bg-amber-500/20 text-amber-300">Changed</span>}
+                                        {status === 'missing' && <span className="px-2 py-0.5 rounded text-xs bg-slate-500/20 text-slate-300">Both Empty</span>}
                                       </td>
                                     </tr>
                                   );
@@ -1264,34 +1345,48 @@ function ReidentificationInner() {
             const aggregated = aggregateShapFeatures(result.shap_features);
 
             return (
-              <div>
-                <p className="text-sm text-slate-500 mb-4">Column-level vulnerability based on ML attacker SHAP importance. Engineered features are aggregated back to their original column names.</p>
-
-                {/* Table header */}
-                <div className="grid gap-4 border-b border-slate-200 dark:border-slate-700 pb-2 mb-1" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
-                  <div className="text-sm font-semibold text-slate-700 dark:text-slate-300">Anonymized Column</div>
-                  <div className="text-sm font-semibold text-slate-700 dark:text-slate-300 text-center">ML Reliance (Avg)</div>
-                  <div className="text-sm font-semibold text-slate-700 dark:text-slate-300 text-center">ML Reliance (Max)</div>
+              <div className="mt-2">
+                <div className="mb-6 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 shadow-sm">
+                  <h3 className="font-semibold text-slate-800 dark:text-slate-200 mb-1 flex items-center gap-2">
+                    <span className="text-xl">🎯</span> Column-Level Vulnerability Analysis
+                  </h3>
+                  <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                    This analysis shows which original columns the Machine Learning attacker relies on most heavily. 
+                    Engineered features (like distance metrics or ratio comparisons) have been aggregated back to their parent columns. 
+                    Higher reliance indicates the column is more vulnerable to driving re-identification.
+                  </p>
                 </div>
 
-                {aggregated.map(({ col, avgImportance, maxImportance, rawFeatures }) => {
-                  const avgPct = Math.min(avgImportance * 100, 100);
-                  const maxPct = Math.min(maxImportance * 100, 100);
-                  return (
-                    <div key={col} className="grid gap-4 items-center border-b border-slate-100 dark:border-slate-700 py-3" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
-                      <div>
-                        <div className="font-semibold text-sm text-slate-900 dark:text-slate-100">{col}</div>
-                        <div className="text-xs text-slate-500 dark:text-slate-400 italic">(from {rawFeatures.length} ML feature{rawFeatures.length !== 1 ? 's' : ''})</div>
+                {/* Table header */}
+                <div className="grid gap-4 border-b border-slate-200 dark:border-slate-700 pb-3 mb-2 px-4" style={{ gridTemplateColumns: '2fr 1fr 1fr' }}>
+                  <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Anonymized Column</div>
+                  <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-center">Avg ML Reliance</div>
+                  <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-center">Max ML Reliance</div>
+                </div>
+
+                <div className="space-y-3">
+                  {aggregated.map(({ col, avgImportance, maxImportance, rawFeatures }) => {
+                    const avgPct = Math.min(avgImportance * 100, 100);
+                    const maxPct = Math.min(maxImportance * 100, 100);
+                    return (
+                      <div key={col} className="grid gap-4 items-center bg-white dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800 rounded-xl p-4 hover:shadow-md dark:hover:bg-slate-800/60 transition-all" style={{ gridTemplateColumns: '2fr 1fr 1fr' }}>
+                        <div>
+                          <div className="font-bold text-lg text-slate-800 dark:text-slate-100">{col}</div>
+                          <div className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500/60 inline-block"></span>
+                            Derived from {rawFeatures.length} underlying ML feature{rawFeatures.length !== 1 ? 's' : ''}
+                          </div>
+                        </div>
+                        <div className="flex justify-center">
+                          <SemiGauge value={avgPct} label="Average Contribution" />
+                        </div>
+                        <div className="flex justify-center">
+                          <SemiGauge value={maxPct} label="Maximum Contribution" />
+                        </div>
                       </div>
-                      <div className="flex justify-center">
-                        <SemiGauge value={avgPct} label="Avg ML Contribution" />
-                      </div>
-                      <div className="flex justify-center">
-                        <SemiGauge value={maxPct} label="Max ML Contribution" />
-                      </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
             );
           })()}

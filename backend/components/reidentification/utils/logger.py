@@ -12,6 +12,7 @@ def ensure_dir(path: Path | str) -> Path:
 def setup_logger(name: str, log_file: str = None, level=logging.INFO) -> logging.Logger:
     logger = logging.getLogger(name)
     logger.setLevel(level)
+    logger.propagate = False  # Prevent duplicate output via root logger
     
     # Prevent duplicate handlers
     if logger.handlers:

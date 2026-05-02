@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import time
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -62,6 +63,7 @@ class PairGenerator:
         agent2_config: Dict[str, Any],
     ) -> Dict[str, Any]:
         logger.info("🚀 Agent 3: Pair Generator started")
+        t0 = time.perf_counter()
 
         aux_df = pd.read_csv(auxiliary_path)
         anon_df = pd.read_csv(anonymized_path)
@@ -73,13 +75,16 @@ class PairGenerator:
         anon_df = self._normalize_dataframe(anon_df)
 
         resolved = self._resolve_final_qi_mapping(aux_df, anon_df, agent2_config)
+        feature_context = self._prepare_feature_context(aux_df, anon_df, resolved["qi_mapping"])
 
         logger.info("✅ Final resolved QI mapping: %s", resolved["qi_mapping"])
         logger.info("✅ Direct identifiers excluded: %s", resolved["direct_identifiers"])
         logger.info("✅ Sensitive attributes excluded: %s", resolved["sensitive_attributes"])
 
-        positive_pairs = self._generate_positive_pairs(aux_df, anon_df, resolved)
-        negative_pairs = self._generate_negative_pairs(aux_df, anon_df, resolved, len(positive_pairs))
+        t_pair_start = time.perf_counter()
+        positive_pairs = self._generate_positive_pairs(aux_df, anon_df, resolved, feature_context)
+        negative_pairs = self._generate_negative_pairs(aux_df, anon_df, resolved, feature_context, len(positive_pairs))
+        logger.info("⏱ Pair sampling completed in %.2fs", time.perf_counter() - t_pair_start)
 
         logger.info("   Positive pairs: %d", len(positive_pairs))
         logger.info("   Negative pairs: %d", len(negative_pairs))
@@ -124,6 +129,7 @@ class PairGenerator:
             json.dump(report, f, indent=2)
 
         logger.info("✅ Agent 3 complete")
+        logger.info("⏱ Total Agent 3 runtime: %.2fs", time.perf_counter() - t0)
         logger.info("   Pair dataset: %s", pair_path)
         logger.info("   Train pairs : %s", train_path)
         logger.info("   Test pairs  : %s", test_path)
@@ -202,6 +208,7 @@ class PairGenerator:
         aux_df: pd.DataFrame,
         anon_df: pd.DataFrame,
         resolved: Dict[str, Any],
+        feature_context: Dict[str, Dict[str, Any]],
     ) -> List[Dict[str, Any]]:
         qi_mapping = resolved["qi_mapping"]
 
@@ -209,35 +216,130 @@ class PairGenerator:
         anon_indices_used = set()
         pairs: List[Dict[str, Any]] = []
 
-        # candidate blocking columns = exact-match categorical columns among mapped QIs
-        blocking_cols = []
+        # ── Dynamically select blocking columns from ALL QIs ───────────────
+        # For categorical QIs: use raw values as blocking keys
+        # For numeric QIs:     bin into quantile-based ranges as blocking keys
+        block_specs: List[Dict[str, Any]] = []
+
         for aux_col, anon_col in qi_mapping.items():
-            if aux_col in aux_df.columns and anon_col in anon_df.columns:
-                if self._dtype_group(aux_df[aux_col]) == "categorical" and self._dtype_group(anon_df[anon_col]) == "categorical":
-                    blocking_cols.append((aux_col, anon_col))
+            if aux_col not in aux_df.columns or anon_col not in anon_df.columns:
+                continue
+
+            dtype_group = feature_context.get(aux_col, {}).get("dtype_group", "categorical")
+
+            if dtype_group == "categorical":
+                # Use exact value as blocking key
+                n_unique = anon_df[anon_col].nunique()
+                block_specs.append({
+                    "aux_col": aux_col,
+                    "anon_col": anon_col,
+                    "kind": "categorical",
+                    "selectivity": n_unique,  # higher = more selective
+                })
+            elif dtype_group == "numeric":
+                # Bin numeric values into quantile ranges for blocking
+                try:
+                    combined = pd.concat([
+                        pd.to_numeric(aux_df[aux_col], errors="coerce"),
+                        pd.to_numeric(anon_df[anon_col], errors="coerce"),
+                    ], ignore_index=True).dropna()
+                    if len(combined) < 10:
+                        continue
+                    n_bins = min(10, max(3, int(len(combined) ** 0.3)))
+                    bin_edges = np.unique(np.quantile(combined, np.linspace(0, 1, n_bins + 1)))
+                    if len(bin_edges) < 3:
+                        continue
+                    block_specs.append({
+                        "aux_col": aux_col,
+                        "anon_col": anon_col,
+                        "kind": "numeric",
+                        "bin_edges": bin_edges,
+                        "selectivity": len(bin_edges) - 1,
+                    })
+                except Exception:
+                    continue
+
+        # Rank by selectivity (prefer columns that split data into more groups)
+        block_specs.sort(key=lambda s: s["selectivity"], reverse=True)
+        # Use up to 4 best blocking columns
+        chosen_specs = block_specs[:4]
+
+        if chosen_specs:
+            logger.info(
+                "   Dynamic blocking: using %d QI columns → %s",
+                len(chosen_specs),
+                [(s["aux_col"], s["kind"], s["selectivity"]) for s in chosen_specs],
+            )
+        else:
+            logger.info("   No QIs suitable for blocking — using random sampling fallback")
+
+        # ── Helper: compute blocking key for a row ─────────────────────────
+        def _blocking_key(row: pd.Series, side: str) -> tuple:
+            parts: List[str] = []
+            for spec in chosen_specs:
+                col = spec["aux_col"] if side == "aux" else spec["anon_col"]
+                val = row[col]
+
+                if spec["kind"] == "categorical":
+                    parts.append(str(val).strip().lower() if pd.notna(val) else "__NA__")
+                else:  # numeric
+                    try:
+                        num_val = float(val)
+                        bin_idx = int(np.searchsorted(spec["bin_edges"], num_val, side="right")) - 1
+                        bin_idx = max(0, min(bin_idx, len(spec["bin_edges"]) - 2))
+                        parts.append(f"bin_{bin_idx}")
+                    except (ValueError, TypeError):
+                        parts.append("__NA__")
+            return tuple(parts)
+
+        # ── Pre-build blocking index on anonymized data ────────────────────
+        blocking_index: Dict[tuple, List[int]] = {}
+
+        if chosen_specs:
+            for anon_idx, anon_row in anon_df.iterrows():
+                key = _blocking_key(anon_row, "anon")
+                blocking_index.setdefault(key, []).append(anon_idx)
+            logger.info(
+                "   Blocking index built: %d unique blocks from %d anon rows",
+                len(blocking_index), len(anon_df),
+            )
+
+        # Fallback: random sample size when blocking fails
+        MAX_CANDIDATES_FALLBACK = min(500, len(anon_df))
+        anon_indices_all = anon_df.index.tolist()
 
         for aux_idx, aux_row in aux_df.iterrows():
+            # ── Lookup candidates via blocking index ───────────────────
+            candidate_idx: List[int] = []
+
+            if chosen_specs:
+                key = _blocking_key(aux_row, "aux")
+                candidate_idx = blocking_index.get(key, [])
+
+                # Partial key fallback: try matching on first column only
+                if not candidate_idx and len(key) > 1:
+                    first_part = key[0]
+                    for bk, bv in blocking_index.items():
+                        if bk[0] == first_part:
+                            candidate_idx.extend(bv)
+
+            # If still no candidates, random sample instead of full scan
+            if not candidate_idx:
+                candidate_idx = list(self.rng.choice(
+                    anon_indices_all,
+                    size=min(MAX_CANDIDATES_FALLBACK, len(anon_indices_all)),
+                    replace=False,
+                ))
+
+            # ── Find best match within candidates ──────────────────────
             best_match_idx = None
             best_score = -1.0
-
-            # block candidates first if possible
-            candidate_idx = anon_df.index.tolist()
-            if blocking_cols:
-                candidate_mask = pd.Series(True, index=anon_df.index)
-                for a_col, b_col in blocking_cols[:2]:
-                    aux_val = aux_row[a_col]
-                    if pd.isna(aux_val):
-                        continue
-                    candidate_mask &= (anon_df[b_col] == aux_val)
-                blocked = anon_df[candidate_mask]
-                if not blocked.empty:
-                    candidate_idx = blocked.index.tolist()
 
             for anon_idx in candidate_idx:
                 if anon_idx in anon_indices_used:
                     continue
                 anon_row = anon_df.loc[anon_idx]
-                sim = self._row_similarity(aux_row, anon_row, qi_mapping, aux_df, anon_df)
+                sim = self._row_similarity(aux_row, anon_row, qi_mapping, feature_context)
                 if sim > best_score:
                     best_score = sim
                     best_match_idx = anon_idx
@@ -250,8 +352,7 @@ class PairGenerator:
                     aux_row=aux_row,
                     anon_row=anon_row,
                     qi_mapping=qi_mapping,
-                    aux_df=aux_df,
-                    anon_df=anon_df,
+                    feature_context=feature_context,
                     label=1,
                 )
                 pairs.append(pair)
@@ -265,6 +366,7 @@ class PairGenerator:
         aux_df: pd.DataFrame,
         anon_df: pd.DataFrame,
         resolved: Dict[str, Any],
+        feature_context: Dict[str, Dict[str, Any]],
         positive_count: int,
     ) -> List[Dict[str, Any]]:
         qi_mapping = resolved["qi_mapping"]
@@ -278,9 +380,12 @@ class PairGenerator:
         total_pair_space = len(aux_indices) * len(anon_indices)
 
         hard_target = int(target_count * self.hard_negative_ratio)
+        max_hard_attempts = max(hard_target * 25, 5000)
+        hard_attempts = 0
 
         # 1. hard negatives: similar but not too similar
-        while len(negatives) < hard_target and len(tried) < total_pair_space:
+        while len(negatives) < hard_target and len(tried) < total_pair_space and hard_attempts < max_hard_attempts:
+            hard_attempts += 1
             aux_idx = int(self.rng.choice(aux_indices))
             anon_idx = int(self.rng.choice(anon_indices))
             key = (aux_idx, anon_idx)
@@ -291,7 +396,7 @@ class PairGenerator:
             aux_row = aux_df.loc[aux_idx]
             anon_row = anon_df.loc[anon_idx]
 
-            sim = self._row_similarity(aux_row, anon_row, qi_mapping, aux_df, anon_df)
+            sim = self._row_similarity(aux_row, anon_row, qi_mapping, feature_context)
             if 0.4 <= sim < 0.8:
                 negatives.append(
                     self._build_pair_features(
@@ -300,11 +405,16 @@ class PairGenerator:
                         aux_row=aux_row,
                         anon_row=anon_row,
                         qi_mapping=qi_mapping,
-                        aux_df=aux_df,
-                        anon_df=anon_df,
+                        feature_context=feature_context,
                         label=0,
                     )
                 )
+
+        if hard_attempts >= max_hard_attempts and len(negatives) < hard_target:
+            logger.info(
+                "Hard-negative search hit attempt limit (%d); switching to random fill.",
+                max_hard_attempts,
+            )
 
         # If hard-negative search consumed the full pair space, reset so random negatives can still be sampled.
         if len(negatives) < target_count and len(tried) >= total_pair_space:
@@ -329,8 +439,7 @@ class PairGenerator:
                     aux_row=aux_row,
                     anon_row=anon_row,
                     qi_mapping=qi_mapping,
-                    aux_df=aux_df,
-                    anon_df=anon_df,
+                    feature_context=feature_context,
                     label=0,
                 )
             )
@@ -348,8 +457,7 @@ class PairGenerator:
         aux_row: pd.Series,
         anon_row: pd.Series,
         qi_mapping: Dict[str, str],
-        aux_df: pd.DataFrame,
-        anon_df: pd.DataFrame,
+        feature_context: Dict[str, Dict[str, Any]],
         label: int,
     ) -> Dict[str, Any]:
         features: Dict[str, Any] = {
@@ -364,14 +472,17 @@ class PairGenerator:
             aux_val = aux_row[aux_col]
             anon_val = anon_row[anon_col]
 
-            aux_series = aux_df[aux_col]
-            anon_series = anon_df[anon_col]
-            dtype_group = self._choose_common_dtype(aux_series, anon_series)
+            col_ctx = feature_context.get(aux_col, {})
+            dtype_group = col_ctx.get("dtype_group", "categorical")
 
             if dtype_group == "numeric":
                 diff = self._numeric_diff(aux_val, anon_val)
                 ratio = self._numeric_ratio(aux_val, anon_val)
-                close = self._numeric_close(aux_val, anon_val, aux_series, anon_series)
+                close = self._numeric_close(
+                    aux_val,
+                    anon_val,
+                    float(col_ctx.get("numeric_tolerance_abs", 1.0)),
+                )
 
                 features[f"{aux_col}_diff"] = diff
                 features[f"{aux_col}_ratio"] = ratio
@@ -415,8 +526,7 @@ class PairGenerator:
         aux_row: pd.Series,
         anon_row: pd.Series,
         qi_mapping: Dict[str, str],
-        aux_df: pd.DataFrame,
-        anon_df: pd.DataFrame,
+        feature_context: Dict[str, Dict[str, Any]],
     ) -> float:
         scores: List[float] = []
 
@@ -424,10 +534,7 @@ class PairGenerator:
             aux_val = aux_row[aux_col]
             anon_val = anon_row[anon_col]
 
-            aux_series = aux_df[aux_col]
-            anon_series = anon_df[anon_col]
-
-            dtype_group = self._choose_common_dtype(aux_series, anon_series)
+            dtype_group = feature_context.get(aux_col, {}).get("dtype_group", "categorical")
 
             if dtype_group == "numeric":
                 diff = self._numeric_diff(aux_val, anon_val)
@@ -506,20 +613,40 @@ class PairGenerator:
         self,
         a: Any,
         b: Any,
-        aux_series: pd.Series,
-        anon_series: pd.Series,
+        tolerance: float,
     ) -> int:
         if pd.isna(a) or pd.isna(b):
             return 0
         try:
             a = float(a)
             b = float(b)
-            combined = pd.concat([aux_series, anon_series], ignore_index=True)
-            std = pd.to_numeric(combined, errors="coerce").std()
-            tolerance = std * self.numeric_tolerance if pd.notna(std) and std > 0 else 1.0
             return int(abs(a - b) <= tolerance)
         except Exception:
             return 0
+
+    def _prepare_feature_context(
+        self,
+        aux_df: pd.DataFrame,
+        anon_df: pd.DataFrame,
+        qi_mapping: Dict[str, str],
+    ) -> Dict[str, Dict[str, Any]]:
+        context: Dict[str, Dict[str, Any]] = {}
+
+        for aux_col, anon_col in qi_mapping.items():
+            aux_series = aux_df[aux_col]
+            anon_series = anon_df[anon_col]
+            dtype_group = self._choose_common_dtype(aux_series, anon_series)
+
+            col_ctx: Dict[str, Any] = {"dtype_group": dtype_group}
+            if dtype_group == "numeric":
+                combined = pd.concat([aux_series, anon_series], ignore_index=True)
+                std = pd.to_numeric(combined, errors="coerce").std()
+                tol = std * self.numeric_tolerance if pd.notna(std) and std > 0 else 1.0
+                col_ctx["numeric_tolerance_abs"] = float(tol)
+
+            context[aux_col] = col_ctx
+
+        return context
 
     # ------------------------------------------------------------------ #
     # Datetime feature helpers

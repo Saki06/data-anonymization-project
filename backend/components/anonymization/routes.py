@@ -118,6 +118,94 @@ async def analyze_dataset(session_id: str = Form(...)):
         raise HTTPException(status_code=500, detail=f"Analysis error: {str(e)}")
 
 
+@router.get("/analysis-results/{session_id}")
+async def get_analysis_results(session_id: str):
+    """
+    Retrieve previously stored analysis results for a session.
+    Returns null-safe response so the frontend can check if analysis has been run.
+    """
+    global _sessions
+
+    if session_id not in _sessions:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    session = _sessions[session_id]
+    analysis = session.get('analysis_results')
+
+    if analysis is None:
+        return {"has_results": False}
+
+    return {"has_results": True, **analysis}
+
+
+@router.get("/execution-results/{session_id}")
+async def get_execution_results(session_id: str):
+    """
+    Retrieve previously stored anonymization execution results for a session.
+    Returns metrics, validation, applied methods, and a sample of anonymized data.
+    """
+    global _sessions
+
+    if session_id not in _sessions:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    session = _sessions[session_id]
+    exec_result = session.get('execution_result')
+    anon_df = session.get('anonymized_df')
+
+    if exec_result is None or anon_df is None:
+        return {"has_results": False}
+
+    quasi_identifiers = session.get('quasi_identifiers', [])
+
+    # Recalculate metrics from the stored anonymized dataframe
+    existing_qis = [qi for qi in quasi_identifiers if qi in anon_df.columns]
+    if existing_qis:
+        qi_df = anon_df[existing_qis]
+        suppressed = (qi_df == '*').sum().sum()
+        total = len(qi_df) * len(existing_qis)
+        suppression_ratio = suppressed / total if total > 0 else 0
+        try:
+            groups = qi_df.groupby(list(existing_qis))
+            group_sizes = groups.size()
+            min_size = int(group_sizes.min()) if len(group_sizes) > 0 else 0
+            avg_size = float(group_sizes.mean()) if len(group_sizes) > 0 else 0
+        except Exception:
+            min_size = 0
+            avg_size = 0
+    else:
+        suppression_ratio = 0
+        min_size = 0
+        avg_size = 0
+
+    # Prepare sample data
+    sample_data = anon_df.head(20).to_dict('records')
+    for record in sample_data:
+        for key, value in record.items():
+            if pd.isna(value):
+                record[key] = None
+            elif isinstance(value, (np.integer, np.floating)):
+                record[key] = float(value)
+            elif isinstance(value, np.ndarray):
+                record[key] = value.tolist()
+            elif isinstance(value, (pd.Timestamp, pd.DatetimeTZDtype)):
+                record[key] = str(value)
+
+    return {
+        "has_results": True,
+        "parameters_used": exec_result.get("parameters_used", {}),
+        "metrics": {
+            "suppression_ratio": round(float(suppression_ratio), 3),
+            "min_equivalence_class_size": min_size,
+            "avg_equivalence_class_size": round(float(avg_size), 2),
+        },
+        "applied_methods": exec_result.get("applied_methods", []),
+        "validation": exec_result.get("validation_results", {}),
+        "sample_data": sample_data,
+        "columns": anon_df.columns.tolist(),
+    }
+
+
 @router.post("/anonymize")
 async def anonymize_data(
     session_id: str = Form(...),
