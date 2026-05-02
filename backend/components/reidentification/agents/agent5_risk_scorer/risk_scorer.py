@@ -127,6 +127,19 @@ class RiskScorer:
                 self.orig_id_col,
             )
 
+        # Only keep positive pairs (label=1) for risk scoring.
+        # Negative pairs are synthetic non-matches used only for ML training
+        # and should NOT be counted as matched/re-identified records.
+        if "label" in df.columns:
+            total_before = len(df)
+            df = df[df["label"] == 1].copy()
+            logger.info(
+                "   Filtered to positive pairs only: %d → %d rows (dropped %d negative pairs)",
+                total_before, len(df), total_before - len(df),
+            )
+            if df.empty:
+                raise ValueError("No positive pairs (label=1) found in pairs CSV. Cannot score risk.")
+
         return df
 
     # ------------------------------------------------------------------ #

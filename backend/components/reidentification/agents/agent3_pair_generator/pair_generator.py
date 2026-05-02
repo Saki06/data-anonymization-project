@@ -216,128 +216,30 @@ class PairGenerator:
         anon_indices_used = set()
         pairs: List[Dict[str, Any]] = []
 
-        # ── Dynamically select blocking columns from ALL QIs ───────────────
-        # For categorical QIs: use raw values as blocking keys
-        # For numeric QIs:     bin into quantile-based ranges as blocking keys
-        block_specs: List[Dict[str, Any]] = []
-
-        for aux_col, anon_col in qi_mapping.items():
-            if aux_col not in aux_df.columns or anon_col not in anon_df.columns:
-                continue
-
-            dtype_group = feature_context.get(aux_col, {}).get("dtype_group", "categorical")
-
-            if dtype_group == "categorical":
-                # Use exact value as blocking key
-                n_unique = anon_df[anon_col].nunique()
-                block_specs.append({
-                    "aux_col": aux_col,
-                    "anon_col": anon_col,
-                    "kind": "categorical",
-                    "selectivity": n_unique,  # higher = more selective
-                })
-            elif dtype_group == "numeric":
-                # Bin numeric values into quantile ranges for blocking
-                try:
-                    combined = pd.concat([
-                        pd.to_numeric(aux_df[aux_col], errors="coerce"),
-                        pd.to_numeric(anon_df[anon_col], errors="coerce"),
-                    ], ignore_index=True).dropna()
-                    if len(combined) < 10:
-                        continue
-                    n_bins = min(10, max(3, int(len(combined) ** 0.3)))
-                    bin_edges = np.unique(np.quantile(combined, np.linspace(0, 1, n_bins + 1)))
-                    if len(bin_edges) < 3:
-                        continue
-                    block_specs.append({
-                        "aux_col": aux_col,
-                        "anon_col": anon_col,
-                        "kind": "numeric",
-                        "bin_edges": bin_edges,
-                        "selectivity": len(bin_edges) - 1,
-                    })
-                except Exception:
-                    continue
-
-        # Rank by selectivity (prefer columns that split data into more groups)
-        block_specs.sort(key=lambda s: s["selectivity"], reverse=True)
-        # Use up to 4 best blocking columns
-        chosen_specs = block_specs[:4]
-
-        if chosen_specs:
-            logger.info(
-                "   Dynamic blocking: using %d QI columns → %s",
-                len(chosen_specs),
-                [(s["aux_col"], s["kind"], s["selectivity"]) for s in chosen_specs],
-            )
-        else:
-            logger.info("   No QIs suitable for blocking — using random sampling fallback")
-
-        # ── Helper: compute blocking key for a row ─────────────────────────
-        def _blocking_key(row: pd.Series, side: str) -> tuple:
-            parts: List[str] = []
-            for spec in chosen_specs:
-                col = spec["aux_col"] if side == "aux" else spec["anon_col"]
-                val = row[col]
-
-                if spec["kind"] == "categorical":
-                    parts.append(str(val).strip().lower() if pd.notna(val) else "__NA__")
-                else:  # numeric
-                    try:
-                        num_val = float(val)
-                        bin_idx = int(np.searchsorted(spec["bin_edges"], num_val, side="right")) - 1
-                        bin_idx = max(0, min(bin_idx, len(spec["bin_edges"]) - 2))
-                        parts.append(f"bin_{bin_idx}")
-                    except (ValueError, TypeError):
-                        parts.append("__NA__")
-            return tuple(parts)
-
-        # ── Pre-build blocking index on anonymized data ────────────────────
-        blocking_index: Dict[tuple, List[int]] = {}
-
-        if chosen_specs:
-            for anon_idx, anon_row in anon_df.iterrows():
-                key = _blocking_key(anon_row, "anon")
-                blocking_index.setdefault(key, []).append(anon_idx)
-            logger.info(
-                "   Blocking index built: %d unique blocks from %d anon rows",
-                len(blocking_index), len(anon_df),
-            )
-
-        # Fallback: random sample size when blocking fails
-        MAX_CANDIDATES_FALLBACK = min(500, len(anon_df))
-        anon_indices_all = anon_df.index.tolist()
+        # ── DYNAMIC BLOCKING: Select blocking columns ───────────────────
+        blocking_cols = self._select_blocking_columns(aux_df, anon_df, qi_mapping)
+        logger.info("   Selected blocking columns: %s", blocking_cols)
 
         for aux_idx, aux_row in aux_df.iterrows():
-            # ── Lookup candidates via blocking index ───────────────────
-            candidate_idx: List[int] = []
+            # ── FILTERING: Get candidate rows via blocking + fallback ────
+            candidates = self._filter_by_blocking(
+                aux_row,
+                anon_df,
+                anon_indices_used,
+                blocking_cols,
+                qi_mapping,
+                max_candidates=500,
+            )
 
-            if chosen_specs:
-                key = _blocking_key(aux_row, "aux")
-                candidate_idx = blocking_index.get(key, [])
+            if not candidates:
+                logger.debug("   No candidates found for auxiliary row %d", aux_idx)
+                continue
 
-                # Partial key fallback: try matching on first column only
-                if not candidate_idx and len(key) > 1:
-                    first_part = key[0]
-                    for bk, bv in blocking_index.items():
-                        if bk[0] == first_part:
-                            candidate_idx.extend(bv)
-
-            # If still no candidates, random sample instead of full scan
-            if not candidate_idx:
-                candidate_idx = list(self.rng.choice(
-                    anon_indices_all,
-                    size=min(MAX_CANDIDATES_FALLBACK, len(anon_indices_all)),
-                    replace=False,
-                ))
-
-            # ── Find best match within candidates ──────────────────────
+            # ── Find best match among candidates ──────────────────────────
             best_match_idx = None
             best_score = -1.0
 
-            for anon_idx in candidate_idx:
-                if anon_idx in anon_indices_used:
-                    continue
+            for anon_idx in candidates:
                 anon_row = anon_df.loc[anon_idx]
                 sim = self._row_similarity(aux_row, anon_row, qi_mapping, feature_context)
                 if sim > best_score:
@@ -445,6 +347,139 @@ class PairGenerator:
             )
 
         return negatives
+
+    # ------------------------------------------------------------------ #
+    # Dynamic blocking helpers
+    # ------------------------------------------------------------------ #
+
+    def _select_blocking_columns(
+        self,
+        aux_df: pd.DataFrame,
+        anon_df: pd.DataFrame,
+        qi_mapping: Dict[str, str],
+    ) -> List[str]:
+        """
+        Automatically select 2-4 categorical QI columns for blocking.
+        Prioritizes columns by selectivity (more unique values → better discrimination).
+        """
+        blocking_candidates: List[Tuple[str, float]] = []
+
+        for aux_col, anon_col in qi_mapping.items():
+            # Skip if not categorical
+            dtype_group = self._dtype_group(aux_df[aux_col])
+            if dtype_group != "categorical":
+                continue
+
+            # Calculate selectivity (cardinality ratio)
+            aux_unique = aux_df[aux_col].nunique()
+            anon_unique = anon_df[anon_col].nunique()
+            selectivity = (aux_unique + anon_unique) / 2.0  # avg cardinality
+
+            blocking_candidates.append((aux_col, selectivity))
+
+        # Sort by selectivity (descending) and take top 2-4
+        blocking_candidates.sort(key=lambda x: x[1], reverse=True)
+        selected = [col for col, _ in blocking_candidates[:4]]
+
+        if not selected:
+            # Fallback: if no categorical columns, use all QI columns
+            logger.warning("   No categorical columns found; using all QI columns for blocking")
+            selected = list(qi_mapping.keys())[:4]
+
+        if len(selected) < 2 and len(blocking_candidates) > 0:
+            # Ensure at least 2 if possible
+            selected = [col for col, _ in blocking_candidates[:2]]
+
+        return selected
+
+    def _filter_by_blocking(
+        self,
+        aux_row: pd.Series,
+        anon_df: pd.DataFrame,
+        anon_indices_used: set,
+        blocking_cols: List[str],
+        qi_mapping: Dict[str, str],
+        max_candidates: int = 500,
+    ) -> List[int]:
+        """
+        Filter anonymized dataset using blocking columns from auxiliary row.
+        Relax filtering if no rows found.
+        Fall back to random sampling if needed.
+        """
+        # ── Try to filter using ALL blocking columns ──────────────────
+        candidates = self._apply_blocking_filter(
+            aux_row,
+            anon_df,
+            anon_indices_used,
+            blocking_cols,
+            qi_mapping,
+        )
+
+        if len(candidates) > 0:
+            return candidates
+
+        # ── Relax filtering: use fewer columns ───────────────────────
+        for num_cols in range(len(blocking_cols) - 1, 0, -1):
+            relaxed_cols = blocking_cols[:num_cols]
+            logger.debug("   Relaxing blocking filter to %d columns", num_cols)
+
+            candidates = self._apply_blocking_filter(
+                aux_row,
+                anon_df,
+                anon_indices_used,
+                relaxed_cols,
+                qi_mapping,
+            )
+
+            if len(candidates) > 0:
+                return candidates
+
+        # ── Fallback: random sampling ────────────────────────────────
+        logger.debug("   No blocking matches found; using random sampling")
+        available_indices = [idx for idx in anon_df.index if idx not in anon_indices_used]
+
+        if len(available_indices) == 0:
+            return []
+
+        sample_size = min(max_candidates, len(available_indices))
+        sampled = list(self.rng.choice(available_indices, size=sample_size, replace=False))
+        return sampled
+
+    def _apply_blocking_filter(
+        self,
+        aux_row: pd.Series,
+        anon_df: pd.DataFrame,
+        anon_indices_used: set,
+        blocking_cols: List[str],
+        qi_mapping: Dict[str, str],
+    ) -> List[int]:
+        """
+        Apply blocking filter: match auxiliary row values on blocking columns.
+        Returns list of matching anonymized row indices (excluding used indices).
+        """
+        mask = pd.Series([True] * len(anon_df), index=anon_df.index)
+
+        for aux_col in blocking_cols:
+            if aux_col not in qi_mapping:
+                continue
+
+            anon_col = qi_mapping[aux_col]
+            aux_val = aux_row[aux_col]
+
+            # Handle missing values: both missing is a match
+            if pd.isna(aux_val):
+                mask &= anon_df[anon_col].isna()
+            else:
+                # Exact match (case-insensitive for strings)
+                if pd.api.types.is_string_dtype(anon_df[anon_col]):
+                    aux_str = str(aux_val).strip().lower()
+                    mask &= anon_df[anon_col].fillna("").str.lower().str.strip() == aux_str
+                else:
+                    mask &= anon_df[anon_col] == aux_val
+
+        # Get matching indices, excluding already used
+        matching_indices = [idx for idx in anon_df[mask].index if idx not in anon_indices_used]
+        return matching_indices
 
     # ------------------------------------------------------------------ #
     # Feature engineering
@@ -751,4 +786,5 @@ class PairGenerator:
         lowered = text.lower()
         if lowered in {"na", "n/a", "null", "none", "nan", "missing", "unknown"}:
             return pd.NA
+            
         return lowered
