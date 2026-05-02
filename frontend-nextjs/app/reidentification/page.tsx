@@ -964,24 +964,79 @@ function ReidentificationInner() {
 
       {/* Pipeline Steps */}
       {Object.keys(stepStatuses).length > 0 && (
-        <div className="section">
-          <h2>🔄 Pipeline Steps</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mt-3">
-            {PIPELINE_STEPS.map(s => {
+        <div className="mt-8 mb-10 p-6 rounded-2xl bg-slate-900/40 border border-slate-800/60 shadow-xl backdrop-blur-sm">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-bold text-slate-100 flex items-center gap-2 m-0">
+              <span className="text-blue-400">⚡</span> Agent Pipeline Execution
+            </h2>
+            {running && (
+              <span className="flex items-center gap-2 text-xs font-semibold text-blue-400 bg-blue-500/10 px-3 py-1.5 rounded-full border border-blue-500/20">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                </span>
+                Processing...
+              </span>
+            )}
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+            {PIPELINE_STEPS.map((s, idx) => {
               const st = stepStatuses[s.id] ?? 'pending';
-              const colorMap: Record<StepStatus, string> = {
-                done:    'border-green-400 bg-green-50',
-                running: 'border-blue-400 bg-blue-50',
-                error:   'border-red-400 bg-red-50',
-                skip:    'border-gray-300 bg-gray-50',
-                pending: 'border-gray-200 bg-white',
+              
+              const styles: Record<StepStatus, { wrapper: string, iconBg: string, text: string, icon: JSX.Element }> = {
+                done: {
+                  wrapper: 'bg-gradient-to-br from-emerald-900/30 to-slate-900/50 border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.1)]',
+                  iconBg: 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30',
+                  text: 'text-emerald-300',
+                  icon: <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                },
+                running: {
+                  wrapper: 'bg-gradient-to-br from-blue-900/40 to-slate-900/50 border-blue-400/50 shadow-[0_0_20px_rgba(59,130,246,0.2)] ring-1 ring-blue-400/30',
+                  iconBg: 'bg-blue-500/20 text-blue-400 border border-blue-400/50 animate-pulse',
+                  text: 'text-blue-300',
+                  icon: <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+                },
+                error: {
+                  wrapper: 'bg-gradient-to-br from-red-900/30 to-slate-900/50 border-red-500/30 shadow-[0_0_15px_rgba(239,68,68,0.1)]',
+                  iconBg: 'bg-red-500/20 text-red-400 border border-red-500/30',
+                  text: 'text-red-300',
+                  icon: <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                },
+                skip: {
+                  wrapper: 'bg-slate-800/30 border-slate-700/50',
+                  iconBg: 'bg-slate-700/50 text-slate-400 border border-slate-600',
+                  text: 'text-slate-400',
+                  icon: <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
+                },
+                pending: {
+                  wrapper: 'bg-slate-900/30 border-slate-800/80 opacity-60',
+                  iconBg: 'bg-slate-800 text-slate-500 border border-slate-700',
+                  text: 'text-slate-500',
+                  icon: <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                },
               };
-              const icon = st === 'done' ? '✅' : st === 'running' ? '⏳' : st === 'error' ? '❌' : st === 'skip' ? '⏭' : '⬜';
+
+              const style = styles[st];
+
               return (
-                <div key={s.id} className={`border rounded-lg p-3 ${colorMap[st]}`}>
-                  <div className="text-xs text-gray-400 font-semibold uppercase tracking-wide">{s.agent}</div>
-                  <div className="text-sm font-semibold text-gray-700 mt-1">{s.label}</div>
-                  <div className="text-lg mt-1">{icon}</div>
+                <div key={s.id} className={`relative flex flex-col p-4 rounded-xl border backdrop-blur-sm transition-all duration-300 ${style.wrapper}`}>
+                  <div className="flex items-start justify-between mb-3 z-10">
+                    <div className={`flex items-center justify-center w-8 h-8 rounded-full ${style.iconBg}`}>
+                      {style.icon}
+                    </div>
+                    <div className="text-[10px] font-black tracking-widest uppercase text-slate-500 bg-slate-900/50 px-2 py-1 rounded-md border border-slate-800/60 shadow-inner">
+                      {s.agent}
+                    </div>
+                  </div>
+                  
+                  <div className={`text-sm font-bold leading-tight ${style.text} z-10`}>
+                    {s.label}
+                  </div>
+                  
+                  {st === 'running' && (
+                    <div className="absolute bottom-0 left-0 h-1 bg-blue-500/50 animate-pulse rounded-b-xl" style={{ width: '100%' }}></div>
+                  )}
                 </div>
               );
             })}
