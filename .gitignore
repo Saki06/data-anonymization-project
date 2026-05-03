@@ -1,11 +1,22 @@
+# Virtual env
 .venv/
+
+# Node / Next.js
 frontend-nextjs/node_modules/
 frontend-nextjs/.next/
-backend/components/reidentification/data/
-backend/components/__pycache__/
-backend/components/outputs/logs/
-*.log
+.env
 
-# Python cache
+# Python cache (IMPORTANT)
 __pycache__/
 *.pyc
+
+# Logs
+*.log
+backend/components/outputs/logs/
+
+# Data (if not needed in repo)
+backend/components/reidentification/data/
+
+# OS files
+.DS_Store
+Thumbs.db
