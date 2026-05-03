@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 import pandas as pd
@@ -650,6 +650,162 @@ def _get_row_by_index(df: pd.DataFrame, idx: int) -> Optional[pd.Series]:
     if 0 <= idx < len(df):
         return df.iloc[idx]
     return None
+
+
+_VULNERABLE_SUFFIXES = (
+    "_days_diff",
+    "_both_missing",
+    "_same_year",
+    "_diff",
+    "_equal",
+    "_match",
+    "_similarity",
+    "_ratio",
+    "_score",
+    "_normalized",
+    "_close",
+)
+
+_VULNERABLE_BLOCKLIST = {
+    "overall_similarity",
+    "similarity_score",
+}
+
+
+def _safe_normalize_series(series: pd.Series) -> pd.Series:
+    vals = pd.to_numeric(series, errors="coerce").fillna(0.0).astype(float)
+
+    min_val = vals.min()
+    max_val = vals.max()
+
+    if pd.isna(min_val) or pd.isna(max_val) or max_val == min_val:
+        return pd.Series(np.zeros(len(vals)), index=vals.index, dtype=float)
+
+    return (vals - min_val) / (max_val - min_val)
+
+
+def _feature_to_base_column(feature: Any) -> Optional[str]:
+    if feature is None:
+        return None
+    if isinstance(feature, float) and np.isnan(feature):
+        return None
+
+    name = str(feature).strip()
+    if not name:
+        return None
+
+    if name.startswith("shap__"):
+        name = name[len("shap__") :]
+
+    lower = name.lower()
+    if lower in _VULNERABLE_BLOCKLIST:
+        return None
+
+    for suffix in _VULNERABLE_SUFFIXES:
+        if lower.endswith(suffix):
+            name = name[: -len(suffix)]
+            break
+
+    name = name.strip("_")
+    return name if name else None
+
+
+def _load_column_risk_source(session_id: str) -> Tuple[pd.DataFrame, str]:
+    agg_dir = BASE_DIR / "data" / "risk_scores" / session_id / "agent7"
+    column_path = agg_dir / "column_risk_summary.csv"
+
+    if column_path.exists():
+        return pd.read_csv(column_path), "column_risk_summary"
+
+    shap_dir = BASE_DIR / "data" / "shap_explanations" / session_id
+    shap_path = _resolve_shap_global_path(shap_dir)
+    if shap_path is not None and shap_path.exists():
+        shap_df = pd.read_csv(shap_path)
+        if "feature" in shap_df.columns and "mean_abs_shap" in shap_df.columns:
+            return shap_df[["feature", "mean_abs_shap"]].rename(
+                columns={"feature": "column", "mean_abs_shap": "shap_importance"}
+            ), "shap_global"
+        if "column" in shap_df.columns and "mean_abs_shap" in shap_df.columns:
+            return shap_df[["column", "mean_abs_shap"]].rename(
+                columns={"mean_abs_shap": "shap_importance"}
+            ), "shap_global"
+
+    return pd.DataFrame(), "none"
+
+
+def _build_vulnerable_columns_df(summary_df: pd.DataFrame) -> pd.DataFrame:
+    if summary_df.empty:
+        return pd.DataFrame(
+            columns=[
+                "column",
+                "vulnerable_score",
+                "column_risk_score",
+                "shap_importance",
+                "pair_corr_abs",
+            ]
+        )
+
+    working = summary_df.copy()
+    if "column" not in working.columns:
+        if "feature" in working.columns:
+            working = working.rename(columns={"feature": "column"})
+        else:
+            return pd.DataFrame(
+                columns=[
+                    "column",
+                    "vulnerable_score",
+                    "column_risk_score",
+                    "shap_importance",
+                    "pair_corr_abs",
+                ]
+            )
+
+    working["base_column"] = working["column"].apply(_feature_to_base_column)
+    working = working[working["base_column"].notna()].copy()
+
+    if working.empty:
+        return pd.DataFrame(
+            columns=[
+                "column",
+                "vulnerable_score",
+                "column_risk_score",
+                "shap_importance",
+                "pair_corr_abs",
+            ]
+        )
+
+    if "column_risk_score" not in working.columns:
+        working["column_risk_score"] = np.nan
+    if "shap_importance" not in working.columns:
+        working["shap_importance"] = np.nan
+    if "pair_risk_correlation" not in working.columns:
+        working["pair_risk_correlation"] = np.nan
+
+    working["pair_corr_abs"] = pd.to_numeric(
+        working["pair_risk_correlation"], errors="coerce"
+    ).abs()
+
+    aggregated = (
+        working.groupby("base_column", dropna=True)
+        .agg(
+            column_risk_score=("column_risk_score", "max"),
+            shap_importance=("shap_importance", "max"),
+            pair_corr_abs=("pair_corr_abs", "max"),
+        )
+        .reset_index()
+        .rename(columns={"base_column": "column"})
+    )
+
+    if aggregated["column_risk_score"].notna().any():
+        aggregated["vulnerable_score"] = aggregated["column_risk_score"].fillna(0.0)
+    else:
+        shap_norm = _safe_normalize_series(aggregated["shap_importance"])
+        corr_norm = _safe_normalize_series(aggregated["pair_corr_abs"])
+        aggregated["vulnerable_score"] = (0.7 * shap_norm + 0.3 * corr_norm) * 100.0
+
+    aggregated = aggregated.sort_values("vulnerable_score", ascending=False).reset_index(drop=True)
+
+    return aggregated
 
 
 # -----------------------------------------------------------------------------
@@ -1395,6 +1551,102 @@ async def get_shap_local_data(session_id: str):
         out_df = pd.DataFrame(rows)
 
     return {"records": _safe_json(out_df.to_dict("records")), "columns": out_df.columns.tolist()}
+
+
+@router.get("/results/vulnerable-columns/{session_id}")
+async def get_vulnerable_columns(
+    session_id: str,
+    top_k: int = Query(default=10, ge=0, le=200),
+    min_score: float = Query(default=0.0, ge=0.0, le=100.0),
+):
+    if session_id not in _sessions:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    source_df, source = _load_column_risk_source(session_id)
+    if source_df.empty:
+        raise HTTPException(
+            status_code=404,
+            detail="No column risk data found. Run /aggregate-risk or /shap-explain first.",
+        )
+
+    vulnerable_df = _build_vulnerable_columns_df(source_df)
+    if vulnerable_df.empty:
+        return {"columns": [], "records": [], "total": 0, "source": source}
+
+    filtered = vulnerable_df
+    if min_score > 0:
+        filtered = filtered[filtered["vulnerable_score"] >= float(min_score)]
+
+    total = int(len(filtered))
+    if top_k > 0:
+        filtered = filtered.head(top_k)
+
+    return {
+        "source": source,
+        "columns": filtered["column"].tolist(),
+        "records": _safe_json(filtered.to_dict("records")),
+        "total": total,
+        "threshold": float(min_score),
+    }
+
+
+@router.post("/apply-vulnerable-columns")
+async def apply_vulnerable_columns(
+    session_id: str = Form(...),
+    top_k: int = Form(10),
+    min_score: float = Form(0.0),
+    mode: str = Form("replace"),
+):
+    if session_id not in _sessions:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    source_df, source = _load_column_risk_source(session_id)
+    if source_df.empty:
+        raise HTTPException(
+            status_code=404,
+            detail="No column risk data found. Run /aggregate-risk or /shap-explain first.",
+        )
+
+    vulnerable_df = _build_vulnerable_columns_df(source_df)
+    if vulnerable_df.empty:
+        raise HTTPException(status_code=400, detail="No vulnerable columns could be derived from risk data.")
+
+    filtered = vulnerable_df
+    if float(min_score) > 0:
+        filtered = filtered[filtered["vulnerable_score"] >= float(min_score)]
+
+    if int(top_k) > 0:
+        filtered = filtered.head(int(top_k))
+
+    selected = filtered["column"].tolist()
+    if not selected:
+        raise HTTPException(status_code=400, detail="No vulnerable columns matched the provided filters.")
+
+    session = _sessions[session_id]
+    df = session.get("df")
+    if df is not None:
+        selected = [c for c in selected if c in df.columns]
+
+    if not selected:
+        raise HTTPException(status_code=400, detail="No vulnerable columns matched dataset columns.")
+
+    existing = session.get("quasi_identifiers", [])
+    if str(mode).lower() == "merge":
+        merged = list(dict.fromkeys(existing + selected))
+    else:
+        merged = selected
+
+    session["quasi_identifiers"] = merged
+    session["vulnerable_columns"] = selected
+    session["vulnerable_columns_detail"] = _safe_json(filtered.to_dict("records"))
+
+    return {
+        "message": "Vulnerable columns applied to session quasi_identifiers.",
+        "source": source,
+        "quasi_identifiers": merged,
+        "vulnerable_columns": selected,
+        "total": int(len(selected)),
+    }
 
 
 @router.get("/results/llm-explanations/{session_id}")

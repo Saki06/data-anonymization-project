@@ -81,6 +81,11 @@ interface ShapFeature {
   [key: string]: unknown;
 }
 
+interface VulnerableColumn {
+  columnName: string;
+  score: number;
+}
+
 interface PipelineResult {
   overall_risk_score?: number;
   total_records?: number;
@@ -89,6 +94,7 @@ interface PipelineResult {
   risk_records?: RiskRecord[];
   risk_col?: string;
   shap_features?: ShapFeature[];
+  vulnerable_columns?: VulnerableColumn[];
   columns?: string[];
   // Percentile thresholds
   p95?: number;
@@ -466,6 +472,7 @@ function ReidentificationInner() {
   const [progress, setProgress] = useState(0);
   const [progressMsg, setProgressMsg] = useState('');
   const [running, setRunning] = useState(false);
+  const [applyingVulnCols, setApplyingVulnCols] = useState(false);
 
   // Results
   const [result, setResult] = useState<PipelineResult | null>(null);
@@ -783,6 +790,22 @@ function ReidentificationInner() {
       setMatchedPairsMessage('Failed to load matched pairs from backend.');
     }
 
+    // ── Vulnerable Columns (optional) ────────────────────────────────────────
+    try {
+      const vulnRes = await fetch(`${API_BASE}/results/vulnerable-columns/${sid}?min_score=0.01`);
+      if (vulnRes.ok) {
+        const d = await vulnRes.json();
+        // Backend returns { columns: [...], records: [{column, vulnerable_score, ...}], ... }
+        const vulnRecords = d.records ?? [];
+        if (vulnRecords.length > 0) {
+          pipelineResult.vulnerable_columns = vulnRecords.map((c: any) => ({
+            columnName: c.column,
+            score: c.vulnerable_score ?? 0,
+          }));
+        }
+      }
+    } catch { /* Vulnerable columns might not exist if analysis isn't complete */ }
+
     if (Object.keys(pipelineResult).length > 0) {
       setResult(pipelineResult);
     }
@@ -796,6 +819,51 @@ function ReidentificationInner() {
     a.href = URL.createObjectURL(blob);
     a.download = `anonymized_data.${format === 'excel' ? 'xlsx' : 'csv'}`;
     a.click();
+  };
+
+  const applyVulnerableColumns = async (columnsToApply?: string[]) => {
+    if (!sid) return;
+    try {
+      setApplyingVulnCols(true);
+      const targetColumns = columnsToApply || result?.vulnerable_columns?.map(c => c.columnName) || [];
+      if (targetColumns.length === 0) {
+        alert('No vulnerable columns found to apply.');
+        setApplyingVulnCols(false);
+        return;
+      }
+      
+      const fd = new FormData();
+      fd.append('session_id', sid);
+      fd.append('top_k', String(targetColumns.length));
+      fd.append('min_score', '0.01');
+      fd.append('mode', 'merge');
+
+      const r = await fetch(`${API_BASE}/apply-vulnerable-columns`, {
+        method: 'POST',
+        body: fd,
+      });
+      
+      if (!r.ok) {
+        const err = await r.json().catch(() => ({}));
+        alert('Failed to apply vulnerable columns: ' + (err.detail || r.status));
+        return;
+      }
+      
+      alert(`Successfully added ${targetColumns.length} vulnerable columns to Quasi-Identifiers. Let's re-run anonymization!`);
+      // Update UI quasi-identifiers
+      setSelectedQIs(prev => { 
+        const s = new Set(prev); 
+        targetColumns.forEach(c => s.add(c)); 
+        return s; 
+      });
+      
+      // Optionally, push user to anonymization page
+      router.push(`/anonymization?session_id=${sid}`);
+    } catch (e) {
+      alert('Error applying vulnerable columns: ' + (e instanceof Error ? e.message : String(e)));
+    } finally {
+      setApplyingVulnCols(false);
+    }
   };
 
   const riskCol = result?.risk_col ?? 'max_attack_score';
@@ -896,24 +964,79 @@ function ReidentificationInner() {
 
       {/* Pipeline Steps */}
       {Object.keys(stepStatuses).length > 0 && (
-        <div className="section">
-          <h2>🔄 Pipeline Steps</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mt-3">
-            {PIPELINE_STEPS.map(s => {
+        <div className="mt-8 mb-10 p-6 rounded-2xl bg-slate-900/40 border border-slate-800/60 shadow-xl backdrop-blur-sm">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-bold text-slate-100 flex items-center gap-2 m-0">
+              <span className="text-blue-400">⚡</span> Agent Pipeline Execution
+            </h2>
+            {running && (
+              <span className="flex items-center gap-2 text-xs font-semibold text-blue-400 bg-blue-500/10 px-3 py-1.5 rounded-full border border-blue-500/20">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                </span>
+                Processing...
+              </span>
+            )}
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+            {PIPELINE_STEPS.map((s, idx) => {
               const st = stepStatuses[s.id] ?? 'pending';
-              const colorMap: Record<StepStatus, string> = {
-                done:    'border-green-400 bg-green-50',
-                running: 'border-blue-400 bg-blue-50',
-                error:   'border-red-400 bg-red-50',
-                skip:    'border-gray-300 bg-gray-50',
-                pending: 'border-gray-200 bg-white',
+              
+              const styles: Record<StepStatus, { wrapper: string, iconBg: string, text: string, icon: JSX.Element }> = {
+                done: {
+                  wrapper: 'bg-gradient-to-br from-emerald-900/30 to-slate-900/50 border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.1)]',
+                  iconBg: 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30',
+                  text: 'text-emerald-300',
+                  icon: <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                },
+                running: {
+                  wrapper: 'bg-gradient-to-br from-blue-900/40 to-slate-900/50 border-blue-400/50 shadow-[0_0_20px_rgba(59,130,246,0.2)] ring-1 ring-blue-400/30',
+                  iconBg: 'bg-blue-500/20 text-blue-400 border border-blue-400/50 animate-pulse',
+                  text: 'text-blue-300',
+                  icon: <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+                },
+                error: {
+                  wrapper: 'bg-gradient-to-br from-red-900/30 to-slate-900/50 border-red-500/30 shadow-[0_0_15px_rgba(239,68,68,0.1)]',
+                  iconBg: 'bg-red-500/20 text-red-400 border border-red-500/30',
+                  text: 'text-red-300',
+                  icon: <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                },
+                skip: {
+                  wrapper: 'bg-slate-800/30 border-slate-700/50',
+                  iconBg: 'bg-slate-700/50 text-slate-400 border border-slate-600',
+                  text: 'text-slate-400',
+                  icon: <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
+                },
+                pending: {
+                  wrapper: 'bg-slate-900/30 border-slate-800/80 opacity-60',
+                  iconBg: 'bg-slate-800 text-slate-500 border border-slate-700',
+                  text: 'text-slate-500',
+                  icon: <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                },
               };
-              const icon = st === 'done' ? '✅' : st === 'running' ? '⏳' : st === 'error' ? '❌' : st === 'skip' ? '⏭' : '⬜';
+
+              const style = styles[st];
+
               return (
-                <div key={s.id} className={`border rounded-lg p-3 ${colorMap[st]}`}>
-                  <div className="text-xs text-gray-400 font-semibold uppercase tracking-wide">{s.agent}</div>
-                  <div className="text-sm font-semibold text-gray-700 mt-1">{s.label}</div>
-                  <div className="text-lg mt-1">{icon}</div>
+                <div key={s.id} className={`relative flex flex-col p-4 rounded-xl border backdrop-blur-sm transition-all duration-300 ${style.wrapper}`}>
+                  <div className="flex items-start justify-between mb-3 z-10">
+                    <div className={`flex items-center justify-center w-8 h-8 rounded-full ${style.iconBg}`}>
+                      {style.icon}
+                    </div>
+                    <div className="text-[10px] font-black tracking-widest uppercase text-slate-500 bg-slate-900/50 px-2 py-1 rounded-md border border-slate-800/60 shadow-inner">
+                      {s.agent}
+                    </div>
+                  </div>
+                  
+                  <div className={`text-sm font-bold leading-tight ${style.text} z-10`}>
+                    {s.label}
+                  </div>
+                  
+                  {st === 'running' && (
+                    <div className="absolute bottom-0 left-0 h-1 bg-blue-500/50 animate-pulse rounded-b-xl" style={{ width: '100%' }}></div>
+                  )}
                 </div>
               );
             })}
@@ -1339,54 +1462,125 @@ function ReidentificationInner() {
 
           {/* Vulnerability Tab */}
           {activeTab === 'vulnerability' && (() => {
-            if (!result.shap_features?.length)
-              return <p className="text-sm text-slate-500 mt-2">No SHAP data available.</p>;
+            const hasVulnData = result.vulnerable_columns && result.vulnerable_columns.length > 0;
+            const hasShapData = result.shap_features && result.shap_features.length > 0;
+            
+            if (!hasVulnData && !hasShapData)
+              return <p className="text-sm text-slate-500 mt-2">No Vulnerability or SHAP data available. Run the pipeline first.</p>;
 
-            const aggregated = aggregateShapFeatures(result.shap_features);
+            // Build a lookup from SHAP aggregation for feature count info
+            const shapAggregated = hasShapData ? aggregateShapFeatures(result.shap_features!) : [];
+            const shapLookup: Record<string, { rawFeatures: string[]; avgImportance: number; maxImportance: number }> = {};
+            for (const item of shapAggregated) {
+              shapLookup[item.col.toLowerCase()] = item;
+            }
 
             return (
               <div className="mt-2">
-                <div className="mb-6 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 shadow-sm">
-                  <h3 className="font-semibold text-slate-800 dark:text-slate-200 mb-1 flex items-center gap-2">
-                    <span className="text-xl">🎯</span> Column-Level Vulnerability Analysis
-                  </h3>
-                  <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-                    This analysis shows which original columns the Machine Learning attacker relies on most heavily. 
-                    Engineered features (like distance metrics or ratio comparisons) have been aggregated back to their parent columns. 
-                    Higher reliance indicates the column is more vulnerable to driving re-identification.
-                  </p>
+                <div className="mb-6 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+                  <div>
+                    <h3 className="font-semibold text-slate-800 dark:text-slate-200 mb-1 flex items-center gap-2">
+                      <span className="text-xl">🎯</span> Column-Level Vulnerability Analysis
+                    </h3>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                      Vulnerability scores combine SHAP feature importance (70%) and pair-risk correlation (30%) to identify 
+                      which columns the ML attacker relies on most. Higher scores mean the column is more vulnerable to re-identification.
+                    </p>
+                  </div>
+                  {hasVulnData && (
+                    <button 
+                      onClick={() => applyVulnerableColumns()}
+                      disabled={applyingVulnCols}
+                      className="shrink-0 flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-bold py-2.5 px-5 rounded-lg shadow-md hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {applyingVulnCols ? '⏳ Applying...' : '🛡️ Apply to Anonymization'}
+                    </button>
+                  )}
                 </div>
 
-                {/* Table header */}
-                <div className="grid gap-4 border-b border-slate-200 dark:border-slate-700 pb-3 mb-2 px-4" style={{ gridTemplateColumns: '2fr 1fr 1fr' }}>
-                  <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Anonymized Column</div>
-                  <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-center">Avg ML Reliance</div>
-                  <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-center">Max ML Reliance</div>
-                </div>
+                {hasVulnData ? (
+                  <>
+                    {/* Column cards with consistent vulnerability score */}
+                    <h4 className="text-md font-bold text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
+                      <span className="text-red-500">🚨</span> Column Vulnerability Ranking
+                    </h4>
 
-                <div className="space-y-3">
-                  {aggregated.map(({ col, avgImportance, maxImportance, rawFeatures }) => {
-                    const avgPct = Math.min(avgImportance * 100, 100);
-                    const maxPct = Math.min(maxImportance * 100, 100);
-                    return (
-                      <div key={col} className="grid gap-4 items-center bg-white dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800 rounded-xl p-4 hover:shadow-md dark:hover:bg-slate-800/60 transition-all" style={{ gridTemplateColumns: '2fr 1fr 1fr' }}>
-                        <div>
-                          <div className="font-bold text-lg text-slate-800 dark:text-slate-100">{col}</div>
-                          <div className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 flex items-center gap-1.5">
-                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500/60 inline-block"></span>
-                            Derived from {rawFeatures.length} underlying ML feature{rawFeatures.length !== 1 ? 's' : ''}
+                    {/* Table header */}
+                    <div className="grid gap-4 border-b border-slate-200 dark:border-slate-700 pb-3 mb-2 px-4" style={{ gridTemplateColumns: '2fr 1fr 1fr' }}>
+                      <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Column</div>
+                      <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-center">Vulnerability Score</div>
+                      <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-center">Risk Level</div>
+                    </div>
+
+                    <div className="space-y-3">
+                      {result.vulnerable_columns!.map((vc) => {
+                        const score = vc.score;
+                        const riskLevel = score >= 60 ? 'Critical' : score >= 40 ? 'High' : score >= 20 ? 'Medium' : 'Low';
+                        const riskColor = score >= 60 ? 'text-red-400' : score >= 40 ? 'text-orange-400' : score >= 20 ? 'text-yellow-400' : 'text-emerald-400';
+                        const riskBg = score >= 60 ? 'bg-red-500/15 border-red-500/30' : score >= 40 ? 'bg-orange-500/15 border-orange-500/30' : score >= 20 ? 'bg-yellow-500/15 border-yellow-500/30' : 'bg-emerald-500/15 border-emerald-500/30';
+                        const shapInfo = shapLookup[vc.columnName.toLowerCase()];
+                        const featureCount = shapInfo?.rawFeatures?.length ?? 0;
+
+                        return (
+                          <div key={vc.columnName} className="grid gap-4 items-center bg-white dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800 rounded-xl p-4 hover:shadow-md dark:hover:bg-slate-800/60 transition-all" style={{ gridTemplateColumns: '2fr 1fr 1fr' }}>
+                            <div>
+                              <div className="font-bold text-lg text-slate-800 dark:text-slate-100">{vc.columnName}</div>
+                              {featureCount > 0 && (
+                                <div className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 flex items-center gap-1.5">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500/60 inline-block"></span>
+                                  Derived from {featureCount} underlying ML feature{featureCount !== 1 ? 's' : ''}
+                                </div>
+                              )}
+                            </div>
+                            <div className="flex justify-center">
+                              <SemiGauge value={score} label="Vulnerability Score" />
+                            </div>
+                            <div className="flex justify-center">
+                              <span className={`px-3 py-1.5 rounded-lg border text-sm font-bold ${riskBg} ${riskColor}`}>
+                                {riskLevel}
+                              </span>
+                            </div>
                           </div>
-                        </div>
-                        <div className="flex justify-center">
-                          <SemiGauge value={avgPct} label="Average Contribution" />
-                        </div>
-                        <div className="flex justify-center">
-                          <SemiGauge value={maxPct} label="Maximum Contribution" />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+                        );
+                      })}
+                    </div>
+                  </>
+                ) : hasShapData && (
+                  <>
+                    {/* Fallback: show raw SHAP aggregation when vulnerable_columns endpoint has no data */}
+                    <h4 className="text-md font-bold text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
+                      <span className="text-blue-500">🧠</span> Column ML Reliance (SHAP Aggregation)
+                    </h4>
+                    <div className="grid gap-4 border-b border-slate-200 dark:border-slate-700 pb-3 mb-2 px-4" style={{ gridTemplateColumns: '2fr 1fr 1fr' }}>
+                      <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Anonymized Column</div>
+                      <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-center">Avg ML Reliance</div>
+                      <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-center">Max ML Reliance</div>
+                    </div>
+                    <div className="space-y-3">
+                      {shapAggregated.map(({ col, avgImportance, maxImportance, rawFeatures }) => {
+                        const avgPct = Math.min(avgImportance * 100, 100);
+                        const maxPct = Math.min(maxImportance * 100, 100);
+                        return (
+                          <div key={col} className="grid gap-4 items-center bg-white dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800 rounded-xl p-4 hover:shadow-md dark:hover:bg-slate-800/60 transition-all" style={{ gridTemplateColumns: '2fr 1fr 1fr' }}>
+                            <div>
+                              <div className="font-bold text-lg text-slate-800 dark:text-slate-100">{col}</div>
+                              <div className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 flex items-center gap-1.5">
+                                <span className="w-1.5 h-1.5 rounded-full bg-blue-500/60 inline-block"></span>
+                                Derived from {rawFeatures.length} underlying ML feature{rawFeatures.length !== 1 ? 's' : ''}
+                              </div>
+                            </div>
+                            <div className="flex justify-center">
+                              <SemiGauge value={avgPct} label="Average Contribution" />
+                            </div>
+                            <div className="flex justify-center">
+                              <SemiGauge value={maxPct} label="Maximum Contribution" />
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </>
+                )}
               </div>
             );
           })()}
