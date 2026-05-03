@@ -1,7 +1,3 @@
-"""
-FastAPI Backend for Anonymization System
-Main entry point that integrates all components
-"""
 
 from contextlib import asynccontextmanager
 
@@ -35,9 +31,16 @@ from components.ai_agent.risk_analyzer import RiskAnalyzer
 from components.expert_system.knowledge_base import AnonymizationKnowledgeBase
 from components.optimization.nsga2 import NSGA2Optimizer
 
+# Import authentication
+from components.auth.routes import router as auth_router
+from components.auth.database import connect_db, close_db
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Initialize shared state on startup."""
+    # Connect to MongoDB
+    await connect_db()
+
     set_anon_sessions(sessions)
     set_quasi_sessions(sessions)
     set_synth_sessions(sessions)
@@ -51,6 +54,9 @@ async def lifespan(app: FastAPI):
     })
     set_knowledge_base(knowledge_base)
     yield
+
+    # Close MongoDB connection on shutdown
+    await close_db()
 
 
 app = FastAPI(title="Anonymization Automation System", version="1.0.0", lifespan=lifespan)
@@ -103,6 +109,7 @@ async def root():
 
 
 # Include routers from components
+app.include_router(auth_router)
 app.include_router(upload_router)
 app.include_router(quasi_selection_router)
 app.include_router(anonymization_router)
