@@ -4,3 +4,8 @@ frontend-nextjs/.next/
 backend/components/reidentification/data/
 backend/components/__pycache__/
 backend/components/outputs/logs/
+*.log
+
+# Python cache
+__pycache__/
+*.pyc
