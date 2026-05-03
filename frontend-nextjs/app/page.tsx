@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import Link from 'next/link';
 import { ShieldCheck, UploadCloud, ScanSearch, Lock, ShieldAlert } from 'lucide-react';
@@ -54,11 +54,17 @@ export default function HomePage() {
 
         <div className="mt-8 flex flex-wrap gap-4 justify-center">
           <Link
-            href="/dashboard"
-            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-7 py-3 rounded-lg shadow transition-colors text-sm"
+            href="/login"
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-7 py-3 rounded-lg shadow-lg shadow-blue-500/25 transition-all text-sm"
           >
             <UploadCloud className="w-4 h-4" />
-            Get Started
+            Sign In
+          </Link>
+          <Link
+            href="/signup"
+            className="inline-flex items-center gap-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 font-semibold px-7 py-3 rounded-lg shadow transition-all text-sm"
+          >
+            Create Account
           </Link>
         </div>
       </section>
