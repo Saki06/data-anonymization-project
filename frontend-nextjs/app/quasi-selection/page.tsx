@@ -13,6 +13,7 @@ interface DetectDetail {
   confidence: number;
   reasons: string;
 }
+
 interface DetectResult {
   details: DetectDetail[];
   quasi_identifiers: string[];
