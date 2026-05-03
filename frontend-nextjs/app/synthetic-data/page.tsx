@@ -51,11 +51,32 @@ interface PrivacyProxy {
   note?: string;
 }
 
+interface Cm3Confidentiality {
+  cm3: number | null;
+  cm2_per_attr: Record<string, number>;
+  min_attr: string | null;
+  note: string;
+}
+
+interface PropensityMetric {
+  propensity_score_U: number | null;
+  accuracy_train?: number | null;
+  accuracy_test?: number | null;
+  n_original?: number;
+  n_synthetic?: number;
+  classifier?: string;
+  class_report?: string | null;
+  note?: string;
+}
+
 interface Report {
   parameters: { epsilon: number; seed: number | null; strata_keys: string[]; n_rows_original: number; n_rows_synthetic: number };
   columns_dropped: string[];
   utility_metrics: Record<string, { total_variation_distance?: number; kolmogorov_smirnov?: number; missingness: { difference_pct: number } }>;
   privacy_proxy: PrivacyProxy;
+  cm3_confidentiality?: Cm3Confidentiality;
+  propensity_metric?: PropensityMetric;
+  propensity_score_utility?: { propensity_score_U?: number | null; note?: string };
   notes: string;
 }
 
@@ -562,6 +583,242 @@ function SyntheticDataInner() {
                   <p className="text-sm text-gray-400">Privacy proxy not available (requires numeric columns).</p>
                 )}
               </div>
+
+              {/* ── Propensity Score Utility ── */}
+              {report.propensity_metric && (
+                <div>
+                  <h3 className="text-sm font-semibold mb-1">🎯 Propensity Score Utility</h3>
+                  <p className="text-xs text-gray-400 mb-3">
+                    A Logistic Regression classifier is trained to separate real (0) from synthetic (1) records.
+                    U = (1/2n)×Σ(p̂−½)² · <strong>U ≈ 0</strong> = high utility · <strong>U → 0.25</strong> = poor utility.
+                  </p>
+
+                  {report.propensity_metric.propensity_score_U != null ? (
+                    <>
+                      {/* Score cards row */}
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
+                        {/* U score */}
+                        <div className={`rounded-lg p-3 text-center ${
+                          report.propensity_metric.propensity_score_U < 0.01
+                            ? 'bg-green-50 dark:bg-green-900/30'
+                            : report.propensity_metric.propensity_score_U < 0.05
+                            ? 'bg-blue-50 dark:bg-blue-900/30'
+                            : report.propensity_metric.propensity_score_U < 0.10
+                            ? 'bg-yellow-50 dark:bg-yellow-900/30'
+                            : 'bg-red-50 dark:bg-red-900/30'
+                        }`}>
+                          <div className={`text-2xl font-bold ${
+                            report.propensity_metric.propensity_score_U < 0.01
+                              ? 'text-green-700 dark:text-green-300'
+                              : report.propensity_metric.propensity_score_U < 0.05
+                              ? 'text-blue-700 dark:text-blue-300'
+                              : report.propensity_metric.propensity_score_U < 0.10
+                              ? 'text-yellow-700 dark:text-yellow-300'
+                              : 'text-red-700 dark:text-red-300'
+                          }`}>
+                            {report.propensity_metric.propensity_score_U.toFixed(6)}
+                          </div>
+                          <div className="text-xs text-gray-500 mt-1">U Score</div>
+                        </div>
+
+                        {/* Train accuracy */}
+                        <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-3 text-center">
+                          <div className="text-2xl font-bold text-[#667eea]">
+                            {report.propensity_metric.accuracy_train != null
+                              ? `${(report.propensity_metric.accuracy_train * 100).toFixed(1)}%`
+                              : '—'}
+                          </div>
+                          <div className="text-xs text-gray-500 mt-1">Train Accuracy</div>
+                        </div>
+
+                        {/* Test accuracy */}
+                        <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-3 text-center">
+                          <div className="text-2xl font-bold text-[#667eea]">
+                            {report.propensity_metric.accuracy_test != null
+                              ? `${(report.propensity_metric.accuracy_test * 100).toFixed(1)}%`
+                              : '—'}
+                          </div>
+                          <div className="text-xs text-gray-500 mt-1">Test Accuracy (OOB)</div>
+                        </div>
+
+                        {/* Interpretation badge */}
+                        <div className={`rounded-lg p-3 flex items-center justify-center text-center text-xs font-semibold ${
+                          report.propensity_metric.propensity_score_U < 0.01
+                            ? 'bg-green-50 dark:bg-green-900/30 text-green-800 dark:text-green-200'
+                            : report.propensity_metric.propensity_score_U < 0.05
+                            ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200'
+                            : report.propensity_metric.propensity_score_U < 0.10
+                            ? 'bg-yellow-50 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200'
+                            : 'bg-red-50 dark:bg-red-900/30 text-red-800 dark:text-red-200'
+                        }`}>
+                          {report.propensity_metric.propensity_score_U < 0.01
+                            ? '✅ Excellent utility'
+                            : report.propensity_metric.propensity_score_U < 0.05
+                            ? '🟢 Good utility'
+                            : report.propensity_metric.propensity_score_U < 0.10
+                            ? '⚠️ Moderate utility'
+                            : '🔴 Poor utility'}
+                        </div>
+                      </div>
+
+                      {/* Propensity distribution bar (visual proxy for histogram) */}
+                      <div className="mb-3">
+                        <div className="flex justify-between text-xs text-gray-400 mb-1">
+                          <span>U = 0 (ideal)</span>
+                          <span>Current U = {report.propensity_metric.propensity_score_U.toFixed(4)}</span>
+                          <span>U = 0.25 (worst)</span>
+                        </div>
+                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 relative">
+                          <div
+                            className="h-3 rounded-full transition-all"
+                            style={{
+                              width: `${Math.min((report.propensity_metric.propensity_score_U / 0.25) * 100, 100).toFixed(1)}%`,
+                              backgroundColor:
+                                report.propensity_metric.propensity_score_U < 0.01 ? '#2ecc71'
+                                : report.propensity_metric.propensity_score_U < 0.05 ? '#667eea'
+                                : report.propensity_metric.propensity_score_U < 0.10 ? '#f39c12'
+                                : '#e74c3c',
+                            }}
+                          />
+                        </div>
+                        <p className="text-xs text-gray-400 mt-1">U as fraction of theoretical max (0.25)</p>
+                      </div>
+
+                      {/* Note */}
+                      {report.propensity_metric.note && (
+                        <p className="text-xs text-gray-500 italic">{report.propensity_metric.note}</p>
+                      )}
+
+                      {/* Classification report */}
+                      {report.propensity_metric.class_report && (
+                        <details className="mt-2">
+                          <summary className="text-xs text-[#667eea] cursor-pointer select-none">
+                            Show classification report (test set)
+                          </summary>
+                          <pre className="mt-2 text-xs bg-gray-100 dark:bg-gray-800 rounded p-3 overflow-x-auto font-mono leading-relaxed">
+                            {report.propensity_metric.class_report}
+                          </pre>
+                        </details>
+                      )}
+                    </>
+                  ) : (
+                    <p className="text-sm text-gray-400">{report.propensity_metric.note}</p>
+                  )}
+                </div>
+              )}
+
+              {/* ── CM3 Confidentiality Metric ── */}
+              {report.cm3_confidentiality && (
+                <div>
+                  <h3 className="text-sm font-semibold mb-1">🔐 CM3 — Confidentiality Metric (Canonical Correlation)</h3>
+                  <p className="text-xs text-gray-400 mb-3">
+                    CM3 = min CM2 over all attributes. CM2 uses canonical correlations between sorted residual matrices.
+                    CM3 close to <strong>1</strong> = high confidentiality · close to <strong>0</strong> = disclosure risk.
+                  </p>
+
+                  {/* CM3 score card */}
+                  {report.cm3_confidentiality.cm3 != null ? (
+                    <>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+                        {/* Big CM3 score */}
+                        <div className={`rounded-lg p-4 text-center ${
+                          report.cm3_confidentiality.cm3 >= 0.75
+                            ? 'bg-green-50 dark:bg-green-900/30'
+                            : report.cm3_confidentiality.cm3 >= 0.40
+                            ? 'bg-yellow-50 dark:bg-yellow-900/30'
+                            : 'bg-red-50 dark:bg-red-900/30'
+                        }`}>
+                          <div className={`text-3xl font-bold ${
+                            report.cm3_confidentiality.cm3 >= 0.75
+                              ? 'text-green-700 dark:text-green-300'
+                              : report.cm3_confidentiality.cm3 >= 0.40
+                              ? 'text-yellow-700 dark:text-yellow-300'
+                              : 'text-red-700 dark:text-red-300'
+                          }`}>
+                            {report.cm3_confidentiality.cm3.toFixed(4)}
+                          </div>
+                          <div className="text-xs text-gray-500 mt-1">CM3 Score</div>
+                        </div>
+
+                        {/* Most-at-risk attribute */}
+                        <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 text-center">
+                          <div className="text-lg font-bold text-[#667eea] font-mono">
+                            {report.cm3_confidentiality.min_attr ?? '—'}
+                          </div>
+                          <div className="text-xs text-gray-500 mt-1">Most-at-risk Attribute</div>
+                        </div>
+
+                        {/* Interpretation */}
+                        <div className={`rounded-lg p-4 flex items-center justify-center text-center text-sm font-medium ${
+                          report.cm3_confidentiality.cm3 >= 0.75
+                            ? 'bg-green-50 dark:bg-green-900/30 text-green-800 dark:text-green-200'
+                            : report.cm3_confidentiality.cm3 >= 0.40
+                            ? 'bg-yellow-50 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-200'
+                            : 'bg-red-50 dark:bg-red-900/30 text-red-800 dark:text-red-200'
+                        }`}>
+                          {report.cm3_confidentiality.cm3 >= 0.75
+                            ? '✅ Strong confidentiality'
+                            : report.cm3_confidentiality.cm3 >= 0.40
+                            ? '⚠️ Moderate confidentiality'
+                            : '🔴 High disclosure risk'}
+                        </div>
+                      </div>
+
+                      {/* Per-attribute CM2 table */}
+                      {Object.keys(report.cm3_confidentiality.cm2_per_attr).length > 0 && (
+                        <div className="overflow-x-auto">
+                          <table className="w-full text-sm border-collapse">
+                            <thead>
+                              <tr className="bg-gray-100 dark:bg-gray-700">
+                                <th className="text-left p-2 border border-gray-200 dark:border-gray-600">Attribute</th>
+                                <th className="text-left p-2 border border-gray-200 dark:border-gray-600">CM2 Score</th>
+                                <th className="text-left p-2 border border-gray-200 dark:border-gray-600">Risk Band</th>
+                                <th className="text-left p-2 border border-gray-200 dark:border-gray-600">Bar</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {Object.entries(report.cm3_confidentiality.cm2_per_attr)
+                                .sort(([, a], [, b]) => a - b)   // ascending: most-at-risk first
+                                .map(([attr, cm2]) => {
+                                  const isMin = attr === report.cm3_confidentiality!.min_attr;
+                                  const band =
+                                    cm2 >= 0.75 ? { label: 'High',     cls: 'text-green-700 dark:text-green-300',  bar: '#2ecc71' }
+                                  : cm2 >= 0.40 ? { label: 'Moderate', cls: 'text-yellow-700 dark:text-yellow-300', bar: '#f39c12' }
+                                  :               { label: 'Risk',     cls: 'text-red-700 dark:text-red-300',      bar: '#e74c3c' };
+                                  return (
+                                    <tr key={attr} className={`hover:bg-gray-50 dark:hover:bg-gray-800 ${
+                                      isMin ? 'ring-1 ring-inset ring-[#667eea]' : ''
+                                    }`}>
+                                      <td className="p-2 border border-gray-200 dark:border-gray-600 font-mono text-xs">
+                                        {attr}{isMin && <span className="ml-1 text-[10px] text-[#667eea] font-semibold">(CM3)</span>}
+                                      </td>
+                                      <td className="p-2 border border-gray-200 dark:border-gray-600 font-mono text-xs font-semibold">
+                                        {cm2.toFixed(6)}
+                                      </td>
+                                      <td className={`p-2 border border-gray-200 dark:border-gray-600 text-xs font-semibold ${band.cls}`}>
+                                        {band.label}
+                                      </td>
+                                      <td className="p-2 border border-gray-200 dark:border-gray-600">
+                                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                          <div
+                                            className="h-2 rounded-full transition-all"
+                                            style={{ width: `${(cm2 * 100).toFixed(1)}%`, backgroundColor: band.bar }}
+                                          />
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  );
+                                })}
+                            </tbody>
+                          </table>
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <p className="text-sm text-gray-400">{report.cm3_confidentiality.note}</p>
+                  )}
+                </div>
+              )}
 
               {/* Notes */}
               <p className="text-xs text-gray-400 italic">{report.notes}</p>
