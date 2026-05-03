@@ -1,3 +1,6 @@
 .venv/
 frontend-nextjs/node_modules/
 frontend-nextjs/.next/
+backend/components/reidentification/data/
+backend/components/__pycache__/
+backend/components/outputs/logs/
