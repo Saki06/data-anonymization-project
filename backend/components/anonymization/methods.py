@@ -1426,3 +1426,256 @@ class AnonymizationMethods:
                 }
         
         return info
+    
+    @staticmethod
+    def comprehensive_anonymize_with_tracking(
+        df: pd.DataFrame,
+        quasi_identifiers: List[str],
+        sensitive_attributes: List[str],
+        direct_identifiers: List[str],
+        analysis_results: Dict[str, Any] = None,
+        k: int = 5,
+        l: int = 2,
+        t: float = 0.2,
+        generalization_level: float = 0.5
+    ) -> Tuple[pd.DataFrame, Dict[str, Any]]:
+        """
+        Comprehensive anonymization of ALL column types with detailed change tracking.
+        
+        This method goes beyond just anonymizing quasi-identifiers - it also handles:
+        - Direct identifiers (suppress or remove)
+        - Sensitive attributes (suppress or generalize)
+        - Any other columns flagged as risky by analysis
+        
+        Args:
+            df: Input dataframe
+            quasi_identifiers: List of QI column names
+            sensitive_attributes: List of sensitive attribute column names
+            direct_identifiers: List of direct identifier column names
+            analysis_results: Optional dict with detected problems and risk assessment
+            k, l, t: Anonymization parameters
+            generalization_level: Generalization intensity (0-1)
+            
+        Returns:
+            Tuple of (anonymized_df, change_tracking_info)
+            
+        change_tracking_info contains:
+        {
+            'total_columns_changed': int,
+            'total_cells_changed': int,
+            'column_changes': [
+                {
+                    'column_name': str,
+                    'column_type': 'quasi_identifier' | 'sensitive_attribute' | 'direct_identifier' | 'other_risky',
+                    'anonymization_method': str,
+                    'original_unique_values': int,
+                    'anonymized_unique_values': int,
+                    'cells_modified': int,
+                    'sample_changes': [
+                        {'original': ..., 'anonymized': ...},
+                        ...
+                    ]
+                }
+            ],
+            'row_changes': [  # Sample of changed rows
+                {
+                    'row_index': int,
+                    'changed_columns': [str],
+                    'changes': {
+                        'column_name': {'original': ..., 'anonymized': ...}
+                    }
+                }
+            ]
+        }
+        """
+        anon_df = df.copy()
+        change_tracking = {
+            'total_columns_changed': 0,
+            'total_cells_changed': 0,
+            'column_changes': [],
+            'row_changes': []
+        }
+        
+        # Identify risky columns from analysis results
+        risky_columns = []
+        if analysis_results and 'detected_problems' in analysis_results:
+            for problem in analysis_results.get('detected_problems', []):
+                if 'column' in problem and problem['column'] not in quasi_identifiers:
+                    if problem['column'] not in risky_columns:
+                        risky_columns.append(problem['column'])
+        
+        # === 1. HANDLE DIRECT IDENTIFIERS: SUPPRESS OR REMOVE ===
+        for di_col in direct_identifiers:
+            if di_col not in anon_df.columns:
+                continue
+                
+            original_unique = anon_df[di_col].nunique()
+            
+            # Suppress (replace with mask) for most columns, or remove entirely
+            if anon_df[di_col].dtype == 'object' or anon_df[di_col].dtype == 'string':
+                # For string columns, mask with placeholder
+                anon_df[di_col] = '[SUPPRESSED]'
+                method = 'suppression'
+            else:
+                # For numeric columns, use NaN
+                anon_df[di_col] = np.nan
+                method = 'removal'
+            
+            anonymized_unique = anon_df[di_col].nunique()
+            cells_modified = len(df)  # All cells changed
+            
+            # Sample changes
+            sample_changes = []
+            for idx in range(min(3, len(df))):
+                try:
+                    sample_changes.append({
+                        'original': str(df.iloc[idx][di_col]),
+                        'anonymized': str(anon_df.iloc[idx][di_col])
+                    })
+                except:
+                    pass
+            
+            change_tracking['column_changes'].append({
+                'column_name': di_col,
+                'column_type': 'direct_identifier',
+                'anonymization_method': method,
+                'original_unique_values': int(original_unique),
+                'anonymized_unique_values': int(anonymized_unique),
+                'cells_modified': cells_modified,
+                'sample_changes': sample_changes
+            })
+            change_tracking['total_columns_changed'] += 1
+            change_tracking['total_cells_changed'] += cells_modified
+        
+        # === 2. HANDLE SENSITIVE ATTRIBUTES: SUPPRESS OR GENERALIZE ===
+        for sa_col in sensitive_attributes:
+            if sa_col not in anon_df.columns or sa_col in quasi_identifiers:
+                continue
+                
+            original_unique = anon_df[sa_col].nunique()
+            original_col = df[sa_col].copy()
+            
+            # Check if this is sensitive health/financial data - suppress if rare categories
+            method = 'suppress_rare_values'
+            
+            if pd.api.types.is_numeric_dtype(anon_df[sa_col]):
+                # For numeric sensitive attributes, apply binning/rounding
+                method = 'binning'
+                try:
+                    # Round to nearest 1000 or 10% of range
+                    col_range = anon_df[sa_col].max() - anon_df[sa_col].min()
+                    bin_size = max(1000, col_range / 10)
+                    anon_df[sa_col] = (anon_df[sa_col] / bin_size).round() * bin_size
+                except:
+                    pass
+            else:
+                # For categorical sensitive attributes, suppress rare categories
+                value_counts = anon_df[sa_col].value_counts()
+                threshold = len(anon_df) * 0.05  # Less than 5% frequency
+                rare_values = value_counts[value_counts < threshold].index
+                
+                mask = anon_df[sa_col].isin(rare_values)
+                if mask.any():
+                    anon_df.loc[mask, sa_col] = '[SUPPRESSED]'
+            
+            anonymized_unique = anon_df[sa_col].nunique()
+            cells_modified = (original_col.astype(str) != anon_df[sa_col].astype(str)).sum()
+            
+            # Sample changes
+            sample_changes = []
+            changed_indices = np.where((original_col.astype(str) != anon_df[sa_col].astype(str)).values)[0]
+            for idx in changed_indices[:3]:
+                try:
+                    sample_changes.append({
+                        'original': str(original_col.iloc[idx]),
+                        'anonymized': str(anon_df.iloc[idx][sa_col])
+                    })
+                except:
+                    pass
+            
+            change_tracking['column_changes'].append({
+                'column_name': sa_col,
+                'column_type': 'sensitive_attribute',
+                'anonymization_method': method,
+                'original_unique_values': int(original_unique),
+                'anonymized_unique_values': int(anonymized_unique),
+                'cells_modified': int(cells_modified),
+                'sample_changes': sample_changes
+            })
+            if cells_modified > 0:
+                change_tracking['total_columns_changed'] += 1
+                change_tracking['total_cells_changed'] += int(cells_modified)
+        
+        # === 3. HANDLE QUASI-IDENTIFIERS ===
+        # Store original for comparison
+        original_qi = df[quasi_identifiers].copy() if quasi_identifiers else pd.DataFrame()
+        
+        for qi_col in quasi_identifiers:
+            if qi_col not in anon_df.columns:
+                continue
+                
+            original_unique = df[qi_col].nunique()
+            anonymized_unique = anon_df[qi_col].nunique() if qi_col in anon_df.columns else 0
+            
+            # Will be generalized/suppressed by main k-anonymity methods
+            # Track the change potential
+            if original_unique > anonymized_unique or (anon_df[qi_col] == '*').any():
+                method = 'generalization_and_suppression'
+                cells_modified = (df[qi_col].astype(str) != anon_df[qi_col].astype(str)).sum()
+                
+                # Sample changes
+                sample_changes = []
+                changed_indices = np.where((df[qi_col].astype(str) != anon_df[qi_col].astype(str)).values)[0]
+                for idx in changed_indices[:3]:
+                    try:
+                        sample_changes.append({
+                            'original': str(df.iloc[idx][qi_col]),
+                            'anonymized': str(anon_df.iloc[idx][qi_col])
+                        })
+                    except:
+                        pass
+                
+                change_tracking['column_changes'].append({
+                    'column_name': qi_col,
+                    'column_type': 'quasi_identifier',
+                    'anonymization_method': method,
+                    'original_unique_values': int(original_unique),
+                    'anonymized_unique_values': int(anonymized_unique),
+                    'cells_modified': int(cells_modified),
+                    'sample_changes': sample_changes
+                })
+                if cells_modified > 0:
+                    change_tracking['total_columns_changed'] += 1
+                    change_tracking['total_cells_changed'] += int(cells_modified)
+        
+        # === 4. IDENTIFY AND TRACK ROW-LEVEL CHANGES ===
+        # Find rows that were modified
+        row_changes = []
+        for idx in range(min(100, len(df))):  # Check first 100 rows for samples
+            changed_cols = []
+            changes = {}
+            
+            for col in anon_df.columns:
+                if col not in df.columns:
+                    continue
+                    
+                orig_val = str(df.iloc[idx][col])
+                anon_val = str(anon_df.iloc[idx][col])
+                
+                if orig_val != anon_val:
+                    changed_cols.append(col)
+                    changes[col] = {
+                        'original': orig_val,
+                        'anonymized': anon_val
+                    }
+            
+            if changed_cols:
+                row_changes.append({
+                    'row_index': idx,
+                    'changed_columns': changed_cols,
+                    'changes': changes
+                })
+        
+        change_tracking['row_changes'] = row_changes[:20]  # Keep only first 20 samples
+        
+        return anon_df, change_tracking

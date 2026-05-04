@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { ShieldAlert, Database, Lock, Search, FileCog, Home, LayoutDashboard, LogOut } from 'lucide-react';
+import { ShieldAlert, Database, Lock, Search, FileCog, Home, LayoutDashboard, LogOut, Zap, TrendingUp } from 'lucide-react';
 import { useAuth } from '@/lib/AuthContext';
 
 export default function Sidebar() {
@@ -18,6 +18,8 @@ export default function Sidebar() {
     { label: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
     { label: 'Quasi-Selection', path: '/quasi-selection', icon: FileCog },
     { label: 'Anonymization', path: '/anonymization', icon: Lock },
+    { label: 'Pipeline Generation', path: '/pipeline-generation', icon: Zap },
+    { label: 'Solution Selection', path: '/solution-selection', icon: TrendingUp },
     { label: 'Synthetic Data', path: '/synthetic-data', icon: Database },
     { label: 'Risk Assessment', path: '/reidentification', icon: Search },
   ];
