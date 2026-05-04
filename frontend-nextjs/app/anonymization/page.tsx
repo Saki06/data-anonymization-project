@@ -309,6 +309,8 @@ function AnonymizationInner() {
       try {
         const fd = new FormData();
         fd.append('session_id', sid);
+        if (qis.length) fd.append('quasi_identifiers_json', JSON.stringify(qis));
+        fd.append('sensitive_attributes_json', JSON.stringify(sens));
         const r = await fetch(`${API_BASE}/compare`, { method: 'POST', body: fd });
         if (r.ok) {
           const d = await r.json();
@@ -316,8 +318,7 @@ function AnonymizationInner() {
         }
       } catch { /* compare not available yet */ }
     })();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sid]);
+  }, [sid, JSON.stringify(qis), JSON.stringify(sens)]);
 
   // ── KPI values derived from latest analysis ──────────────────────────────
   const riskPct = analysis ? (analysis.risk_score * 100) : null;
@@ -339,6 +340,8 @@ function AnonymizationInner() {
     setAnalysing(true); setAnalysisError('');
     const fd = new FormData();
     fd.append('session_id', sid);
+    if (qis.length) fd.append('quasi_identifiers_json', JSON.stringify(qis));
+    fd.append('sensitive_attributes_json', JSON.stringify(sens));
     try {
       const res = await fetch(`${API_BASE}/analyze`, { method: 'POST', body: fd });
       if (!res.ok) throw new Error('Analysis failed');
@@ -376,6 +379,8 @@ function AnonymizationInner() {
     setExecuting(true); setExecError('');
     const fd = new FormData();
     fd.append('session_id', sid);
+    if (qis.length) fd.append('quasi_identifiers_json', JSON.stringify(qis));
+    fd.append('sensitive_attributes_json', JSON.stringify(sens));
     fd.append('use_recommended', 'false');
     fd.append('anon_method', genStrategy);
     fd.append('methods', JSON.stringify({
@@ -406,6 +411,8 @@ function AnonymizationInner() {
     setComparing(true);
     const fd = new FormData();
     fd.append('session_id', sid);
+    if (qis.length) fd.append('quasi_identifiers_json', JSON.stringify(qis));
+    fd.append('sensitive_attributes_json', JSON.stringify(sens));
     try {
       const res = await fetch(`${API_BASE}/compare`, { method: 'POST', body: fd });
       if (!res.ok) throw new Error('Compare failed');
@@ -1013,7 +1020,7 @@ function AnonymizationInner() {
                       </thead>
                       <tbody>
                         {compareResult.column_comparison.map((col, i) => (
-                          <tr key={i} className={col.changes_detected ? 'bg-red-50 dark:bg-red-950' : 'bg-green-50 dark:bg-green-950'}>
+                          <tr key={i}>
                             <td className="px-3 py-2 border border-slate-200 dark:border-slate-700 font-medium">{col.column_name}</td>
                             <td className="px-3 py-2 border border-slate-200 dark:border-slate-700 text-center font-bold">{col.is_quasi_identifier ? '\u2713 QI' : '-'}</td>
                             <td className="px-3 py-2 border border-slate-200 dark:border-slate-700 text-center">{col.original_unique}</td>
@@ -1046,7 +1053,7 @@ function AnonymizationInner() {
                           const isQI = compareResult.quasi_identifiers?.includes(col);
                           const isChanged = row.differences.includes(col);
                           return (
-                            <div key={col} className={`text-sm px-2 py-1 mb-1 rounded border-l-2 ${isChanged ? 'bg-amber-50 dark:bg-amber-950' : ''} ${isQI ? 'border-blue-500' : 'border-transparent'}`}>
+                            <div key={col} className={`text-sm px-2 py-1 mb-1 rounded border-l-2 ${isQI ? 'border-blue-500' : 'border-transparent'}`}>
                               <strong>{col}:</strong> {String(val ?? '(null)')}
                             </div>
                           );
@@ -1058,7 +1065,7 @@ function AnonymizationInner() {
                           const isQI = compareResult.quasi_identifiers?.includes(col);
                           const isChanged = row.differences.includes(col);
                           return (
-                            <div key={col} className={`text-sm px-2 py-1 mb-1 rounded border-l-2 ${isChanged ? 'bg-red-50 dark:bg-red-950' : ''} ${isQI ? 'border-purple-500' : 'border-transparent'}`}>
+                            <div key={col} className={`text-sm px-2 py-1 mb-1 rounded border-l-2 ${isQI ? 'border-purple-500' : 'border-transparent'}`}>
                               <strong>{col}:</strong> {String(val ?? '(null)')}
                             </div>
                           );

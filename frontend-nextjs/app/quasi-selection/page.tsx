@@ -88,9 +88,25 @@ function QuasiSelectionInner() {
       const map: Record<string, string> = {};
       data.details.forEach(d => { map[d.column_name] = d.class; });
       setClassMap(map);
-      // Pre-fill checkboxes
-      setSelectedQIs(new Set(data.quasi_identifiers));
-      setSelectedSens(new Set(data.sensitive_attributes));
+      
+      // AUTO-CHECK HIGH-CONFIDENCE (>0.85) detections for better UX + ensures anonymization
+      const highConfQIs: string[] = [];
+      const highConfSens: string[] = [];
+      data.details.forEach(d => {
+        if (d.confidence > 0.85) {
+          if (d.class === 'QUASI_IDENTIFIER') highConfQIs.push(d.column_name);
+          else if (d.class === 'SENSITIVE') highConfSens.push(d.column_name);
+        }
+      });
+      
+      // Merge suggested + high-conf (deduped)
+      const autoQIs = [...new Set([...data.quasi_identifiers, ...highConfQIs])];
+      const autoSens = [...new Set([...data.sensitive_attributes, ...highConfSens])];
+      
+      setSelectedQIs(new Set(autoQIs));
+      setSelectedSens(new Set(autoSens));
+      
+      console.log(`Auto-checked ${highConfQIs.length} high-conf QIs + ${highConfSens.length} sens attrs`);
     } catch (e: unknown) {
       alert('Auto-detect error: ' + (e instanceof Error ? e.message : String(e)));
     } finally {
@@ -120,7 +136,7 @@ function QuasiSelectionInner() {
     const fd = new FormData();
     fd.append('session_id', sid);
     fd.append('quasi_identifiers', JSON.stringify(qis));
-    if (sens.length) fd.append('sensitive_attributes', JSON.stringify(sens));
+    fd.append('sensitive_attributes', JSON.stringify(sens));
     try {
       const res = await fetch(`${API_BASE}/select-quasi-identifiers`, { method: 'POST', body: fd });
       if (!res.ok) {

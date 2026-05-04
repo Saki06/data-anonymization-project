@@ -68,6 +68,18 @@ class SDCRiskAnalyzer:
         if missing_qis:
             raise ValueError(f"Quasi-identifiers not found: {missing_qis}")
         
+        sensitive_requested = list(sensitive_attributes or [])
+        missing_sensitive = [c for c in sensitive_requested if c not in df.columns]
+        for col in missing_sensitive:
+            self.detected_problems.append({
+                'problem': f'Sensitive attribute "{col}" not found in dataset columns',
+                'condition': 'Column selected for SI analysis is missing from the uploaded data',
+                'severity': 'Medium',
+                'column': col,
+                'type': 'sensitive_attribute_config',
+            })
+        sensitive_attributes = [c for c in sensitive_requested if c in df.columns]
+        
         qi_df = df[quasi_identifiers].copy() if quasi_identifiers else pd.DataFrame()
         
         # === COMPUTE CORE RISK METRICS ===
@@ -155,7 +167,10 @@ class SDCRiskAnalyzer:
             'recommendations': recommendations,
             'profile': profile,
             'detected_problems': self.detected_problems,
-            'overall_risk_score': self._compute_overall_risk_score()
+            'overall_risk_score': self._compute_overall_risk_score(),
+            'sensitive_attributes_requested': sensitive_requested,
+            'sensitive_attributes_used': sensitive_attributes,
+            'sensitive_attributes_missing': missing_sensitive,
         }
     
     def _compute_equivalence_metrics(self, qi_df: pd.DataFrame) -> Dict[str, Any]:
@@ -911,5 +926,8 @@ class RiskAnalyzer(SDCRiskAnalyzer):
             'triggered_rules': result.get('triggered_rules', []),
             'risk_metrics': result.get('risk_metrics', {}),
             # Expose the full rules profile for downstream optimization/execution.
-            'profile': result.get('profile', {})
+            'profile': result.get('profile', {}),
+            'sensitive_attributes_requested': result.get('sensitive_attributes_requested', []),
+            'sensitive_attributes_used': result.get('sensitive_attributes_used', []),
+            'sensitive_attributes_missing': result.get('sensitive_attributes_missing', []),
         }
