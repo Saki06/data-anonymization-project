@@ -17,6 +17,9 @@ from .detector import (
     validate_risk,
     generate_json_report,
     generate_csv_summary,
+    search_qi_combinations,
+    compute_l_diversity,
+    get_detailed_evidence,
 )
 
 router = APIRouter(prefix="", tags=["Quasi Selection"])
@@ -177,6 +180,115 @@ async def validate_risk_endpoint(
         raise
     except json.JSONDecodeError:
         raise HTTPException(status_code=400, detail="Invalid JSON format for quasi_identifiers")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/search-qi-combinations")
+async def search_qi_combinations_endpoint(
+    session_id: str = Form(...),
+    quasi_identifiers: str = Form(...),  # JSON array of candidate QI columns
+    max_comb_size: int = Form(3),
+):
+    """
+    Test all 1..max_comb_size combinations of the given QI columns,
+    compute k-anonymity for each, and return ranked results.
+
+    This is the backend for the Risk Validation tab's "Run Risk Search" button.
+    """
+    global _sessions
+
+    if session_id not in _sessions:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    try:
+        df = _sessions[session_id]['df']
+        qi_list = json.loads(quasi_identifiers)
+
+        if not qi_list:
+            raise HTTPException(status_code=400, detail="No quasi-identifiers provided.")
+
+        results = search_qi_combinations(df, qi_list, max_comb_size=max_comb_size)
+        return {"combinations": results, "total": len(results)}
+
+    except HTTPException:
+        raise
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=400, detail="Invalid JSON format for quasi_identifiers")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/compute-l-diversity")
+async def compute_l_diversity_endpoint(
+    session_id: str = Form(...),
+    quasi_identifiers: str = Form(...),  # JSON array
+    sensitive_column: str = Form(...),
+):
+    """
+    Compute l-diversity for each equivalence class formed by the given QI
+    columns with respect to a selected sensitive attribute.
+    """
+    global _sessions
+
+    if session_id not in _sessions:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    try:
+        df = _sessions[session_id]['df']
+        qi_list = json.loads(quasi_identifiers)
+
+        if not qi_list:
+            raise HTTPException(status_code=400, detail="No quasi-identifiers provided.")
+
+        result = compute_l_diversity(df, qi_list, sensitive_column)
+        if result is None:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Invalid QI columns or sensitive column '{sensitive_column}' not found."
+            )
+
+        return result
+
+    except HTTPException:
+        raise
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=400, detail="Invalid JSON format for quasi_identifiers")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/detailed-risk-evidence")
+async def detailed_risk_evidence_endpoint(
+    session_id: str = Form(...),
+    qi_columns: str = Form(...),  # comma-separated or JSON array
+):
+    """
+    Return detailed k-anonymity evidence for a single QI combination,
+    including group-size distribution data and risky groups.
+    """
+    global _sessions
+
+    if session_id not in _sessions:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    try:
+        df = _sessions[session_id]['df']
+
+        # Support both comma-separated and JSON array
+        try:
+            qi_list = json.loads(qi_columns)
+        except json.JSONDecodeError:
+            qi_list = [c.strip() for c in qi_columns.split(",") if c.strip()]
+
+        if not qi_list:
+            raise HTTPException(status_code=400, detail="No QI columns provided.")
+
+        result = get_detailed_evidence(df, qi_list)
+        return result
+
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
