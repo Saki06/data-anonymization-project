@@ -2,14 +2,19 @@
 Risk validation module for k-anonymity and privacy risk assessment.
 
 Computes k-anonymity, uniqueness metrics, and identifies risky equivalence classes.
-
-Ported from hies/src/risk_validation.py
+Also includes QI-combination search, l-diversity, and risk-level classification
+ported from the original SDC Privacy Anonymization Tool (src/risk.py).
 """
 
+import itertools
 import pandas as pd
 import numpy as np
 from typing import List, Dict, Tuple, Any
 
+
+# ---------------------------------------------------------------------------
+# Equivalence-class computation
+# ---------------------------------------------------------------------------
 
 def compute_equivalence_classes(
     df: pd.DataFrame,
@@ -48,6 +53,10 @@ def compute_equivalence_classes(
 
     return df_with_class, class_sizes
 
+
+# ---------------------------------------------------------------------------
+# k-anonymity
+# ---------------------------------------------------------------------------
 
 def compute_k_anonymity(
     df: pd.DataFrame,
@@ -102,6 +111,36 @@ def compute_k_anonymity(
     }
 
 
+# ---------------------------------------------------------------------------
+# Risk-level classification (considers both k_min and unique_pct)
+# ---------------------------------------------------------------------------
+
+def get_risk_level(k_min: int, unique_pct: float) -> str:
+    """
+    Determine the risk level based on k-anonymity minimum and uniqueness
+    percentage.  Ported from the original SDC tool (src/risk.py).
+
+    Args:
+        k_min:      Minimum equivalence-class size (k-anonymity).
+        unique_pct: Percentage of equivalence classes that are singletons.
+
+    Returns:
+        One of "CRITICAL", "HIGH", "MEDIUM", "LOW".
+    """
+    if k_min == 1 and unique_pct >= 50:
+        return "CRITICAL"
+    elif k_min == 1 and unique_pct >= 20:
+        return "HIGH"
+    elif k_min <= 2 and unique_pct >= 10:
+        return "MEDIUM"
+    else:
+        return "LOW"
+
+
+# ---------------------------------------------------------------------------
+# Riskiest equivalence classes
+# ---------------------------------------------------------------------------
+
 def get_riskiest_classes(
     df: pd.DataFrame,
     qi_columns: List[str],
@@ -148,6 +187,243 @@ def get_riskiest_classes(
 
     return riskiest[cols].reset_index(drop=True)
 
+
+def get_risky_groups(
+    df: pd.DataFrame,
+    qi_cols: List[str],
+    top_n: int = 10,
+) -> Any:
+    """
+    Return the smallest equivalence classes for a QI combination.
+    This shows which attribute combinations cause re-identification risk.
+
+    Ported from the original SDC tool (src/risk.py).
+
+    Args:
+        df:      DataFrame to analyse.
+        qi_cols: List of quasi-identifier column names.
+        top_n:   Number of risky groups to return.
+
+    Returns:
+        DataFrame with the smallest groups, or None if no QI columns.
+    """
+    if not qi_cols:
+        return None
+
+    valid_cols = [c for c in qi_cols if c in df.columns]
+    if not valid_cols:
+        return None
+
+    grouped = df.groupby(valid_cols, dropna=False).size().reset_index(name="group_size")
+    risky = grouped.sort_values("group_size").head(top_n)
+    return risky
+
+
+# ---------------------------------------------------------------------------
+# QI-combination search (ported from old src/risk.py)
+# ---------------------------------------------------------------------------
+
+def search_qi_combinations(
+    df: pd.DataFrame,
+    candidate_cols: List[str],
+    max_comb_size: int = 3,
+) -> List[Dict[str, Any]]:
+    """
+    Test all 1..max_comb_size combinations of *candidate_cols*, compute
+    k-anonymity for each, and return the results sorted by risk (ascending
+    k_min, then descending unique_pct).
+
+    Ported from the original SDC tool (src/risk.py → search_qi_combinations).
+
+    Args:
+        df:             DataFrame to analyse.
+        candidate_cols: List of candidate QI column names.
+        max_comb_size:  Maximum number of columns per combination (1–4).
+
+    Returns:
+        List of dicts, each containing:
+            qi_cols, comb_size, k_min, unique_pct, total_groups,
+            avg_group_size, max_group_size, unique_groups, risk_level
+    """
+    results: List[Dict[str, Any]] = []
+
+    # Only keep columns that actually exist in the dataframe
+    valid_cols = [c for c in candidate_cols if c in df.columns]
+    if not valid_cols:
+        return results
+
+    for r in range(1, min(max_comb_size, len(valid_cols)) + 1):
+        for combo in itertools.combinations(valid_cols, r):
+            combo_list = list(combo)
+            _, class_sizes = compute_equivalence_classes(df, combo_list)
+
+            if class_sizes.empty:
+                continue
+
+            sizes = class_sizes['class_size'].values
+            k_min = int(sizes.min())
+            max_group_size = int(sizes.max())
+            avg_group_size = float(sizes.mean())
+            total_groups = int(len(class_sizes))
+            unique_groups = int((sizes == 1).sum())
+            unique_pct = float((unique_groups / total_groups) * 100) if total_groups > 0 else 0.0
+
+            risk_level = get_risk_level(k_min, unique_pct)
+
+            results.append({
+                "qi_cols":        ",".join(combo),
+                "comb_size":      r,
+                "k_min":          k_min,
+                "unique_pct":     round(unique_pct, 2),
+                "total_groups":   total_groups,
+                "avg_group_size": round(avg_group_size, 2),
+                "max_group_size": max_group_size,
+                "unique_groups":  unique_groups,
+                "risk_level":     risk_level,
+            })
+
+    # Sort: lowest k_min first, then highest unique_pct first
+    results.sort(key=lambda x: (x["k_min"], -x["unique_pct"]))
+
+    return results
+
+
+# ---------------------------------------------------------------------------
+# l-diversity (ported from old src/risk.py)
+# ---------------------------------------------------------------------------
+
+def compute_l_diversity(
+    df: pd.DataFrame,
+    qi_cols: List[str],
+    sensitive_col: str,
+) -> Any:
+    """
+    Compute l-diversity for each equivalence class formed by *qi_cols*
+    with respect to a selected sensitive attribute.
+
+    l-diversity measures how many distinct values the sensitive attribute
+    takes within each equivalence class.
+
+    Ported from the original SDC tool (src/risk.py → compute_l_diversity).
+
+    Args:
+        df:            DataFrame to analyse.
+        qi_cols:       List of quasi-identifier column names.
+        sensitive_col: Name of the sensitive attribute column.
+
+    Returns:
+        Dict with keys: sensitive_attribute, min_l_diversity, details (DataFrame).
+        Returns None if inputs are invalid.
+    """
+    valid_cols = [c for c in qi_cols if c in df.columns]
+    if not valid_cols or sensitive_col not in df.columns:
+        return None
+
+    grouped = (
+        df.groupby(valid_cols, dropna=False)[sensitive_col]
+        .nunique(dropna=True)
+        .reset_index(name="l_diversity")
+    )
+
+    grouped["sensitive_attribute"] = sensitive_col
+
+    min_l = int(grouped["l_diversity"].min())
+
+    # Convert details to list of dicts for JSON serialisation
+    details_records = grouped.sort_values(
+        ["l_diversity"], ascending=True
+    ).head(20).to_dict(orient="records")
+
+    # Ensure numpy types are converted
+    for row in details_records:
+        for k, v in row.items():
+            if isinstance(v, (np.integer,)):
+                row[k] = int(v)
+            elif isinstance(v, (np.floating,)):
+                row[k] = float(v)
+
+    return {
+        "sensitive_attribute": sensitive_col,
+        "min_l_diversity":     min_l,
+        "details":             details_records,
+    }
+
+
+# ---------------------------------------------------------------------------
+# Detailed evidence for a single QI combination
+# ---------------------------------------------------------------------------
+
+def get_detailed_evidence(
+    df: pd.DataFrame,
+    qi_cols: List[str],
+) -> Dict[str, Any]:
+    """
+    Return detailed k-anonymity evidence for a single QI combination,
+    including group-size distribution data.
+
+    Args:
+        df:      DataFrame to analyse.
+        qi_cols: List of quasi-identifier column names.
+
+    Returns:
+        Dict with full risk evidence metrics.
+    """
+    valid_cols = [c for c in qi_cols if c in df.columns]
+    if not valid_cols:
+        return {"error": "No valid QI columns found"}
+
+    _, class_sizes = compute_equivalence_classes(df, valid_cols)
+
+    if class_sizes.empty:
+        return {"error": "No equivalence classes could be computed"}
+
+    sizes = class_sizes['class_size'].values
+    k_min = int(sizes.min())
+    unique_groups = int((sizes == 1).sum())
+    total_groups = int(len(class_sizes))
+    total_records = int(sizes.sum())
+    unique_pct = float((unique_groups / total_groups) * 100) if total_groups > 0 else 0.0
+    records_in_unique = int(class_sizes.loc[class_sizes['class_size'] == 1, 'class_size'].sum())
+    risk_level = get_risk_level(k_min, unique_pct)
+
+    # Group size distribution: {size: count_of_groups_with_that_size}
+    dist = class_sizes['class_size'].value_counts().sort_index()
+    group_size_distribution = {int(k): int(v) for k, v in dist.items()}
+
+    # Top risky groups (smallest equivalence classes with their QI values)
+    risky_groups_df = class_sizes.sort_values('class_size').head(10)
+    risky_groups = []
+    for _, row in risky_groups_df.iterrows():
+        group_dict = {}
+        for col in risky_groups_df.columns:
+            val = row[col]
+            if isinstance(val, (np.integer,)):
+                group_dict[col] = int(val)
+            elif isinstance(val, (np.floating,)):
+                group_dict[col] = float(val)
+            else:
+                group_dict[col] = val
+        risky_groups.append(group_dict)
+
+    return {
+        "qi_columns":              valid_cols,
+        "k_min":                   k_min,
+        "unique_pct":              round(unique_pct, 2),
+        "risk_level":              risk_level,
+        "total_groups":            total_groups,
+        "unique_groups":           unique_groups,
+        "records_in_unique_groups": records_in_unique,
+        "avg_group_size":          round(float(sizes.mean()), 2),
+        "max_group_size":          int(sizes.max()),
+        "total_records":           total_records,
+        "group_size_distribution": group_size_distribution,
+        "risky_groups":            risky_groups,
+    }
+
+
+# ---------------------------------------------------------------------------
+# Comprehensive risk validation (existing — kept for backward compatibility)
+# ---------------------------------------------------------------------------
 
 def validate_risk(
     df: pd.DataFrame,
@@ -211,180 +487,4 @@ def validate_risk(
         'k_anonymity_metrics': k_anon_metrics,
         'riskiest_classes':  riskiest_list,
         'qi_columns':        qi_columns,
-    }
-
-
-import numpy as np
-import pandas as pd
-from typing import Any, Dict, List, Tuple
-
-
-def compute_equivalence_classes(
-    df: pd.DataFrame,
-    qi_columns: List[str],
-) -> Tuple[pd.DataFrame, pd.DataFrame]:
-    """
-    Group rows by the combination of quasi-identifier values.
-
-    Args:
-        df:         DataFrame to analyse.
-        qi_columns: List of quasi-identifier column names.
-
-    Returns:
-        (df, sizes_df) where sizes_df has columns
-        [qi_combo_columns..., 'count', 'risk_percent']
-    """
-    if not qi_columns:
-        empty = pd.DataFrame(columns=['count', 'risk_percent'])
-        return df, empty
-
-    valid_cols = [c for c in qi_columns if c in df.columns]
-    if not valid_cols:
-        empty = pd.DataFrame(columns=['count', 'risk_percent'])
-        return df, empty
-
-    grouped = df.groupby(valid_cols, dropna=False).size().reset_index(name='count')
-    grouped['risk_percent'] = (grouped['count'] / len(df) * 100).round(2)
-    return df, grouped
-
-
-def compute_k_anonymity(
-    df: pd.DataFrame,
-    qi_columns: List[str],
-) -> Dict[str, Any]:
-    """
-    Compute the k-anonymity value for *df* given *qi_columns*.
-
-    k-anonymity = minimum equivalence-class size.
-    A value of 1 means at least one record is unique → high re-id risk.
-
-    Returns:
-        Dict with keys: k_value, total_records, total_eq_classes,
-        singleton_classes, singleton_records, risk_level.
-    """
-    if not qi_columns:
-        return {
-            'k_value':           int(len(df)),
-            'total_records':     int(len(df)),
-            'total_eq_classes':  1,
-            'singleton_classes': 0,
-            'singleton_records': 0,
-            'risk_level':        'LOW',
-        }
-
-    _, grouped = compute_equivalence_classes(df, qi_columns)
-
-    if grouped.empty:
-        return {
-            'k_value':           int(len(df)),
-            'total_records':     int(len(df)),
-            'total_eq_classes':  1,
-            'singleton_classes': 0,
-            'singleton_records': 0,
-            'risk_level':        'LOW',
-        }
-
-    k_value           = int(grouped['count'].min())
-    singleton_classes = int((grouped['count'] == 1).sum())
-    singleton_records = int(grouped.loc[grouped['count'] == 1, 'count'].sum())
-
-    if k_value == 1:
-        risk_level = 'HIGH'
-    elif k_value <= 3:
-        risk_level = 'MEDIUM'
-    else:
-        risk_level = 'LOW'
-
-    return {
-        'k_value':           k_value,
-        'total_records':     int(len(df)),
-        'total_eq_classes':  int(len(grouped)),
-        'singleton_classes': singleton_classes,
-        'singleton_records': singleton_records,
-        'risk_level':        risk_level,
-    }
-
-
-def get_riskiest_classes(
-    df: pd.DataFrame,
-    qi_columns: List[str],
-    top_n: int = 10,
-) -> pd.DataFrame:
-    """
-    Return the *top_n* smallest (most re-identifiable) equivalence classes.
-
-    Results are sorted by class size ascending.
-    """
-    _, grouped = compute_equivalence_classes(df, qi_columns)
-    if grouped.empty:
-        return grouped
-    return grouped.sort_values('count').head(top_n).reset_index(drop=True)
-
-
-def validate_risk(
-    df: pd.DataFrame,
-    qi_columns: List[str],
-) -> Dict[str, Any]:
-    """
-    Full risk-validation report for the dataset.
-
-    Combines k-anonymity stats, riskiest classes, and an overall risk
-    assessment into a single JSON-serialisable dict.
-
-    Returns::
-
-        {
-          "k_anonymity": { k_value, total_records, total_eq_classes,
-                           singleton_classes, singleton_records, risk_level },
-          "riskiest_classes": [ {"count": N, "risk_percent": P, ...qi_values} ],
-          "risk_summary": {
-              "overall_risk":        "HIGH" | "MEDIUM" | "LOW",
-              "recommendation":       "...",
-              "percentage_at_risk":   float
-          }
-        }
-    """
-    k_stats = compute_k_anonymity(df, qi_columns)
-
-    riskiest_df   = get_riskiest_classes(df, qi_columns, top_n=10)
-    riskiest_list: List[Dict] = []
-    if not riskiest_df.empty:
-        for _, row in riskiest_df.iterrows():
-            riskiest_list.append({
-                str(k): (
-                    int(v)   if isinstance(v, np.integer)  else
-                    float(v) if isinstance(v, np.floating) else v
-                )
-                for k, v in row.items()
-            })
-
-    singleton_pct = (
-        k_stats['singleton_records'] / k_stats['total_records'] * 100
-        if k_stats['total_records'] > 0 else 0.0
-    )
-
-    risk_level = k_stats['risk_level']
-    if risk_level == 'HIGH':
-        recommendation = (
-            'Significant re-identification risk detected. '
-            'Apply generalisation or suppression to increase k-anonymity before release.'
-        )
-    elif risk_level == 'MEDIUM':
-        recommendation = (
-            'Moderate risk. Consider additional anonymisation techniques '
-            'such as generalisation or adding k-anonymity constraints.'
-        )
-    else:
-        recommendation = (
-            'Risk is acceptable. Continue to monitor after applying anonymisation.'
-        )
-
-    return {
-        'k_anonymity':    k_stats,
-        'riskiest_classes': riskiest_list,
-        'risk_summary': {
-            'overall_risk':      risk_level,
-            'recommendation':    recommendation,
-            'percentage_at_risk': round(singleton_pct, 2),
-        },
     }
