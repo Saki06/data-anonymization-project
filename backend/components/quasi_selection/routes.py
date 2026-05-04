@@ -18,6 +18,7 @@ from .detector import (
     generate_json_report,
     generate_csv_summary,
 )
+from .preprocess import normalize_column_name
 
 router = APIRouter(prefix="", tags=["Quasi Selection"])
 
@@ -29,6 +30,33 @@ def set_sessions(sessions: Dict):
     """Set the sessions dictionary from main.py"""
     global _sessions
     _sessions = sessions
+
+
+def _resolve_columns(column_names, df):
+    """Map selected names back to dataframe columns, accepting normalized names."""
+    exact_columns = set(df.columns)
+    normalized_columns = {}
+    for col in df.columns:
+        normalized_columns.setdefault(normalize_column_name(col), col)
+        normalized_columns.setdefault(str(col).lower(), col)
+
+    resolved = []
+    missing = []
+    for name in column_names:
+        if name in exact_columns:
+            resolved.append(name)
+            continue
+
+        match = normalized_columns.get(normalize_column_name(name))
+        if match is None:
+            match = normalized_columns.get(str(name).lower())
+
+        if match is None:
+            missing.append(name)
+        else:
+            resolved.append(match)
+
+    return resolved, missing
 
 
 @router.post("/select-quasi-identifiers")
@@ -51,11 +79,11 @@ async def select_quasi_identifiers(
         
         # Validate columns exist
         df = _sessions[session_id]['df']
-        missing_qis = [qi for qi in qi_list if qi not in df.columns]
+        qi_list, missing_qis = _resolve_columns(qi_list, df)
         if missing_qis:
             raise HTTPException(status_code=400, detail=f"Columns not found: {missing_qis}")
         
-        missing_sens = [sens for sens in sens_list if sens not in df.columns]
+        sens_list, missing_sens = _resolve_columns(sens_list, df)
         if missing_sens:
             raise HTTPException(status_code=400, detail=f"Columns not found: {missing_sens}")
         
@@ -69,6 +97,8 @@ async def select_quasi_identifiers(
             "sensitive_attributes": sens_list
         }
     
+    except HTTPException:
+        raise
     except json.JSONDecodeError:
         raise HTTPException(status_code=400, detail="Invalid JSON format")
     except Exception as e:

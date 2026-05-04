@@ -123,7 +123,10 @@ function QuasiSelectionInner() {
     if (sens.length) fd.append('sensitive_attributes', JSON.stringify(sens));
     try {
       const res = await fetch(`${API_BASE}/select-quasi-identifiers`, { method: 'POST', body: fd });
-      if (!res.ok) throw new Error('Failed to save selection');
+      if (!res.ok) {
+        const err = await res.json().catch(() => null);
+        throw new Error(err?.detail || 'Failed to save selection');
+      }
       setQuasiIdentifiers(qis, sens);
       router.push(`/anonymization?session_id=${sid}&quasi_identifiers=${encodeURIComponent(JSON.stringify(qis))}&sensitive_attributes=${encodeURIComponent(JSON.stringify(sens))}`);
     } catch (e: unknown) {

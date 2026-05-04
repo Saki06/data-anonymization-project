@@ -2,9 +2,6 @@
   "direct_identifiers": [],
   "quasi_identifiers": [
     "age",
-    "education",
-    "industry",
-    "marital_status",
     "sex"
   ],
   "sensitive_attributes": [],

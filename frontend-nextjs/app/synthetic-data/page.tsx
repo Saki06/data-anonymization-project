@@ -547,8 +547,10 @@ function SyntheticDataInner() {
 
                   {/* Averages */}
                   <div className="flex flex-wrap gap-4 mt-3">
-                    {['TVD', 'KS Statistic'].map(metric => {
-                      const vals = utilityRows.map(r => (r as Record<string, number | string>)[metric] as number).filter(v => typeof v === 'number');
+                    {(['TVD', 'KS Statistic'] as const).map(metric => {
+                      const vals = utilityRows
+                        .map(row => row[metric])
+                        .filter((value): value is number => typeof value === 'number');
                       if (!vals.length) return null;
                       const avg = (vals.reduce((a, b) => a + b, 0) / vals.length).toFixed(4);
                       return (
