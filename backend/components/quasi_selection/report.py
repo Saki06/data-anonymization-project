@@ -14,6 +14,10 @@ def generate_json_report(
     classification_df: pd.DataFrame,
     risk_results: Optional[Dict[str, Any]] = None,
     metadata: Optional[Dict[str, Any]] = None,
+    *,
+    dataset_name: Optional[str] = None,
+    total_rows: Optional[int] = None,
+    total_cols: Optional[int] = None,
 ) -> str:
     """
     Generate a JSON report of classifications and (optionally) risk assessment.
@@ -22,12 +26,23 @@ def generate_json_report(
         classification_df: DataFrame with classification results.
         risk_results:      Optional risk-validation results dict.
         metadata:          Optional metadata (e.g., filename, timestamp).
+        dataset_name:      Optional dataset name for the metadata block.
+        total_rows:        Optional total number of rows in the dataset.
+        total_cols:        Optional total number of columns in the dataset.
 
     Returns:
         Indented JSON string.
     """
+    meta = dict(metadata or {})
+    if dataset_name is not None:
+        meta['dataset_name'] = dataset_name
+    if total_rows is not None:
+        meta['total_rows'] = total_rows
+    if total_cols is not None:
+        meta['total_cols'] = total_cols
+
     report: Dict[str, Any] = {
-        'metadata':        metadata or {},
+        'metadata':        meta,
         'timestamp':       datetime.now().isoformat(),
         'classifications': classification_df.to_dict('records'),
         'summary': {

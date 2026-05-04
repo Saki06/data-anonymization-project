@@ -53,6 +53,11 @@ from .risk_validation import (                  # noqa: F401
     compute_equivalence_classes,
     compute_k_anonymity,
     get_riskiest_classes,
+    get_risky_groups,
+    get_risk_level,
+    search_qi_combinations,
+    compute_l_diversity,
+    get_detailed_evidence,
     validate_risk,
 )
 
