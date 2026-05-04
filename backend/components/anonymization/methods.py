@@ -689,24 +689,39 @@ class AnonymizationMethods:
         """
         anon_df = df.copy()
         
-        if pd.api.types.is_numeric_dtype(anon_df[column]):
-            sorted_indices = anon_df[column].sort_values().index
-            n_groups = len(sorted_indices) // group_size
-            
-            for i in range(n_groups):
-                start_idx = i * group_size
-                end_idx = start_idx + group_size
-                group_indices = sorted_indices[start_idx:end_idx]
-                group_mean = anon_df.loc[group_indices, column].mean()
-                anon_df.loc[group_indices, column] = group_mean
-            
-            if len(sorted_indices) % group_size > 0:
-                remainder_start = n_groups * group_size
-                remainder_indices = sorted_indices[remainder_start:]
-                if len(remainder_indices) > 0:
-                    remainder_mean = anon_df.loc[remainder_indices, column].mean()
-                    anon_df.loc[remainder_indices, column] = remainder_mean
+        if column not in anon_df.columns:
+            return anon_df
         
+        orig = anon_df[column]
+        num = pd.to_numeric(orig, errors='coerce')
+        valid_mask = num.notna()
+        if valid_mask.sum() == 0:
+            return anon_df
+        
+        group_size = max(2, int(group_size))
+        sorted_indices = num[valid_mask].sort_values().index
+        n = len(sorted_indices)
+        if n == 0:
+            return anon_df
+        
+        out_col = orig.copy()
+        n_groups = n // group_size
+        
+        for i in range(n_groups):
+            start_idx = i * group_size
+            end_idx = start_idx + group_size
+            group_indices = sorted_indices[start_idx:end_idx]
+            group_mean = float(num.loc[group_indices].mean())
+            out_col.loc[group_indices] = group_mean
+        
+        if n % group_size > 0:
+            remainder_start = n_groups * group_size
+            remainder_indices = sorted_indices[remainder_start:]
+            if len(remainder_indices) > 0:
+                remainder_mean = float(num.loc[remainder_indices].mean())
+                out_col.loc[remainder_indices] = remainder_mean
+        
+        anon_df[column] = out_col
         return anon_df
     
     # ==================== PRAM (POST-RANDOMISATION METHOD) ====================
@@ -1428,6 +1443,87 @@ class AnonymizationMethods:
         return info
     
     @staticmethod
+    def apply_sensitive_attribute_transformations(
+        anon_df: pd.DataFrame,
+        sensitive_attributes: List[str],
+    ) -> tuple[pd.DataFrame, list]:
+        """
+        Apply microaggregation / bucketing to every selected sensitive column.
+        Returns (updated_df, column_change dicts for change_tracking).
+        """
+        out = anon_df.copy()
+        entries: list = []
+        for sa_col in sensitive_attributes or []:
+            if sa_col not in out.columns:
+                continue
+            original_unique = int(out[sa_col].nunique())
+            original_col = out[sa_col].copy()
+            method = 'suppress_rare_values'
+            coerced = pd.to_numeric(out[sa_col], errors='coerce')
+            n_rows = max(len(out), 1)
+            is_effectively_numeric = pd.api.types.is_numeric_dtype(out[sa_col]) or (
+                (coerced.notna().sum() / n_rows) > 0.5
+            )
+            if is_effectively_numeric:
+                method = 'microaggregation'
+                try:
+                    if not pd.api.types.is_numeric_dtype(out[sa_col]):
+                        out[sa_col] = coerced
+                    n = len(out)
+                    group_size = max(3, max(2, n // 100)) if n else 3
+                    out = AnonymizationMethods.microaggregation(out, sa_col, group_size=group_size)
+                except Exception:
+                    method = 'binning'
+                    try:
+                        num = pd.to_numeric(out[sa_col], errors='coerce')
+                        col_range = num.max() - num.min()
+                        bin_size = max(1000, col_range / 10) if pd.notna(col_range) and col_range > 0 else 1000
+                        out[sa_col] = (num / bin_size).round() * bin_size
+                    except Exception:
+                        pass
+            else:
+                value_counts = out[sa_col].value_counts()
+                threshold = len(out) * 0.05
+                rare_values = value_counts[value_counts < threshold].index
+                mask = out[sa_col].isin(rare_values)
+                if mask.any():
+                    out.loc[mask, sa_col] = '[SUPPRESSED]'
+                if (original_col.astype(str) == out[sa_col].astype(str)).all():
+                    strcol = out[sa_col].astype(str)
+                    vc = strcol.value_counts()
+                    if len(vc) <= 1:
+                        method = 'constant_redaction'
+                        out[sa_col] = '[REDACTED]'
+                    else:
+                        method = 'top_k_bucket'
+                        # Keep strictly fewer categories than exist so at least one value maps to [OTHER]
+                        k = max(1, min(len(vc) - 1, 5))
+                        top = set(vc.head(k).index)
+                        out[sa_col] = strcol.where(strcol.isin(top), '[OTHER]')
+            anonymized_unique = int(out[sa_col].nunique())
+            cells_modified = int((original_col.astype(str) != out[sa_col].astype(str)).sum())
+            sample_changes: list = []
+            changed_indices = np.where((original_col.astype(str) != out[sa_col].astype(str)).values)[0]
+            for idx in changed_indices[:3]:
+                try:
+                    sample_changes.append({
+                        'original': str(original_col.iloc[idx]),
+                        'anonymized': str(out.iloc[idx][sa_col]),
+                    })
+                except Exception:
+                    pass
+            entries.append({
+                'column_name': sa_col,
+                'column_type': 'sensitive_attribute',
+                'anonymization_method': method,
+                'original_unique_values': original_unique,
+                'anonymized_unique_values': anonymized_unique,
+                'cells_modified': cells_modified,
+                'sample_changes': sample_changes,
+            })
+        return out, entries
+    
+    @staticmethod
     def comprehensive_anonymize_with_tracking(
         df: pd.DataFrame,
         quasi_identifiers: List[str],
@@ -1446,7 +1542,8 @@ class AnonymizationMethods:
         - Direct identifiers (suppress or remove)
         - Sensitive attributes (suppress or generalize)
         - Any other columns flagged as risky by analysis
-        
+        - LOW-CONFIDENCE QIs from analysis_results (QI fix: track/log skipped)
+
         Args:
             df: Input dataframe
             quasi_identifiers: List of QI column names
@@ -1458,51 +1555,46 @@ class AnonymizationMethods:
             
         Returns:
             Tuple of (anonymized_df, change_tracking_info)
-            
-        change_tracking_info contains:
-        {
-            'total_columns_changed': int,
-            'total_cells_changed': int,
-            'column_changes': [
-                {
-                    'column_name': str,
-                    'column_type': 'quasi_identifier' | 'sensitive_attribute' | 'direct_identifier' | 'other_risky',
-                    'anonymization_method': str,
-                    'original_unique_values': int,
-                    'anonymized_unique_values': int,
-                    'cells_modified': int,
-                    'sample_changes': [
-                        {'original': ..., 'anonymized': ...},
-                        ...
-                    ]
-                }
-            ],
-            'row_changes': [  # Sample of changed rows
-                {
-                    'row_index': int,
-                    'changed_columns': [str],
-                    'changes': {
-                        'column_name': {'original': ..., 'anonymized': ...}
-                    }
-                }
-            ]
-        }
         """
         anon_df = df.copy()
         change_tracking = {
             'total_columns_changed': 0,
             'total_cells_changed': 0,
             'column_changes': [],
-            'row_changes': []
+            'row_changes': [],
+            'qi_processing_log': {  # NEW: QI fix logging
+                'input_qi_count': len(quasi_identifiers),
+                'processed_qi_count': 0,
+                'skipped_qi_count': 0,
+                'skipped_qis': [],
+                'low_conf_qi_count': 0,
+                'low_conf_qis': [],
+                'session_qi_list': quasi_identifiers[:]
+            }
         }
+        
+        log = change_tracking['qi_processing_log']
         
         # Identify risky columns from analysis results
         risky_columns = []
+        low_conf_qis = []  # NEW: Track low-confidence QIs
         if analysis_results and 'detected_problems' in analysis_results:
             for problem in analysis_results.get('detected_problems', []):
                 if 'column' in problem and problem['column'] not in quasi_identifiers:
                     if problem['column'] not in risky_columns:
                         risky_columns.append(problem['column'])
+        # NEW: Extract low-confidence QIs from detection_result if available
+        if analysis_results and 'detection_result' in analysis_results:
+            detection_details = analysis_results['detection_result'].get('details', [])
+            for detail in detection_details:
+                if (detail.get('confidence', 0) < 0.7 and 
+                    detail['class'] == 'QUASI_IDENTIFIER' and 
+                    detail['column_name'] not in quasi_identifiers and
+                    detail['column_name'] in df.columns):
+                    low_conf_qis.append(detail['column_name'])
+        
+        log['low_conf_qi_count'] = len(low_conf_qis)
+        log['low_conf_qis'] = low_conf_qis[:5]  # First 5 only
         
         # === 1. HANDLE DIRECT IDENTIFIERS: SUPPRESS OR REMOVE ===
         for di_col in direct_identifiers:
@@ -1547,73 +1639,11 @@ class AnonymizationMethods:
             change_tracking['total_columns_changed'] += 1
             change_tracking['total_cells_changed'] += cells_modified
         
-        # === 2. HANDLE SENSITIVE ATTRIBUTES: SUPPRESS OR GENERALIZE ===
-        for sa_col in sensitive_attributes:
-            if sa_col not in anon_df.columns or sa_col in quasi_identifiers:
-                continue
-                
-            original_unique = anon_df[sa_col].nunique()
-            original_col = df[sa_col].copy()
-            
-            # Check if this is sensitive health/financial data - suppress if rare categories
-            method = 'suppress_rare_values'
-            
-            if pd.api.types.is_numeric_dtype(anon_df[sa_col]):
-                # For numeric sensitive attributes, apply binning/rounding
-                method = 'binning'
-                try:
-                    # Round to nearest 1000 or 10% of range
-                    col_range = anon_df[sa_col].max() - anon_df[sa_col].min()
-                    bin_size = max(1000, col_range / 10)
-                    anon_df[sa_col] = (anon_df[sa_col] / bin_size).round() * bin_size
-                except:
-                    pass
-            else:
-                # For categorical sensitive attributes, suppress rare categories
-                value_counts = anon_df[sa_col].value_counts()
-                threshold = len(anon_df) * 0.05  # Less than 5% frequency
-                rare_values = value_counts[value_counts < threshold].index
-                
-                mask = anon_df[sa_col].isin(rare_values)
-                if mask.any():
-                    anon_df.loc[mask, sa_col] = '[SUPPRESSED]'
-            
-            anonymized_unique = anon_df[sa_col].nunique()
-            cells_modified = (original_col.astype(str) != anon_df[sa_col].astype(str)).sum()
-            
-            # Sample changes
-            sample_changes = []
-            changed_indices = np.where((original_col.astype(str) != anon_df[sa_col].astype(str)).values)[0]
-            for idx in changed_indices[:3]:
-                try:
-                    sample_changes.append({
-                        'original': str(original_col.iloc[idx]),
-                        'anonymized': str(anon_df.iloc[idx][sa_col])
-                    })
-                except:
-                    pass
-            
-            change_tracking['column_changes'].append({
-                'column_name': sa_col,
-                'column_type': 'sensitive_attribute',
-                'anonymization_method': method,
-                'original_unique_values': int(original_unique),
-                'anonymized_unique_values': int(anonymized_unique),
-                'cells_modified': int(cells_modified),
-                'sample_changes': sample_changes
-            })
-            if cells_modified > 0:
-                change_tracking['total_columns_changed'] += 1
-                change_tracking['total_cells_changed'] += int(cells_modified)
+        # === 2. HANDLE QUASI-IDENTIFIERS (QI fix: process + log all, including low-conf) ===
+        all_qi_cols = [c for c in quasi_identifiers if c in df.columns]
+        log['processed_qi_count'] = len(all_qi_cols)
         
-        # === 3. HANDLE QUASI-IDENTIFIERS ===
-        # Store original for comparison
-        original_qi = df[quasi_identifiers].copy() if quasi_identifiers else pd.DataFrame()
-        
-        for qi_col in quasi_identifiers:
-            if qi_col not in anon_df.columns:
-                continue
-                
+        for qi_col in all_qi_cols:
             original_unique = df[qi_col].nunique()
             anonymized_unique = anon_df[qi_col].nunique() if qi_col in anon_df.columns else 0
             
@@ -1632,7 +1662,7 @@ class AnonymizationMethods:
                             'original': str(df.iloc[idx][qi_col]),
                             'anonymized': str(anon_df.iloc[idx][qi_col])
                         })
-                    except:
+                    except Exception:
                         pass
                 
                 change_tracking['column_changes'].append({
@@ -1644,37 +1674,52 @@ class AnonymizationMethods:
                     'cells_modified': int(cells_modified),
                     'sample_changes': sample_changes
                 })
-                if cells_modified > 0:
-                    change_tracking['total_columns_changed'] += 1
-                    change_tracking['total_cells_changed'] += int(cells_modified)
+                change_tracking['total_columns_changed'] += 1
+                change_tracking['total_cells_changed'] += int(cells_modified)
+            else:
+                log['skipped_qis'].append(qi_col)
+        
+        log['skipped_qi_count'] = len(log['skipped_qis'])
+        
+        # === 3. SENSITIVE ATTRIBUTES (after QI tracking; avoids losing SI work if QI indexing failed) ===
+        anon_df, sens_entries = AnonymizationMethods.apply_sensitive_attribute_transformations(
+            anon_df, sensitive_attributes
+        )
+        for ent in sens_entries:
+            change_tracking['column_changes'].append(ent)
+            if ent.get('cells_modified', 0) > 0:
+                change_tracking['total_columns_changed'] += 1
+                change_tracking['total_cells_changed'] += int(ent['cells_modified'])
         
         # === 4. IDENTIFY AND TRACK ROW-LEVEL CHANGES ===
-        # Find rows that were modified
         row_changes = []
-        for idx in range(min(100, len(df))):  # Check first 100 rows for samples
-            changed_cols = []
-            changes = {}
-            
-            for col in anon_df.columns:
-                if col not in df.columns:
-                    continue
-                    
-                orig_val = str(df.iloc[idx][col])
-                anon_val = str(anon_df.iloc[idx][col])
+        try:
+            for idx in range(min(100, len(df))):  # Check first 100 rows for samples
+                changed_cols = []
+                changes = {}
                 
-                if orig_val != anon_val:
-                    changed_cols.append(col)
-                    changes[col] = {
-                        'original': orig_val,
-                        'anonymized': anon_val
-                    }
-            
-            if changed_cols:
-                row_changes.append({
-                    'row_index': idx,
-                    'changed_columns': changed_cols,
-                    'changes': changes
-                })
+                for col in anon_df.columns:
+                    if col not in df.columns:
+                        continue
+                        
+                    orig_val = str(df.iloc[idx][col])
+                    anon_val = str(anon_df.iloc[idx][col])
+                    
+                    if orig_val != anon_val:
+                        changed_cols.append(col)
+                        changes[col] = {
+                            'original': orig_val,
+                            'anonymized': anon_val
+                        }
+                
+                if changed_cols:
+                    row_changes.append({
+                        'row_index': idx,
+                        'changed_columns': changed_cols,
+                        'changes': changes
+                    })
+        except Exception:
+            row_changes = []
         
         change_tracking['row_changes'] = row_changes[:20]  # Keep only first 20 samples
         

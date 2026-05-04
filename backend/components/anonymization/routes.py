@@ -37,6 +37,71 @@ def set_components(components: Dict):
     _nsga2_optimizer = components.get('nsga2_optimizer')
 
 
+def _resolve_columns_to_df(df: pd.DataFrame, column_names: list) -> tuple[list[str], list[str]]:
+    """Map user-selected names to actual dataframe columns (exact or normalised match)."""
+    from ..quasi_selection.preprocess import normalize_column_name
+
+    exact_columns = set(df.columns)
+    normalized_columns: dict[str, str] = {}
+    for col in df.columns:
+        normalized_columns.setdefault(normalize_column_name(col), col)
+        normalized_columns.setdefault(str(col).lower(), col)
+
+    resolved: list[str] = []
+    missing: list[str] = []
+    for name in column_names:
+        if name in exact_columns:
+            resolved.append(name)
+            continue
+        match = normalized_columns.get(normalize_column_name(str(name)))
+        if match is None:
+            match = normalized_columns.get(str(name).lower())
+        if match is None:
+            missing.append(str(name))
+        else:
+            resolved.append(match)
+    return resolved, missing
+
+
+def _apply_user_column_selection(
+    session: dict[str, Any],
+    quasi_identifiers_json: Optional[str],
+    sensitive_attributes_json: Optional[str],
+) -> None:
+    """
+    Merge client-provided QI / sensitive lists into the session before analyze or anonymize.
+    Fixes stale server state when the UI has selections from URL or localStorage but the
+    session was never updated (or was cleared).
+    """
+    df = session.get("df")
+    if df is None:
+        return
+
+    if quasi_identifiers_json is not None and str(quasi_identifiers_json).strip() != "":
+        try:
+            qi = json.loads(quasi_identifiers_json)
+        except json.JSONDecodeError as e:
+            raise HTTPException(status_code=400, detail=f"Invalid quasi_identifiers JSON: {e}") from e
+        if not isinstance(qi, list):
+            raise HTTPException(status_code=400, detail="quasi_identifiers must be a JSON array of strings")
+        resolved, missing = _resolve_columns_to_df(df, qi)
+        if missing:
+            raise HTTPException(status_code=400, detail=f"Quasi-identifier columns not found: {missing}")
+        session["quasi_identifiers"] = resolved
+
+    if sensitive_attributes_json is not None and str(sensitive_attributes_json).strip() != "":
+        try:
+            sens = json.loads(sensitive_attributes_json)
+        except json.JSONDecodeError as e:
+            raise HTTPException(status_code=400, detail=f"Invalid sensitive_attributes JSON: {e}") from e
+        if not isinstance(sens, list):
+            raise HTTPException(status_code=400, detail="sensitive_attributes must be a JSON array of strings")
+        resolved, missing = _resolve_columns_to_df(df, sens)
+        if missing:
+            raise HTTPException(status_code=400, detail=f"Sensitive attribute columns not found: {missing}")
+        session["sensitive_attributes"] = resolved
+
+
 def _safe_params(op: dict, n_rows: int) -> dict:
     """Scale NSGA-II suggested params to dataset size so constraints are achievable."""
     k_raw  = int(op.get("k", 5))
@@ -319,7 +384,11 @@ def _demo1_compare_response(session: Dict[str, Any]) -> Dict[str, Any]:
 
 
 @router.post("/analyze")
-async def analyze_dataset(session_id: str = Form(...)):
+async def analyze_dataset(
+    session_id: str = Form(...),
+    quasi_identifiers_json: Optional[str] = Form(None),
+    sensitive_attributes_json: Optional[str] = Form(None),
+):
     """
     Analyze dataset for re-identification risks and get recommendations
     """
@@ -329,6 +398,7 @@ async def analyze_dataset(session_id: str = Form(...)):
         raise HTTPException(status_code=404, detail="Session not found")
     
     session = _sessions[session_id]
+    _apply_user_column_selection(session, quasi_identifiers_json, sensitive_attributes_json)
     df = session['df']
     quasi_identifiers = session['quasi_identifiers']
     sensitive_attributes = session.get('sensitive_attributes', [])
@@ -479,7 +549,9 @@ async def anonymize_data(
     session_id: str = Form(...),
     methods: Optional[str] = Form(None),  # JSON object with method parameters
     use_recommended: str = Form("true"),  # Accept as string, convert to bool
-    anon_method: str = Form("hierarchy")  # hierarchy or traditional
+    anon_method: str = Form("hierarchy"),  # hierarchy or traditional
+    quasi_identifiers_json: Optional[str] = Form(None),
+    sensitive_attributes_json: Optional[str] = Form(None),
 ):
     """
     Apply anonymization methods to the dataset
@@ -490,6 +562,7 @@ async def anonymize_data(
         raise HTTPException(status_code=404, detail="Session not found")
     
     session = _sessions[session_id]
+    _apply_user_column_selection(session, quasi_identifiers_json, sensitive_attributes_json)
     df = session['df']
     quasi_identifiers = session['quasi_identifiers']
     sensitive_attributes = session.get('sensitive_attributes', [])
@@ -584,6 +657,7 @@ async def anonymize_data(
                         direct_identifiers.append(col)
         
         # Get comprehensive anonymization with change tracking
+        post_execution_df = anon_df.copy()
         try:
             anon_df, change_tracking = AnonymizationMethods.comprehensive_anonymize_with_tracking(
                 df=anon_df,
@@ -598,12 +672,25 @@ async def anonymize_data(
             )
         except Exception as e:
             print(f"[WARN] Comprehensive anonymization tracking failed: {e}")
+            anon_df = post_execution_df
             change_tracking = {
                 'total_columns_changed': 0,
                 'total_cells_changed': 0,
                 'column_changes': [],
                 'row_changes': []
             }
+            # Still protect sensitive columns if the comprehensive step crashed mid-way
+            try:
+                anon_df, sa_entries = AnonymizationMethods.apply_sensitive_attribute_transformations(
+                    anon_df, sensitive_attributes
+                )
+                for ent in sa_entries:
+                    change_tracking['column_changes'].append(ent)
+                    if ent.get('cells_modified', 0) > 0:
+                        change_tracking['total_columns_changed'] += 1
+                        change_tracking['total_cells_changed'] += int(ent['cells_modified'])
+            except Exception as e2:
+                print(f"[WARN] Sensitive-attribute fallback failed: {e2}")
         
         # Store anonymized data
         session['anonymized_df'] = anon_df
@@ -738,7 +825,11 @@ async def download_anonymized(session_id: str, format: str = "csv"):
 
 
 @router.post("/compare")
-async def compare_datasets(session_id: str = Form(...)):
+async def compare_datasets(
+    session_id: str = Form(...),
+    quasi_identifiers_json: Optional[str] = Form(None),
+    sensitive_attributes_json: Optional[str] = Form(None),
+):
     """
     Compare original and anonymized datasets
     Also computes post-anonymization risk metrics for comparison
@@ -749,9 +840,16 @@ async def compare_datasets(session_id: str = Form(...)):
         raise HTTPException(status_code=404, detail="Session not found")
     
     session = _sessions[session_id]
+    _apply_user_column_selection(session, quasi_identifiers_json, sensitive_attributes_json)
     original_df = session['df']
     anonymized_df = session.get('anonymized_df')
+    
+    # FALLBACK: Use detection_result quasi_identifiers if session list empty/missing
     quasi_identifiers = session.get('quasi_identifiers', [])
+    if not quasi_identifiers and 'detection_result' in session:
+        quasi_identifiers = session['detection_result'].get('quasi_identifiers', [])
+        print(f"[FIX] /compare fallback: using {len(quasi_identifiers)} detection QIs for session {session_id}")
+    
     sensitive_attributes = session.get('sensitive_attributes', [])
     
     if anonymized_df is None:

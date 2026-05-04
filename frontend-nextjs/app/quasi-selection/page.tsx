@@ -134,7 +134,7 @@ function QuasiSelectionInner() {
     const fd = new FormData();
     fd.append('session_id', sid);
     fd.append('quasi_identifiers', JSON.stringify(qis));
-    if (sens.length) fd.append('sensitive_attributes', JSON.stringify(sens));
+    fd.append('sensitive_attributes', JSON.stringify(sens));
     try {
       const res = await fetch(`${API_BASE}/select-quasi-identifiers`, { method: 'POST', body: fd });
       if (!res.ok) {

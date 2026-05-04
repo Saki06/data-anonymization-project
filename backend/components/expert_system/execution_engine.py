@@ -123,24 +123,44 @@ class AnonymizationExecutionEngine:
         applied_methods = []
         
         logger.info(f"Starting execution with k={k}, l={l}, t={t}")
+        logger.info(f"QI INPUT: {len(quasi_identifiers)} quasi_identifiers: {quasi_identifiers[:3]}{'...' if len(quasi_identifiers)>3 else ''}")
+        
+        # NEW: Validate all QIs exist before processing
+        valid_qis = [qi for qi in quasi_identifiers if qi in df.columns]
+        invalid_qis = [qi for qi in quasi_identifiers if qi not in df.columns]
+        if invalid_qis:
+            logger.warning(f"SKIPPED {len(invalid_qis)} invalid QIs: {invalid_qis}")
+        
+        if len(valid_qis) == 0:
+            logger.error("NO VALID QUASI-IDENTIFIERS FOUND - cannot execute anonymization")
+            return ExecutionResult(
+                success=False,
+                error_message="No valid quasi-identifiers found in dataframe",
+                applied_methods=["validation_failed"],
+                violations=[{"type": "validation", "message": f"All {len(quasi_identifiers)} QIs invalid: {invalid_qis}"}]
+            )
+        
+        logger.info(f"Processing {len(valid_qis)}/{len(quasi_identifiers)} valid QIs")
         
         while iteration < self.max_iterations:
             iteration += 1
-            logger.info(f"Execution iteration {iteration}/{self.max_iterations}")
+            logger.info(f"Execution iteration {iteration}/{self.max_iterations} (valid QIs: {len(valid_qis)})")
             
             # Reset to original for re-execution
             anon_df = df.copy()
             applied_methods = []
             
             # Step 1: Handle PSU if present (from recommendations or detection)
-            psu_columns = self._detect_psu_columns(df, quasi_identifiers)
+            psu_columns = self._detect_psu_columns(df, valid_qis)
             for psu_col in psu_columns:
                 anon_df = self.methods.handle_psu(anon_df, psu_col, method='random_recode')
                 applied_methods.append(f"psu_handling_{psu_col}")
+                logger.debug(f"Applied PSU handling: {psu_col}")
             
             # Step 2: Apply generalization based on recommendation
             if generalization_level > 0 and generalization_strategy != "hierarchy":
-                for qi in quasi_identifiers:
+                processed_gen = 0
+                for qi in valid_qis:
                     if qi in anon_df.columns:
                         if pd.api.types.is_numeric_dtype(anon_df[qi]):
                             anon_df = self.methods.generalization(
@@ -151,7 +171,9 @@ class AnonymizationExecutionEngine:
                             anon_df = self.methods.generalization(
                                 anon_df, qi, method='suppress_rare'
                             )
+                        processed_gen += 1
                 applied_methods.append("generalization")
+                logger.debug(f"Applied generalization to {processed_gen}/{len(valid_qis)} QIs")
             
             # Step 3: Apply primary recommended method
             primary_method_source = forced_primary_method or recommendations.primary_method
@@ -243,19 +265,20 @@ class AnonymizationExecutionEngine:
                     anon_df = self.methods.k_anonymity(anon_df, quasi_identifiers, k=k)
                     applied_methods.append(f"k_anonymity_k{k}")
             
-            # Step 3.5: Apply microaggregation to numeric sensitive attributes
-            # This ensures numeric sensitive attributes like income are properly anonymized
+            # Step 3.5: Apply microaggregation to sensitive attributes (including when also QI, e.g. income)
             for sens_attr in sensitive_attributes:
-                if sens_attr in anon_df.columns and sens_attr not in quasi_identifiers:
-                    if pd.api.types.is_numeric_dtype(anon_df[sens_attr]):
-                        try:
-                            # Apply microaggregation with group size proportional to dataset size
-                            group_size = max(3, len(anon_df) // 100)
-                            anon_df = self.methods.microaggregation(anon_df, sens_attr, group_size=group_size)
-                            applied_methods.append(f"microaggregation_{sens_attr}_group{group_size}")
-                            logger.info(f"Applied microaggregation to {sens_attr} with group_size={group_size}")
-                        except Exception as e:
-                            logger.warning(f"Could not apply microaggregation to {sens_attr}: {e}")
+                if sens_attr not in anon_df.columns:
+                    continue
+                try:
+                    group_size = max(3, len(anon_df) // 100)
+                    before = anon_df[sens_attr].copy()
+                    anon_df = self.methods.microaggregation(anon_df, sens_attr, group_size=group_size)
+                    changed = (before.astype(str) != anon_df[sens_attr].astype(str)).any()
+                    if changed:
+                        applied_methods.append(f"microaggregation_{sens_attr}_group{group_size}")
+                        logger.info(f"Applied microaggregation to {sens_attr} with group_size={group_size}")
+                except Exception as e:
+                    logger.warning(f"Could not apply microaggregation to {sens_attr}: {e}")
             
             # Step 4: Validate constraints
             validation_results = self._validate_constraints(

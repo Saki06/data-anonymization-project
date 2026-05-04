@@ -155,12 +155,36 @@ async def auto_detect_columns_endpoint(session_id: str = Form(...)):
         # Cache detection result so /generate-report and /generate-csv-summary can use it
         _sessions[session_id]['detection_result'] = result
 
-        # Pre-populate the session with detected suggestions
-        # (user can still override via /select-quasi-identifiers)
+        # Auto-save HIGH-CONFIDENCE QIs (>0.8) to session['quasi_identifiers'] as default
+        # Users can override via manual selection, but ensures QIs are always anonymized
+        high_conf_qis = []
+        high_conf_sens = []
+        for detail in result.get('details', []):
+            if detail.get('confidence', 0) > 0.8:
+                if detail['class'] == 'QUASI_IDENTIFIER':
+                    high_conf_qis.append(detail['column_name'])
+                elif detail['class'] == 'SENSITIVE':
+                    high_conf_sens.append(detail['column_name'])
+        
+        # Only auto-save if session doesn't already have manual selections
+        if not _sessions[session_id].get('quasi_identifiers'):
+            _sessions[session_id]['quasi_identifiers'] = list(set(high_conf_qis))
+        if not _sessions[session_id].get('sensitive_attributes'):
+            _sessions[session_id]['sensitive_attributes'] = list(set(high_conf_sens))
+
+        # Preserve suggested lists for UI pre-fill/override
         _sessions[session_id].setdefault('suggested_quasi_identifiers',   result['quasi_identifiers'])
         _sessions[session_id].setdefault('suggested_sensitive_attributes', result['sensitive_attributes'])
 
-        return result
+        # Log the auto-save action
+        print(f"AUTO-SAVED {len(_sessions[session_id]['quasi_identifiers'])} high-conf QIs to session {session_id}")
+
+        return {
+            **result,
+            'auto_saved_high_conf': True,
+            'high_conf_qi_count': len(high_conf_qis),
+            'high_conf_sens_count': len(high_conf_sens)
+        }
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
