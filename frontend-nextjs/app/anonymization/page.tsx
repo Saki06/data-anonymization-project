@@ -29,6 +29,9 @@ interface RecommendationSet {
 }
 
 interface AnalysisResult {
+  demo_mode?: boolean;
+  demo_title?: string;
+  vulnerability_showcase?: string[];
   risk_score: number;
   statistics: {
     total_records: number;
@@ -53,6 +56,8 @@ interface ConstraintResult {
 }
 
 interface ExecutionResult {
+  demo_mode?: boolean;
+  vulnerability_showcase?: string[];
   parameters_used: { k: number; l: number; t: number };
   metrics: {
     suppression_ratio: number;
@@ -82,6 +87,8 @@ interface SampleRow {
 }
 
 interface CompareResult {
+  demo_mode?: boolean;
+  vulnerability_showcase?: string[];
   original_shape: [number, number];
   anonymized_shape: [number, number];
   quasi_identifiers?: string[];
@@ -202,6 +209,20 @@ function KpiCard({ label, value, note }: { label: string; value: string; note?: 
 }
 
 // ─── Main Component ───────────────────────────────────────────────────────────
+
+function DemoVulnerabilityPanel({ title, items }: { title: string; items?: string[] }) {
+  if (!items?.length) return null;
+
+  return (
+    <div className="border-2 border-red-500 bg-red-50 dark:bg-red-950 text-red-900 dark:text-red-100 rounded-lg p-4">
+      <div className="text-xs font-bold uppercase tracking-wide text-red-600 dark:text-red-300">Intentional demo vulnerability</div>
+      <h3 className="text-lg font-bold mt-1">{title}</h3>
+      <ul className="list-disc ml-5 mt-2 text-sm space-y-1">
+        {items.map((item, index) => <li key={index}>{item}</li>)}
+      </ul>
+    </div>
+  );
+}
 
 function AnonymizationInner() {
   const searchParams = useSearchParams();
@@ -541,6 +562,11 @@ function AnonymizationInner() {
 
             {analysis && (
               <div className="mt-4 space-y-4">
+                <DemoVulnerabilityPanel
+                  title={analysis.demo_title || 'Hard-coded vulnerability findings'}
+                  items={analysis.vulnerability_showcase}
+                />
+
                 <div className={`${riskColorClass} p-3 rounded`}>
                   <strong>Risk score:</strong> {riskPctStr}
                 </div>
@@ -761,7 +787,14 @@ function AnonymizationInner() {
 
             {execResult && (
               <div className="mt-4 space-y-4">
-                <div className="alert-success">Execution complete</div>
+                <DemoVulnerabilityPanel
+                  title="Visible failed anonymization outcome"
+                  items={execResult.vulnerability_showcase}
+                />
+
+                <div className={execResult.demo_mode ? 'alert-error' : 'alert-success'}>
+                  {execResult.demo_mode ? 'Demo output is intentionally unsafe' : 'Execution complete'}
+                </div>
 
                 <div className="card">
                   <h3 className="font-semibold mb-3">Result</h3>
@@ -838,6 +871,11 @@ function AnonymizationInner() {
 
             {compareResult && (
               <div className="mt-4 space-y-4">
+                <DemoVulnerabilityPanel
+                  title="Post-anonymization vulnerabilities still visible"
+                  items={compareResult.vulnerability_showcase}
+                />
+
                 <div className="alert-success">Comparison report generated</div>
 
                 <div className="alert-info text-sm">

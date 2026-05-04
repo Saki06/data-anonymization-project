@@ -243,6 +243,20 @@ class AnonymizationExecutionEngine:
                     anon_df = self.methods.k_anonymity(anon_df, quasi_identifiers, k=k)
                     applied_methods.append(f"k_anonymity_k{k}")
             
+            # Step 3.5: Apply microaggregation to numeric sensitive attributes
+            # This ensures numeric sensitive attributes like income are properly anonymized
+            for sens_attr in sensitive_attributes:
+                if sens_attr in anon_df.columns and sens_attr not in quasi_identifiers:
+                    if pd.api.types.is_numeric_dtype(anon_df[sens_attr]):
+                        try:
+                            # Apply microaggregation with group size proportional to dataset size
+                            group_size = max(3, len(anon_df) // 100)
+                            anon_df = self.methods.microaggregation(anon_df, sens_attr, group_size=group_size)
+                            applied_methods.append(f"microaggregation_{sens_attr}_group{group_size}")
+                            logger.info(f"Applied microaggregation to {sens_attr} with group_size={group_size}")
+                        except Exception as e:
+                            logger.warning(f"Could not apply microaggregation to {sens_attr}: {e}")
+            
             # Step 4: Validate constraints
             validation_results = self._validate_constraints(
                 anon_df, df, quasi_identifiers, sensitive_attributes,
