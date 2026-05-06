@@ -57,32 +57,32 @@ This platform automates the entire anonymization lifecycle:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    Frontend (Next.js + React)                │
+│                    Frontend (Next.js + React)               │
 │   Dashboard │ Upload │ QI Selection │ Anonymize │ Risk View │
 └──────────────────────────┬──────────────────────────────────┘
                            │ REST API
 ┌──────────────────────────▼──────────────────────────────────┐
-│                    Backend (FastAPI + Python)                │
+│                    Backend (FastAPI + Python)               │
 │                                                             │
-│  ┌──────────┐ ┌──────────────┐ ┌──────────────────────────┐│
-│  │  Upload   │ │ QI Selection │ │   Anonymization Engine   ││
-│  └──────────┘ └──────────────┘ │ • k-Anonymity            ││
-│                                │ • Generalization          ││
-│  ┌──────────────────────────┐  │ • Suppression             ││
-│  │     Expert System        │  │ • Perturbation / PRAM     ││
-│  │ • Knowledge Base         │  └──────────────────────────┘│
+│  ┌──────────┐ ┌──────────────┐ ┌──────────────────────────┐ │
+│  │  Upload   │ │ QI Selection │ │   Anonymization Engine  │ │
+│  └──────────┘ └──────────────┘ │ • k-Anonymity            │ │
+│                                │ • Generalization         │ │
+│  ┌──────────────────────────┐  │ • Suppression            │ │
+│  │     Expert System        │  │ • Perturbation / PRAM    │ │
+│  │ • Knowledge Base         │  └──────────────────────────┘ │
 │  │ • Rules Engine           │                               │
-│  │ • Recommendation Engine  │  ┌──────────────────────────┐│
-│  │ • Pipeline Generator     │  │  NSGA-II Optimizer        ││
-│  └──────────────────────────┘  │  (Privacy vs. Utility)    ││
-│                                └──────────────────────────┘│
-│  ┌──────────────────────────┐  ┌──────────────────────────┐│
-│  │  Synthetic Data Module   │  │  Re-Identification Risk  ││
-│  │ • APEDP Generator        │  │  Assessment (7 Agents)   ││
-│  │ • Utility Metrics        │  │ • ML Attack Simulation   ││
-│  └──────────────────────────┘  │ • SHAP Explainability    ││
-│                                │ • LLM Risk Reporting     ││
-│                                └──────────────────────────┘│
+│  │ • Recommendation Engine  │  ┌──────────────────────────┐ │
+│  │ • Pipeline Generator     │  │  NSGA-II Optimizer       │ │
+│  └──────────────────────────┘  │  (Privacy vs. Utility)   │ │
+│                                └──────────────────────────┘ │
+│  ┌──────────────────────────┐  ┌──────────────────────────┐ │
+│  │  Synthetic Data Module   │  │  Re-Identification Risk  │ │
+│  │ • APEDP Generator        │  │  Assessment (7 Agents)   │ │
+│  │ • Utility Metrics        │  │ • ML Attack Simulation   │ │
+│  └──────────────────────────┘  │ • SHAP Explainability    │ │
+│                                │ • LLM Risk Reporting     │ │
+│                                └──────────────────────────┘ │
 │  ┌──────────┐                                               │
 │  │   Auth   │ ◄── MongoDB (User Store)                      │
 │  │  (JWT)   │                                               │
@@ -154,16 +154,7 @@ Data_Anonymization_SLIIT/
 │       ├── synthetic_data/             # Synthetic data generation
 │       ├── ai_agent/                   # Risk analyzer agent
 │       └── reidentification/           # 7-agent risk assessment pipeline
-│           ├── routes.py               # API endpoints + fallback logic
-│           ├── agents/
-│           │   ├── agent1_data_inspector/
-│           │   ├── agent2_identifier_manager/
-│           │   ├── agent3_pair_generator/
-│           │   ├── agent4_ml_attacker/
-│           │   ├── agent5_risk_scorer/
-│           │   ├── agent6_risk_aggregator/
-│           │   └── agent7_llm_explainer/
-│           └── utils/
+│           
 ├── frontend-nextjs/
 │   ├── app/
 │   │   ├── login/                      # Login page
